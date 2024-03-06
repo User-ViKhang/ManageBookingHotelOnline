@@ -1,0 +1,17 @@
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Service.deps.json
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Service.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Service.pdb
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\obj\Debug\netcoreapp3.1\Booking_Backend.Service.GeneratedMSBuildEditorConfig.editorconfig
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\obj\Debug\netcoreapp3.1\Booking_Backend.Service.AssemblyInfoInputs.cache
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\obj\Debug\netcoreapp3.1\Booking_Backend.Service.AssemblyInfo.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\obj\Debug\netcoreapp3.1\Booking_Backend.Service.csproj.CoreCompileInputs.cache
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\obj\Debug\netcoreapp3.1\Booking_Backend.Service.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\obj\Debug\netcoreapp3.1\Booking_Backend.Service.pdb
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Data.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Repository.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Utilities.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Data.pdb
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Repository.pdb
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\bin\Debug\netcoreapp3.1\Booking_Backend.Utilities.pdb
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\obj\Debug\netcoreapp3.1\Booking_Backend.Service.csproj.AssemblyReference.cache
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Service\obj\Debug\netcoreapp3.1\Booking_Backend.Service.csproj.CopyComplete

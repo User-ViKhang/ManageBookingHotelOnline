@@ -1,0 +1,9 @@
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\bin\Debug\netcoreapp3.1\Booking_Backend.Utilities.deps.json
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\bin\Debug\netcoreapp3.1\Booking_Backend.Utilities.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\bin\Debug\netcoreapp3.1\Booking_Backend.Utilities.pdb
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\obj\Debug\netcoreapp3.1\Booking_Backend.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\obj\Debug\netcoreapp3.1\Booking_Backend.Utilities.AssemblyInfoInputs.cache
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\obj\Debug\netcoreapp3.1\Booking_Backend.Utilities.AssemblyInfo.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\obj\Debug\netcoreapp3.1\Booking_Backend.Utilities.csproj.CoreCompileInputs.cache
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\obj\Debug\netcoreapp3.1\Booking_Backend.Utilities.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Utilities\obj\Debug\netcoreapp3.1\Booking_Backend.Utilities.pdb

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Booking_Frontend.AdminApp.props" />
+</Project>

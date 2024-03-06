@@ -1,0 +1,124 @@
+﻿.radio-gender {
+    margin: 0 7px;
+}
+
+.gender-item {
+    margin: 0 4px;
+}
+
+.card-info-group {
+    position: relative;
+    border: thin solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.m-a-10 {
+    margin: 10px;
+}
+
+.p-a-10 {
+    padding: 10px;
+}
+
+.p-t-9 {
+    padding-top: 9px;
+}
+
+.wrap-img-user {
+    padding-top: 20px;
+}
+
+.p-t-20 {
+    padding-top: 20px;
+}
+
+.upload-container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    .upload-container h2 {
+        margin-bottom: 20px;
+    }
+
+.avatar-preview {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: #ddd;
+    background-size: cover;
+    background-position: center;
+}
+
+.upload-input {
+    display: none;
+}
+
+.upload-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-label {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.group-control { 
+    text-align: center;
+}
+
+.btn-control {
+    padding: 10px 20px;
+    margin-right: 20px;
+}
+
+.area-1::before {
+    position: absolute;
+    content:"Thông tin định danh";
+    font-size: 14px;
+    top: -12px;
+    background-color: white;
+    padding: 0 5px;
+    color: #007bff;
+}
+
+.area-2::before {
+    position: absolute;
+    content:"Thông tin hiển thị";
+    font-size: 14px;
+    top: -12px;
+    background-color: white;
+    padding: 0 5px;
+    color: #007bff;
+}
+
+.area-3::before {
+    position: absolute;
+    content:"Thông tin cá nhân";
+    font-size: 14px;
+    top: -12px;
+    background-color: white;
+    padding: 0 5px;
+    color: #007bff;
+}
+
+.user-info-base {
+    padding: 50px 15px;
+}

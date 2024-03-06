@@ -1,0 +1,13 @@
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\bin\Debug\netcoreapp3.1\Booking_Backend.Data.deps.json
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\bin\Debug\netcoreapp3.1\Booking_Backend.Data.runtimeconfig.json
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\bin\Debug\netcoreapp3.1\Booking_Backend.Data.runtimeconfig.dev.json
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\bin\Debug\netcoreapp3.1\Booking_Backend.Data.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\bin\Debug\netcoreapp3.1\Booking_Backend.Data.pdb
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\obj\Debug\netcoreapp3.1\Booking_Backend.Data.csproj.AssemblyReference.cache
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\obj\Debug\netcoreapp3.1\Booking_Backend.Data.GeneratedMSBuildEditorConfig.editorconfig
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\obj\Debug\netcoreapp3.1\Booking_Backend.Data.AssemblyInfoInputs.cache
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\obj\Debug\netcoreapp3.1\Booking_Backend.Data.AssemblyInfo.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\obj\Debug\netcoreapp3.1\Booking_Backend.Data.csproj.CoreCompileInputs.cache
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\obj\Debug\netcoreapp3.1\Booking_Backend.Data.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\obj\Debug\netcoreapp3.1\Booking_Backend.Data.pdb
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Backend.Data\obj\Debug\netcoreapp3.1\Booking_Backend.Data.genruntimeconfig.cache
