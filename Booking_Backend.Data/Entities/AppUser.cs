@@ -21,5 +21,7 @@ namespace Booking_Backend.Data.Entities
         public StatusUser Status { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Booking> Bookings { get; set; }
+        public List<UserImage> UserImages { get; set; }
+
     }
 }

@@ -16,6 +16,7 @@ namespace Booking_Backend.API.Controllers
         {
             _profileService = profileService;
         }
+
         [HttpGet("{Id}"), Authorize]
         public async Task<IActionResult> GetProfile(string Id)
         {
@@ -33,7 +34,7 @@ namespace Booking_Backend.API.Controllers
             if (!result.IsSuccessed) return Ok(result.Message);
             return Ok(result.ResultOject);
         }
-        
+
         [HttpDelete, Authorize]
         public async Task<IActionResult> DeleteProfile(string Id)
         {
@@ -41,6 +42,15 @@ namespace Booking_Backend.API.Controllers
             var result = await _profileService.DeleteProfile(Id);
             if (!result.IsSuccessed) return Ok(result.Message);
             return Ok(result.ResultOject);
+        }
+
+        [HttpPost, Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateProfile([FromForm] RegisterProfileRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest("Dữ liệu yêu cầu sai");
+            var isResult = await _profileService.CreateProfile(request);
+            if (!isResult) return BadRequest("Logic xử lý sai");
+            return Ok("Tạo tài khoản thành công");
         }
     }
 }

@@ -1,6 +1,7 @@
 using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Users.Validator;
 using Booking_Frontend.AdminApp.Service.APIFree;
+using Booking_Frontend.AdminApp.Service.Profile;
 using Booking_Frontend.AdminApp.Service.User;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -40,6 +41,7 @@ namespace Booking_Frontend.AdminApp
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
             services.AddScoped<IUserAPI, UserAPI>();
             services.AddScoped<IAPIFree, APIFree>();
+            services.AddScoped<IProfileClientService, ProfileClientService>();
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromMinutes(10);
