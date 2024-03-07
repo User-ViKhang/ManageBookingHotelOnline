@@ -2,7 +2,9 @@ using Booking_Backend.Data.EF;
 using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Users.Request;
 using Booking_Backend.Repository.Users.Validator;
+using Booking_Backend.Service.Files;
 using Booking_Backend.Service.HotelTypes;
+using Booking_Backend.Service.Images;
 using Booking_Backend.Service.Profiles;
 using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Service.Users;
@@ -64,6 +66,8 @@ namespace Booking_Backend.API
             services.AddScoped<IHotelTypeService, HotelTypeService>();
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IValidator<LoginRequest>, LoginValidator>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IStorageService, StorageService>();
             services.AddControllers().
                 AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
             services.AddSwaggerGen(c =>

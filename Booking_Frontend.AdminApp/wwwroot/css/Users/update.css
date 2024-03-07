@@ -120,5 +120,10 @@
 }
 
 .user-info-base {
-    padding: 50px 15px;
+    padding: 10px 15px;
+}
+
+.header-action {
+    text-align: center;
+    padding-top: 20px;
 }

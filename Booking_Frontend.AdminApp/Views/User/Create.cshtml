@@ -1,4 +1,4 @@
-﻿@model Booking_Backend.Repository.Users.Request.RegisterRequest
+﻿@model Booking_Backend.Repository.Users.Request.RegisterProfileRequest
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -6,58 +6,148 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+@section CreateStyle {
+    <link rel="stylesheet" href="~/css/Users/create.css">
+}
 
-<h4>RegisterRequest</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DisplayName" class="control-label"></label>
-                <input asp-for="DisplayName" class="form-control" />
-                <span asp-validation-for="DisplayName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nation" class="control-label"></label>
-                <input asp-for="Nation" class="form-control" />
-                <span asp-validation-for="Nation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-            <div class="form-group">
-                <select name="roleName" class="role-value">
-                    <option>Owner</option>
-                    <option>Client</option>
-                </select>
-            </div>
-        </form>
-    </div>
+<div class="header-action">
+    <h1 class="tag-action">Đăng kí thông tin người dùng</h1>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="container user-info-base">
+    <form asp-action="create" asp-controller="user" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="p-a-10">
+                    <div class="row">
+                        <div class="col-md-12 card-info-group area-1">
+                            <div class="group-profile">
+                                <div class="profile-username p-t-9">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.UserName" class="control-label">Tên người dùng</label>
+                                        <input asp-for="@Model.UserName" class="form-control" />
+                                        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="profile-email p-t-9">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Email" class="control-label">Thư điện tử</label>
+                                        <input  asp-for="@Model.Email" type="email" class="form-control" />
+                                        <span asp-validation-for="@Model.Email class=" text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="profile-displayName p-t-9">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DisplayName" class="control-label">Tên hiển thị</label>
+                                        <input asp-for="@Model.DisplayName" class="form-control" />
+                                        <span asp-validation-for="@Model.DisplayName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="profile-phoneNumber p-t-9">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.PhoneNumber" class="control-label">Số điện thoại</label>
+                                        <input asp-for="@Model.PhoneNumber" class="form-control" />
+                                        <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="profile-nation p-t-9">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Nation" class="control-label">Quốc tịch</label>
+                                        <input asp-for="@Model.Nation" class="form-control" />
+                                        <span asp-validation-for="@Model.Nation class=" text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="profile-nation">
+                                    <div class="form-group">
+                                        <div class="control-label">Vai trò</div>
+                                        <select asp-for="@Model.RoleName" class="form-select">
+                                            <option value="Client">Người khách hàng </option>
+                                            <option value="Owner">Người chủ chỗ nghĩ</option>
+                                        </select>
+                                        <span asp-validation-for="@Model.Nation class=" text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-a-10">
+                    <div class="row">
+                        <div class="col-md-12 group-profile card-info-group area-3">
+                            <div class="profile-firstname p-t-9">
+                                <div class="form-group">
+                                    <label asp-for="@Model.FirstName" class="control-label">Họ</label>
+                                    <input asp-for="@Model.FirstName" class="form-control" />
+                                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="profile-lastname p-t-9">
+                                <div class="form-group">
+                                    <label asp-for="@Model.LastName" class="control-label">Tên</label>
+                                    <input asp-for="@Model.LastName" class="form-control" />
+                                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="profile-birthday p-t-9">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Birthday" class="control-label">Sinh nhật</label>
+                                    <input asp-for="@Model.Birthday" class="form-control form-control-customize" />
+                                    <span asp-validation-for="@Model.Birthday class=" text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="profile-gender p-t-9">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Gender" class="control-label">Giới tính</label>
+                                    <div class="gender-group">
+                                        <span class="radio-gender">
+                                            <input type="radio" name="gender" value="Nam" class="gender-item radio-Nam" />Nam
+                                        </span>
+                                        <span class="redio-gender">
+                                            <input type="radio" name="gender" value="Nữ" class="gender-item radio-Nu" />Nữ
+                                        </span>
+                                    </div>
+                                    <span asp-validation-for="@Model.Gender class=" text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="profile-address p-t-9">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Address" class="control-label">Địa chỉ</label>
+                                    <input asp-for="@Model.Address" class="form-control" />
+                                    <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="profile-dasboard p-t-9">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Dashboard" class="control-label">CCCD</label>
+                                    <input  asp-for="@Model.Dashboard" class="form-control" />
+                                    <span asp-validation-for="@Model.Dashboard class=" text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-img-wrap card-img wrap-img-user">
+                    <div class="upload-container">
+                        <div class="" id="avatarPreview">
+                            <img src="~/images/user/avatar_test.png" />
+                        </div>
+                        <div class=" wrap-img-user">
+                            <input asp-for="@Model.Avatar" type="file" id="uploadInput" class="upload-input" accept="image/*" onchange="previewAvatar(event)">
+                            <label for="uploadInput" class="upload-label">Chọn tệp ảnh</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="group-control p-t-20">
+                    <div class="wrap-btn-control">
+                        <button type="submit" class="btn btn-info text-light btn-control">Tạo tài khoản</button>
+                        <button class="btn btn-danger btn-control">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
-

@@ -11,6 +11,13 @@
 @section UpdateStyle {
     <link rel="stylesheet" href="~/css/Users/update.css"> 
 }
+
+<div class="header-action">
+    <h1 class="tag-action">Cập nhật thông tin người dùng</h1>
+    <div class="user-action">Người dùng: <span class="username-action">@Model.ResultOject.Email</span></div>
+    <div class="user-action">Chưc năng: <span class="username-action">@Model.ResultOject</span></div>
+</div>
+
 <div class="container user-info-base">
     <form asp-action="update" asp-controller="user" method="post">
         <div class="row">
