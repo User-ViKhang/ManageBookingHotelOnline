@@ -16,41 +16,7 @@
     @RenderSection("CreateStyle", required: false)
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html"> Gonow.net</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" asp- type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-                <select class="p-1" style="border-radius: 5px">
-                    <option>Tiếng Việt</option>
-                    <option>English</option>
-                </select>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <!--<li><a class="dropdown-item" href="/Profile/Index">@User.Identity.Name</a></li>-->
-                    <li><a class="dropdown-item" href="#!">Thông báo</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <form asp-action="logout" asp-controller="user" method="post">
-                        <li>
-                            <button class="dropdown-item" type="submit">
-                                Đăng xuất
-                            </button>
-                        </li>
-                    </form>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+    @await Component.InvokeAsync("Navigation");
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -80,8 +46,8 @@
                                 <div class="collapse" id="pagesAccount" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <a class="nav-link" asp-action="create" asp-controller="user">Tạo tài khoản</a>
-                                        <a class="nav-link" href="register.html">Cập nhật</a>
-                                        <a class="nav-link" href="password.html">Khóa tài khoản</a>
+                                        <a class="nav-link" asp-action="finduser" asp-controller="user">Cập nhật</a>
+                                        <a class="nav-link" asp-action="blockaccount" asp-controller="user">Khóa tài khoản</a>
                                     </nav>
                                 </div>
 

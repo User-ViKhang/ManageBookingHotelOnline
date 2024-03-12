@@ -26,8 +26,8 @@ namespace Booking_Backend.API.Controllers
             return Ok(result.ResultOject);
         }
 
-        [HttpPut("{Id}"), Authorize]
-        public async Task<IActionResult> UpdateProfile(string Id, [FromBody] UpdateProfileRequest request)
+        [HttpPut("{Id}"), Consumes("multipart/form-data")]
+        public async Task<IActionResult> UpdateProfile(string Id, [FromForm] UpdateProfileRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var result = await _profileService.UpdateProfile(Id, request);
@@ -35,13 +35,13 @@ namespace Booking_Backend.API.Controllers
             return Ok(result.ResultOject);
         }
 
-        [HttpDelete, Authorize]
+        [HttpDelete("{Id}"), Authorize]
         public async Task<IActionResult> DeleteProfile(string Id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var result = await _profileService.DeleteProfile(Id);
-            if (!result.IsSuccessed) return Ok(result.Message);
-            return Ok(result.ResultOject);
+            if (!result) return BadRequest();
+            return Ok(result);
         }
 
         [HttpPost, Consumes("multipart/form-data")]

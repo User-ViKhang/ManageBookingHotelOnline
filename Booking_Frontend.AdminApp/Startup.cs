@@ -1,6 +1,7 @@
 using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Users.Validator;
 using Booking_Frontend.AdminApp.Service.APIFree;
+using Booking_Frontend.AdminApp.Service.Language;
 using Booking_Frontend.AdminApp.Service.Profile;
 using Booking_Frontend.AdminApp.Service.User;
 using FluentValidation.AspNetCore;
@@ -42,6 +43,7 @@ namespace Booking_Frontend.AdminApp
             services.AddScoped<IUserAPI, UserAPI>();
             services.AddScoped<IAPIFree, APIFree>();
             services.AddScoped<IProfileClientService, ProfileClientService>();
+            services.AddScoped<ILanguageClientService, LanguageClientService>();
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromMinutes(10);
@@ -57,7 +59,6 @@ namespace Booking_Frontend.AdminApp
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -68,6 +69,8 @@ namespace Booking_Frontend.AdminApp
             app.UseAuthentication();
 
             app.UseRouting();
+
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 

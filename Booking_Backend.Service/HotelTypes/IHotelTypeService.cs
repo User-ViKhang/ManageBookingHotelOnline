@@ -11,6 +11,7 @@ namespace Booking_Backend.Service.HotelTypes
     public interface IHotelTypeService
     {
         Task<APIResult<int>> CreateHotelType(CreateHotelTypeRequest request);
-        Task<List<GetHotelTypeViewModel>> GetAllHotelType();
+
+        Task<List<GetHotelTypeViewModel>> GetAllHotelType(string languageId);
     }
 }

@@ -12,6 +12,7 @@ namespace Booking_Backend.Service.Images
     public class ImageService : IImageService
     {
         private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "images";
 
         public ImageService(IStorageService storageService)
         {
@@ -21,9 +22,9 @@ namespace Booking_Backend.Service.Images
         public async Task<string> SaveFile(IFormFile file)
         {
             var originaFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-            var fileName = $"{ Guid.NewGuid()}{ Path.GetExtension(originaFileName)}";
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originaFileName)}";
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
-            return fileName;
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
     }
 }

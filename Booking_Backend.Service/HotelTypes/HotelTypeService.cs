@@ -33,15 +33,16 @@ namespace Booking_Backend.Service.HotelTypes
             return new APIResult_Success<int>(hotelType.Id);
         }
 
-        public async Task<List<GetHotelTypeViewModel>> GetAllHotelType()
+        public async Task<List<GetHotelTypeViewModel>> GetAllHotelType(string languageId)
         {
-            return await _context.HotelTypes.Select(x => new GetHotelTypeViewModel()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                ImageUrl = x.ImageUrl,
-                Language = x.Language
-            }).ToListAsync();
+            return await _context.HotelTypes.Where(x => x.Language == languageId)
+                .Select(x => new GetHotelTypeViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ImageUrl = x.ImageUrl,
+                    Language = x.Language
+                }).ToListAsync();
         }
     }
 }

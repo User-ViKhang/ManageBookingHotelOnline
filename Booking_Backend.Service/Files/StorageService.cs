@@ -14,7 +14,7 @@ namespace Booking_Backend.Service.Files
 
         public StorageService(IWebHostEnvironment webHostEnvironment)
         {
-            _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, USER_CONTENT_FOLDER_NAME, "users");
+            _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, USER_CONTENT_FOLDER_NAME);
         }
 
         public string GetFileUrl(string fileName)

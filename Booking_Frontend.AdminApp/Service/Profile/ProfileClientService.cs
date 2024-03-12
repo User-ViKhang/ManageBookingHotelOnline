@@ -62,5 +62,52 @@ namespace Booking_Frontend.AdminApp.Service.Profile
             var response = await client.PostAsync($"/api/profiles", requestContent);
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> DeleteProfile(string Id)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var response = await client.DeleteAsync($"/api/profiles/{Id}");
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<APIResult<UserViewModel>> UpdateProfile(string Id, UpdateProfileRequest request)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+
+            var requestContent = new MultipartFormDataContent();
+            if (request.Avatar != null)
+            {
+                byte[] data;
+                using (var br = new BinaryReader(request.Avatar.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)request.Avatar.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new ByteArrayContent(data);
+                requestContent.Add(bytes, "avatar", request.Avatar.FileName);
+            }
+
+            requestContent.Add(new StringContent(request.UserName), "userName");
+            requestContent.Add(new StringContent(request.PhoneNumber), "phoneNumber");
+            requestContent.Add(new StringContent(request.FirstName), "firstName");
+            requestContent.Add(new StringContent(request.LastName), "lastName");
+            requestContent.Add(new StringContent(request.DisplayName), "displayName");
+            requestContent.Add(new StringContent(request.Birthday.ToString()), "birthday");
+            requestContent.Add(new StringContent(request.Nation), "nation");
+            requestContent.Add(new StringContent(request.Gender), "gender");
+            requestContent.Add(new StringContent(request.Address), "address");
+            requestContent.Add(new StringContent(request.Dashboard.ToString()), "dashboard");
+
+            var response = await client.PutAsync($"/api/profiles/{Id}", requestContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<APIResult_Success<UserViewModel>>(body);
+            return JsonConvert.DeserializeObject<APIResult_Error<UserViewModel>>("Cập nhật thông tin người dùng thất bại");
+        }
     }
 }

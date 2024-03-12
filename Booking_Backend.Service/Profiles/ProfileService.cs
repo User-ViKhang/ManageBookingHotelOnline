@@ -16,7 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Booking_Backend.Service.Profiles
 {
@@ -58,7 +60,8 @@ namespace Booking_Backend.Service.Profiles
                 Dashboard = user.Dashboard,
                 AvatarUrl = user.AvatarUrl,
                 Created = user.Created,
-                Status = user.Status
+                Status = user.Status,
+                Avatar = await this.GetImageByUserId(Id)
             };
             return new APIResult_Success<UserViewModel>(result);
         }
@@ -67,6 +70,7 @@ namespace Booking_Backend.Service.Profiles
         {
             var user = await _userManager.FindByIdAsync(Id);
             if (user == null) return new APIResult_Error<UserViewModel>("Người dùng không tồn tại!");
+
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.UserName = request.UserName;
@@ -78,19 +82,9 @@ namespace Booking_Backend.Service.Profiles
             user.Address = request.Address;
             user.Dashboard = request.Dashboard;
             user.AvatarUrl = request.AvatarUrl;
+
             if (request.Avatar != null)
             {
-                /*user.UserImages = new List<UserImage>()
-                {
-                    new UserImage()
-                    {
-                        Caption = user.UserName,
-                        Created = DateTime.Now,
-                        ImageSize = request.Avatar.Length,
-                        ImageUrl = await _image.SaveFile(request.Avatar),
-                        isDefault = true
-                    }
-                };*/
                 var avatar = await _context.UserImages.FirstOrDefaultAsync(x => x.isDefault == true && x.User_Id.ToString() == Id);
                 if (avatar != null)
                 {
@@ -120,12 +114,12 @@ namespace Booking_Backend.Service.Profiles
             return new APIResult_Success<UserViewModel>(userModel);
         }
 
-        public async Task<APIResult<string>> DeleteProfile(string Id)
+        public async Task<bool> DeleteProfile(string Id)
         {
             var user = await _userManager.FindByIdAsync(Id);
-            if (user == null) return new APIResult_Error<string>("Người dùng không tồn tại!");
+            if (user == null) throw new BookingException("Không tìm thấy người dùng");
             var result = await _userManager.DeleteAsync(user);
-            return new APIResult_Success<string>("Xóa tài khoản thành công!");
+            return true;
         }
 
         public async Task<int> AddImageUser(string userId, CreateUserImageRequest request)
@@ -150,40 +144,6 @@ namespace Booking_Backend.Service.Profiles
         public Task<int> RemoveImageUser(string userId, int imageId)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<int> UpdateImageUser(string userId, int imageId, UpdateUserImageRequest request)
-        {
-            var image = await _context.UserImages.FindAsync(imageId);
-            if (image == null)
-            {
-                var userImage = new UserImage()
-                {
-                    Caption = request.Caption,
-                    Created = DateTime.Now,
-                    isDefault = true,
-                    User_Id = Guid.Parse(userId),
-                };
-                if (request.ImageFile != null)
-                {
-                    userImage.ImageUrl = await _image.SaveFile(request.ImageFile);
-                    userImage.ImageSize = request.ImageFile.Length;
-                }
-                _context.UserImages.Add(userImage);
-                await _context.SaveChangesAsync();
-                return userImage.Id;
-            }
-            else
-            {
-                if (request.ImageFile != null)
-                {
-                    image.ImageUrl = await _image.SaveFile(request.ImageFile);
-                    image.ImageSize = request.ImageFile.Length;
-                }
-                _context.UserImages.Update(image);
-                await _context.SaveChangesAsync();
-                return image.Id;
-            }
         }
 
         public async Task<UserImageViewModel> GetImageById(int imageId)
@@ -246,6 +206,64 @@ namespace Booking_Backend.Service.Profiles
                 return true;
             }
             throw new BookingException("Tạo tài khoản thất bại");
+        }
+
+        public async Task<APIResult<string>> BlockUser(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            if (user == null) return new APIResult_Error<string>("Người dùng không tồn tại!");
+            user.Status = Data.Enums.StatusUser.InActive;
+            return new APIResult_Success<string>("Khóa tài khoản thành công!");
+        }
+
+        public async Task<UserImageViewModel> GetImageByUserId(string Id)
+        {
+            var image = await _context.UserImages.FirstOrDefaultAsync(x => x.User_Id == Guid.Parse(Id));
+            if (image == null) throw new BookingException("Khong tim thay");
+            var result = new UserImageViewModel()
+            {
+                Id = image.Id,
+                Caption = image.Caption,
+                ImageSize = image.ImageSize,
+                ImageUrl = image.ImageUrl,
+                Created = image.Created,
+                isDefault = image.isDefault
+            };
+            return result;
+        }
+
+        public async Task<int> UpdateImageUser(string userId, int imageId, UpdateUserImageRequest request)
+        {
+            var image = await _context.UserImages.FindAsync(imageId);
+            if (image == null)
+            {
+                var userImage = new UserImage()
+                {
+                    Caption = request.Caption,
+                    Created = DateTime.Now,
+                    isDefault = true,
+                    User_Id = Guid.Parse(userId),
+                };
+                if (request.ImageFile != null)
+                {
+                    userImage.ImageUrl = await _image.SaveFile(request.ImageFile);
+                    userImage.ImageSize = request.ImageFile.Length;
+                }
+                _context.UserImages.Add(userImage);
+                await _context.SaveChangesAsync();
+                return userImage.Id;
+            }
+            else
+            {
+                if (request.ImageFile != null)
+                {
+                    image.ImageUrl = await _image.SaveFile(request.ImageFile);
+                    image.ImageSize = request.ImageFile.Length;
+                }
+                _context.UserImages.Update(image);
+                await _context.SaveChangesAsync();
+                return image.Id;
+            }
         }
     }
 }

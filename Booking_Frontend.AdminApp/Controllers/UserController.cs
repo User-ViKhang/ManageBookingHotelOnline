@@ -12,6 +12,7 @@ using Booking_Backend.Repository.Common;
 using Microsoft.AspNetCore.Identity;
 using Booking_Backend.Data.Entities;
 using Booking_Frontend.AdminApp.Service.Profile;
+using Microsoft.Extensions.Configuration;
 
 namespace Booking_Frontend.AdminApp.Controllers
 {
@@ -19,11 +20,13 @@ namespace Booking_Frontend.AdminApp.Controllers
     {
         private readonly IUserAPI _userAPI;
         private readonly IProfileClientService _profileClient;
+        private readonly IConfiguration _config;
 
-        public UserController(IUserAPI userAPI, IProfileClientService profileClient)
+        public UserController(IUserAPI userAPI, IProfileClientService profileClient, IConfiguration config)
         {
             _userAPI = userAPI;
             _profileClient = profileClient;
+            _config = config;
         }
 
         public async Task<IActionResult> Index(string key, int pageIndex = 1, int pageSize = 10)
@@ -68,6 +71,7 @@ namespace Booking_Frontend.AdminApp.Controllers
             return View(data);
         }
 
+        //Hiện trang và thông tin cập nhật
         [HttpGet("user/update/{Id}")]
         public async Task<IActionResult> Update(string Id)
         {
@@ -83,14 +87,15 @@ namespace Booking_Frontend.AdminApp.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Update(APIResult_Success<UserViewModel> request)
+        //Xử lí logic cập nhật
+        [HttpPost, Consumes("multipart/form-data")]
+        public async Task<IActionResult> Update(string Id, UpdateProfileRequest request)
         {
-            var user = await _userAPI.UpdateUser(request.ResultOject.Id, request.ResultOject);
+            var user = await _profileClient.UpdateProfile(Id, request);
             try
             {
-                if (!user.IsSuccessed) return RedirectToAction("index", "user");
-                return RedirectToAction("update", "user");
+                if (!user.IsSuccessed) return RedirectToAction("update", "user");
+                return RedirectToAction("index", "user");
             }
             catch
             {
@@ -122,8 +127,9 @@ namespace Booking_Frontend.AdminApp.Controllers
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = true,
+                IsPersistent = false // false: mỗi lần thoát trình duyệt đều phải đăng nhập lại
             };
+            HttpContext.Session.SetString("DefaultLanguageId", _config["DefaultLanguageId"]);
             HttpContext.Session.SetString("Token", token);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
             return RedirectToAction("index", "home");
@@ -132,6 +138,23 @@ namespace Booking_Frontend.AdminApp.Controllers
         //Hiện View
         [HttpGet]
         public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        //Xóa người dùng
+        [HttpGet("user/delete/{Id}")]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            var isResult = await _profileClient.DeleteProfile(Id);
+            if (!isResult) return BadRequest();
+            return NoContent();
+        }
+
+        //Hiện View FindUser
+        [HttpGet]
+        public async Task<IActionResult> FindUser()
         {
             return View();
         }
