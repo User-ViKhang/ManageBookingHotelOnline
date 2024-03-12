@@ -65,6 +65,9 @@
                     </th>
                     <th>
                         Status
+                    </th>
+                    <th>
+                        Action
                     </th> 
                 </tr>
             </thead>
@@ -117,6 +120,9 @@
                     </th>
                     <th>
                         Status
+                    </th>
+                    <th>
+                        Action
                     </th>
                 </tr>
             </tfoot>
@@ -174,6 +180,11 @@
                             </td>
                             <td class="text-nowrap">
                                 @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td class="text-nowrap">
+                                <a onclick="setTimeout(()=> {location.reload()},1000)" href="user/delete/@Html.DisplayFor(modelItem => item.Id)">
+                                    <div class="btn btn-danger text-light">Xóa</div>
+                                </a>
                             </td>
                         </tr>
                     }

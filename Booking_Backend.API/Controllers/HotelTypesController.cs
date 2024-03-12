@@ -19,20 +19,20 @@ namespace Booking_Backend.API.Controllers
             _hotelTypeService = hotelTypeService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllHotelType()
+        [HttpGet("{languageId}")]
+        public async Task<IActionResult> GetAllHotelType(string languageId)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var listAllHotelType = await _hotelTypeService.GetAllHotelType();
+            var listAllHotelType = await _hotelTypeService.GetAllHotelType(languageId);
             return Ok(listAllHotelType);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateHotelType([FromBody] CreateHotelTypeRequest request)
+        [HttpPost("{languageId}")]
+        public async Task<IActionResult> CreateHotelType(string languageId, [FromBody] CreateHotelTypeRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var result = await _hotelTypeService.CreateHotelType(request);
-            if(!result.IsSuccessed) return BadRequest(result.IsSuccessed);
+            if (!result.IsSuccessed) return BadRequest(result.IsSuccessed);
             return Ok(result.ResultOject);
         }
     }

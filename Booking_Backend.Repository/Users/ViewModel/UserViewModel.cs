@@ -1,4 +1,5 @@
 ﻿using Booking_Backend.Data.Enums;
+using Booking_Backend.Repository.UserImage.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,5 +23,6 @@ namespace Booking_Backend.Repository.Users.ViewModel
         public string AvatarUrl { get; set; }
         public DateTime Created { get; set; }
         public StatusUser Status { get; set; }
+        public UserImageViewModel Avatar { get; set; }
     }
 }

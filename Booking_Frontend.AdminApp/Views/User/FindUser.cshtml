@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "FindUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-6 container" style="margin: auto auto">
+    <h1>Tìm kiếm người dùng</h1>
+    <input type="text" id="inputData" class="form-control" placeholder="Nhập ID người dùng" onkeydown="checkEnter(event)" />
+</div>
+
+<script>
+    function checkEnter(event) {
+        // Kiểm tra nếu phím được nhấn là Enter (mã phím 13)
+        if (event.keyCode === 13) {
+            // Ngăn chặn hành động mặc định của Enter (ví dụ: submit form)
+            event.preventDefault();
+
+            // Lấy giá trị từ trường input
+            var inputData = document.getElementById('inputData').value;
+
+            // Tạo query string từ giá trị
+            var queryString = '/user/update/' + encodeURIComponent(inputData); // encodeURIComponent để đảm bảo chuỗi an toàn
+
+            // Tạo URL mới bằng cách kết hợp URL hiện tại với query string
+            var currentUrl = window.location.href;
+            var newUrl = queryString;
+
+            // Chuyển hướng trình duyệt đến URL mới
+            window.location.href = newUrl;
+        }
+    }
+</script>

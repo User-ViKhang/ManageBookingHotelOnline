@@ -14,7 +14,9 @@ namespace Booking_Backend.Data.EF
 {
     public class BookingContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
-        public BookingContext(DbContextOptions options) : base(options) { }
+        public BookingContext(DbContextOptions options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,10 +40,11 @@ namespace Booking_Backend.Data.EF
             modelBuilder.ApplyConfiguration(new ServiceConfiguration());
             modelBuilder.ApplyConfiguration(new ViewHotelConfiguration());
             modelBuilder.ApplyConfiguration(new UserImageConfiguration());
+            modelBuilder.ApplyConfiguration(new HotelTypeImageConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
-            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new {x.UserId, x.RoleId });
-            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x=>x.UserId);
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppRoleClaims");
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
@@ -69,7 +72,6 @@ namespace Booking_Backend.Data.EF
         public DbSet<Service> Services { get; set; }
         public DbSet<ViewHotel> ViewHotels { get; set; }
         public DbSet<UserImage> UserImages { get; set; }
-
-
+        public DbSet<HotelTypeImage> HotelTypeImages { get; set; }
     }
 }

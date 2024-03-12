@@ -5,6 +5,7 @@ using Booking_Backend.Repository.Users.Validator;
 using Booking_Backend.Service.Files;
 using Booking_Backend.Service.HotelTypes;
 using Booking_Backend.Service.Images;
+using Booking_Backend.Service.Languages;
 using Booking_Backend.Service.Profiles;
 using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Service.Users;
@@ -43,7 +44,7 @@ namespace Booking_Backend.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BookingContext>(options => 
+            services.AddDbContext<BookingContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
             services.AddCors(options =>
             {
@@ -68,14 +69,15 @@ namespace Booking_Backend.API
             services.AddScoped<IValidator<LoginRequest>, LoginValidator>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IStorageService, StorageService>();
+            services.AddScoped<ILanguageAPIService, LanguageAPIService>();
             services.AddControllers().
-                AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
+                AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Booking API Swagger", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n
                       Enter 'Bearer' [space] and then your token in the text input below.
                       \r\n\r\nExample: 'Bearer 12345abcdef'",
                     Name = "Authorization",
@@ -97,7 +99,6 @@ namespace Booking_Backend.API
                       Scheme = "oauth2",
                       Name = "Bearer",
                       In = ParameterLocation.Header,
-
                     },
                     new List<string>()
                   }
@@ -145,10 +146,11 @@ namespace Booking_Backend.API
 
             app.UseRouting();
 
+            app.UseStaticFiles();
+
             app.UseCors("AllowAll");
 
             app.UseAuthorization();
-
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

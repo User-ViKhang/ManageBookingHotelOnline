@@ -6,6 +6,7 @@ using Booking_Backend.Repository.Common;
 using Booking_Backend.Repository.Paging.ViewModel;
 using Booking_Backend.Repository.Users.Request;
 using Booking_Backend.Repository.Users.ViewModel;
+using Booking_Backend.Service.Profiles;
 using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Utilities.Exceptions;
 using Microsoft.AspNetCore.Http;
@@ -33,23 +34,25 @@ namespace Booking_Backend.Service.Users
         private readonly IConfiguration _config;
         private readonly IEmailService _emaiService;
         private readonly BookingContext _context;
+        private readonly IProfileService _profile;
 
-        public UserService(IEmailService emaiService, UserManager<AppUser> userManager, 
-            SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager, IConfiguration config, BookingContext context)
+        public UserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager, IConfiguration config, IEmailService emaiService, BookingContext context, IProfileService profile)
         {
             _userManager = userManager;
-            _signInManager=signInManager;
-            _roleManager=roleManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
             _config = config;
             _emaiService = emaiService;
             _context = context;
+            _profile = profile;
         }
+
         public async Task<string> Authenticate(LoginRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null) return null;
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RemmemberMe, true);
-            if(!result.Succeeded) return null;
+            if (!result.Succeeded) return null;
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
             {
@@ -71,9 +74,9 @@ namespace Booking_Backend.Service.Users
 
         public async Task<APIResult<string>> Register(RegisterRequest request, string roleName)
         {
-            if (await _userManager.FindByEmailAsync(request.Email) != null) 
+            if (await _userManager.FindByEmailAsync(request.Email) != null)
                 return new APIResult_Error<string>("Email người dùng đã tồn tại!");
-            if(await _userManager.FindByNameAsync(request.UserName) != null) 
+            if (await _userManager.FindByNameAsync(request.UserName) != null)
                 return new APIResult_Error<string>("UserName đã tồn tại!");
             var user = new AppUser
             {
@@ -83,7 +86,7 @@ namespace Booking_Backend.Service.Users
                 UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber
             };
-            if(await _roleManager.RoleExistsAsync(roleName))
+            if (await _roleManager.RoleExistsAsync(roleName))
             {
                 var result = await _userManager.CreateAsync(user, request.Password);
                 if (!result.Succeeded) return new APIResult_Error<string>("Đăng kí tài khoản thất bại, vui lòng kiểm tra lại.");
@@ -150,7 +153,7 @@ namespace Booking_Backend.Service.Users
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
             .Select(x => new UserViewModel()
             {
-                Id = x.Id.ToString(), 
+                Id = x.Id.ToString(),
                 UserName = x.UserName,
                 Email = x.Email,
                 PhoneNumber = x.PhoneNumber,
@@ -279,8 +282,9 @@ namespace Booking_Backend.Service.Users
                 Address = user.Address,
                 Dashboard = user.Dashboard,
                 AvatarUrl = user.AvatarUrl,
-                Created = user.Created, 
-                Status = user.Status
+                Created = user.Created,
+                Status = user.Status,
+                Avatar = await _profile.GetImageByUserId(Id)
             };
             return new APIResult_Success<UserViewModel>(result);
         }

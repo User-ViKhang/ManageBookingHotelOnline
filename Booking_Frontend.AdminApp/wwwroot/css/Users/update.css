@@ -80,7 +80,7 @@
     cursor: pointer;
 }
 
-.group-control { 
+.group-control {
     text-align: center;
 }
 
@@ -91,7 +91,7 @@
 
 .area-1::before {
     position: absolute;
-    content:"Thông tin định danh";
+    content: "Thông tin định danh";
     font-size: 14px;
     top: -12px;
     background-color: white;
@@ -101,7 +101,7 @@
 
 .area-2::before {
     position: absolute;
-    content:"Thông tin hiển thị";
+    content: "Thông tin hiển thị";
     font-size: 14px;
     top: -12px;
     background-color: white;
@@ -111,7 +111,7 @@
 
 .area-3::before {
     position: absolute;
-    content:"Thông tin cá nhân";
+    content: "Thông tin cá nhân";
     font-size: 14px;
     top: -12px;
     background-color: white;
@@ -126,4 +126,17 @@
 .header-action {
     text-align: center;
     padding-top: 20px;
+}
+
+.avatarPreview {
+    width: 257px;
+    height: 257px;
+    display: flex;
+    align-items: center;
+}
+
+.avatar-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }

@@ -17,7 +17,9 @@ namespace Booking_Backend.Service.Profiles
 
         Task<APIResult<UserViewModel>> UpdateProfile(string Id, UpdateProfileRequest request);
 
-        Task<APIResult<string>> DeleteProfile(string Id);
+        Task<bool> DeleteProfile(string Id);
+
+        Task<APIResult<string>> BlockUser(string Id);
 
         Task<int> AddImageUser(string userId, CreateUserImageRequest request);
 
@@ -28,5 +30,7 @@ namespace Booking_Backend.Service.Profiles
         Task<bool> CreateProfile(RegisterProfileRequest request);
 
         Task<UserImageViewModel> GetImageById(int imageId);
+
+        Task<UserImageViewModel> GetImageByUserId(string Id);
     }
 }
