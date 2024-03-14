@@ -24,7 +24,8 @@ namespace Booking_Backend.Service.Files
 
         public async Task DeleteFileAsync(string fileName)
         {
-            var filePath = Path.Combine(_userContentFolder, fileName);
+            var nameFile = Path.GetFileName(fileName);
+            var filePath = Path.Combine(_userContentFolder, nameFile);
             if (File.Exists(filePath))
             {
                 await Task.Run(() => File.Delete(filePath));

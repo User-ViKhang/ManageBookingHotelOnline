@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ldCGuEPWvk6BIsmIz53pr3ZWbqUOLKIv/kGpaET1MawdF4vrkeggPCPzeJgRQZLpha1U2+ZSZE7XjF5fxdQyyA==",
+  "dgSpecHash": "A75B46oFo8Hkr6mfJovPqU/0ebw9klzufICcGW6lTOFwIzh8mjLOx5IqhMJdRI6VY2+9pZg6oZzgsfdxRK5Kng==",
   "success": true,
   "projectFilePath": "Z:\\GRADUATE\\BackEnd\\Booking_Backend\\Booking_Frontend.AdminApp\\Booking_Frontend.AdminApp.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\HP\\.nuget\\packages\\fluentvalidation.aspnetcore\\8.6.3\\fluentvalidation.aspnetcore.8.6.3.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\8.6.3\\fluentvalidation.dependencyinjectionextensions.8.6.3.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\fluentvalidation.validatorattribute\\8.6.1\\fluentvalidation.validatorattribute.8.6.1.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\lazziya.expresslocalization\\5.0.0-beta2\\lazziya.expresslocalization.5.0.0-beta2.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\lazziya.taghelpers\\6.0.2\\lazziya.taghelpers.6.0.2.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

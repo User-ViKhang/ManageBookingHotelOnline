@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\HotelTypes\" />
+    <Folder Include="wwwroot\images\hoteltypes\" />
     <Folder Include="wwwroot\images\users\" />
     <Folder Include="wwwroot\images\Thumnails\" />
     <Folder Include="wwwroot\images\ViewHotels\" />

@@ -1,5 +1,7 @@
 ﻿using Booking_Frontend.AdminApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,6 +25,14 @@ namespace Booking_Frontend.AdminApp.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Language(NavigationViewModel navigationViewModel)
+        {
+            HttpContext.Session.SetString("DefaultLanguageId",
+                navigationViewModel.CurrentLanguageId);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

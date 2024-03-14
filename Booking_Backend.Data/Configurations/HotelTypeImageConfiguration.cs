@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Booking_Backend.Data.Configurations
 {
-    public class HotelTypeImageConfiguration
+    public class HotelTypeImageConfiguration : IEntityTypeConfiguration<HotelTypeImage>
     {
         public void Configure(EntityTypeBuilder<HotelTypeImage> builder)
         {

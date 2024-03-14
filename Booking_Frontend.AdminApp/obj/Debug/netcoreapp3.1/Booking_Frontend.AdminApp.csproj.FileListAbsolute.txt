@@ -437,3 +437,6 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcorea
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcoreapp3.1\Razor\Views\User\Create.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcoreapp3.1\Razor\Views\User\FindUser.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Navigation\Default.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\bin\Debug\netcoreapp3.1\LazZiya.ExpressLocalization.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\bin\Debug\netcoreapp3.1\LazZiya.TagHelpers.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcoreapp3.1\Razor\Views\HotelType\Index.cshtml.g.cs

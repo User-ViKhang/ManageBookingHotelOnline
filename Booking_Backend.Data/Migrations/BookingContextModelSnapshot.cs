@@ -58,7 +58,7 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = new Guid("265e11da-bc22-4fe7-b286-493d6a09d46f"),
-                            ConcurrencyStamp = "9a9182c5-b94b-494d-8336-4513b8f9a0cf",
+                            ConcurrencyStamp = "0af7ea41-d6a1-4c1d-a32a-809a96057ad6",
                             Description = "Quản trị viên - quản lí tài khoản và kiểm duyệt người dùng",
                             Name = "Administrators",
                             NormalizedName = "ADMINISTRATORS"
@@ -66,7 +66,7 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = new Guid("f0404419-a456-4cd6-a8bc-e19c246904c5"),
-                            ConcurrencyStamp = "ab4e6508-c538-4072-aa4c-abad1bf2729b",
+                            ConcurrencyStamp = "8acc8419-0303-4a80-bf78-b6f2a21c3742",
                             Description = "Chủ sở hữu - quản lí tài sản cá nhân, đăng bài và quản lí khách hàng",
                             Name = "Owner",
                             NormalizedName = "OWNER"
@@ -74,7 +74,7 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = new Guid("1f10d63e-c240-4be5-a95b-b868c41501dd"),
-                            ConcurrencyStamp = "e4029608-01dd-4761-9fdc-14e1c6db6790",
+                            ConcurrencyStamp = "97295214-2297-4329-a75c-60c4ad968d4e",
                             Description = "Khách hàng đăng nhập - quản lí tài khoản cá nhân và thuê phòng",
                             Name = "Client",
                             NormalizedName = "CLIENT"
@@ -82,7 +82,7 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = new Guid("ad9c3bfc-fd01-4696-b8c8-0ce10e6a3632"),
-                            ConcurrencyStamp = "04fd38b2-d513-465c-a1f7-b1cabd50b50a",
+                            ConcurrencyStamp = "eec8ea3d-541a-44c7-ac65-35fc6c50294f",
                             Description = "Người dùng duyệt web - xem thông tin khách sạn",
                             Name = "User",
                             NormalizedName = "USER"
@@ -113,7 +113,7 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 6, 7, 54, 18, 60, DateTimeKind.Utc).AddTicks(6121));
+                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 144, DateTimeKind.Utc).AddTicks(2949));
 
                     b.Property<int>("Dashboard")
                         .HasColumnType("int");
@@ -185,7 +185,7 @@ namespace Booking_Backend.Data.Migrations
                             AccessFailedCount = 0,
                             Address = "An Phú, An Hòa, Châu Thành, An Giang",
                             Birthday = new DateTime(2002, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4134b1dd-21f3-4c3f-95a3-5959eb4ef92b",
+                            ConcurrencyStamp = "fe37396e-ab1e-4ad0-941e-9b112a9abddf",
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Dashboard = 352642218,
                             DisplayName = "Hà Vĩ Khang",
@@ -198,7 +198,7 @@ namespace Booking_Backend.Data.Migrations
                             Nation = "Việt Nam",
                             NormalizedEmail = "hvikhang_21th@student.agu.edu.vn",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEODRQYiu5PbMXKMkAMHvaOqeUWkTJmxLARdd9p4uPES3Jm2ILzWvOSkRsW427KXvVg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAjsH4xjsOP2ty+vwrD/rOnhSyxDIxOYDITz9Gmn8uYB/CAbvNJfhUw0lIfiM/GP8A==",
                             PhoneNumber = "0339141910",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
@@ -212,7 +212,7 @@ namespace Booking_Backend.Data.Migrations
                             AccessFailedCount = 0,
                             Address = "Châu Phong, Tân Châu, An Giang",
                             Birthday = new DateTime(2002, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "f10b3dae-57d4-4367-8682-f99231ba7e69",
+                            ConcurrencyStamp = "d7071fa2-112a-4602-b0c8-4eae024b575f",
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Dashboard = 354261197,
                             DisplayName = "Hà Thị Mỹ Tiên",
@@ -225,7 +225,7 @@ namespace Booking_Backend.Data.Migrations
                             Nation = "Việt Nam",
                             NormalizedEmail = "htmtien_21av@student.agu.edu.vn",
                             NormalizedUserName = "MYTIEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDuPa2mCDM+J1//uSqaV6gy2hWP6e0yePUbihZrRGAi3e5I6BuctWK7huKL9a16TeA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA0rColeUuE6oeZM1IAY0U+gnaylQX/2GU20gB48ONDq7hk+ECsAY3ZBLgVXYPbBGg==",
                             PhoneNumber = "0357642951",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
@@ -356,17 +356,17 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("CheckIn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 6, 7, 54, 18, 67, DateTimeKind.Utc).AddTicks(992));
+                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 150, DateTimeKind.Utc).AddTicks(9079));
 
                     b.Property<DateTime>("CheckOut")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 6, 7, 54, 18, 67, DateTimeKind.Utc).AddTicks(1111));
+                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 150, DateTimeKind.Utc).AddTicks(9224));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 6, 7, 54, 18, 67, DateTimeKind.Utc).AddTicks(719));
+                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 150, DateTimeKind.Utc).AddTicks(8516));
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
@@ -403,7 +403,7 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 6, 7, 54, 18, 89, DateTimeKind.Utc).AddTicks(2518));
+                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 166, DateTimeKind.Utc).AddTicks(2134));
 
                     b.Property<int>("Hotel_Id")
                         .HasColumnType("int");
@@ -1028,6 +1028,44 @@ namespace Booking_Backend.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Booking_Backend.Data.Entities.HotelTypeImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Caption")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 195, DateTimeKind.Utc).AddTicks(4962));
+
+                    b.Property<int>("HotelType_Id")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ImageSize")
+                        .HasColumnType("decimal");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<bool>("isDefault")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelType_Id");
+
+                    b.ToTable("HotelTypeImages");
+                });
+
             modelBuilder.Entity("Booking_Backend.Data.Entities.Hotel_Service", b =>
                 {
                     b.Property<int>("Hotel_Id")
@@ -1061,7 +1099,7 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 6, 7, 54, 18, 110, DateTimeKind.Utc).AddTicks(2493));
+                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 178, DateTimeKind.Utc).AddTicks(8522));
 
                     b.Property<int>("Hotel_Id")
                         .HasColumnType("int");
@@ -1335,7 +1373,7 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 6, 7, 54, 18, 124, DateTimeKind.Utc).AddTicks(2280));
+                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 192, DateTimeKind.Utc).AddTicks(9786));
 
                     b.Property<decimal>("ImageSize")
                         .HasColumnType("decimal");
@@ -1551,6 +1589,15 @@ namespace Booking_Backend.Data.Migrations
                     b.HasOne("Booking_Backend.Data.Entities.ViewHotel", "ViewHotel")
                         .WithMany("Hotels")
                         .HasForeignKey("ViewHotel_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.HotelTypeImage", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.HotelType", "HotelType")
+                        .WithMany("HotelTypeImages")
+                        .HasForeignKey("HotelType_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
