@@ -67,6 +67,38 @@
           "lib/netstandard2.0/FluentValidation.ValidatorAttribute.dll": {}
         }
       },
+      "LazZiya.ExpressLocalization/5.0.0-beta2": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/LazZiya.ExpressLocalization.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/LazZiya.ExpressLocalization.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "LazZiya.TagHelpers/6.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/LazZiya.TagHelpers.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/LazZiya.TagHelpers.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Antiforgery/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -3839,6 +3871,58 @@
         "lib/net45/FluentValidation.ValidatorAttribute.dll",
         "lib/netstandard1.1/FluentValidation.ValidatorAttribute.dll",
         "lib/netstandard2.0/FluentValidation.ValidatorAttribute.dll"
+      ]
+    },
+    "LazZiya.ExpressLocalization/5.0.0-beta2": {
+      "sha512": "tDfefrKazx1EQXJshgUKfFssG+SBjIgdgwZFxvzz1oiw3ujSj8dYOng/qEBJar0HyAV3AE72Ei/dx3KRyCe+nA==",
+      "type": "package",
+      "path": "lazziya.expresslocalization/5.0.0-beta2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lazziya.expresslocalization.5.0.0-beta2.nupkg.sha512",
+        "lazziya.expresslocalization.nuspec",
+        "lib/net5.0/LazZiya.ExpressLocalization.dll",
+        "lib/net5.0/LazZiya.ExpressLocalization.xml",
+        "lib/netcoreapp2.0/LazZiya.ExpressLocalization.dll",
+        "lib/netcoreapp2.0/LazZiya.ExpressLocalization.xml",
+        "lib/netcoreapp2.1/LazZiya.ExpressLocalization.dll",
+        "lib/netcoreapp2.1/LazZiya.ExpressLocalization.xml",
+        "lib/netcoreapp2.2/LazZiya.ExpressLocalization.dll",
+        "lib/netcoreapp2.2/LazZiya.ExpressLocalization.xml",
+        "lib/netcoreapp3.0/LazZiya.ExpressLocalization.dll",
+        "lib/netcoreapp3.0/LazZiya.ExpressLocalization.xml",
+        "lib/netcoreapp3.1/LazZiya.ExpressLocalization.dll",
+        "lib/netcoreapp3.1/LazZiya.ExpressLocalization.xml",
+        "license.txt"
+      ]
+    },
+    "LazZiya.TagHelpers/6.0.2": {
+      "sha512": "qYWVS9Mx61jmYrI+iNhw6vyH5u4W/VsAy0aTeKplNDU63K2WVSI7RdvWKSXuti0kZn+iQGkwpHz820ukCTTpPQ==",
+      "type": "package",
+      "path": "lazziya.taghelpers/6.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lazziya.taghelpers.6.0.2.nupkg.sha512",
+        "lazziya.taghelpers.nuspec",
+        "lib/net5.0/LazZiya.TagHelpers.dll",
+        "lib/net5.0/LazZiya.TagHelpers.xml",
+        "lib/net6.0/LazZiya.TagHelpers.dll",
+        "lib/net6.0/LazZiya.TagHelpers.xml",
+        "lib/netcoreapp2.0/LazZiya.TagHelpers.dll",
+        "lib/netcoreapp2.0/LazZiya.TagHelpers.xml",
+        "lib/netcoreapp2.1/LazZiya.TagHelpers.dll",
+        "lib/netcoreapp2.1/LazZiya.TagHelpers.xml",
+        "lib/netcoreapp2.2/LazZiya.TagHelpers.dll",
+        "lib/netcoreapp2.2/LazZiya.TagHelpers.xml",
+        "lib/netcoreapp3.0/LazZiya.TagHelpers.dll",
+        "lib/netcoreapp3.0/LazZiya.TagHelpers.xml",
+        "lib/netcoreapp3.1/LazZiya.TagHelpers.dll",
+        "lib/netcoreapp3.1/LazZiya.TagHelpers.xml",
+        "license.txt"
       ]
     },
     "Microsoft.AspNetCore.Antiforgery/2.2.0": {
@@ -10400,6 +10484,8 @@
     ".NETCoreApp,Version=v3.1": [
       "Booking_Backend.Repository >= 1.0.0",
       "FluentValidation.AspNetCore >= 8.6.3",
+      "LazZiya.ExpressLocalization >= 5.0.0-beta2",
+      "LazZiya.TagHelpers >= 6.0.2",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.0",
       "Microsoft.AspNetCore.Session >= 2.2.0",
       "Microsoft.Extensions.Configuration.Json >= 3.1.0",
@@ -10460,6 +10546,14 @@
           "FluentValidation.AspNetCore": {
             "target": "Package",
             "version": "[8.6.3, )"
+          },
+          "LazZiya.ExpressLocalization": {
+            "target": "Package",
+            "version": "[5.0.0-beta2, )"
+          },
+          "LazZiya.TagHelpers": {
+            "target": "Package",
+            "version": "[6.0.2, )"
           },
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",

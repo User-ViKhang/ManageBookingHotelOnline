@@ -8,6 +8,6 @@ namespace Booking_Backend.Repository.HotelTypes.Requests
     public class CreateHotelTypeRequest
     {
         public string Name { get; set; }
-        public string ImageUrl { get; set; }
+        public IFormFile Thumbnail { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, LazZiya.TagHelpers
+@addTagHelper *, LazZiya.ExpressLocalization
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +89,7 @@
                         </a>
                         <div class="collapse" id="collapseHotel" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="Create" asp-controller="User">Tất cả</a>
+                                <a class="nav-link" asp-action="index" asp-controller="hoteltype">Tất cả</a>
                                 <a class="nav-link" asp-action="Index" asp-controller="User">Danh sách</a>
                                 <a class="nav-link" asp-action="Create" asp-controller="User">Khách hàng</a>
                             </nav>
@@ -155,6 +157,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="~/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
     <script src="~/js/datatables-simple-demo.js"></script>
