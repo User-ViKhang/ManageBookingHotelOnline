@@ -1,0 +1,44 @@
+﻿@model Booking_Backend.Repository.ExtensionRoom.Request.CreateExtensionRoomRequest
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8" style="border: thin solid #ccc; border-radius: 7px; box-shadow: 2px 2px 5px 2px #ccc">
+            <h3 class="text-center p-2" style="margin: 0;">Thêm mới tiện ích</h3>
+            <form asp-action="create" asp-controller="extensionroom" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExtensionType_Id" class="control-label"></label>
+                    <select asp-for="ExtensionType_Id" class="form-select">
+                        @foreach (var item in ViewBag.ExtensionTypeVM)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group p-3">
+                    <a asp-action="index" style="text-decoration: none">
+                        <div class="btn btn-outline-primary text-dark">Hủy</div>
+                    </a>
+                    <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

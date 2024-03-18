@@ -7,9 +7,7 @@
   <ItemGroup>
     <Folder Include="Bookings\" />
     <Folder Include="Comments\" />
-    <Folder Include="Hotels\" />
     <Folder Include="Notifications\" />
-    <Folder Include="Services\" />
     <Folder Include="Rooms\" />
   </ItemGroup>
 

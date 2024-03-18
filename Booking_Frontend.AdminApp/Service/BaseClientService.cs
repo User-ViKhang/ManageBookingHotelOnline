@@ -65,5 +65,44 @@ namespace Booking_Frontend.AdminApp.Service
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
             return await client.PutAsync(url, content);
         }
+
+        public async Task<bool> PutAsyncNotFile<TRespone>(string url, TRespone T)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var json = JsonConvert.SerializeObject(T);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PutAsync(url, httpContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return true;
+            return false;
+        }
+
+        public async Task<bool> PostAsyncNotFile<TRespone>(string url, TRespone T)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var json = JsonConvert.SerializeObject(T);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(url, httpContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return true;
+            return false;
+        }
+
+        public async Task<HttpResponseMessage> PostAsync(string url, HttpContent content)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            return await client.PostAsync(url, content);
+        }
     }
 }

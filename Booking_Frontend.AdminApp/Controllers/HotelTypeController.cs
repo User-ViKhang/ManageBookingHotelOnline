@@ -40,6 +40,17 @@ namespace Booking_Frontend.AdminApp.Controllers
             if (!isResult) return BadRequest(isResult);
             return RedirectToAction("Index");
         }
+        
+        [HttpPost, Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] CreateHotelTypeRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            var languageId = HttpContext.Session.GetString("DefaultLanguageId");
+            request.LanguageId = languageId;
+            var isResult = await _hotelTypeClientService.CreateHotelType(request);
+            if (!isResult) return BadRequest(isResult);
+            return RedirectToAction("Index");
+        }
 
         [HttpGet("hoteltype/delete/{Id}")]
         public async Task<IActionResult> Delete(int Id)

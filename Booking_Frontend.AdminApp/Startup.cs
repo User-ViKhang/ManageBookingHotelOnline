@@ -1,9 +1,14 @@
 using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Users.Validator;
 using Booking_Frontend.AdminApp.Service.APIFree;
+using Booking_Frontend.AdminApp.Service.BedType;
+using Booking_Frontend.AdminApp.Service.ExtensionRoom;
+using Booking_Frontend.AdminApp.Service.ExtensionTypeRoom;
 using Booking_Frontend.AdminApp.Service.HotelType;
 using Booking_Frontend.AdminApp.Service.Language;
 using Booking_Frontend.AdminApp.Service.Profile;
+using Booking_Frontend.AdminApp.Service.RoomType;
+using Booking_Frontend.AdminApp.Service.ServiceHotel;
 using Booking_Frontend.AdminApp.Service.User;
 using FluentValidation.AspNetCore;
 using LazZiya.ExpressLocalization;
@@ -49,6 +54,11 @@ namespace Booking_Frontend.AdminApp
             services.AddScoped<IProfileClientService, ProfileClientService>();
             services.AddScoped<ILanguageClientService, LanguageClientService>();
             services.AddScoped<IHotelTypeClientService, HotelTypeClientService>();
+            services.AddScoped<IServiceHotelClientService, ServiceHotelClientService>();
+            services.AddScoped<IRoomTypeClientService, RoomTypeClientService>();
+            services.AddScoped<IBedTypeClientService, BedTypeClientService>();
+            services.AddScoped<IExtensionTypeRoomClientService, ExtensionTypeRoomClientService>();
+            services.AddScoped<IExtensionRoomClientService, ExtensionRoomClientService>();
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromMinutes(10);

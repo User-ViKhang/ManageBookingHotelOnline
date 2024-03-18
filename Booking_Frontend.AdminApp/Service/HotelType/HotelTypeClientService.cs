@@ -26,6 +26,30 @@ namespace Booking_Frontend.AdminApp.Service.HotelType
             IConfiguration config)
             : base(httpClientfactory, httpContextAccessor, config) { }
 
+        public async Task<bool> CreateHotelType(CreateHotelTypeRequest request)
+        {
+            var requestContent = new MultipartFormDataContent();
+            if (request.Thumbnail != null)
+            {
+                byte[] data;
+                using (var br = new BinaryReader(request.Thumbnail.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)request.Thumbnail.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new ByteArrayContent(data);
+                requestContent.Add(bytes, "thumbnail", request.Thumbnail.FileName);
+            }
+
+            requestContent.Add(new StringContent(request.Name), "name");
+            requestContent.Add(new StringContent(request.LanguageId), "languageId");
+
+            var response = await PostAsync($"/api/hoteltypes", requestContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return true;
+            return false;
+        }
+
         public async Task<bool> DeleteHotelType(int Id)
         {
             return await DeleteAsync($"/api/hoteltypes/{Id}");

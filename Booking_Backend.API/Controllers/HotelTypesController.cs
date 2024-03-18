@@ -20,11 +20,11 @@ namespace Booking_Backend.API.Controllers
         }
 
         // Tạo kiểu nghỉ dưỡng theo ngôn ngữ
-        [HttpPost("{languageId}"), Consumes("multipart/form-data")]
-        public async Task<IActionResult> CreateHotelType(string languageId, [FromForm] CreateHotelTypeRequest request)
+        [HttpPost, Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateHotelType([FromForm] CreateHotelTypeRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var isResult = await _hotelTypeService.CreateHotelType(languageId, request);
+            var isResult = await _hotelTypeService.CreateHotelType(request);
             if (!isResult) return BadRequest();
             return Ok(isResult);
         }

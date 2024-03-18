@@ -8,7 +8,7 @@ namespace Booking_Backend.Data.Entities
     {
         public Hotel Hotel { get; set; }
         public int Hotel_Id { get; set; }
-        public Service Service { get; set; }
+        public ServiceHotel Service { get; set; }
         public int Service_Id { get; set; }
         public bool Surcharge { get; set; }
     }

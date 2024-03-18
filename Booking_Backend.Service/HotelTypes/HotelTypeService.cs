@@ -36,14 +36,14 @@ namespace Booking_Backend.Service.HotelTypes
             _storage = storage;
         }
 
-        public async Task<bool> CreateHotelType(string languageId, CreateHotelTypeRequest request)
+        public async Task<bool> CreateHotelType(CreateHotelTypeRequest request)
         {
-            var hotelType = await _context.HotelTypes.FirstOrDefaultAsync(x => x.Name == request.Name);
+            var hotelType = await _context.HotelTypes.FirstOrDefaultAsync(x => x.Name == request.Name && x.Language == request.LanguageId);
             if (hotelType != null) return false;
             var result = new HotelType
             {
                 Name = request.Name,
-                Language = languageId,
+                Language = request.LanguageId,
             };
             if (request.Thumbnail != null)
             {
@@ -51,7 +51,7 @@ namespace Booking_Backend.Service.HotelTypes
                 {
                     new HotelTypeImage()
                     {
-                        Caption = $"thumbnail-hoteltype-{request.Name}",
+                        Caption = $"hoteltypeimage-{request.Name}",
                         ImageSize = request.Thumbnail.Length,
                         ImageUrl = await _image.SaveFile(request.Thumbnail),
                         Created = DateTime.Now,
@@ -179,17 +179,6 @@ namespace Booking_Backend.Service.HotelTypes
                     };
                     hotelType.ImageUrl = hotelType.HotelTypeImages[0].ImageUrl;
                 }
-                hotelType.HotelTypeImages = new List<HotelTypeImage>()
-                {
-                    new HotelTypeImage()
-                    {
-                        Caption = thumbnail.Caption,
-                        ImageSize = thumbnail.ImageSize,
-                        ImageUrl = thumbnail.ImageUrl,
-                        isDefault = true,
-                        Created = DateTime.Now
-                    }
-                };
             }
             await _context.SaveChangesAsync();
             return true;

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Booking_Backend.Data.Configurations
 {
-    public class ServiceConfiguration : IEntityTypeConfiguration<Service>
+    public class ServiceConfiguration : IEntityTypeConfiguration<ServiceHotel>
     {
-        public void Configure(EntityTypeBuilder<Service> builder)
+        public void Configure(EntityTypeBuilder<ServiceHotel> builder)
         {
             builder.ToTable("Services");
 

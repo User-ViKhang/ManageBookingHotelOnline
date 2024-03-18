@@ -22,7 +22,12 @@
 
   <ItemGroup>
     <Folder Include="Views\Error\" />
+    <Folder Include="wwwroot\css\HotelType\" />
     <Folder Include="wwwroot\images\user\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
 </Project>

@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Booking_Backend.Data.Entities
+namespace Booking_Backend.Repository.BedTypeRepo.Request
 {
-    public class Service
+    public class UpdateBedTypeRequest
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Hotel_Service> Hotel_Services { get; set; }
         public string Language { get; set; }
     }
 }

@@ -325,14 +325,6 @@
         "runtime": {
           "Booking_Frontend.AdminApp.dll": {}
         },
-        "resources": {
-          "en/Booking_Frontend.AdminApp.resources.dll": {
-            "locale": "en"
-          },
-          "vi/Booking_Frontend.AdminApp.resources.dll": {
-            "locale": "vi"
-          }
-        },
         "compile": {
           "Booking_Frontend.AdminApp.dll": {}
         }

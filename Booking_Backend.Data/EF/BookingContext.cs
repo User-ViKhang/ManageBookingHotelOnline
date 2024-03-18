@@ -69,7 +69,7 @@ namespace Booking_Backend.Data.EF
         public DbSet<Room_Booking> Room_Bookings { get; set; }
         public DbSet<Room_Extension> Room_Extensions { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
-        public DbSet<Service> Services { get; set; }
+        public DbSet<ServiceHotel> Services { get; set; }
         public DbSet<ViewHotel> ViewHotels { get; set; }
         public DbSet<UserImage> UserImages { get; set; }
         public DbSet<HotelTypeImage> HotelTypeImages { get; set; }

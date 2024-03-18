@@ -9,9 +9,8 @@ namespace Booking_Frontend.AdminApp.Service.HotelType
     public interface IHotelTypeClientService
     {
         Task<PageResult<HotelTypeViewModel>> GetHotelType(GetAllHotelTypePagingRequest request);
-
         Task<bool> UpdateHotelType(int Id, UpdateHotelTypeRequest request);
-
+        Task<bool> CreateHotelType(CreateHotelTypeRequest request);
         Task<bool> DeleteHotelType(int Id);
     }
 }
