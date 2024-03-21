@@ -16,6 +16,7 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     @RenderSection("UpdateStyle", required: false)
     @RenderSection("CreateStyle", required: false)
+    @RenderSection("IndexStyle", required: false)
 </head>
 <body class="sb-nav-fixed">
     @await Component.InvokeAsync("Navigation");
@@ -94,7 +95,7 @@
                                 <a class="nav-link" asp-action="index" asp-controller="roomtype">Loại phòng</a>
                             </nav>
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="bedtype">Loại giường</a>
+                                <a class="nav-link" asp-action="index" asp-controller="bed">Loại giường</a>
                             </nav>   
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" asp-action="index" asp-controller="extensiontype">Loại tiện ích</a>

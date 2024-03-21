@@ -17,6 +17,6 @@ namespace Booking_Backend.Service.ServicesHotel
 
 
         Task<PageResult<ServiceHotelViewModel>> GetServiceHotel(GetServiceHotelRequest request);
-        Task<ServiceHotelViewModel> GetServiceHotelById(int Id);
+        Task<ServiceHotelViewModel> GetServiceHotelById(int Id, string languageId);
     }
 }

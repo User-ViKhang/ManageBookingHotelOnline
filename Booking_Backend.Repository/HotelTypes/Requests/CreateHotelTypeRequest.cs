@@ -7,8 +7,8 @@ namespace Booking_Backend.Repository.HotelTypes.Requests
 {
     public class CreateHotelTypeRequest
     {
-        public string Name { get; set; }
-        public string LanguageId { get; set; }
-        public IFormFile Thumbnail { get; set; }
+        public string NameVI { get; set; }
+        public string NameEN { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

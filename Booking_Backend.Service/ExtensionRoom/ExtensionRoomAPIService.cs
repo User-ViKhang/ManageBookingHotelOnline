@@ -26,13 +26,17 @@ namespace Booking_Backend.Service.ExtensionRoom
 
         public async Task<bool> CreateExtensionRoom(CreateExtensionRoomRequest request)
         {
-            var checkExtension = await _context.Extensions.FirstOrDefaultAsync(x => x.Name == request.Name);
-            if (checkExtension != null) throw new BookingException("Tiện ích phòng đã tồn tại");
+            var extensionVI = await _context.ExtensionTranslations.FirstOrDefaultAsync(x => x.Name == request.NameVI);
+            var extensionEN = await _context.ExtensionTranslations.FirstOrDefaultAsync(x => x.Name == request.NameEN);
+            if (extensionVI != null && extensionEN != null) throw new BookingException("Tiện ích phòng đã tồn tại");
             var extensionRoom = new Extension()
             {
-                Name = request.Name,
-                Language = request.Language,
-                ExtensionType_Id = request.ExtensionType_Id
+                ExtensionType_Id = request.ExtensionType_Id,
+                ExtensionTranslations = new List<ExtensionTranslation>()
+                {
+                    new ExtensionTranslation { Name = request.NameVI, Language_Id = "vi-VN"},
+                    new ExtensionTranslation { Name = request.NameEN, Language_Id = "en-US"}
+                }
             };
             _context.Extensions.Add(extensionRoom);
             await _context.SaveChangesAsync();
@@ -43,35 +47,34 @@ namespace Booking_Backend.Service.ExtensionRoom
         {
             var extensionRoom = await _context.Extensions.FindAsync(Id);
             if (extensionRoom == null) throw new BookingException("Extension không tồn tại");
-            _context.Extensions.Remove(extensionRoom); await _context.SaveChangesAsync();
+            _context.Extensions.Remove(extensionRoom); 
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<PageResult<ExtensionRoomViewModel>> GetExtensionRoom(GetExtensionRoomRequest request)
         {
             var query = from ex in _context.Extensions
-                        join ext in _context.ExtensionTypes on ex.ExtensionType_Id equals ext.Id
-                        where ex.Language == request.LanguageId
-                        select new { ex, ExtensionTypeName = ext.Name };
+                        join ext in _context.ExtensionTranslations on ex.Id equals ext.Extension_Id
+                        join exty in _context.ExtensionTypes on ex.ExtensionType_Id equals exty.Id
+                        join extyt in _context.ExtensionTypeTranslations on exty.Id equals extyt.ExtensionType_Id
+                        where ex.ExtensionType_Id == request.ExtensionTypeId && ext.Language_Id == request.LanguageId && extyt.Language_Id == request.LanguageId
+                        select new { ex, ext, extyt };
+                        
 
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.ex.Name.Contains(request.Keyword));
+                query = query.Where(x => x.ext.Name.Contains(request.Keyword));
             }
             
-            if (request.ExtensionTypeId != null && request.ExtensionTypeId != 0)
-            {
-                query = query.Where(x => x.ex.ExtensionType_Id == request.ExtensionTypeId);
-            }
-
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
             .Select(x => new ExtensionRoomViewModel()
             {
                 Id = x.ex.Id,
-                Name = x.ex.Name,
-                LanguageId = x.ex.Language,
-                ExtensionTypeName = x.ExtensionTypeName,
+                Name = x.ext.Name,
+                LanguageId = x.ext.Language_Id,
+                ExtensionTypeName = x.extyt.Name
             }).ToListAsync();
 
             var PagedResult = new PageResult<ExtensionRoomViewModel>()
@@ -89,8 +92,11 @@ namespace Booking_Backend.Service.ExtensionRoom
             var extensionRoom = await _context.Extensions.FindAsync(Id);
             if (extensionRoom == null) throw new BookingException("Không thể tìm thể thấy Extension");
 
-            extensionRoom.Name = request.Name;
+            var extensionTranslation = await _context.ExtensionTranslations.FirstOrDefaultAsync(x=>x.Extension_Id == extensionRoom.Id && x.Language_Id == request.Language);
 
+            extensionTranslation.Name = request.Name;
+
+            _context.ExtensionTranslations.Update(extensionTranslation);
             await _context.SaveChangesAsync();
 
             return true;

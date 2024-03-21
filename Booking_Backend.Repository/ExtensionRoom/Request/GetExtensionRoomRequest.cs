@@ -10,6 +10,6 @@ namespace Booking_Backend.Repository.ExtensionRoom.Request
     {
         public string Keyword { get; set; }
         public string LanguageId { get; set; }
-        public int? ExtensionTypeId { get; set; }
+        public int ExtensionTypeId { get; set; }
     }
 }

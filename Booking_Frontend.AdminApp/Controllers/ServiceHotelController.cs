@@ -35,13 +35,16 @@ namespace Booking_Frontend.AdminApp.Controllers
         [HttpGet("servicehotel/update/{Id}")]
         public async Task<IActionResult> Update(int Id)
         {
-            var serviceHotel = await _serviceHotelClientService.GetServiceHotelById(Id);
+            var languageId = HttpContext.Session.GetString("DefaultLanguageId");
+            var serviceHotel = await _serviceHotelClientService.GetServiceHotelById(languageId, Id);
             return View(serviceHotel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(int Id, UpdateServiceHotelRequest request)
         {
+            var languageId  = HttpContext.Session.GetString("DefaultLanguageId");
+            request.Language = languageId;
             var isResult = await _serviceHotelClientService.UpdateServiceHotel(Id, request);
             if (!isResult) return BadRequest(isResult);
             return RedirectToAction("index");

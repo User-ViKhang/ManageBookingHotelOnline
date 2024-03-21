@@ -38,7 +38,7 @@ namespace Booking_Frontend.AdminApp.Service.ExtensionTypeRoom
 
         public async Task<PageResult<ExtensionTypeRoomViewModel>> GetExtensionTypeRoom(GetExtensionTypeRoomRequest request)
         {
-            return await GetAsync<PageResult<ExtensionTypeRoomViewModel>>($"/api/extensiontype?languageId={request.LanguageId}&pageIndex={request.PageIndex}" +
+            return await GetAsync<PageResult<ExtensionTypeRoomViewModel>>($"/api/extensiontype/paging?language_Id={request.Language_Id}&pageIndex={request.PageIndex}" +
                 $"&pageSize={request.PageSize}&keyword={request.Keyword}");
         }
 

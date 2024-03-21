@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Booking_Backend.Repository.Paging.Request;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Booking_Backend.Repository.CommentRepo.Request
 {
-    internal class GetCommentRequest
+    public class GetCommentRequest : PagingRequestBase
     {
+        public int Hotel_Id { get; set; }
     }
 }
+

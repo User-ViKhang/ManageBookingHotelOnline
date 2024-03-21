@@ -36,9 +36,9 @@ namespace Booking_Frontend.AdminApp.Service.ServiceHotel
                 $"&pageSize={request.PageSize}&keyword={request.Keyword}");
         }
         
-        public async Task<ServiceHotelViewModel> GetServiceHotelById(int Id)
+        public async Task<ServiceHotelViewModel> GetServiceHotelById(string languageId, int Id)
         {
-            return await GetAsync<ServiceHotelViewModel>($"/api/servicehotel/{Id}");
+            return await GetAsync<ServiceHotelViewModel>($"/api/servicehotel/{languageId}/{Id}");
         }
 
         public async Task<bool> UpdateServiceHotel(int Id, UpdateServiceHotelRequest request)

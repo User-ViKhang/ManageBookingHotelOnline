@@ -24,10 +24,5 @@ namespace Booking_Backend.Service.Hotels
             _image = image;
             _storage = storage;
         }
-
-        public Task<PageResult<HotelViewModel>> GetHotel(GetHotelPageRequest request)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

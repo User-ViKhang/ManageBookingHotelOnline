@@ -6,7 +6,7 @@ namespace Booking_Backend.Repository.RoomType.Request
 {
     public class CreateRoomTypeRequest
     {
-        public string Name { get; set; }
-        public string LanguageId { get; set; }
+        public string NameVI { get; set; }
+        public string NameEN { get; set; }
     }
 }

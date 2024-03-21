@@ -44,6 +44,7 @@ namespace Booking_Backend.API.Controllers
             if (!extensionRoom) return BadRequest();
             return Ok(extensionRoom);
         }
+          
         [HttpPut("{Id}")]
         public async Task<IActionResult> UpdateExtensionRoom(int Id, [FromBody] UpdateExtensionRoomRequest request)
         {

@@ -12,7 +12,7 @@ namespace Booking_Backend.Service.ExtensionTypeRoom
     public interface IExtensionTypeRoomAPIService
     {
         Task<PageResult<ExtensionTypeRoomViewModel>> GetExtensionTypeRoom(GetExtensionTypeRoomRequest request);
-        Task<List<ExtensionTypeRoomViewModel>> GetAll(string languageId);
+        Task<List<ExtensionTypeRoomViewModel>> GetAll(string Language_Id);
         Task<bool> CreateExtensionTypeRoom(CreateExtensionTypeRoomRequest request);
         Task<bool> UpdateExtensionTypeRoom(int Id, UpdateExtensionTypeRoomRequest request);
         Task<bool> DeleteExtensionTypeRoom(int Id);

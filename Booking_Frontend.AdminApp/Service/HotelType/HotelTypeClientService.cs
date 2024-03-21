@@ -29,19 +29,19 @@ namespace Booking_Frontend.AdminApp.Service.HotelType
         public async Task<bool> CreateHotelType(CreateHotelTypeRequest request)
         {
             var requestContent = new MultipartFormDataContent();
-            if (request.Thumbnail != null)
+            if (request.Image != null)
             {
                 byte[] data;
-                using (var br = new BinaryReader(request.Thumbnail.OpenReadStream()))
+                using (var br = new BinaryReader(request.Image.OpenReadStream()))
                 {
-                    data = br.ReadBytes((int)request.Thumbnail.OpenReadStream().Length);
+                    data = br.ReadBytes((int)request.Image.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
-                requestContent.Add(bytes, "thumbnail", request.Thumbnail.FileName);
+                requestContent.Add(bytes, "Image", request.Image.FileName);
             }
 
-            requestContent.Add(new StringContent(request.Name), "name");
-            requestContent.Add(new StringContent(request.LanguageId), "languageId");
+            requestContent.Add(new StringContent(request.NameVI), "namevi");
+            requestContent.Add(new StringContent(request.NameEN), "nameen");
 
             var response = await PostAsync($"/api/hoteltypes", requestContent);
             var body = await response.Content.ReadAsStringAsync();
@@ -64,23 +64,19 @@ namespace Booking_Frontend.AdminApp.Service.HotelType
         public async Task<bool> UpdateHotelType(int Id, UpdateHotelTypeRequest request)
         {
             var requestContent = new MultipartFormDataContent();
-            if (request.Thumbnail != null)
+            if (request.Image != null)
             {
                 byte[] data;
-                using (var br = new BinaryReader(request.Thumbnail.OpenReadStream()))
+                using (var br = new BinaryReader(request.Image.OpenReadStream()))
                 {
-                    data = br.ReadBytes((int)request.Thumbnail.OpenReadStream().Length);
+                    data = br.ReadBytes((int)request.Image.OpenReadStream().Length);
                 }
                 ByteArrayContent bytes = new ByteArrayContent(data);
-                requestContent.Add(bytes, "thumbnail", request.Thumbnail.FileName);
+                requestContent.Add(bytes, "image", request.Image.FileName);
             }
 
             requestContent.Add(new StringContent(request.Name), "name");
-            if (!string.IsNullOrEmpty(request.ImageUrl))
-                requestContent.Add(new StringContent(request.ImageUrl), "imageUrl");
-            else
-                requestContent.Add(new StringContent("default-img"), "imageUrl");
-            requestContent.Add(new StringContent(request.LanguageId), "languageId");
+            requestContent.Add(new StringContent(request.Language_Id), "languageId");
 
             var response = await PutAsync($"/api/hoteltypes/{Id}", requestContent);
             var body = await response.Content.ReadAsStringAsync();

@@ -126,8 +126,8 @@ namespace Booking_Frontend.AdminApp.Controllers
             if (!userPrincipal.IsInRole("Administrators")) return View("login");
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = false // false: mỗi lần thoát trình duyệt đều phải đăng nhập lại
+                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1),
+                IsPersistent = false
             };
             HttpContext.Session.SetString("DefaultLanguageId", _config["DefaultLanguageId"]);
             HttpContext.Session.SetString("Token", token);

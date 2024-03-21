@@ -1,0 +1,10 @@
+﻿.area-1::before {
+    position: absolute;
+    content: "Thêm kiểu phòng";
+    font-size: 14px;
+    top: -12px;
+    background-color: white;
+    padding: 0 5px;
+    color: #007bff;
+    z-index: auto;
+}

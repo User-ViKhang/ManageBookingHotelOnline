@@ -1,10 +1,16 @@
-﻿using System;
+﻿using Booking_Backend.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Booking_Backend.Repository.CommentRepo.ViewModel
 {
-    internal class CommentViewModel
+    public class CommentViewModel
     {
+        public int Id { get; set; }
+        public string Content { get; set; }
+        public DateTime Created { get; set; }
+        public HotelTranslation Hotel { get; set; }
+        public AppUser User { get; set; }
     }
 }

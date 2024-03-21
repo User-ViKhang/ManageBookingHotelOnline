@@ -7,25 +7,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section IndexStyle {
+    <link rel="stylesheet" href="~/css/RoomType/index.css">
+}
+
 <div class="container">
-    <div class="row" style="margin-bottom: 15px">
-        <div class="col-md-11">
-            <div class="block-add-hoteltype" style="border: thin solid #ccc; border-radius: 7px">
-                <form asp-action="create" asp-controller="roomtype" method="post">
-                    <div class="row p-2">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" name="name" placeholder="Tên kiểu phòng" />
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" class="btn btn-info text-light">Thêm kiểu phòng</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-8">
             <div class="card mb-4" style="overflow-x: scroll; ">
                 <div class="card-body">
                     <table class="table table-hover table-bordered" style="width: 100%">
@@ -91,7 +79,7 @@
                                             <input type="hidden" name="LanguageId" value="@item.Language" />
                                         </td>
                                         <td class="text-nowrap">
-                                            <a onclick="setTimeout(()=> {location.reload()},1000)" href="roomtype/delete/@Html.DisplayFor(modelItem => item.Id)">
+                                            <a style="text-decoration: none" onclick="setTimeout(()=> {location.reload()},1000)" href="roomtype/delete/@Html.DisplayFor(modelItem => item.Id)">
                                                 <div class="btn btn-danger text-light">Xóa</div>
                                             </a>
                                             <div class="btn-update btn btn-warning text-light">Cập nhật</div>
@@ -107,8 +95,19 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4 position-relative">
+            <div class="card p-3 area-1" style="border: thin solid #ccc; border-radius: 7px">
+                <form asp-action="create" asp-controller="roomtype" method="post">
+                    <input type="text" class="form-control mt-3" name="namevi" placeholder="Tên kiểu phòng tiếng Việt" />
+                    <input type="text" class="form-control mt-3" name="nameen" placeholder="Tên kiểu phòng tiếng Anh" />
+                    <button type="submit" class="btn btn-info text-light mt-3">Thêm kiểu phòng</button>
+                </form>
+            </div>
+            <div class="mt-3">
+                @await Component.InvokeAsync("Pager", Model)
+            </div>
+        </div>
     </div>
-    @await Component.InvokeAsync("Pager", Model)
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {

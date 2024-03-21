@@ -35,6 +35,8 @@ namespace Booking_Frontend.AdminApp.Controllers
         [HttpPost, Consumes("multipart/form-data")]
         public async Task<IActionResult> Update(int Id, [FromForm] UpdateHotelTypeRequest request)
         {
+            var languageId = HttpContext.Session.GetString("DefaultLanguageId");
+            request.Language_Id = languageId;
             if (!ModelState.IsValid) return BadRequest();
             var isResult = await _hotelTypeClientService.UpdateHotelType(Id, request);
             if (!isResult) return BadRequest(isResult);
@@ -45,8 +47,6 @@ namespace Booking_Frontend.AdminApp.Controllers
         public async Task<IActionResult> Create([FromForm] CreateHotelTypeRequest request)
         {
             if (!ModelState.IsValid) return BadRequest();
-            var languageId = HttpContext.Session.GetString("DefaultLanguageId");
-            request.LanguageId = languageId;
             var isResult = await _hotelTypeClientService.CreateHotelType(request);
             if (!isResult) return BadRequest(isResult);
             return RedirectToAction("Index");

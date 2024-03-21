@@ -8,6 +8,6 @@ namespace Booking_Backend.Repository.ExtensionTypeRoom.ViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string LanguageId { get; set; }
+        public string Language_Id { get; set; }
     }
 }

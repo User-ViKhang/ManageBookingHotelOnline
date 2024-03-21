@@ -10,6 +10,6 @@ namespace Booking_Backend.Service.Hotels
 {
     public interface IHotelAPIService
     {
-        Task<PageResult<HotelViewModel>> GetHotel(GetHotelPageRequest request);
+        //Task<PageResult<HotelViewModel>> GetHotel(GetHotelPageRequest request);
     }
 }

@@ -28,7 +28,7 @@ namespace Booking_Frontend.AdminApp.Controllers
                 Keyword = key,
                 PageIndex = pageIndex,
                 PageSize = pageSize,
-                LanguageId = languageId
+                Language_Id = languageId
             };
             var data = await _ex.GetExtensionTypeRoom(request);
             return View(data);
@@ -37,11 +37,9 @@ namespace Booking_Frontend.AdminApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateExtensionTypeRoomRequest request)
         {
-            var languageId = HttpContext.Session.GetString("DefaultLanguageId");
-            request.LanguageId = languageId;
             var isResult = await _ex.CreateExtensionTypeRoom(request);
             if (!isResult) return BadRequest();
-            return RedirectToAction("index", "servicehotel");
+            return RedirectToAction("index", "extensiontype");
         }
 
         [HttpPost]

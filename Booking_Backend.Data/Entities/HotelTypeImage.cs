@@ -13,6 +13,5 @@ namespace Booking_Backend.Data.Entities
         public DateTime Created { get; set; }
         public bool isDefault { get; set; }
         public HotelType HotelType { get; set; }
-        public int HotelType_Id { get; set; }
     }
 }

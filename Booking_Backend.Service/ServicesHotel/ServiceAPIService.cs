@@ -24,46 +24,51 @@ namespace Booking_Backend.Service.ServicesHotel
 
         public async Task<bool> CreateServiceHotel(CreateServiceHotelRequest request)
         {
-            var isResult = await _context.Services.FirstOrDefaultAsync(x=>x.Name == request.Name);
-            if (isResult != null) return false;
+            var serviceVI = await _context.ServiceHotelTranslations.FirstOrDefaultAsync(x => x.Name == request.NameVI);
+            var serviceEN = await _context.ServiceHotelTranslations.FirstOrDefaultAsync(x => x.Name == request.NameEN);
+            if(serviceVI != null || serviceEN != null) return false;
+
             var service = new ServiceHotel()
             {
-                Name = request.Name,
-                Description = request.Description,
-                Language = request.Language
+                ServiceHotelTranslations = new List<ServiceHotelTranslation>()
+                {
+                    new ServiceHotelTranslation() { Name = request.NameVI, Description = request.DescriptionVI, Language_Id = "vi-VN" },
+                    new ServiceHotelTranslation() { Name = request.NameEN, Description = request.DescriptionEN, Language_Id = "en-US" }
+                }
             };
-            await _context.Services.AddAsync(service);
+            await _context.ServiceHotels.AddAsync(service);
             await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> DeleteServiceHotel(int Id)
         {
-            var serviceHotel = await _context.Services.FindAsync(Id);
+            var serviceHotel = await _context.ServiceHotels.FindAsync(Id);
             if(serviceHotel == null) return false;
-            _context.Services.Remove(serviceHotel);
+            _context.ServiceHotels.Remove(serviceHotel);
             await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<PageResult<ServiceHotelViewModel>> GetServiceHotel(GetServiceHotelRequest request)
         {
-            var query = from service in _context.Services
-                        where service.Language == request.LanguageId
-                        select service;
+            var query = from sv in _context.ServiceHotels
+                        join svt in _context.ServiceHotelTranslations on sv.Id equals svt.ServiceHotel_Id
+                        where svt.Language_Id == request.LanguageId
+                        select new { sv, svt };
 
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.Name == request.Keyword);
+                query = query.Where(x => x.svt.Name == request.Keyword);
             }
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
             .Select(x => new ServiceHotelViewModel()
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Language = x.Language,
+                Id = x.sv.Id,
+                Name = x.svt.Name,
+                Description = x.svt.Description,
+                Language = x.svt.Language_Id,
             }).ToListAsync();
             var PagedResult = new PageResult<ServiceHotelViewModel>()
             {
@@ -75,27 +80,30 @@ namespace Booking_Backend.Service.ServicesHotel
             return PagedResult;
         }
 
-        public async Task<ServiceHotelViewModel> GetServiceHotelById(int Id)
+        public async Task<ServiceHotelViewModel> GetServiceHotelById(int Id, string languageId)
         {
-            var service = await _context.Services.FindAsync(Id);
+            var service = await _context.ServiceHotels.FindAsync(Id);
             if (service == null) return null;
+            var serviceHotelTranslation = await _context.ServiceHotelTranslations.FirstOrDefaultAsync(x=>x.Language_Id == languageId && x.ServiceHotel_Id == service.Id);
             var serviceHotelViewModel = new ServiceHotelViewModel()
             {
                 Id = service.Id,
-                Name = service.Name,
-                Description = service.Description,
-                Language = service.Language
+                Name = serviceHotelTranslation.Name,
+                Description = serviceHotelTranslation.Description,
+                Language = serviceHotelTranslation.Language_Id
             };
             return serviceHotelViewModel;
         }
 
         public async Task<bool> UpdateServiceHotel(int Id, UpdateServiceHotelRequest request)
         {
-            var serviceHotel = await _context.Services.FindAsync(Id);
+            var serviceHotel = await _context.ServiceHotels.FindAsync(Id);
             if (serviceHotel == null) return false;
-            serviceHotel.Name = request.Name;
-            serviceHotel.Description = request.Description;
-            serviceHotel.Language = request.Language;
+            var serviceHotelTranslation = await _context.ServiceHotelTranslations.FirstOrDefaultAsync(x => x.ServiceHotel_Id == serviceHotel.Id && x.Language_Id == request.Language);
+
+            serviceHotelTranslation.Name = request.Name;
+            serviceHotelTranslation.Description = request.Description;
+            _context.ServiceHotelTranslations.Update(serviceHotelTranslation);
             await _context.SaveChangesAsync();
             return true;
         }

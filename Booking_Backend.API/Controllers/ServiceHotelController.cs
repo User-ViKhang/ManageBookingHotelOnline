@@ -35,11 +35,11 @@ namespace Booking_Backend.API.Controllers
             return Ok(result);
         }
         
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> GetServiceHotelById(int Id)
+        [HttpGet("{languageId}/{Id}")]
+        public async Task<IActionResult> GetServiceHotelById(int Id, string languageId)
         {
             if (!ModelState.IsValid) return BadRequest();
-            var result = await _service.GetServiceHotelById(Id);
+            var result = await _service.GetServiceHotelById(Id, languageId);
             if(result==null) return BadRequest();
             return Ok(result);
         }

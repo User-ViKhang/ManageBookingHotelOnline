@@ -1,7 +1,7 @@
 using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Users.Validator;
 using Booking_Frontend.AdminApp.Service.APIFree;
-using Booking_Frontend.AdminApp.Service.BedType;
+using Booking_Frontend.AdminApp.Service.BedService;
 using Booking_Frontend.AdminApp.Service.ExtensionRoom;
 using Booking_Frontend.AdminApp.Service.ExtensionTypeRoom;
 using Booking_Frontend.AdminApp.Service.HotelType;
@@ -56,9 +56,9 @@ namespace Booking_Frontend.AdminApp
             services.AddScoped<IHotelTypeClientService, HotelTypeClientService>();
             services.AddScoped<IServiceHotelClientService, ServiceHotelClientService>();
             services.AddScoped<IRoomTypeClientService, RoomTypeClientService>();
-            services.AddScoped<IBedTypeClientService, BedTypeClientService>();
             services.AddScoped<IExtensionTypeRoomClientService, ExtensionTypeRoomClientService>();
             services.AddScoped<IExtensionRoomClientService, ExtensionRoomClientService>();
+            services.AddScoped<IBedClientService, BedClientService>();
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromMinutes(10);

@@ -1,0 +1,26 @@
+﻿.area-1::before {
+    position: absolute;
+    content: "Tiếng Việt";
+    font-size: 14px;
+    top: -12px;
+    background-color: white;
+    padding: 0 5px;
+    color: #007bff;
+}
+
+.area-2::before {
+    position: absolute;
+    content: "English";
+    font-size: 14px;
+    top: -12px;
+    background-color: white;
+    padding: 0 5px;
+    color: #007bff;
+}
+
+.wrapper-content {
+    position: relative;
+    border: thin solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+}

@@ -10,7 +10,7 @@ namespace Booking_Frontend.AdminApp.Service.ServiceHotel
     public interface IServiceHotelClientService
     {
         Task<PageResult<ServiceHotelViewModel>> GetServiceHotel(GetServiceHotelRequest request);
-        Task<ServiceHotelViewModel> GetServiceHotelById(int Id);
+        Task<ServiceHotelViewModel> GetServiceHotelById(string languageId, int Id);
         Task<bool> UpdateServiceHotel(int Id, UpdateServiceHotelRequest request);
         Task<bool> CreateServiceHotel(CreateServiceHotelRequest request);
         Task<bool> DeleteServiceHotel(int Id);

@@ -9,6 +9,6 @@ namespace Booking_Backend.Repository.ExtensionTypeRoom.Request
     public class GetExtensionTypeRoomRequest : PagingRequestBase
     {
         public string Keyword { get; set; }
-        public string LanguageId { get; set; }
+        public string Language_Id { get; set; }
     }
 }

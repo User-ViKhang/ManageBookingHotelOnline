@@ -19,9 +19,9 @@ namespace Booking_Backend.Repository.Hotels.Request
         public List<Hotel_Service> Hotel_Services { get; set; }
         public List<Image> Images { get; set; }
         public List<Room> Rooms { get; set; }
-        public HotelType HotelType { get; set; }
+        public HotelTypeTranslation HotelType { get; set; }
         public int HotelType_Id { get; set; }
-        public ViewHotel ViewHotel { get; set; }
+        public ViewHotelTranslation ViewHotel { get; set; }
         public int ViewHotel_Id { get; set; }
         public string Language { get; set; }
     }

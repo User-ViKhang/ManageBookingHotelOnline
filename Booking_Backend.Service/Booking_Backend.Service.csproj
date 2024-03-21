@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Bookings\" />
-    <Folder Include="Comments\" />
     <Folder Include="Notifications\" />
     <Folder Include="Rooms\" />
   </ItemGroup>

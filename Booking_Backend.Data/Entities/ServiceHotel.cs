@@ -7,9 +7,8 @@ namespace Booking_Backend.Data.Entities
     public class ServiceHotel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
         public List<Hotel_Service> Hotel_Services { get; set; }
-        public string Language { get; set; }
+        public List<ServiceHotelTranslation> ServiceHotelTranslations { get; set; }
+
     }
 }

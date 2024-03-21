@@ -3,6 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20240319055347_InitialDataSeeding.cs" />
+    <Compile Remove="Migrations\20240319055347_InitialDataSeeding.Designer.cs" />
+    <Compile Remove="Migrations\20240319055915_InitialDataSeeding.cs" />
+    <Compile Remove="Migrations\20240319055915_InitialDataSeeding.Designer.cs" />
+    <Compile Remove="Migrations\20240319095920_InitialDataSeeding.cs" />
+    <Compile Remove="Migrations\20240319095920_InitialDataSeeding.Designer.cs" />
+    <Compile Remove="Migrations\20240319142937_UpdateFieldHotelTypeImage.cs" />
+    <Compile Remove="Migrations\20240319142937_UpdateFieldHotelTypeImage.Designer.cs" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">

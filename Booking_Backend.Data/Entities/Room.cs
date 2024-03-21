@@ -10,7 +10,6 @@ namespace Booking_Backend.Data.Entities
         {
             public int Id { get; set; }
             public string RoomCode { get; set; }
-            public string Description { get; set; }
             public int Maximum { get; set; }
             public StatusRoom Status { get; set; }
             public decimal PriceByHour { get; set; }
@@ -23,6 +22,5 @@ namespace Booking_Backend.Data.Entities
             public int RoomType_Id { get; set; }
             public Bed Bed { get; set; }
             public int Bed_Id { get; set; }
-            public string Language { get; set; }
         }
 }

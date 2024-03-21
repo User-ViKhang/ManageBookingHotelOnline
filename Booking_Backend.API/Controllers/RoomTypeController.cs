@@ -47,7 +47,7 @@ namespace Booking_Backend.API.Controllers
         }
         
         [HttpDelete("{Id}")]
-        public async Task<IActionResult> Create(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
             if (!ModelState.IsValid) return BadRequest();
             var isResult = await _roomTypeAPIService.DeleteRoomType(Id);

@@ -1,5 +1,4 @@
 ﻿using Booking_Backend.Data.Entities;
-using Booking_Backend.Repository.BedTypeRepo.Request;
 using Booking_Backend.Repository.ExtensionRoom.Request;
 using Booking_Frontend.AdminApp.Service.ExtensionRoom;
 using Booking_Frontend.AdminApp.Service.ExtensionTypeRoom;
@@ -25,6 +24,10 @@ namespace Booking_Frontend.AdminApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int extensiontypeId, string key, int pageIndex = 1, int pageSize = 5)
         {
+            if(extensiontypeId <= 0)
+            {
+                extensiontypeId = 2;
+            }
             var languageId = HttpContext.Session.GetString("DefaultLanguageId");
             var lstExtensionType = await _extensionTypeRoomClientService.GetAll(languageId);
             ViewBag.ExtensionTypes = lstExtensionType.Select(x => new SelectListItem()
@@ -61,7 +64,6 @@ namespace Booking_Frontend.AdminApp.Controllers
         public async Task<IActionResult> Create(CreateExtensionRoomRequest request)
         {
             var languageId = HttpContext.Session.GetString("DefaultLanguageId");
-            request.Language = languageId;
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var isResult = await _extensionRoomClientService.CreateExtensionRoom(request);
             if (!isResult) return BadRequest();

@@ -12,8 +12,8 @@ namespace Booking_Backend.Service.RoomTypeHotel
     public interface IRoomTypeAPIService
     {
         Task<PageResult<RoomTypeViewModel>> GetRoomTypes(GetRoomTypeRequest request);
-        Task<bool> UpdateRoomTypes(int Id, UpdateRoomTypeRrequest request);
         Task<bool> CreateRoomType(CreateRoomTypeRequest request);
+        Task<bool> UpdateRoomTypes(int Id, UpdateRoomTypeRrequest request);
         Task<bool> DeleteRoomType(int Id);
 
     }

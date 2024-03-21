@@ -27,7 +27,7 @@ namespace Booking_Backend.API.Controllers
             if(extensionType == null) return NotFound();
             return Ok(extensionType);
         }
-        
+       
         [HttpGet]
         public async Task<IActionResult> GetAll(string languageId) 
         {
@@ -36,7 +36,7 @@ namespace Booking_Backend.API.Controllers
             if(extensionType == null) return NotFound();
             return Ok(extensionType);
         }
-
+ 
         [HttpPost]
         public async Task<IActionResult> CreateExtensionType([FromBody] CreateExtensionTypeRoomRequest request)
         {
@@ -46,6 +46,7 @@ namespace Booking_Backend.API.Controllers
             return Ok(isResult);
         }
 
+        
         [HttpPut("{Id}")]
         public async Task<IActionResult> Update(int Id, [FromBody] UpdateExtensionTypeRoomRequest request)
         {
@@ -55,6 +56,7 @@ namespace Booking_Backend.API.Controllers
             return Ok(isResult);
         }
 
+        
         [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete(int Id)
         {

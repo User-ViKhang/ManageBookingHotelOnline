@@ -18,12 +18,10 @@ namespace Booking_Backend.Data.Configurations
             builder.Property(x => x.Id).UseIdentityColumn();
 
             builder.Property(x => x.RoomCode).HasColumnType("nvarchar(255)");
-            builder.Property(x => x.Description).HasColumnType("nvarchar(max)");
             builder.Property(x => x.Maximum).HasDefaultValue(1);
             builder.Property(x => x.PriceByHour).HasDefaultValue(0);
             builder.Property(x => x.PriceOverNight).HasDefaultValue(0);
             builder.Property(x => x.Status).HasDefaultValue(StatusRoom.Empty);
-            builder.Property(x => x.Language).HasColumnType("varchar(5)");
 
             builder.HasOne(x => x.Hotel).WithMany(x => x.Rooms).HasForeignKey(x => x.Hotel_Id);
             builder.HasOne(x => x.RoomType).WithMany(x => x.Rooms).HasForeignKey(x => x.RoomType_Id);

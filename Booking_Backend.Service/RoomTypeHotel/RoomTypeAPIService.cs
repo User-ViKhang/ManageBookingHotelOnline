@@ -25,12 +25,16 @@ namespace Booking_Backend.Service.RoomTypeHotel
 
         public async Task<bool> CreateRoomType(CreateRoomTypeRequest request)
         {
-            var isResult = await _context.RoomTypes.FirstOrDefaultAsync(x => x.Name == request.Name);
-            if (isResult != null) return false;
+            var roomTypeVI = await _context.RoomTypeTranslations.FirstOrDefaultAsync(x => x.Name == request.NameVI);
+            var roomTypeEN = await _context.RoomTypeTranslations.FirstOrDefaultAsync(x => x.Name == request.NameEN);
+            if (roomTypeVI != null || roomTypeEN != null) return false;
             var roomType = new RoomType()
             {
-                Name = request.Name,
-                Language = request.LanguageId
+                RoomTypeTranslations = new List<RoomTypeTranslation>()
+                {
+                    new RoomTypeTranslation() { Name = request.NameVI, Language_Id = "vi-VN"},
+                    new RoomTypeTranslation() { Name = request.NameEN, Language_Id = "en-US"}
+                }
             };
             await _context.RoomTypes.AddAsync(roomType);
             await _context.SaveChangesAsync();
@@ -48,23 +52,22 @@ namespace Booking_Backend.Service.RoomTypeHotel
 
         public async Task<PageResult<RoomTypeViewModel>> GetRoomTypes(GetRoomTypeRequest request)
         {
-            var romtype = _context.RoomTypes.Select(x => x.Language == request.LanguageId);
-
-            var query = from rt in _context.RoomTypes
-                        where rt.Language == request.LanguageId
-                        select rt;
+            var query = from r in _context.RoomTypes
+                        join rt in _context.RoomTypeTranslations on r.Id equals rt.RoomType_Id
+                        where rt.Language_Id == request.LanguageId
+                        select new { r, rt };  
 
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.Name.Contains(request.Keyword));
+                query = query.Where(x => x.rt.Name.Contains(request.Keyword));
             }
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
             .Select(x => new RoomTypeViewModel()
             {
-                Id = x.Id,
-                Name = x.Name,
-                Language = x.Language
+                Id = x.r.Id,
+                Name = x.rt.Name,
+                Language = x.rt.Language_Id
             }).ToListAsync();
             var PagedResult = new PageResult<RoomTypeViewModel>()
             {
@@ -80,8 +83,11 @@ namespace Booking_Backend.Service.RoomTypeHotel
         {
             var roomType = await _context.RoomTypes.FindAsync(Id);
             if (roomType == null) return false;
-            roomType.Name = request.Name;
-            roomType.Language = request.LanguageId;
+            var roomTypeTranslation = await _context.RoomTypeTranslations.FirstOrDefaultAsync(x => x.RoomType_Id == roomType.Id);
+
+            roomTypeTranslation.Name = request.Name;
+            roomTypeTranslation.Language_Id = request.LanguageId;
+            _context.RoomTypeTranslations.Update(roomTypeTranslation);
             await _context.SaveChangesAsync();
             return true;
         }

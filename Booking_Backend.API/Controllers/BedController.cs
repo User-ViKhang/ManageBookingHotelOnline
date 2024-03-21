@@ -1,7 +1,5 @@
-﻿using Booking_Backend.Repository.BedTypeRepo.Request;
-using Booking_Backend.Repository.HotelTypes.Requests;
-using Booking_Backend.Repository.Service.Request;
-using Booking_Backend.Service.BedTypeService;
+﻿using Booking_Backend.Repository.BedRepo.Request;
+using Booking_Backend.Service.BedService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -12,56 +10,61 @@ namespace Booking_Backend.API.Controllers
     [ApiController]
     public class BedController : ControllerBase
     {
-        private readonly IBedTypeAPIService _bed;
+        private readonly IBedAPIService _bed;
 
-        public BedController(IBedTypeAPIService bed)
+        public BedController(IBedAPIService bed)
         {
             _bed = bed;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBedType([FromQuery] GetBedTypeRequest request)
+        public async Task<IActionResult> Get([FromQuery] GetBedRequest request) 
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var result = await _bed.GetBedType(request);
-            if (result == null) return BadRequest();
-            return Ok(result);
-        }
-        
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> GetBedTypeById(int Id)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            var result = await _bed.GetBedTypeById(Id);
-            if (result == null) return BadRequest();
-            return Ok(result);
-        }
+            var bed = await _bed.Get(request);
+            if (bed == null) return NotFound();
+            return Ok(bed);
 
-        [HttpPut("{Id}")]
-        public async Task<IActionResult> Update(int Id, UpdateBedTypeRequest request)
-        {
-            if (!ModelState.IsValid) return BadRequest();
-            var isResult = await _bed.UpdateBedType(Id, request);
-            if (!isResult) return BadRequest();
-            return Ok(isResult);
         }
         
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> Delete(int Id)
+        [HttpGet("{languageId}/{Id}")]
+        public async Task<IActionResult> GetById(int Id, string languageId) 
         {
-            if (!ModelState.IsValid) return BadRequest();
-            var isResult = await _bed.DeleteBedType(Id);
-            if (!isResult) return BadRequest();
-            return Ok(isResult);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var bed = await _bed.GetById(Id, languageId);
+            if (bed == null) return NotFound();
+            return Ok(bed);
+
         }
         
         [HttpPost]
-        public async Task<IActionResult> Create(CreateBedTypeRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateBedRequest request) 
         {
-            if (!ModelState.IsValid) return BadRequest();
-            var isResult = await _bed.CreateBedType(request);
-            if (!isResult) return BadRequest();
-            return Ok(isResult);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var bed = await _bed.Create(request);
+            if (!bed) return NotFound();
+            return Ok(bed);
+
+        }
+        
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> Update(int Id, [FromBody] UpdateBedRequest request) 
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var bed = await _bed.Update(Id, request);
+            if (!bed) return NotFound();
+            return Ok(bed);
+
+        }
+        
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(int Id) 
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var bed = await _bed.Delete(Id);
+            if (!bed) return NotFound();
+            return Ok(bed);
+
         }
 
     }

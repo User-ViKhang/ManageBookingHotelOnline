@@ -46,7 +46,6 @@ namespace Booking_Frontend.AdminApp.Controllers
         public async Task<IActionResult> Create(CreateRoomTypeRequest request)
         {
             var languageId = HttpContext.Session.GetString("DefaultLanguageId");
-            request.LanguageId = languageId;
             var isResult = await _roomTypeClientService.CreateRoomType(request);
             if (!isResult) return BadRequest();
             return RedirectToAction("index", "roomtype");
