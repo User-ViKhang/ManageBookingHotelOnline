@@ -11,6 +11,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section IndexStyle {
+    <link rel="stylesheet" href="~/css/Bed/index.css">
+}
+
 <div class="container">
     <div class="row">
         <div class="col-md-8">
@@ -89,15 +93,15 @@
         </div>
         <div class="col-md-4 position-relative">
             <div class="card p-3">
-                <form asp-action="create" asp-controller="hoteltype" method="post" enctype="multipart/form-data">
-                    <div class="row justify-content-center">
-                        <div class="col-md-11">
-                            <input type="text" class="form-control mb-2" name="namevi" placeholder="Tên loại giường" />
-                            <textarea class="form-control" name="descriptionvi" placeholder="Nội dung mô tả..."></textarea>
+                <form asp-action="create" asp-controller="bed" method="post" enctype="multipart/form-data">
+                    <div class="row justify-content-center position-relative">
+                        <div class="card area-1 col-md-11">
+                            <input type="text" class="form-control mt-3 mb-2" name="namevi" placeholder="Tên loại giường" />
+                            <textarea class="form-control mb-2" name="descriptionvi" placeholder="Nội dung mô tả..."></textarea>
                         </div>  
-                        <div class="col-md-11 mt-4">
-                            <input type="text" class="form-control mb-2" name="namevi" placeholder="Tên loại giường" />
-                            <textarea class="form-control" name="descriptionvi" placeholder="Nội dung mô tả..."></textarea>
+                        <div class="card area-2 col-md-11 mt-4">
+                            <input type="text" class="form-control mb-2 mt-3" name="nameen" placeholder="Bed type name" />
+                            <textarea class="form-control mb-2" name="descriptionen" placeholder="Description content..."></textarea>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-info text-light mt-3">Thêm nơi nghỉ</button>

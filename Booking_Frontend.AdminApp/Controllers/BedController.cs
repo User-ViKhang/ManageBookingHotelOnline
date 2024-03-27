@@ -1,6 +1,7 @@
 ﻿using Booking_Backend.Repository.BedRepo.Request;
 using Booking_Backend.Repository.ExtensionTypeRoom.Request;
-using Booking_Frontend.AdminApp.Service.BedService;
+using Booking_Backend.Repository.Service.Request;
+using Booking_Frontend.APIIntegration.BedService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -45,6 +46,14 @@ namespace Booking_Frontend.AdminApp.Controllers
             var languageId = HttpContext.Session.GetString("DefaultLanguageId");
             request.Language_Id = languageId;
             var bed = await _bed.Update(Id, request);
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateBedRequest request)
+        {
+            var isResult = await _bed.Create(request);
+            if (!isResult) return BadRequest();
             return RedirectToAction("index");
         }
     }

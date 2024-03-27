@@ -16,6 +16,7 @@ using Booking_Backend.Service.RoomTypeHotel;
 using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Service.ServicesHotel;
 using Booking_Backend.Service.Users;
+using Booking_Backend.Service.ViewHotelService;
 using Booking_Backend.Utilities.Constants;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -85,6 +86,7 @@ namespace Booking_Backend.API
             services.AddScoped<IExtensionRoomAPIService, ExtensionRoomAPIService>();
             services.AddScoped<ICommentAPIService, CommentAPIService>();
             services.AddScoped<IBedAPIService, BedAPIService>();
+            services.AddScoped<IViewHotelAPIService, ViewHotelAPIService>();
             services.AddControllers().
                 AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
             services.AddSwaggerGen(c =>

@@ -1,0 +1,151 @@
+﻿// const carousel = document.querySelector(".slide-show-location-toptrending")
+// const firtElement = document.querySelectorAll(".card-slide-show-item-location")[0]
+// const arrowIcons = document.querySelectorAll(".card-location-top i")
+
+// let isDragStart = false, prevPageX, prevScrollLeft
+
+// const showHideIcon = () => {
+//     let scrollWidth = carousel.scrollWidth - carousel.clientWidth
+//     arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block"
+//     arrowIcons[1].style.display = carousel.scrollLeft == scrollWidth ? "none" : "block"
+// }
+
+// arrowIcons.forEach(icon => {
+//     icon.addEventListener("click", () => {
+//         let firstElementWidth = firtElement.clientWidth + 15
+//         carousel.scrollLeft += icon.id == "chevron-left-icon" ? -firstElementWidth : firstElementWidth
+//         setTimeout(() => showHideIcon(), 60)
+//     })
+// });
+// const dragging = (e) => {
+//     if (!isDragStart) return;
+//     e.preventDefault()
+//     carousel.classList.add("dragging")
+//     let positionDiff = e.pageX - prevPageX
+//     carousel.scrollLeft = prevScrollLeft - positionDiff
+// }
+
+// const dragStart = (e) => {
+//     isDragStart = true
+//     prevPageX = e.pageX
+//     prevScrollLeft = carousel.scrollLeft
+
+// }
+
+// const dragStop = () => {
+//     isDragStart = false
+//     carousel.classList.remove("dragging")
+// }
+
+// carousel.addEventListener("mousedown", dragStart);
+// carousel.addEventListener("mousemove", dragging);
+// carousel.addEventListener("mouseup", dragStop);
+
+
+
+
+
+
+
+
+
+
+
+// const carousel1 = document.querySelector(".carousel-1")
+// const firtElement1 = document.querySelectorAll(".card-price")[0]
+// const arrowIcons1 = document.querySelectorAll(".card-location-top-1 i")
+
+// let isDragStart1 = false, prevPageX1, prevScrollLeft1
+
+// const showHideIcon1 = () => {
+//     let scrollWidth = carousel1.scrollWidth - carousel1.clientWidth
+//     arrowIcons1[0].style.display = carousel1.scrollLeft == 0 ? "none" : "block"
+//     arrowIcons1[1].style.display = carousel1.scrollLeft == scrollWidth ? "none" : "block"
+// }
+
+// arrowIcons1.forEach(icon => {
+//     icon.addEventListener("click", () => {
+//         let firstElementWidth = firtElement1.clientWidth + 15
+//         carousel1.scrollLeft += icon.id == "chevron-left-icon" ? - firstElementWidth : firstElementWidth
+//         setTimeout(() => showHideIcon1(), 60)
+//     })
+// });
+// const dragging1 = (e) => {
+//     if (!isDragStart) return;
+//     e.preventDefault()
+//     carousel1.classList.add("dragging")
+//     let positionDiff = e.pageX - prevPageX
+//     carousel1.scrollLeft = prevScrollLeft1 - positionDiff
+// }
+
+// const dragStart1 = (e) => {
+//     isDragStart1 = true
+//     prevPageX1 = e.pageX
+//     prevScrollLeft1 = carousel.scrollLeft
+
+// }
+
+// const dragStop1 = () => {
+//     isDragStart1 = false
+//     carousel1.classList.remove("dragging")
+// }
+
+// carousel1.addEventListener("mousedown", dragStart);
+// carousel1.addEventListener("mousemove", dragging);
+// carousel1.addEventListener("mouseup", dragStop);
+
+
+
+
+function changeLanguage() {
+    var selectedUrl = document.getElementById("languageSelect").value;
+    window.location.href = selectedUrl; // Chuyển hướng đến URL được chọn
+}
+
+
+
+const carousel = document.querySelector(".slide-show-category-location")
+const firtElement = document.querySelectorAll(".link-item-category")[0]
+const arrowIcons = document.querySelectorAll(".category-location-area i")
+
+let isDragStart = false, prevPageX, prevScrollLeft
+
+const showHideIcon = () => {
+    let scrollWidth = carousel.scrollWidth - carousel.clientWidth
+    arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block"
+    arrowIcons[1].style.display = carousel.scrollLeft == scrollWidth ? "none" : "block"
+}
+
+arrowIcons.forEach(icon => {
+    icon.addEventListener("click", () => {
+        let firstElementWidth = firtElement.clientWidth + 5
+        carousel.scrollLeft += icon.id == "chevron-left-icon" ? -firstElementWidth : firstElementWidth
+        setTimeout(() => showHideIcon(), 60)
+    })
+});
+const dragging = (e) => {
+    if (!isDragStart) return;
+    e.preventDefault()
+    carousel.classList.add("dragging")
+    let positionDiff = e.pageX - prevPageX
+    carousel.scrollLeft = prevScrollLeft - positionDiff
+}
+
+const dragStart = (e) => {
+    isDragStart = true
+    prevPageX = e.pageX
+    prevScrollLeft = carousel.scrollLeft
+
+}
+
+const dragStop = () => {
+    isDragStart = false
+    carousel.classList.remove("dragging")
+}
+
+carousel.addEventListener("mousedown", dragStart);
+carousel.addEventListener("mousemove", dragging);
+carousel.addEventListener("mouseup", dragStop);
+
+
+

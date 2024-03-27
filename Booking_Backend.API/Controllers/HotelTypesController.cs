@@ -40,12 +40,22 @@ namespace Booking_Backend.API.Controllers
             return Ok(result);
         }
 
-        // Lấy tất cả kiểu nghỉ dưỡng theo ngôn ngữ
+        // Lấy kiểu nghỉ dưỡng theo ngôn ngữ
         [HttpGet]
         public async Task<IActionResult> GetHotelType([FromQuery] GetAllHotelTypePagingRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var result = await _hotelTypeService.GetHotelType(request);
+            if (result == null) return BadRequest();
+            return Ok(result);
+        }
+
+        // Lấy tất cả kiểu nghỉ dưỡng theo ngôn ngữ
+        [HttpGet("{languageId}")]
+        public async Task<IActionResult> GetAllHotelType(string languageId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var result = await _hotelTypeService.GetAllHotelType(languageId);
             if (result == null) return BadRequest();
             return Ok(result);
         }

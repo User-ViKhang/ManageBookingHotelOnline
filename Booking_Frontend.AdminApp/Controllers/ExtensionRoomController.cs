@@ -1,7 +1,7 @@
 ﻿using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.ExtensionRoom.Request;
-using Booking_Frontend.AdminApp.Service.ExtensionRoom;
-using Booking_Frontend.AdminApp.Service.ExtensionTypeRoom;
+using Booking_Frontend.APIIntegration.ExtensionRoom;
+using Booking_Frontend.APIIntegration.ExtensionTypeRoom;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

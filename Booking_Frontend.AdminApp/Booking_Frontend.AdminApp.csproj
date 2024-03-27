@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Booking_Backend.Repository\Booking_Backend.Repository.csproj" />
+    <ProjectReference Include="..\Booking_Frontend.APIIntegration\Booking_Frontend.APIIntegration.csproj" />
   </ItemGroup>
 
   <ItemGroup>

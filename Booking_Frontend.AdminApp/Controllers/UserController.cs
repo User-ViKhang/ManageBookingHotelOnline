@@ -1,5 +1,5 @@
 ﻿using Booking_Backend.Repository.Users.Request;
-using Booking_Frontend.AdminApp.Service.User;
+using Booking_Frontend.APIIntegration.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +11,9 @@ using Booking_Backend.Repository.Users.ViewModel;
 using Booking_Backend.Repository.Common;
 using Microsoft.AspNetCore.Identity;
 using Booking_Backend.Data.Entities;
-using Booking_Frontend.AdminApp.Service.Profile;
+using Booking_Frontend.APIIntegration.Profile;
 using Microsoft.Extensions.Configuration;
+using Booking_Backend.Data.Enums;
 
 namespace Booking_Frontend.AdminApp.Controllers
 {
@@ -107,6 +108,7 @@ namespace Booking_Frontend.AdminApp.Controllers
         public async Task<IActionResult> Login()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("Token");
             return View();
         }
 
@@ -123,7 +125,7 @@ namespace Booking_Frontend.AdminApp.Controllers
             if (!ModelState.IsValid) return View(ModelState);
             var token = await _userAPI.Authenticate(request);
             var userPrincipal = _userAPI.ValidatorToken(token);
-            if (!userPrincipal.IsInRole("Administrators")) return View("login");
+            if (!userPrincipal.IsInRole(Roles.Administrators.ToString())) return View("login");
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1),

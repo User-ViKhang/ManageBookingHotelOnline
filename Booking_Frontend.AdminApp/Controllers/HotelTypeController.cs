@@ -1,6 +1,6 @@
 ﻿using Booking_Backend.Repository.HotelTypes.Requests;
 using Booking_Backend.Repository.Users.Request;
-using Booking_Frontend.AdminApp.Service.HotelType;
+using Booking_Frontend.APIIntegration.HotelType;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;

@@ -82,6 +82,24 @@ namespace Booking_Backend.Service.HotelTypes
             return true;
         }
 
+        public async Task<List<HotelTypeViewModel>> GetAllHotelType(string languageId)
+        {
+            var query = from h in _context.HotelTypes
+                        join ht in _context.HotelTypeTranslations on h.Id equals ht.HotelType_Id
+                        join hti in _context.HotelTypeImages on h.HotelTypeImage_Id equals hti.Id
+                        where ht.Language_Id == languageId
+                        select new { h, ht, hti};
+
+            var data = await query.Select(x => new HotelTypeViewModel()
+            {
+                Id = x.h.Id,
+                Name = x.ht.Name,
+                ImageUrl = x.hti.ImageUrl,
+                Language_Id = x.ht.Language_Id
+            }).ToListAsync();
+            return data;
+        }
+
         // Lấy tất cả chỗ nghỉ dưỡng theo ngôn ngữ
         public async Task<PageResult<HotelTypeViewModel>> GetHotelType(GetAllHotelTypePagingRequest request)
         {

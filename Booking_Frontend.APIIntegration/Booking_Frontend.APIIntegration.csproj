@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation.AspNetCore" Version="8.6.3" />
+		<PackageReference Include="LazZiya.ExpressLocalization" Version="5.0.0-beta2" />
+		<PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.4.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\Booking_Backend.Repository\Booking_Backend.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

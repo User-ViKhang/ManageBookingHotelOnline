@@ -1,7 +1,7 @@
 ﻿using Booking_Backend.Repository.HotelTypes.Requests;
 using Booking_Backend.Repository.RoomType.Request;
 using Booking_Backend.Repository.Service.Request;
-using Booking_Frontend.AdminApp.Service.RoomType;
+using Booking_Frontend.APIIntegration.RoomType;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

@@ -1,7 +1,7 @@
 ﻿using Booking_Backend.Data.EF;
 using Booking_Backend.Repository.HotelTypes.Requests;
 using Booking_Backend.Repository.Service.Request;
-using Booking_Frontend.AdminApp.Service.ServiceHotel;
+using Booking_Frontend.APIIntegration.ServiceHotel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

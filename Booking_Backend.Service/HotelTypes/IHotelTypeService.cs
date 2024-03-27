@@ -13,6 +13,7 @@ namespace Booking_Backend.Service.HotelTypes
     public interface IHotelTypeService
     {
         Task<PageResult<HotelTypeViewModel>> GetHotelType(GetAllHotelTypePagingRequest request);
+        Task<List<HotelTypeViewModel>> GetAllHotelType(string languageId);
         Task<HotelTypeViewModel> GetHotelTypeById(string Language_Id, int Id);
         Task<bool> CreateHotelType(CreateHotelTypeRequest request);
         Task<bool> UpdateHotelType(int Id, UpdateHotelTypeRequest request);

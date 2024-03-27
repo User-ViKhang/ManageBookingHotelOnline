@@ -449,3 +449,5 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcorea
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcoreapp3.1\Razor\Views\ExtensionType\Index.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcoreapp3.1\Razor\Views\Bed\Index.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\obj\Debug\netcoreapp3.1\Razor\Views\Bed\Update.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\bin\Debug\netcoreapp3.1\Booking_Frontend.APIIntegration.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.AdminApp\bin\Debug\netcoreapp3.1\Booking_Frontend.APIIntegration.pdb

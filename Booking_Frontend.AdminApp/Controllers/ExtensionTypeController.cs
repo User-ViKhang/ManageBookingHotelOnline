@@ -2,7 +2,7 @@
 using Booking_Backend.Repository.HotelTypes.Requests;
 using Booking_Backend.Repository.RoomType.Request;
 using Booking_Backend.Repository.Service.Request;
-using Booking_Frontend.AdminApp.Service.ExtensionTypeRoom;
+using Booking_Frontend.APIIntegration.ExtensionTypeRoom;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
