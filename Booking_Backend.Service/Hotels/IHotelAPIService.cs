@@ -1,4 +1,5 @@
-﻿using Booking_Backend.Repository.Hotels.Request;
+﻿using Booking_Backend.Data.Entities;
+using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.Paging.ViewModel;
 using System;
@@ -10,6 +11,7 @@ namespace Booking_Backend.Service.Hotels
 {
     public interface IHotelAPIService
     {
-        //Task<PageResult<HotelViewModel>> GetHotel(GetHotelPageRequest request);
+        Task<PageResult<HotelViewModel>> GetHotelByLocation(GetHotelByLocationRequest request);
+        Task<HotelDetailViewModel> GetHotelById(int Id, string LanguageId);
     }
 }

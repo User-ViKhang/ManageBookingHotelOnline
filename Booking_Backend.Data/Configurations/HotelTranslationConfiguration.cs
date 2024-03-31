@@ -20,6 +20,7 @@ namespace Booking_Backend.Data.Configurations
             builder.Property(x => x.Area).HasColumnType("nvarchar(255)");
             builder.Property(x => x.Address).HasColumnType("nvarchar(255)");
             builder.Property(x => x.Description).HasColumnType("nvarchar(max)");
+            builder.Property(x => x.ShortDescription).HasColumnType("nvarchar(max)");
             builder.Property(x => x.Language_Id).HasColumnType("varchar(5)");
 
             builder.HasOne(x => x.Hotel).WithMany(x => x.HotelTranslations).HasForeignKey(x => x.Hotel_Id);

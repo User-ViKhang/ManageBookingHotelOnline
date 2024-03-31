@@ -48,6 +48,8 @@ namespace Booking_Backend.Data.EF
             modelBuilder.ApplyConfiguration(new ViewHotelConfiguration());                  //
             modelBuilder.ApplyConfiguration(new UserImageConfiguration());
             modelBuilder.ApplyConfiguration(new HotelTypeImageConfiguration());
+            modelBuilder.ApplyConfiguration(new LocationConfiguration());
+            modelBuilder.ApplyConfiguration(new LocationTranslationConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -89,5 +91,7 @@ namespace Booking_Backend.Data.EF
         public DbSet<ViewHotel> ViewHotels { get; set; }
         public DbSet<UserImage> UserImages { get; set; }
         public DbSet<HotelTypeImage> HotelTypeImages { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<LocationTranslation> LocationTranslations { get; set; }
     }
 }

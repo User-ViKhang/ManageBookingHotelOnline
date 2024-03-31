@@ -176,33 +176,8 @@ body .find-room .area-find-room .container .row .wrapper {
   background-color: #ccc;
 }
 
-.list-option-people {
-  display: flex;
-  justify-content: space-between;
-}
-
-.popup-option-people {
-  display: none;
-  position: absolute;
-  width: 70%;
-  background-color: white;
-  top: 80px;
-  left: 15px;
-  border-radius: 7px;
-  box-shadow: 1px 1px 5px 1px #ccc;
-}
-.popup-option-people ul.list-people {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  padding-right: 10px;
-}
-.popup-option-people ul.list-people li.option-people-item {
-  height: 50px;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  justify-content: space-between;
+.number-people {
+  width: 100px;
 }
 
 .btn-find-room {
@@ -213,11 +188,6 @@ body .find-room .area-find-room .container .row .wrapper {
 .btn-find-room .btn-find {
   padding: 10px 20px;
   font-size: 20px;
-}
-
-.wrapper-number:hover .popup-option-people {
-  display: block;
-  z-index: 1;
 }
 
 .home-page {
@@ -617,4 +587,12 @@ body .find-room .area-find-room .container .row .wrapper {
   color: white;
   border-radius: 5px;
   transition: background-color linear 0.2s;
+}
+
+.date-checktime {
+  outline: none;
+}
+
+.number-people-input {
+  width: 100%;
 }

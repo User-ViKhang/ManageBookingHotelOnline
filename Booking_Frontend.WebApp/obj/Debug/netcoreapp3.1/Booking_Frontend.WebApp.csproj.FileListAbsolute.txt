@@ -495,3 +495,6 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Booking_Frontend.WebApp.LocalizationResources.ViewLocalizationResource.vi-VN.resources
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\en-US\Booking_Frontend.WebApp.resources.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\vi-VN\Booking_Frontend.WebApp.resources.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutSearchResult.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Location\SearchResult.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Hotel\Detail.cshtml.g.cs

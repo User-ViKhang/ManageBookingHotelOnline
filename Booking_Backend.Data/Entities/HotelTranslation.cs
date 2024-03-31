@@ -12,6 +12,7 @@ namespace Booking_Backend.Data.Entities
         public string Area { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
+        public string? ShortDescription { get; set; }
         public string Language_Id { get; set; }
 
         public Hotel Hotel { get; set; }

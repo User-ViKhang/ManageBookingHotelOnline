@@ -309,11 +309,11 @@
           "Booking_Frontend.WebApp.dll": {}
         },
         "resources": {
-          "en/Booking_Frontend.WebApp.resources.dll": {
-            "locale": "en"
+          "en-US/Booking_Frontend.WebApp.resources.dll": {
+            "locale": "en-US"
           },
-          "vi/Booking_Frontend.WebApp.resources.dll": {
-            "locale": "vi"
+          "vi-VN/Booking_Frontend.WebApp.resources.dll": {
+            "locale": "vi-VN"
           }
         },
         "compile": {

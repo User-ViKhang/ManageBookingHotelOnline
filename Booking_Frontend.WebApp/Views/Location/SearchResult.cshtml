@@ -1,0 +1,201 @@
+﻿@using Booking_Backend.Repository.Paging.ViewModel;
+@model LocationViewModel;
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutSearchResult";
+}
+<div class="home-page-search-result">
+    <div class="search-room">
+        <div class="container">
+            <div class="row search-box">
+                <div class="col-md-4">
+                    <div class="search-by-location search-by">
+                        <i class="bi bi-search mr-3"></i>
+                        <input type="text" name="" placeholder="Hà Nội, An Giang, Đà Nẵng?" id="">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="search-by-datetime search-by">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-3 d-flex align-items-center">
+                                            <i class="bi bi-calendar2"></i>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <span style="font-size: 14px;">
+                                                    <input type="date" id="date-checkin" class="date-checktime" name="dateCheckIn">
+                                                </span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-size: 16px; color: #908a8a">Thứ Tư</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 before-calender">
+                                    <div class="row">
+                                        <div class="col-md-3 d-flex align-items-center">
+                                            <i class="bi bi-calendar2-check"></i>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <span style="font-size: 14px;">
+                                                    <input type="date" id="date-checkout" class="date-checktime" name="dateCheckOut" value="@ViewData["checkout"]>
+                                                </span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-size: 16px; color: #908a8a">Thứ Tư</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="search-by-people-and-find search-by">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-3 d-flex align-items-center">
+                                            <i class="bi bi-people" style="font-size: 20px;"></i>
+                                        </div>
+                                        <div class="col-md-9" style="padding-left: 20px;">
+                                            <div class="row">
+                                                <span style="font-size: 14px;">27/03 năm 2024</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-size: 16px; color: #908a8a">Thứ Tư</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <button class="btn btn-info" style="padding: 10px 50px;">TÌM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="url-find-room">Trang chủ > Việt Nam > Thành phố Đà Nẵng > Đà Nẵng</div>
+        <div class="row">
+            <div class="col-md-3 tabbar-left"></div>
+            <div class="col-md-9 main-page">
+                <div class="total-properties-bylocation">
+                    <span>Đà Nẳng</span> có
+                    <span> 5.106</span>
+                    <span>chỗ nghỉ</span>
+                </div>
+                <div class="navbar-main-page">
+                    <div class="nav-item-title nav-item">Sắp xếp theo</div>
+                    <a href="#">
+                        <div class="nav-item-1 nav-item">Phù hợp nhất</div>
+                    </a>
+                    <a href="#">
+                        <div class="nav-item-2 nav-item">Giá thấp nhất</div>
+                    </a>
+                    <a href="#">
+                        <div class="nav-item-3 nav-item">Đánh giá cao</div>
+                    </a>
+                    <a href="#">
+                        <div class="nav-item-4 nav-item">Khuyến mãi</div>
+                    </a>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model.ListHotelByLocation.Items)
+                    {
+                        var url = $"/{culture}/hotel/{item.Id}";
+                        <div class="col-md-12 hotel-item-info">
+                            <div class="hotel-info">
+                                <div class="row">
+                                    <div class="col-md-4 image-location">
+                                        <img src="../../img/location/13125860.png" alt="">
+                                    </div>
+                                    <div class="col-md-6 body-card">
+                                        <a href="@url">
+                                            <h4>@item.Name</h4>
+                                            <div class="address-location d-flex">
+                                                <div>@item.Address</div>
+                                                <div style="padding: 0 5px">-</div>
+                                                <a href="#">Xem bản đồ</a>
+                                            </div>
+                                            <div class="short-des">
+                                                @item.ShortDescription
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 price-and-feeback">
+                                        <div class="row">
+                                            <div class="col-md-12 d-flex">
+                                                Đánh giá:<strong> 1200</strong>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 d-flex">
+                                                Số điểm: <strong>8.2</strong>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 d-flex">
+                                                <strong class="feed-back-text">Rất tốt</strong>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-5">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-primary text-light">Hiển thị</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <div class=" paging-bottom">
+                    <div class="paging-navigation">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8 paging-item">
+                                    <a class="link-paging" href="#">
+                                        <div class="btn-previous"><i class="bi bi-arrow-left-square"></i></div>
+                                    </a>
+                                    <a class="link-paging" href=""><div class="btn-item">1</div></a>
+                                    <a class="link-paging" href=""><div class="btn-item">2</div></a>
+                                    <a class="link-paging" href=""><div class="btn-item">3</div></a>
+                                    <a class="link-paging" href=""><div class="btn-item">...</div></a>
+                                    <a class="link-paging" href=""><div class="btn-item">10</div></a>
+                                    <a class="link-paging" href="#">
+                                        <div class="btn-next"><i class="bi bi-arrow-right-square"></i></div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4 paging-item paging-end">
+                                    <div style="padding-right: 10px">Hiển thị: </div>
+                                    <div>1</div>
+                                    <div>-</div>
+                                    <div>25</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>
+

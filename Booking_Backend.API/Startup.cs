@@ -3,6 +3,7 @@ using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Users.Request;
 using Booking_Backend.Repository.Users.Validator;
 using Booking_Backend.Service.BedService;
+using Booking_Backend.Service.BookingService;
 using Booking_Backend.Service.CommentService;
 using Booking_Backend.Service.ExtensionRoom;
 using Booking_Backend.Service.ExtensionTypeRoom;
@@ -11,6 +12,7 @@ using Booking_Backend.Service.Hotels;
 using Booking_Backend.Service.HotelTypes;
 using Booking_Backend.Service.Images;
 using Booking_Backend.Service.Languages;
+using Booking_Backend.Service.LocationServices;
 using Booking_Backend.Service.Profiles;
 using Booking_Backend.Service.RoomTypeHotel;
 using Booking_Backend.Service.SendEmail;
@@ -87,6 +89,9 @@ namespace Booking_Backend.API
             services.AddScoped<ICommentAPIService, CommentAPIService>();
             services.AddScoped<IBedAPIService, BedAPIService>();
             services.AddScoped<IViewHotelAPIService, ViewHotelAPIService>();
+            services.AddScoped<ILocationAPIService, LocationAPIService>();
+            services.AddScoped<IHotelAPIService, HotelAPIService>();
+            services.AddTransient<IBookingAPIService, BookingAPIService>();
             services.AddControllers().
                 AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
             services.AddSwaggerGen(c =>

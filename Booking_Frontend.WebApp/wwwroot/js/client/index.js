@@ -97,13 +97,6 @@
 
 
 
-function changeLanguage() {
-    var selectedUrl = document.getElementById("languageSelect").value;
-    window.location.href = selectedUrl; // Chuyển hướng đến URL được chọn
-}
-
-
-
 const carousel = document.querySelector(".slide-show-category-location")
 const firtElement = document.querySelectorAll(".link-item-category")[0]
 const arrowIcons = document.querySelectorAll(".category-location-area i")
@@ -149,3 +142,47 @@ carousel.addEventListener("mouseup", dragStop);
 
 
 
+// Lấy ngày hiện tại
+var today = new Date();
+
+// Định dạng ngày tháng để gán vào input
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //Tháng bắt đầu từ 0
+var yyyy = today.getFullYear();
+
+today = yyyy + '-' + mm + '-' + dd;
+
+// Gán ngày hiện tại vào input
+document.getElementById("date-checkout").value = today;
+document.getElementById("date-checkin").value = today;
+
+var days = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
+
+var selectedDateCheckIn = document.getElementById("date-checkin").value;
+var dateObjectIn = new Date(selectedDateCheckIn);
+var dayOfWeekIn = days[dateObjectIn.getDay()];
+document.getElementById("dayCheckIn").innerHTML = dayOfWeekIn;
+document.getElementById("date-checkin").addEventListener("change", () => {
+    var selectedDateCheckIn = document.getElementById("date-checkin").value;
+    var dateObjectIn = new Date(selectedDateCheckIn);
+    var dayOfWeekIn = days[dateObjectIn.getDay()];
+    document.getElementById("dayCheckIn").innerHTML = dayOfWeekIn;
+});
+
+var selectedDateCheckOut = document.getElementById("date-checkout").value;
+var dateObjectOut = new Date(selectedDateCheckOut);
+var dayOfWeekOut = days[dateObjectOut.getDay()];
+document.getElementById("dayCheckOut").innerHTML = dayOfWeekOut;
+document.getElementById("date-checkout").addEventListener("change", () => {
+    var selectedDateCheckOut = document.getElementById("date-checkout").value;
+    var dateObjectOut = new Date(selectedDateCheckOut);
+    var dayOfWeekOut = days[dateObjectOut.getDay()];
+    document.getElementById("dayCheckOut").innerHTML = dayOfWeekOut;
+});
+
+
+
+    function changeLanguage() {
+        var selectedUrl = document.getElementById("languageSelect").value;
+        window.location.href = selectedUrl; // Chuyển hướng đến URL được chọn
+    }

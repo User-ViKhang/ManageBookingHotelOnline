@@ -11,10 +11,12 @@ namespace Booking_Backend.Service.SendEmail
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _config;
-        public EmailService(IConfiguration config)
-        {
-            _config = config;
-        }
+        private readonly string _from;
+        private readonly string _pass;
+        private readonly int _port;
+        private readonly bool _enableSSL;
+        private readonly string _host;
+
 
         public async Task<bool> SendEmail( string _to, string _subject, string _body)
         {

@@ -1,0 +1,274 @@
+﻿@model DetailViewModel
+@{
+    ViewData["Title"] = "Trang chi tiết";
+    Layout = "_Layout";
+}
+
+@section IndexStyle {
+    <link rel="stylesheet" href="~/style/hotel/detail.css">
+}
+
+
+    <div class="container">
+        <div class="row main-page">
+            <div class="col-md-3 main-page-content left-bar">
+                <div class="searchbox-layout-vertical">
+                    <h4>Tìm theo</h4>
+                </div>
+            </div>
+            <div class="col-md-9 main-page-content main-content">
+                <div class="info-layout-full">
+                    <h4>@Model.HotelDetail.HotelTranslations.FirstOrDefault().Name</h4>
+                    <div class="info-title-hotel">
+                        <a href=""><i class="bi bi-pin-map-fill"></i></a>
+                    <p>@Model.HotelDetail.HotelTranslations.FirstOrDefault().Area - @Model.HotelDetail.HotelTranslations.FirstOrDefault().Address - </p>
+                        <a href="#">
+                            <div> Hiển thị bản đồ</div>
+                        </a>
+                    </div>
+                    <div class="list-img-hotel">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row pb-2">
+                                    <div class="col-md-12 pr-2">
+                                        <img src="../../img/location/13125860.png" alt="" class="img-1-1">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 pr-2">
+                                        <img src="../../img/location/13125860.png" alt="" class="img-1-2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 pl-0">
+                                <img src="../../img/location/13125860.png" alt="" class="img-2">
+                            </div>
+                        </div>
+                        <div class="row list-thimbnail">
+                            <div class="col-md-2 card-img-3 pr-1 pl-1">
+                                <img src="../../img/location/420377357.png" alt="">
+                            </div>
+                            <div class="col-md-2 card-img-3 pr-1 pl-1">
+                                <img src="../../img/location/420377357.png" alt="">
+                            </div>
+                            <div class="col-md-2 card-img-3 pr-1 pl-1">
+                                <img src="../../img/location/420377357.png" alt="">
+                            </div>
+                            <div class="col-md-2 card-img-3 pr-1 pl-1">
+                                <img src="../../img/location/420377357.png" alt="">
+                            </div>
+                            <div class="col-md-2 card-img-3 pr-1 pl-1">
+                                <img src="../../img/location/420377357.png" alt="">
+                            </div>
+                            <div class="col-md-2 card-img-3 pr-1 pl-1 ">
+                                <img src="../../img/location/420377357.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row feature-extension pb-5">
+            <div class="col-md-12">
+                <div class="row pb-3">
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Căn hộ</div>
+                    </div>
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Bãi đỗ xe riêng</div>
+                    </div>
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>WiFi miễn phí</div>
+                    </div>
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Hồ bơi riêng</div>
+                    </div>
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Hồ bơi ngoài trời</div>
+                    </div>
+                    <div class="col-md-2 extension-item pl-0 pr-0">
+                        <div>Ban công</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Nhìn ra biển</div>
+                    </div>
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Điều hòa không khí</div>
+                    </div>
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Sân hiên</div>
+                    </div>
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Phòng tắm riêng</div>
+                    </div>
+                    <div class="col-md-2 extension-item pr-3 pl-0">
+                        <div>Phòng tắm riêng</div>
+                    </div>
+                    <div class="col-md-2 extension-item pl-0 pr-0">
+                        <div>Phòng tắm riêng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row description-hotel">
+            <div class="col-md-9">
+                <div class="description-content">
+                @Model.HotelDetail.HotelTranslations.FirstOrDefault().Description
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-checksave">
+                    <div class="pb-2">Bạn chưa có quyết định ?</div>
+                    <div class="btn-savehotel">
+                        <input type="submit" value="Lưu chỗ nghỉ">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row show-room">
+            <h3>Phòng trống</h3>
+            <div class="search-room">
+                <div class="container">
+                    <div class="row search-box">
+                        <div class="col-md-4">
+                            <div class="search-by-location search-by">
+                                <i class="bi bi-search mr-3"></i>
+                                <input type="text" name="" placeholder="Hà Nội, An Giang, Đà Nẵng?" id="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="search-by-datetime search-by">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-3 d-flex align-items-center">
+                                                    <i class="bi bi-calendar2"></i>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="row">
+                                                        <span style="font-size: 14px;">
+                                                            <input class="date-check" type="date">
+                                                        </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span style="font-size: 16px; color: #908a8a">CheckIn</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 before-calender">
+                                            <div class="row">
+                                                <div class="col-md-3 d-flex align-items-center">
+                                                    <i class="bi bi-calendar2-check"></i>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="row">
+                                                        <span style="font-size: 14px;">
+                                                            <input class="date-check" type="date">
+                                                        </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span style="font-size: 16px; color: #908a8a">CheckOut</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="search-by-people-and-find search-by">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3 d-flex align-items-center">
+                                                    <i class="bi bi-people" style="font-size: 20px;"></i>
+                                                </div>
+                                                <div class="col-md-9" style="padding-left: 20px;">
+                                                    <div class="row">
+                                                        <span style="font-size: 14px;">27/03 năm 2024</span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span style="font-size: 16px; color: #908a8a">Thứ Tư</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <button class="btn btn-info" style="padding: 10px 50px;">TÌM</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="room-list pt-5">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2">Loại chỗ nghỉ</th>
+                            <th class="col-md-2">Tiện ích phòng</th>
+                            <th class="col-md-1">SL khách</th>
+                            <th class="col-md-2">Giá hôm nay</th>
+                            <th class="col-md-1">Còn trống</th>
+                            <th class="col-md-2"></th>
+                        </tr>
+                    </thead>
+                <tbody class="room-detail-body">
+                    @foreach(var item in Model.HotelDetail.Rooms)
+                    {
+                        <form method="post">
+                            <tr>
+                                <input type="hidden" name="Id" value="@item.Id"/>
+                                <td>
+                                    <a href="">@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name</a>
+                                    <div style="font-size: 15px">@item.Bed.BedTranslations.FirstOrDefault().Name</div>
+                                    <br>
+                                    <span class="description-room-item">Mô tả loại giường: </span>
+                                    <p class="desroom-content">
+                                        @item.Bed.BedTranslations.FirstOrDefault().Description    
+                                    </p>
+                                </td>
+                                <td><span class="extenname-item"></span>,</td>
+                                <td>@item.Maximum</td>
+                                <td style="font-size: 25px;">
+                                    @item.PriceOverNight <span>VND</span>
+                                    <div class="price-old">200.000 <span>VND</span></div>
+                                    <div class="VAT-room">Đã bao gồm thuế và phí</div>
+                                </td>
+                                <td class="d-flex justify-content-center" style="border: none; border-top: thin solid #ccc">
+                                    <div class=" d-flex align-items-center justify-content-center" style="font-size: 20px; border: thin solid #ccc; height:45px; width: 60px; background-color: #f7f3f3;">2</div>
+                                </td>
+                                <td style="" class="column-result">
+                                    <select class="form-control">
+                                           <option>0</option>
+                                           <option>1</option>
+                                           <option>2</option>
+                                           <option>3</option>
+                                    </select>
+                                    <span>phòng</span> đã được chọn
+                                    <h4 class="pt-3"><span class="total-price">0</span>VND </h4>
+                                    <p style="font-weight: 300; font-size: 14px">Đã bao gồm thuế</p>
+                                    <input type="submit" value="Tôi sẽ đặt" style="width: 100%" class="btn btn-primary">
+                                    <input type="submit" value="Thêm vào giỏ" style="width: 100%" class="btn btn-outline-primary mt-1">
+                                    <p class="pt-2" style="font-weight: 300; font-size: 14px">
+                                        * Bạn sẽ được chuyển đến bước
+                                        kế tiếp
+                                    </p>
+                                </td>
+                            </tr>
+                        </form>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

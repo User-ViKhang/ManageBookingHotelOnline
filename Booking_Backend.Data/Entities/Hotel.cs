@@ -11,6 +11,7 @@ namespace Booking_Backend.Data.Entities
         public DateTime Establish { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+        public string? Thumbnail { get; set; }
 
         public List<Comment> Comments { get; set; }
         public List<Hotel_Service> Hotel_Services { get; set; }
@@ -22,6 +23,8 @@ namespace Booking_Backend.Data.Entities
         public int HotelType_Id { get; set; }
         public ViewHotel ViewHotel { get; set; }
         public int ViewHotel_Id { get; set; }
+        public Location Location { get; set; }
+        public int? Location_Id { get; set; }
 
     }
 }

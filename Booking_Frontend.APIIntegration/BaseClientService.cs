@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -29,12 +31,13 @@ namespace Booking_Frontend.APIIntegration
 
         public async Task<TRespone> GetAsync<TRespone>(string url)
         {
+            string encodedUrl = Uri.EscapeUriString(url);
             var client = _httpClientfactory.CreateClient();
             var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
             client.BaseAddress = new Uri(_config["HostServer"]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
-            var response = await client.GetAsync(url);
+            var response = await client.GetAsync(encodedUrl);
             var body = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {

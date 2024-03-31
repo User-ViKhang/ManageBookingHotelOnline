@@ -1,0 +1,166 @@
+﻿@import '../variable/variable.scss';
+
+.main-page {
+    .main-page-content {
+        padding-right: 0;
+        padding-bottom: 50px;
+    }
+
+    .left-bar {
+        .searchbox-layout-vertical {
+            height: 100px;
+            border: thin solid black;
+
+            h4 {
+                padding: 10px;
+            }
+        }
+    }
+
+    .main-content {
+        .info-layout-full {
+            padding: 10px 0 0px 0;
+
+            .info-title-hotel {
+                display: flex;
+
+                a {
+                    padding: 0 5px;
+                }
+            }
+
+            .list-img-hotel {
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                }
+
+                .img-1-1,
+                .img-1-2 {
+                    height: 150px;
+                }
+
+                .img-2 {
+                    height: 308px;
+                }
+            }
+        }
+
+        .list-thimbnail {
+            padding: 10px 10px 0 10px;
+        }
+    }
+}
+
+.feature-extension {
+    .extension-item {
+        div {
+            display: flex;
+            justify-content: center;
+            border: thin solid #ccc;
+            padding: 15px 0;
+        }
+    }
+}
+
+.description-hotel {
+    border-bottom: thin solid #ccc;
+    padding-bottom: 40px;
+
+    .description-content {
+        font-weight: 300;
+    }
+
+    .card-checksave {
+        height: 100px;
+        background-color: rgb(240, 247, 252);
+        box-shadow: 2px 3px 5px #ccc;
+        border-radius: 5px;
+
+        div {
+            padding: 5px 0 0 10px;
+            font-size: 18px;
+        }
+
+        .btn-savehotel {
+            padding: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            input {
+                width: 90%;
+                background-color: $--primary-color;
+                border: none;
+                height: 40px;
+                color: white;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+.show-room {
+    padding-top: 30px;
+
+    .select-check {
+        padding: 10px 0;
+    }
+}
+
+.room-list {
+    width: 100%;
+
+    table {
+        width: 100%;
+        box-shadow: 2px 2px 8px 8px #dde5f3;
+
+        .column-result {
+            background-color: #ebf3ff;
+
+            span {
+                padding-right: 5px;
+            }
+        }
+
+        th {
+            background-color: $--primary-color;
+            color: white;
+            font-weight: 300;
+        }
+
+        a {
+            font-size: 20px;
+            text-decoration: underline;
+        }
+
+        .description-room-item {
+            padding-right: 5px;
+            font-weight: 500;
+            font-size:15px;
+        }
+
+        .VAT-room {
+            font-size: 15px;
+            font-weight: 300;
+            color: #ccc;
+        }
+
+        .price-old {
+            font-size: 15px;
+            font-weight: 300;
+            color: red;
+            text-decoration: line-through;
+        }
+    }
+}
+    
+
+.desroom-content {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.extenname-item {
+    padding-right: 5px
+}

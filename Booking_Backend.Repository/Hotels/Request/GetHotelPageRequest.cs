@@ -5,9 +5,12 @@ using System.Text;
 
 namespace Booking_Backend.Repository.Hotels.Request
 {
-    public class GetHotelPageRequest : PagingRequestBase
+    public class GetHotelByLocationRequest : PagingRequestBase
     {
-        public string Keyword { get; set; }
-        public string Language { get; set; }
+        public string LanguageId { get; set; }
+        public string LocationName { get; set; }
+        public DateTime DateCheckIn { get; set; }
+        public DateTime DateCheckOut { get; set; }
+        public int TotalPeople { get; set; }
     }
 }
