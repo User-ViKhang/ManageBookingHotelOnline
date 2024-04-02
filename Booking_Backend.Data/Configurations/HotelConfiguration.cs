@@ -25,6 +25,7 @@ namespace Booking_Backend.Data.Configurations
             builder.HasOne(x => x.HotelType).WithMany(x => x.Hotels).HasForeignKey(x => x.HotelType_Id);
             builder.HasOne(x => x.ViewHotel).WithMany(x => x.Hotels).HasForeignKey(x => x.ViewHotel_Id);
             builder.HasOne(x => x.Location).WithMany(x => x.Hotels).HasForeignKey(x => x.Location_Id);
+            builder.HasOne(x => x.User).WithMany(x => x.Hotels).HasForeignKey(x => x.User_Id);
         }
     }
 }

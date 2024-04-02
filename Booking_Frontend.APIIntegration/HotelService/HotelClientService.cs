@@ -32,5 +32,10 @@ namespace Booking_Frontend.APIIntegration.HotelService
             return await GetAsync<PageResult<HotelViewModel>>($"/api/Hotel?LanguageId={request.LanguageId}&LocationName={request.LocationName}&DateCheckIn={request.DateCheckIn.ToString("MM-dd-yyyy")}&DateCheckOut={request.DateCheckOut.ToString("MM-dd-yyyy")}&TotalPeople={request.TotalPeople}&PageIndex={request.PageIndex}&PageSize={request.PageSize}");
                                                                                               //https://localhost:5001/api/Hotel?LanguageId=vi-VN&LocationName=Da%20Lat&DateCheckIn=11-11-2024&DateCheckOut=11-11-2024&TotalPeople=2&PageIndex=1&PageSize=10
         }
+
+        public async Task<HotelOwnerViewModel> GetHotelByUserId(Guid Id, string LanguageId)
+        {
+            return await GetAsync<HotelOwnerViewModel>($"/api/hotel/{LanguageId}/hotel-user/{Id}");
+        }
     }
 }

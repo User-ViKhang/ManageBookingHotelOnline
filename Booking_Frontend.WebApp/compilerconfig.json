@@ -14,5 +14,13 @@
   {
     "outputFile": "wwwroot/style/hotel/detail.css",
     "inputFile": "wwwroot/style/hotel/detail.scss"
+  },
+  {
+    "outputFile": "wwwroot/style/booking/step1booking.css",
+    "inputFile": "wwwroot/style/booking/step1booking.scss"
+  },
+  {
+    "outputFile": "wwwroot/style/owner/notifybooking/index.css",
+    "inputFile": "wwwroot/style/owner/notifybooking/index.scss"
   }
 ]

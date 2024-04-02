@@ -277,7 +277,6 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Resources.Reader.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Resources.ResourceManager.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Resources.Writer.dll
-Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Runtime.CompilerServices.Unsafe.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Runtime.CompilerServices.VisualC.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Runtime.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Runtime.Extensions.dll
@@ -296,7 +295,6 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Security.AccessControl.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Security.Claims.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Security.Cryptography.Algorithms.dll
-Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Security.Cryptography.Cng.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Security.Cryptography.Csp.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Security.Cryptography.Encoding.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Security.Cryptography.Primitives.dll
@@ -309,7 +307,6 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Security.SecureString.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.ServiceModel.Web.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.ServiceProcess.dll
-Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Text.Encoding.CodePages.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Text.Encoding.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Text.Encoding.Extensions.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\refs\System.Text.RegularExpressions.dll
@@ -483,7 +480,6 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\Booking_Backend.Utilities.pdb
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Booking_Frontend.WebApp.MvcApplicationPartsAssemblyInfo.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\staticwebassets\Booking_Frontend.WebApp.StaticWebAssets.xml
-Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Owner\Index.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Booking_Frontend.WebApp.csproj.GenerateResource.cache
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\SlideshowLocation\Default.cshtml.g.cs
@@ -498,3 +494,16 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutSearchResult.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Location\SearchResult.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Hotel\Detail.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Booking\ConfirmInfo.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutProcessBooking.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\BouncyCastle.Cryptography.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\MailKit.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\MimeKit.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\System.Formats.Asn1.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Cng.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Security.Cryptography.Cng.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\HomeOwner\Index.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOwner.cshtml.g.cs

@@ -244,6 +244,29 @@ namespace Booking_Backend.Service.Hotels
             return PagedResult;
         }
 
-
+        public async Task<HotelOwnerViewModel> GetHotelByUserId(Guid Id, string LanguageId)
+        {
+            var userId = await _context.Users.Where(x=>x.Id == Id).Select(x=>x.Id).FirstOrDefaultAsync();
+            if (userId == Guid.Empty) throw new BookingException("Người dùng không tồn tại");
+            var hotel = _context.Hotels.Where(x=>x.User_Id == userId).FirstOrDefault();
+            var hotelTranslation = _context.HotelTranslations.Where(x=>x.Hotel_Id==hotel.Id && x.Language_Id == LanguageId).FirstOrDefault();
+            if (hotel == null) throw new BookingException("Chỗ nghĩ không tồn tại");
+            var hotelOwnerViewModel = new HotelOwnerViewModel()
+            {
+                Id = hotel.Id,
+                Hotline = hotel.Hotline,
+                Establish = hotel.Establish,
+                Latitude = hotel.Latitude,
+                Longitude = hotel.Longitude,
+                Thumbnail = hotel.Thumbnail,
+                Name = hotelTranslation.Name,
+                Area = hotelTranslation.Area,
+                Address = hotelTranslation.Address,
+                Description = hotelTranslation.Description,
+                ShortDescription = hotelTranslation.ShortDescription,
+                Language_Id = hotelTranslation.Language_Id
+            };
+            return hotelOwnerViewModel;
+        }
     }
 }

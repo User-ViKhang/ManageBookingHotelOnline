@@ -1,0 +1,33 @@
+﻿.container {
+    height: 100px;
+}
+
+.homeowner-page {
+    margin: 20px;
+
+    .title {
+        margin-right: 10px;
+    }
+}
+
+.table-all-booking {
+    th {
+        font-size: 14px;
+    }
+
+    th.number-guest {
+        width: 85px;
+    }
+
+    th.id-booking {
+        width: 145px;
+    }
+
+    tr {
+        font-size: 14px;
+    }
+}
+
+.underline-none {
+    text-decoration: none;
+}

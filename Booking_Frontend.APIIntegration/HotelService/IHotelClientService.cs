@@ -14,5 +14,7 @@ namespace Booking_Frontend.APIIntegration.HotelService
     {
         Task<PageResult<HotelViewModel>> GetHotelByLocation(GetHotelByLocationRequest request);
         Task<HotelDetailViewModel> GetHotelById(int Id, string LanguageId);
+        Task<HotelOwnerViewModel> GetHotelByUserId(Guid Id, string LanguageId);
+
     }
 }

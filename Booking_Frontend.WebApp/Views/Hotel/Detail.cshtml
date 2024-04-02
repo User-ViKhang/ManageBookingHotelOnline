@@ -1,4 +1,9 @@
 ﻿@model DetailViewModel
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
 @{
     ViewData["Title"] = "Trang chi tiết";
     Layout = "_Layout";
@@ -225,12 +230,18 @@
                 <tbody class="room-detail-body">
                     @foreach(var item in Model.HotelDetail.Rooms)
                     {
-                        <form method="post">
+                        <form method="post" asp-controller="Booking" asp-action="ConfirmInfo" asp-route-culture="@culture">
                             <tr>
-                                <input type="hidden" name="Id" value="@item.Id"/>
+                                <input type="hidden" name="RoomId" value="@item.Id"/>
+                                <input type="hidden" name="HotelId" value="@Model.HotelDetail.Id"/>
                                 <td>
+                                    <input type="hidden" name="HotelName" value="@Model.HotelDetail.HotelTranslations.FirstOrDefault().Name" />
+                                    <input type="hidden" name="Address" value="@Model.HotelDetail.HotelTranslations.FirstOrDefault().Address" />
+                                    <input type="hidden" name="Hotline" value="@Model.HotelDetail.Hotline" />
                                     <a href="">@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name</a>
+                                    <input type="hidden" name="RoomTypeName" value="@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name" />
                                     <div style="font-size: 15px">@item.Bed.BedTranslations.FirstOrDefault().Name</div>
+                                    <input type="hidden" name="BedName" value="@item.Bed.BedTranslations.FirstOrDefault().Name" />
                                     <br>
                                     <span class="description-room-item">Mô tả loại giường: </span>
                                     <p class="desroom-content">
@@ -240,6 +251,7 @@
                                 <td><span class="extenname-item"></span>,</td>
                                 <td>@item.Maximum</td>
                                 <td style="font-size: 25px;">
+                                <input type="hidden" name="Price" value="@item.PriceOverNight" />
                                     @item.PriceOverNight <span>VND</span>
                                     <div class="price-old">200.000 <span>VND</span></div>
                                     <div class="VAT-room">Đã bao gồm thuế và phí</div>
@@ -247,18 +259,16 @@
                                 <td class="d-flex justify-content-center" style="border: none; border-top: thin solid #ccc">
                                     <div class=" d-flex align-items-center justify-content-center" style="font-size: 20px; border: thin solid #ccc; height:45px; width: 60px; background-color: #f7f3f3;">2</div>
                                 </td>
-                                <td style="" class="column-result">
-                                    <select class="form-control">
-                                           <option>0</option>
-                                           <option>1</option>
-                                           <option>2</option>
-                                           <option>3</option>
+                                <td class="column-result">
+                                    <select name="RoomQuality" class="form-control">
+                                           <option value="0">0</option>
+                                           <option value="1">1</option>
+                                           <option value="2">2</option>
                                     </select>
                                     <span>phòng</span> đã được chọn
                                     <h4 class="pt-3"><span class="total-price">0</span>VND </h4>
                                     <p style="font-weight: 300; font-size: 14px">Đã bao gồm thuế</p>
                                     <input type="submit" value="Tôi sẽ đặt" style="width: 100%" class="btn btn-primary">
-                                    <input type="submit" value="Thêm vào giỏ" style="width: 100%" class="btn btn-outline-primary mt-1">
                                     <p class="pt-2" style="font-weight: 300; font-size: 14px">
                                         * Bạn sẽ được chuyển đến bước
                                         kế tiếp

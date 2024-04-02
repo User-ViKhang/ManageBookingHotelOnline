@@ -9,6 +9,8 @@ using Booking_Frontend.APIIntegration.Profile;
 using Booking_Frontend.APIIntegration.User;
 using Microsoft.Extensions.Configuration;
 using Booking_Backend.Data.Enums;
+using System.Linq;
+using System.Security.Claims;
 
 namespace Booking_Frontend.WebApp.Controllers
 {
@@ -53,12 +55,14 @@ namespace Booking_Frontend.WebApp.Controllers
             HttpContext.Session.SetString("DefaultLanguageId", _config["DefaultLanguageId"]);
             HttpContext.Session.SetString("Token", token);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
+            var userClaim = userPrincipal.Claims;
             if(userPrincipal.IsInRole(Roles.Client.ToString()))
             {
                 return RedirectToAction("index", "client");
-            } else if (userPrincipal.IsInRole(Roles.Client.ToString()))
+            } else if (userPrincipal.IsInRole(Roles.Owner.ToString()))
             {
-                return RedirectToAction("index", "owner");
+                var userId = userPrincipal.FindFirst(c => c.Type == "UserId").Value;
+                return RedirectToAction("index", "homeowner", new { id = userId });
             } else
             {
                 return View("login");

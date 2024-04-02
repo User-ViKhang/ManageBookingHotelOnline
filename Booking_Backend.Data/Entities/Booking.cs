@@ -12,8 +12,12 @@ namespace Booking_Backend.Data.Entities
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public decimal TotalAmount { get; set; }
-        public AppUser User { get; set; }
-        public Guid User_Id { get; set; }
+        public int TotalRoom { get; set; }
+        public string? Note { get; set; }
+        public AppUser? User { get; set; }
+        public Guid? User_Id { get; set; }
+        public GuestCustomer GuestCustomer { get; set; }
+        public int? GuestCustomer_Id { get; set; }
         public StatusBooking Status { get; set; }
         public List<Room_Booking> Room_Bookings { get; set; }
 

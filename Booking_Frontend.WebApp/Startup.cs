@@ -1,6 +1,7 @@
 using Booking_Backend.Repository.Users.Validator;
 using Booking_Frontend.AdminApp.Service.APIFree;
 using Booking_Frontend.APIIntegration.BedService;
+using Booking_Frontend.APIIntegration.BookingService;
 using Booking_Frontend.APIIntegration.ExtensionRoom;
 using Booking_Frontend.APIIntegration.ExtensionTypeRoom;
 using Booking_Frontend.APIIntegration.HotelService;
@@ -82,6 +83,7 @@ namespace Booking_Frontend.WebApp
             services.AddScoped<IBedClientService, BedClientService>();
             services.AddScoped<ILocationClientService, LocationClientService>();
             services.AddScoped<IHotelClientService, HotelClientService>();
+            services.AddScoped<IBookingClientService, BookingClientService>();
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromMinutes(10);
@@ -120,8 +122,14 @@ namespace Booking_Frontend.WebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{culture=vi-VN}/{controller=home}/{action=index}/{id?}");
-                    //pattern: "{controller=hotel}/{action=detail}/{id?}");
 
+                //endpoints.MapControllerRoute(
+                //    name: "Step 1 booking",
+                //    pattern: "{culture}/owner/{id?}", new
+                //    {
+                //        controller = "HomeOwner",
+                //        action = "Index"
+                //    });
             });
         }
     }

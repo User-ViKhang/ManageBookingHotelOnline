@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     var culture = CultureInfo.CurrentCulture.Name;
 }
 
@@ -58,8 +58,8 @@
                 <i class="bi bi-info-circle"></i>
             </div>
             <div class="wrapper-btn wrapper-btn-login">
-                <a href="" class="btn-link login-link">
-                    <localize>Đăng nhập</localize> 
+                <a href="@(culture)/auth/login" class="btn-link login-link">
+                    <localize>Đăng nhập</localize>
                 </a>
             </div>
             <div class="wrapper-btn wrapper-btn-register">

@@ -30,6 +30,7 @@ namespace Booking_Frontend.WebApp.Controllers
         {
             _httpContextAccessor.HttpContext.Session.SetString("date-checkin", dateCheckIn.ToString());
             _httpContextAccessor.HttpContext.Session.SetString("date-checkout", dateCheckOut.ToString());
+            _httpContextAccessor.HttpContext.Session.SetString("total-people", totalPeople.ToString());
             if(!ModelState.IsValid) return BadRequest(ModelState);
             var request = new GetHotelByLocationRequest()
             {

@@ -25,6 +25,8 @@ namespace Booking_Backend.Data.Entities
         public int ViewHotel_Id { get; set; }
         public Location Location { get; set; }
         public int? Location_Id { get; set; }
+        public AppUser User { get; set; }
+        public Guid? User_Id { get; set; }
 
     }
 }

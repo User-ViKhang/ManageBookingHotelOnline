@@ -2,6 +2,7 @@
 using Booking_Backend.Service.Hotels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Booking_Backend.API.Controllers
@@ -31,6 +32,15 @@ namespace Booking_Backend.API.Controllers
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
             var data = await _hotelAPIService.GetHotelById(Id, LanguageId);
+            if (data == null) return BadRequest();
+            return Ok(data);
+        }
+
+        [HttpGet("{LanguageId}/hotel-user/{Id}")]
+        public async Task<IActionResult> GetHotelByUserId(Guid Id, string LanguageId)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            var data = await _hotelAPIService.GetHotelByUserId(Id, LanguageId);
             if (data == null) return BadRequest();
             return Ok(data);
         }

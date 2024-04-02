@@ -48,11 +48,6 @@ namespace Booking_Backend.API.Controllers
         [HttpPost("forget-password"), AllowAnonymous]
         public async Task<IActionResult> ForgetPassword([FromBody] string email)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            var token = await _userService.ForgetPassword(email);
-            if (!token.IsSuccessed) return NotFound();
-            var callBackURL = Url.Action("ResetPassword", "Users", new {token = token, email = email}, Request.Scheme);
-            var resultSendEmail = await _emailService.SendEmail(email, "Reset Your Password", $"Please reset your password by clicking here: <a href='ghisau'>{token}</a>");
             return Ok();
         }
 
