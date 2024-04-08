@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Booking_Frontend.WebApp.Controllers
@@ -6,9 +7,10 @@ namespace Booking_Frontend.WebApp.Controllers
     [Authorize(Roles = "Client")]
     public class ClientController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string Id)
         {
-            return View();
+            HttpContext.Session.SetString("UserIdClient", Id);
+            return RedirectToAction("index", "home");
         }
         
 

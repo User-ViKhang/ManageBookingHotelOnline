@@ -20,6 +20,7 @@ namespace Booking_Backend.Repository.BookingRepo.Request
         public string Nation { get; set; }
         public StatusBooking Status { get; set; }
         public decimal Price { get; set; }
+        public int TotalPeople { get; set; }
 
         public int HotelId { get; set; }
         public int RoomId { get; set; }

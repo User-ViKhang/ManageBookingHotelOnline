@@ -1,4 +1,5 @@
 ﻿using Booking_Backend.Repository.Hotels.Request;
+using Booking_Backend.Repository.HotelTypes.Requests;
 using Booking_Backend.Service.Hotels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,15 @@ namespace Booking_Backend.API.Controllers
             if (data == null) return BadRequest();
             return Ok(data);
         }
+        
+        [HttpGet("image-hotel/{Id}")]
+        public async Task<IActionResult> GetImageHotelById(int Id)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            var data = await _hotelAPIService.GetListImageHotel(Id);
+            if (data == null) return BadRequest();
+            return Ok(data);
+        }
 
         [HttpGet("{LanguageId}/hotel-user/{Id}")]
         public async Task<IActionResult> GetHotelByUserId(Guid Id, string LanguageId)
@@ -44,5 +54,44 @@ namespace Booking_Backend.API.Controllers
             if (data == null) return BadRequest();
             return Ok(data);
         }
+        
+        [HttpGet("{LanguageId}/hotel-view/{Id}")]
+        public async Task<IActionResult> GetHotelByView(int Id, string languageId)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            var data = await _hotelAPIService.GetHotelByView(languageId,Id);
+            if (data == null) return BadRequest();
+            return Ok(data);
+        }
+
+        [HttpPut("{Id}"), Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateHotelThumbnail(int Id, [FromForm] CreateImageHotelRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var isResult = await _hotelAPIService.CreateImageThumbnailHotel(Id, request);
+            if (!isResult) return BadRequest();
+            return Ok(isResult);
+        }
+
+        [HttpPost("{Id}"), Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateHotelImage(int Id, [FromForm] CreateImageHotelRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var isResult = await _hotelAPIService.CreateImageHotel(Id, request);
+            if (!isResult) return BadRequest();
+            return Ok(isResult);
+        }
+
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteHotelType(int Id)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var isResult = await _hotelAPIService.DeleteHotelImage(Id);
+            if (!isResult) return BadRequest();
+            return Ok(isResult);
+        }
+
+
     }
 }

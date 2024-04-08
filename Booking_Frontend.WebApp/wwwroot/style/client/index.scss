@@ -62,8 +62,9 @@ body {
                 margin-left: 20px;
 
                 .language-quocki:hover {
-                    background-color: $--primary-color;
-                    color: white;
+                    background-color: white;
+                    color: $--primary-color;
+                    border: thin solid $--primary-color;
                     transition: background-color linear .2s;
                 }
 
@@ -150,11 +151,10 @@ body {
             position: absolute;
             width: 1000px;
             top: -350px;
-            height: 300px;
-            box-shadow: 1px 1px 5px 1px rgb(184, 180, 180);
+            height: 270px;
             border-radius: 15px;
             background-color: $--textlight-color;
-            background-color: rgba(245, 241, 241, 0.8);
+            background-color: rgba(245, 241, 241, 0.4);
 
             .container {
                 .option-hotel {
@@ -249,9 +249,14 @@ body {
     width: 100px;
 }
 
+.input-address::placeholder {
+    font-weight: 300;
+    color: #ccc;
+}
+
 .btn-find-room {
     position: absolute;
-    bottom: -100px;
+    bottom: -70px;
     left: calc(50% - 110px);
 
     .btn-find {
@@ -293,7 +298,10 @@ body {
     }
 }
 
+.link-hotel:hover {
+    text-decoration: none;
 
+}
 
 .img-6 {
     height: 310px;
@@ -355,7 +363,6 @@ body {
     }
 
     i#chevron-left-icon {
-        left: -25px;
     }
 
     i#chevron-right-icon {
@@ -367,7 +374,6 @@ body {
 .slide-show {
     width: 100%;
     overflow: hidden;
-    // overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 

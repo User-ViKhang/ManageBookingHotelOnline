@@ -21,6 +21,8 @@ namespace Booking_Backend.Data.Configurations
             builder.Property(x => x.Latitude).HasColumnType("decimal");
             builder.Property(x => x.Longitude).HasColumnType("decimal");
             builder.Property(x => x.Thumbnail);
+            builder.Property(x => x.Preview).HasDefaultValue(0).IsRequired(false);
+            builder.Property(x => x.Score).HasDefaultValue(0m).IsRequired(false);
 
             builder.HasOne(x => x.HotelType).WithMany(x => x.Hotels).HasForeignKey(x => x.HotelType_Id);
             builder.HasOne(x => x.ViewHotel).WithMany(x => x.Hotels).HasForeignKey(x => x.ViewHotel_Id);

@@ -1,4 +1,5 @@
-﻿@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
 @{
     var culture = CultureInfo.CurrentCulture.Name;

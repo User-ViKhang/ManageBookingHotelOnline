@@ -117,17 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="1 Người lớn" xml:space="preserve">
-    <value>1 Adult</value>
-    <comment>Home/Index</comment>
-  </data>
   <data name="Bãi biển" xml:space="preserve">
     <value>Beach</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Bậc hạng" xml:space="preserve">
+    <value>Grade level</value>
+  </data>
   <data name="Bắt đầu từ" xml:space="preserve">
     <value>Starting from</value>
     <comment>Home/Index</comment>
+  </data>
+  <data name="Bộ lọc tự động" xml:space="preserve">
+    <value>Automatic filter</value>
   </data>
   <data name="chỗ nghỉ" xml:space="preserve">
     <value>properties</value>
@@ -149,6 +151,9 @@
     <value>Vietnamese tourist attractions</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Giá thấp nhất" xml:space="preserve">
+    <value>Lowest price</value>
+  </data>
   <data name="Giảm giá 10% cho chỗ nghỉ" xml:space="preserve">
     <value>10% discount for accommodation</value>
     <comment>Home/Index</comment>
@@ -157,9 +162,18 @@
     <value>Up to 15% off car rental</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Hiển thị" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Hiển thị bản đồ" xml:space="preserve">
+    <value>Following map</value>
+  </data>
   <data name="Huế" xml:space="preserve">
     <value>Hue</value>
     <comment>Home/Index</comment>
+  </data>
+  <data name="Khuyến mãi" xml:space="preserve">
+    <value>Sales</value>
   </data>
   <data name="Khám phá các địa điểm hàng đầu Việt Nam" xml:space="preserve">
     <value>Explore top locations in Vietnam</value>
@@ -168,6 +182,9 @@
   <data name="Khám phá Việt Nam với những địa điểm du lịch thú vị" xml:space="preserve">
     <value>Explore Vietnam with interesting tourist destinations</value>
     <comment>Home/Index</comment>
+  </data>
+  <data name="Không có khách sạn được tìm thấy" xml:space="preserve">
+    <value>No hotels found</value>
   </data>
   <data name="Lãng mạn" xml:space="preserve">
     <value>Romantic</value>
@@ -182,6 +199,10 @@
     <comment>Share/Layout</comment>
   </data>
   <data name="Người lớn" xml:space="preserve">
+    <value>Adult</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Người sử dụng" xml:space="preserve">
     <value>Adult</value>
     <comment>Home/Index</comment>
   </data>
@@ -201,6 +222,9 @@
     <value>Phòng</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Phù hợp nhất" xml:space="preserve">
+    <value>Best fit</value>
+  </data>
   <data name="Phú Quốc" xml:space="preserve">
     <value>Phu Quoc</value>
     <comment>Home/Index</comment>
@@ -208,6 +232,12 @@
   <data name="Phục vụ mọi chất lượng hãng xe cung cấp, bao chạy bao êm" xml:space="preserve">
     <value>Serving all the quality car brands provide, including smooth running</value>
     <comment>Home/Index</comment>
+  </data>
+  <data name="Sắp xếp theo" xml:space="preserve">
+    <value>Sorted by</value>
+  </data>
+  <data name="Số điểm:" xml:space="preserve">
+    <value>Score: </value>
   </data>
   <data name="TD. Hà Nội" xml:space="preserve">
     <value>Ha Noi capital</value>
@@ -245,6 +275,9 @@
     <value>Find near most hotel ...</value>
     <comment>Share/Layout</comment>
   </data>
+  <data name="Tìm phòng trống" xml:space="preserve">
+    <value>Search now</value>
+  </data>
   <data name="Tạo tài khoản" xml:space="preserve">
     <value>Register</value>
     <comment>Share/Layout</comment>
@@ -261,6 +294,9 @@
     <value>Ha Long Bay</value>
     <comment>Home/Index</comment>
   </data>
+  <data name="Xem bản đồ" xml:space="preserve">
+    <value>Following map</value>
+  </data>
   <data name="Yên tĩnh" xml:space="preserve">
     <value>Peaceful</value>
     <comment>Home/Index</comment>
@@ -268,6 +304,9 @@
   <data name="Đi nhiều hơn, trả ít hơn, ưu đãi hời hơn" xml:space="preserve">
     <value>Travel more, pay less, get better deals</value>
     <comment>Home/Index</comment>
+  </data>
+  <data name="điểm trở lên" xml:space="preserve">
+    <value>points or more</value>
   </data>
   <data name="Đà Lạt" xml:space="preserve">
     <value>Da Lat</value>
@@ -284,6 +323,12 @@
   <data name="đánh giá" xml:space="preserve">
     <value>reviews</value>
     <comment>Home/Index</comment>
+  </data>
+  <data name="Đánh giá cao" xml:space="preserve">
+    <value>Appreciate</value>
+  </data>
+  <data name="Đánh giá:" xml:space="preserve">
+    <value>Evaluate:</value>
   </data>
   <data name="Đăng nhập" xml:space="preserve">
     <value>Login</value>

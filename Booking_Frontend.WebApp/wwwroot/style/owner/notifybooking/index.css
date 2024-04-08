@@ -25,3 +25,20 @@
 .underline-none {
   text-decoration: none;
 }
+
+.search-by-id {
+  width: 100%;
+}
+
+.line-stranght {
+  position: relative;
+}
+
+.line-stranght:before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  background-color: #ccc;
+  left: 0;
+}

@@ -1,5 +1,7 @@
-﻿@model DetailViewModel
+﻿@using Booking_Backend.Data.Enums;
+@model DetailViewModel
 @inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
 @{
     var culture = CultureInfo.CurrentCulture.Name;
@@ -16,19 +18,19 @@
 
     <div class="container">
         <div class="row main-page">
-            <div class="col-md-3 main-page-content left-bar">
-                <div class="searchbox-layout-vertical">
+            @* <div class="col-md-3 main-page-content left-bar">
+                <div class="searchbox-layout-vertical" style="height: 504px; border-color: #ccc">
                     <h4>Tìm theo</h4>
                 </div>
-            </div>
-            <div class="col-md-9 main-page-content main-content">
+            </div> *@
+            <div class="col-md-12 main-page-content main-content">
                 <div class="info-layout-full">
                     <h4>@Model.HotelDetail.HotelTranslations.FirstOrDefault().Name</h4>
                     <div class="info-title-hotel">
                         <a href=""><i class="bi bi-pin-map-fill"></i></a>
                     <p>@Model.HotelDetail.HotelTranslations.FirstOrDefault().Area - @Model.HotelDetail.HotelTranslations.FirstOrDefault().Address - </p>
                         <a href="#">
-                            <div> Hiển thị bản đồ</div>
+                            <div localize-content> Hiển thị bản đồ</div>
                         </a>
                     </div>
                     <div class="list-img-hotel">
@@ -36,38 +38,57 @@
                             <div class="col-md-4">
                                 <div class="row pb-2">
                                     <div class="col-md-12 pr-2">
-                                        <img src="../../img/location/13125860.png" alt="" class="img-1-1">
-                                    </div>
+                                    @if (Model.HotelDetail.Images.Count >= 1)
+                                    {
+                                        <img src="@(Configuration["HostServer"] + Model.HotelDetail.Images[0].ImageUrl)" alt="" class="img-1-1">
+                                    } else
+                                    {
+                                        <img src="" alt="" class="img-1-1">
+                                    }
+                                </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 pr-2">
-                                        <img src="../../img/location/13125860.png" alt="" class="img-1-2">
+                                    @if (Model.HotelDetail.Images.Count  >= 2)
+                                    {
+                                        <img src="@(Configuration["HostServer"] + Model.HotelDetail.Images[1].ImageUrl)" alt="" class="img-1-2">
+                                    }
+                                    else
+                                    {
+                                        <img src="" alt="" class="img-1-2">
+                                    }
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-8 pl-0">
-                                <img src="../../img/location/13125860.png" alt="" class="img-2">
+                            @if (Model.HotelDetail.Images.Count >= 3)
+                            {
+                                <img src="@(Configuration["HostServer"] + Model.HotelDetail.Images[2].ImageUrl)" alt="" class="img-2">
+                            }
+                            else
+                            {
+                                <img src="" alt="" class="img-2">
+                            }
                             </div>
                         </div>
                         <div class="row list-thimbnail">
-                            <div class="col-md-2 card-img-3 pr-1 pl-1">
-                                <img src="../../img/location/420377357.png" alt="">
-                            </div>
-                            <div class="col-md-2 card-img-3 pr-1 pl-1">
-                                <img src="../../img/location/420377357.png" alt="">
-                            </div>
-                            <div class="col-md-2 card-img-3 pr-1 pl-1">
-                                <img src="../../img/location/420377357.png" alt="">
-                            </div>
-                            <div class="col-md-2 card-img-3 pr-1 pl-1">
-                                <img src="../../img/location/420377357.png" alt="">
-                            </div>
-                            <div class="col-md-2 card-img-3 pr-1 pl-1">
-                                <img src="../../img/location/420377357.png" alt="">
-                            </div>
-                            <div class="col-md-2 card-img-3 pr-1 pl-1 ">
-                                <img src="../../img/location/420377357.png" alt="">
-                            </div>
+                        @{
+                            if (Model.HotelDetail.Images.Count>=3)
+                            {
+                                int startIndex = 3; // Bắt đầu từ phần tử thứ 4
+                                for (int i = startIndex; i < Model.HotelDetail.Images.Count; i++)
+                                {
+                                    <div class="col-md-2 card-img-3 pr-1 pl-1">
+                                        @if(Model.HotelDetail.Images[i].ImageUrl != null) {
+                                            <img style="height: 100px" src="@(Configuration["HostServer"] + Model.HotelDetail.Images[i].ImageUrl)" alt="">
+                                        } else
+                                        {
+                                            <img style="height: 100px" src="" alt="">
+                                        }
+                                    </div>
+                                }
+                            }
+                        }
                         </div>
                     </div>
                 </div>
@@ -76,44 +97,12 @@
         <div class="row feature-extension pb-5">
             <div class="col-md-12">
                 <div class="row pb-3">
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Căn hộ</div>
+                @foreach(var item in Model.ServiceHotels)
+                {
+                    <div class="col-md-2 extension-item pr-3 pl-0 mt-2">
+                        <div>@item.Name</div>
                     </div>
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Bãi đỗ xe riêng</div>
-                    </div>
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>WiFi miễn phí</div>
-                    </div>
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Hồ bơi riêng</div>
-                    </div>
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Hồ bơi ngoài trời</div>
-                    </div>
-                    <div class="col-md-2 extension-item pl-0 pr-0">
-                        <div>Ban công</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Nhìn ra biển</div>
-                    </div>
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Điều hòa không khí</div>
-                    </div>
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Sân hiên</div>
-                    </div>
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Phòng tắm riêng</div>
-                    </div>
-                    <div class="col-md-2 extension-item pr-3 pl-0">
-                        <div>Phòng tắm riêng</div>
-                    </div>
-                    <div class="col-md-2 extension-item pl-0 pr-0">
-                        <div>Phòng tắm riêng</div>
-                    </div>
+                }
                 </div>
             </div>
         </div>
@@ -135,7 +124,7 @@
         </div>
         <div class="row show-room">
             <h3>Phòng trống</h3>
-            <div class="search-room">
+            @* <div class="search-room">
                 <div class="container">
                     <div class="row search-box">
                         <div class="col-md-4">
@@ -214,8 +203,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="room-list pt-5">
+            </div> *@
+            <div class="room-list pt-3">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -228,7 +217,7 @@
                         </tr>
                     </thead>
                 <tbody class="room-detail-body">
-                    @foreach(var item in Model.HotelDetail.Rooms)
+                    @foreach(var item in Model.Rooms)
                     {
                         <form method="post" asp-controller="Booking" asp-action="ConfirmInfo" asp-route-culture="@culture">
                             <tr>
@@ -248,27 +237,56 @@
                                         @item.Bed.BedTranslations.FirstOrDefault().Description    
                                     </p>
                                 </td>
-                                <td><span class="extenname-item"></span>,</td>
+                                <td>
+                                    @foreach (var extension in item.Room_Extensions)
+                                    {
+                                        <div style="font-weight: 300; font-size: 14px" class="extenname-item">
+                                            - @if(extension.Extension.ExtensionTranslations.Count > 0)
+                                            {
+                                                <text>@extension.Extension.ExtensionTranslations.FirstOrDefault().Name</text>
+                                            }
+                                        </div>
+                                    }    
+                                </td>
                                 <td>@item.Maximum</td>
                                 <td style="font-size: 25px;">
-                                <input type="hidden" name="Price" value="@item.PriceOverNight" />
-                                    @item.PriceOverNight <span>VND</span>
-                                    <div class="price-old">200.000 <span>VND</span></div>
-                                    <div class="VAT-room">Đã bao gồm thuế và phí</div>
+                                    <input type="hidden" name="Price" value="@item.PriceOverNight" />
+                                    @Convert.ToInt32(item.PriceOverNight) <span>VND</span>
+                                        <div class="price-old">200.000 <span>VND</span></div>
+                                        <div class="VAT-room">Đã bao gồm thuế và phí</div>
                                 </td>
                                 <td class="d-flex justify-content-center" style="border: none; border-top: thin solid #ccc">
-                                    <div class=" d-flex align-items-center justify-content-center" style="font-size: 20px; border: thin solid #ccc; height:45px; width: 60px; background-color: #f7f3f3;">2</div>
+                                    <div class=" d-flex align-items-center justify-content-center" style="font-size: 20px; border: thin solid #ccc; height:45px; width: 60px; background-color: #f7f3f3;">
+                                        @(item.Status == StatusRoom.Empty?1:0)
+                                    </div>
                                 </td>
                                 <td class="column-result">
                                     <select name="RoomQuality" class="form-control">
-                                           <option value="0">0</option>
-                                           <option value="1">1</option>
-                                           <option value="2">2</option>
+                                        @if(item.Status == StatusRoom.Empty)
+                                        {
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                        }else
+                                        {
+                                        <option value="0">0</option>
+                                        }
                                     </select>
-                                    <span>phòng</span> đã được chọn
+                                    @if(item.Status == StatusRoom.Empty)
+                                    {
+                                        <span style="color:blue; font-weight:300; font-size:15px">Chúng tôi còn 1 phòng trống</span>
+                                    }      else
+                                    {
+                                        <span style="color:red; font-weight:300; font-size:15px">Chúng tôi đã hết phòng trống</span>
+                                    }
                                     <h4 class="pt-3"><span class="total-price">0</span>VND </h4>
                                     <p style="font-weight: 300; font-size: 14px">Đã bao gồm thuế</p>
-                                    <input type="submit" value="Tôi sẽ đặt" style="width: 100%" class="btn btn-primary">
+                                    @if(item.Status==StatusRoom.Empty)
+                                    {
+                                        <input type="submit" value="Tôi sẽ đặt" style="width: 100%" class="btn btn-primary">
+                                    }else
+                                    {
+                                        <input disabled type="submit" value="Đã bán hết" style="width: 100%" class="btn btn-outline-primary">
+                                    }
                                     <p class="pt-2" style="font-weight: 300; font-size: 14px">
                                         * Bạn sẽ được chuyển đến bước
                                         kế tiếp

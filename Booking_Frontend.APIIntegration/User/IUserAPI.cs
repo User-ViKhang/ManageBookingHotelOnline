@@ -17,6 +17,7 @@ namespace Booking_Frontend.APIIntegration.User
         Task<APIResult<UserViewModel>> GetUserById(string Id);
         Task<APIResult<UserViewModel>> UpdateUser(string Id, UserViewModel request);
         Task<APIResult<UserViewModel>> Create(string roleName, RegisterRequest request);
+        Task<APIResult<string>> RegisterByUser(RegisterByUser request);
 
     }
 }

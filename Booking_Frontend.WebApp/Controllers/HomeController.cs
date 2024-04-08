@@ -1,6 +1,9 @@
 ﻿using Booking_Frontend.APIIntegration.HotelType;
+using Booking_Frontend.APIIntegration.User;
 using Booking_Frontend.WebApp.Models;
 using LazZiya.ExpressLocalization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,24 +22,43 @@ namespace Booking_Frontend.WebApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ISharedCultureLocalizer _loc;
         private readonly IHotelTypeClientService _hotelType;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserAPI _user;
 
-        public HomeController(ILogger<HomeController> logger, ISharedCultureLocalizer loc, IHotelTypeClientService hotelType)
+        public HomeController(ILogger<HomeController> logger, ISharedCultureLocalizer loc, IHotelTypeClientService hotelType, IHttpContextAccessor httpContextAccessor, IUserAPI user)
         {
             _logger = logger;
             _loc = loc;
             _hotelType = hotelType;
+            _httpContextAccessor = httpContextAccessor;
+            _user = user;
         }
 
         public async Task<IActionResult> Index()
         {
             //var msg = _loc.GetLocalizedString("Đà Nẳng");
             var languageId = CultureInfo.CurrentCulture.Name;
-            var lst = await _hotelType.GetAllHotelType(languageId);
-            var data = new HomeViewModel()
+            if(_httpContextAccessor.HttpContext.Session.GetString("UserIdClient") != null)
             {
-                lstHotelTypeVM = lst
-            };
-            return View(data);
+                var userId = _httpContextAccessor.HttpContext.Session.GetString("UserIdClient");
+                var lst = await _hotelType.GetAllHotelType(languageId);
+                var user = await _user.GetUserById(userId);
+                var data = new DetailViewModel()
+                {
+                    lstHotelTypeVM = lst,
+                    UserClient = user
+                };
+                return View(data);
+            }else
+            {
+                var lst = await _hotelType.GetAllHotelType(languageId);
+                var data = new DetailViewModel()
+                {
+                    lstHotelTypeVM = lst,
+                    UserClient = null
+                };
+                return View(data);
+            }
         }
 
         public IActionResult SetCultureCookie(string cltr, string returnUrl)

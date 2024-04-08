@@ -37,6 +37,7 @@ namespace Booking_Frontend.APIIntegration.User
             var client = _httpClientfactory.CreateClient();
             client.BaseAddress = new Uri(_config["HostServer"]);
             var respone = await client.PostAsync("/api/users/authenticate", httpContent);
+            if(!respone.IsSuccessStatusCode) return null;
             var jsonToken = await respone.Content.ReadAsStringAsync();
             var jsonObject = JObject.Parse(jsonToken); // jsonString là chuỗi JSON như bạn đã cung cấp
             var token = jsonObject["token"].ToString();
@@ -142,6 +143,21 @@ namespace Booking_Frontend.APIIntegration.User
             if (response.IsSuccessStatusCode)
                 return JsonConvert.DeserializeObject<APIResult_Success<UserViewModel>>(body);
             return JsonConvert.DeserializeObject<APIResult_Error<UserViewModel>>("Faild");
+        }
+
+        public async Task<APIResult<string>> RegisterByUser(RegisterByUser request)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var json = JsonConvert.SerializeObject(request);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync($"/api/users/register-user", httpContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<APIResult_Success<string>>(body);
+            return JsonConvert.DeserializeObject<APIResult_Error<string>>("Faild");
         }
     }
 }

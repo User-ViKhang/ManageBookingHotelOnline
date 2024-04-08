@@ -15,6 +15,7 @@ namespace Booking_Backend.Service.Users
     {
         Task<string> Authenticate(LoginRequest request);
         Task<APIResult<string>> Register(RegisterRequest request, string roleName);
+        Task<APIResult<string>> RegisterByUser(RegisterByUser request);
         Task<APIResult<string>> ForgetPassword(string email);
         Task<APIResult<string>> EmailExist(string email);
         Task<APIResult<ClaimsPrincipal>> ValidatorToken(string token);

@@ -61,7 +61,7 @@ namespace Booking_Frontend.AdminApp.Controllers
         {
             var isResult = await _serviceHotelClientService.CreateServiceHotel(request);
             if (!isResult) return BadRequest();
-            return RedirectToAction("index", "servicehotel");
+            return RedirectToAction("create", "servicehotel");
         }
 
         [HttpGet("servicehotel/delete/{Id}")]

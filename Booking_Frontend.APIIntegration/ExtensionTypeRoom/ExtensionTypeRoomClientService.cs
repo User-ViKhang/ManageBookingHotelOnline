@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Booking_Backend.Data.Entities;
 
 namespace Booking_Frontend.APIIntegration.ExtensionTypeRoom
 {
@@ -35,6 +36,11 @@ namespace Booking_Frontend.APIIntegration.ExtensionTypeRoom
         public async Task<List<ExtensionTypeRoomViewModel>> GetAll(string languageId)
         {
             return await GetAsync<List<ExtensionTypeRoomViewModel>>($"/api/extensiontype?languageId={languageId}");
+        }
+
+        public async Task<List<ExtensionType>> GetExtensionGroup(string languageId)
+        {
+            return await GetAsync<List<ExtensionType>>($"/api/extensiontype/{languageId}/extension-group");
         }
 
         public async Task<PageResult<ExtensionTypeRoomViewModel>> GetExtensionTypeRoom(GetExtensionTypeRoomRequest request)

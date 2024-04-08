@@ -43,7 +43,18 @@
 
 
 
+function showLogoutPopup() {
+    document.getElementById("logoutPopup").style.display = "block";
+}
 
+function cancelLogout() {
+    document.getElementById("logoutPopup").style.display = "none";
+}
+
+function logout() {
+    var form = document.getElementById('form-logout'); // Thay 'yourFormId' bằng id thực của form
+    form.submit();
+}
 
 
 

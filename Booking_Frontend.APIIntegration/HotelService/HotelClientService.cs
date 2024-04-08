@@ -3,10 +3,12 @@ using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.Paging.ViewModel;
 using Booking_Frontend.APIIntegration.ExtensionRoom;
+using FluentValidation.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,53 @@ namespace Booking_Frontend.APIIntegration.HotelService
             IConfiguration config)
             : base(httpClientfactory, httpContextAccessor, config) { }
 
+        public async Task<bool> CreateImageHotel(int Id, CreateImageHotelRequest request)
+        {
+            var requestContent = new MultipartFormDataContent();
+            if (request.Image != null)
+            {
+                byte[] data;
+                using (var br = new BinaryReader(request.Image.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)request.Image.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new ByteArrayContent(data);
+                requestContent.Add(bytes, "Image", request.Image.FileName);
+            }
+
+            var response = await PostAsync($"/api/hotel/{Id}", requestContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return true;
+            return false;
+        }
+
+        public async Task<bool> CreateImageThumbnailHotel(int Id, CreateImageHotelRequest request)
+        {
+            var requestContent = new MultipartFormDataContent();
+            if (request.Image != null)
+            {
+                byte[] data;
+                using (var br = new BinaryReader(request.Image.OpenReadStream()))
+                {
+                    data = br.ReadBytes((int)request.Image.OpenReadStream().Length);
+                }
+                ByteArrayContent bytes = new ByteArrayContent(data);
+                requestContent.Add(bytes, "image", request.Image.FileName);
+            }
+
+            var response = await PutAsync($"/api/hotel/{Id}", requestContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return true;
+            return false;
+        }
+
+        public async Task<bool> DeleteHotelImage(int Id)
+        {
+            return await DeleteAsync($"/api/hotel/{Id}");
+        }
+
         public async Task<HotelDetailViewModel> GetHotelById(int Id, string LanguageId)
         {
             return await GetAsync<HotelDetailViewModel>($"/api/hotel/{LanguageId}/{Id}");
@@ -36,6 +85,11 @@ namespace Booking_Frontend.APIIntegration.HotelService
         public async Task<HotelOwnerViewModel> GetHotelByUserId(Guid Id, string LanguageId)
         {
             return await GetAsync<HotelOwnerViewModel>($"/api/hotel/{LanguageId}/hotel-user/{Id}");
+        }
+
+        public async Task<List<Image>> GetListImageHotel(int Id)
+        {
+            return await GetAsync<List<Image>>($"/api/hotel/image-hotel/{Id}");
         }
     }
 }

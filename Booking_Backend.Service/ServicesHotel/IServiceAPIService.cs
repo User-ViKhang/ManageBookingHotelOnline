@@ -14,9 +14,12 @@ namespace Booking_Backend.Service.ServicesHotel
         Task<bool> CreateServiceHotel(CreateServiceHotelRequest request);
         Task<bool> UpdateServiceHotel(int Id, UpdateServiceHotelRequest request);
         Task<bool> DeleteServiceHotel(int Id);
+        Task<bool> UpdateServiceHotel(List<int> IdsService, int hotelId);
 
 
         Task<PageResult<ServiceHotelViewModel>> GetServiceHotel(GetServiceHotelRequest request);
         Task<ServiceHotelViewModel> GetServiceHotelById(int Id, string languageId);
+        Task<List<int>> GetAllServiceHotelByIdHotel(int idHotel);
+        Task<List<ServiceHotelViewModel>> GetServiceByHotelId(int idHotelId, string languageId);
     }
 }

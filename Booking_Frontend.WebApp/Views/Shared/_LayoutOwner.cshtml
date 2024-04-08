@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel;
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,15 +12,20 @@
     <meta name="author" content="" />
     <title>Gonow.net - Theo chất riêng của bạn</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="~/style/owner/styles.css" rel="stylesheet" />
     <link href="~/style/owner/notifybooking/index.css" rel="stylesheet" />
+    <link href="~/style/owner/detailbooking/detailbooking.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    @RenderSection("IndexStyle", required: false)
 </head>
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html"> Gonow.net - Khách sạn Aventador Divital Stander </a>
+        <a class="navbar-brand ps-3" href="index.html"> Gonow.net - 
+             @(Model.HotelViewModel.Name != null ? Model.HotelViewModel.Name : "Chưa đăng kí kinh doanh") 
+        </a>
 
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
@@ -42,7 +50,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <form asp-action="logout" asp-controller="user" method="post">
+                    <form asp-action="logout" asp-controller="auth" method="post">
                     <li>
                         <button class="dropdown-item" type="submit">
                             Đăng xuất
@@ -74,7 +82,7 @@
                         <div class="collapse" id="collapseUser" aria-labelledby="headingOne"
                              data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="Index" asp-controller="User">Thông báo đặt phòng</a>
+                                <a class="nav-link" href="/homeowner/index/@Model.HotelViewModel.Id">Thông báo đặt phòng</a>
                                 <a class="nav-link" asp-action="Owner" asp-controller="User">Thông báo trả phòng</a>
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                                    data-bs-target="#pagesAccount" aria-expanded="false" aria-controls="pagesAccount">
@@ -99,63 +107,72 @@
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                            data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Tiện ích phòng
+                            Phòng nghỉ & giá bán
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseCategory" aria-labelledby="headingOne"
                              data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="extensionroom">Danh sách</a>
-                                <a class="nav-link" asp-action="create" asp-controller="extensionroom">Tạo tiện ích</a>
+                                <a class="nav-link" href="/stateroom-price/@(Model.HotelViewModel.Id)">Tình trạng phòng & giá</a>
                             </nav>
                         </div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseHotel"
+
+
+
+
+
+                        <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseHotel"
                            aria-expanded="false" aria-controls="collapseHotel">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Danh mục
+                            Tiện nghi & dịch vụ
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseHotel" aria-labelledby="headingOne"
                              data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="hoteltype">Loại chỗ nghỉ</a>
+                                <a class="nav-link" href="/extension-service">Thông tin chỗ nghỉ</a>
                             </nav>
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="roomtype">Loại phòng</a>
-                            </nav>
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="bed">Loại giường</a>
-                            </nav>
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="extensiontype">Loại tiện ích</a>
+                                <a class="nav-link" href="/extension-manage">Tiện nghi theo phòng</a>
                             </nav>
                         </div>
+
+
+
+
+
+
+
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                            data-bs-target="#collapseServiceHotel" collapseFeedbackaria-expanded="false"
                            aria-controls="collapseFeedback">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Dịch vụ
+                            Kho ảnh trưng bày
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseServiceHotel" aria-labelledby="headingOne"
                              data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="servicehotel">Danh sách</a>
-                                <a class="nav-link" asp-action="create" asp-controller="servicehotel">Tạo dịch vụ</a>
+                                <a class="nav-link" href="/store-picture" >Thư mục ảnh</a>
                             </nav>
                         </div>
+
+
+
+
+
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                            data-bs-target="#collapseComment" collapseFeedbackaria-expanded="false"
                            aria-controls="collapseFeedback">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Quan
+                            Hồ sơ cá nhân
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseComment" aria-labelledby="headingOne"
                              data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="servicehotel">Đánh giá</a>
-                                <a class="nav-link" asp-action="create" asp-controller="servicehotel">Tạo dịch vụ</a>
+                                <a class="nav-link" asp-action="index" asp-controller="servicehotel">Chủ sở hữu</a>
+                                <a class="nav-link" asp-action="create" asp-controller="servicehotel">Bất động sản</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"

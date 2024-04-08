@@ -5,6 +5,7 @@ using Booking_Backend.Repository.BookingRepo.ViewModel;
 using Booking_Backend.Repository.SendMail.Request;
 using Booking_Backend.Service.SendEmail;
 using Booking_Frontend.APIIntegration.BookingService;
+using Booking_Frontend.WebApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ namespace Booking_Frontend.WebApp.Controllers
         public async Task<IActionResult> Index(BookingRequest request)
         {
             var result = await _booking.CreateBooking(request);
-            return RedirectToAction("ConfirmInfo");
+            return RedirectToAction("BookingSuccess", "Page");
         }
 
         [HttpPost]
@@ -41,7 +42,15 @@ namespace Booking_Frontend.WebApp.Controllers
             request.CheckIn = _httpContextAccessor.HttpContext.Session.GetString("date-checkin");
             request.CheckOut = _httpContextAccessor.HttpContext.Session.GetString("date-checkout");
             request.TotalPeople = Int16.Parse(_httpContextAccessor.HttpContext.Session.GetString("total-people"));
-            return View(request);
+            if(request.RoomQuality == 0)
+            {
+                request.RoomQuality = 1;
+            }
+            return View(new BillViewModel
+            {
+                CreateBookingViewModel = request
+            });
         }
+
     }
 }

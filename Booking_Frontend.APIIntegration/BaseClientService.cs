@@ -83,6 +83,21 @@ namespace Booking_Frontend.APIIntegration
                 return true;
             return false;
         }
+        
+        public async Task<bool> PatchAsyncNotFile<TRespone>(string url, TRespone T)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var json = JsonConvert.SerializeObject(T);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PatchAsync(url, httpContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return true;
+            return false;
+        }
 
         public async Task<bool> PostAsyncNotFile<TRespone>(string url, TRespone T)
         {
@@ -97,6 +112,21 @@ namespace Booking_Frontend.APIIntegration
             if (response.IsSuccessStatusCode)
                 return true;
             return false;
+        }
+        
+        public async Task<APIResult<string>> SendMail<TRespone>(string url, TRespone T)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var json = JsonConvert.SerializeObject(T);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(url, httpContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return new APIResult_Success<string>();
+            return new APIResult_Error<string>("Error sendmail");
         }
 
         public async Task<HttpResponseMessage> PostAsync(string url, HttpContent content)

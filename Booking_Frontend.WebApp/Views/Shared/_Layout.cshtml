@@ -1,4 +1,6 @@
-﻿﻿@{
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DetailViewModel
+﻿@{
     var culture = CultureInfo.CurrentCulture.Name;
 }
 
@@ -25,7 +27,47 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet">
+    <style>
+        .info-profile:hover {
+            background-color: #e0f0fa;
+            color: black;
+        }
+
+        .manage-profile {
+            display: none;
+        }
+
+            .wrapper-btn-items:hover + .manage-profile,
+            .manage-profile:hover {
+                display: block;
+            }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .popup button {
+            margin: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 
 <body>
     <header id="page-header" class="navbar-gonow d-flex">
@@ -41,38 +83,73 @@
             </div>
         </nav>
         <div class="login-logout d-flex">
-            <div class="search-hotel">
-                <input type="text" placeholder="Tìm khách sạn gần nhất" localize-content />
-                <div class="btn-search-hotel">
-                    <i class="bi bi-search"></i>
-                </div>
-            </div>
+
             <div class="select-language">
-                <select class="language-quocki" id="languageSelect" onchange="changeLanguage()">
+                <select class="language-quocki text-dark" id="languageSelect" onchange="changeLanguage()">
                     <option localize-content>Ngôn ngữ</option>
                     <option value="/vi-VN/Home/SetCultureCookie?cltr=en&returnUrl=/vi-VN" localize-content>Tiếng Việt</option>
                     <option value="/en-US/Home/SetCultureCookie?cltr=en&returnUrl=/en-US" localize-content>Tiếng Anh</option>
                 </select>
             </div>
             <div class="help-gonow">
-                <i class="bi bi-info-circle"></i>
+                <i class="bi bi-info-circle text-dark"></i>
             </div>
-            <div class="wrapper-btn wrapper-btn-login">
-                <a href="@(culture)/auth/login" class="btn-link login-link">
-                    <localize>Đăng nhập</localize>
-                </a>
-            </div>
-            <div class="wrapper-btn wrapper-btn-register">
-                <a href="" class="btn-link register-link">
-                    <localize>Tạo tài khoản</localize>
-                </a>
-            </div>
-            <div class="wrapper-btn wrapper-cart">
-                <a href="" class="">
-                    <i class="bi bi-list"></i>
-                </a>
-            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="wrapper-btn wrapper-btn-login">
+                    <a href="" class="btn-link login-link">
+                        <i class="bi bi-cart3 text-dark"></i>
+                    </a>
+                </div>
+                <div class="wrapper-btn wrapper-btn-profile" style="position: relative">
+                    <div class="d-flex wrapper-btn-items">
+                        <div class="wrapper-avatar">
+                            @if (Model.UserClient != null)
+                            {
+                                <img src="../../img/location/biet-thu-dep.png" style="height: 40px; width: 40px; border-radius: 50%" />
+                                @* <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.Avatar )" style="height: 40px; width: 40px; border-radius: 50%" /> *@
+                            }
+                        </div>
+                        <div class="pl-2 user-name text-dark">
+                            @User.Identity.Name
+                            <div style="font-size:10px">Genus cấp 1</div>
+                        </div>
+                    </div>
+                    <div class="manage-profile" style="position: absolute; top: 40px">
+                        <ul class="list-option-profile pl-0 m-0" style="list-style: none; border-radius: 5px; background-color: white; box-shadow: 0 0 7px 3px #ccc; width: 120px">
+                            <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Hồ sơ</a></li>
+                            <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Lịch sử</a></li>
+                            <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Tiến trình</a></li>
+                            <li class="p-1 pl-2"><div onclick="showLogoutPopup()" class="btn btn-outline-primary" style="font-size: 14px">Đăng xuất</div></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            }
+            else
+            {
+                <div class="wrapper-btn wrapper-btn-login">
+                    <a href="@(culture)/auth/login" class="btn-link login-link">
+                        <localize>Đăng nhập</localize>
+                    </a>
+                </div>
+                <div class="wrapper-btn wrapper-btn-register">
+                    <a href="@(culture)/auth/register" class="btn-link register-link">
+                        <localize>Tạo tài khoản</localize>
+                    </a>
+                </div>
+            }
     </header>
+
+    <div id="logoutPopup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <p>Bạn có chắc muốn đăng xuất?</p>
+            <form method="post" asp-action="logout" asp-controller="auth" id="form-logout">
+                <button class="btn btn-outline-danger" onclick="cancelLogout()">Không</button>
+                <button type="submit" class="btn btn-primary" onclick="logout()">Đăng xuất</button>
+            </form>
+        </div>
+    </div>
     <!--Header-->
     @RenderBody()
 
@@ -87,6 +164,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3~/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+</body>
 </html>

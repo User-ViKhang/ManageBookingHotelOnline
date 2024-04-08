@@ -2,6 +2,7 @@
 using Booking_Backend.Service.ServicesHotel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Booking_Backend.API.Controllers
@@ -35,11 +36,29 @@ namespace Booking_Backend.API.Controllers
             return Ok(result);
         }
         
+        [HttpGet("{languageId}/service-hotel/{hotelId}")]
+        public async Task<IActionResult> GetServiceByHotelId(int hotelId, string languageId)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            var result = await _service.GetServiceByHotelId(hotelId, languageId);
+            if(result==null) return BadRequest();
+            return Ok(result);
+        }
+        
         [HttpGet("{languageId}/{Id}")]
         public async Task<IActionResult> GetServiceHotelById(int Id, string languageId)
         {
             if (!ModelState.IsValid) return BadRequest();
             var result = await _service.GetServiceHotelById(Id, languageId);
+            if(result==null) return BadRequest();
+            return Ok(result);
+        }
+        
+        [HttpGet("hotel/{IdHotel}")]
+        public async Task<IActionResult> GetServiceHotelById(int IdHotel)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            var result = await _service.GetAllServiceHotelByIdHotel(IdHotel);
             if(result==null) return BadRequest();
             return Ok(result);
         }
@@ -60,6 +79,26 @@ namespace Booking_Backend.API.Controllers
             var isResult = await _service.DeleteServiceHotel(Id);
             if(!isResult) return BadRequest();
             return Ok(isResult);
+        }
+
+        [HttpPut("service-hotel/update/{hotelId}")]
+        public async Task<IActionResult> PutHotelServices(int hotelId, [FromBody] List<int> IdsService)
+        {
+            if (IdsService == null || IdsService.Count == 0)
+            {
+                return BadRequest("Danh sách Id Service không được để trống.");
+            }
+
+            var result = await _service.UpdateServiceHotel(IdsService, hotelId);
+
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Có lỗi xảy ra khi cập nhật dữ liệu.");
+            }
         }
     }
 }

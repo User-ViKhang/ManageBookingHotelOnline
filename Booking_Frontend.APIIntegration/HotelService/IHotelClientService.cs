@@ -15,6 +15,11 @@ namespace Booking_Frontend.APIIntegration.HotelService
         Task<PageResult<HotelViewModel>> GetHotelByLocation(GetHotelByLocationRequest request);
         Task<HotelDetailViewModel> GetHotelById(int Id, string LanguageId);
         Task<HotelOwnerViewModel> GetHotelByUserId(Guid Id, string LanguageId);
+        Task<bool> CreateImageThumbnailHotel(int Id,CreateImageHotelRequest request);
+        Task<bool> CreateImageHotel(int Id, CreateImageHotelRequest request);
+        Task<List<Image>> GetListImageHotel(int Id);
+        Task<bool> DeleteHotelImage(int Id);
+
 
     }
 }

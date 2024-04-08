@@ -1,4 +1,5 @@
-﻿using Booking_Backend.Repository.ExtensionTypeRoom.Request;
+﻿using Booking_Backend.Data.Entities;
+using Booking_Backend.Repository.ExtensionTypeRoom.Request;
 using Booking_Backend.Repository.ExtensionTypeRoom.ViewModel;
 using Booking_Backend.Repository.Paging.ViewModel;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,5 +15,7 @@ namespace Booking_Frontend.APIIntegration.ExtensionTypeRoom
         Task<bool> CreateExtensionTypeRoom(CreateExtensionTypeRoomRequest request);
         Task<bool> UpdateExtensionTypeRoom(int Id, UpdateExtensionTypeRoomRequest request);
         Task<bool> DeleteExtensionTypeRoom(int Id);
+        Task<List<ExtensionType>> GetExtensionGroup(string languageId);
+
     }
 }

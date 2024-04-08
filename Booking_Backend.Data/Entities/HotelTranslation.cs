@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Booking_Backend.Data.Entities
@@ -14,7 +15,7 @@ namespace Booking_Backend.Data.Entities
         public string Description { get; set; }
         public string? ShortDescription { get; set; }
         public string Language_Id { get; set; }
-
+        [JsonIgnore]
         public Hotel Hotel { get; set; }
         public int Hotel_Id { get; set; }
 

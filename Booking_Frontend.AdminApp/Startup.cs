@@ -61,7 +61,7 @@ namespace Booking_Frontend.AdminApp
             services.AddScoped<IBedClientService, BedClientService>();
             services.AddSession(option =>
             {
-                option.IdleTimeout = TimeSpan.FromMinutes(10);
+                option.IdleTimeout = TimeSpan.FromHours(3);
             });
         }
 

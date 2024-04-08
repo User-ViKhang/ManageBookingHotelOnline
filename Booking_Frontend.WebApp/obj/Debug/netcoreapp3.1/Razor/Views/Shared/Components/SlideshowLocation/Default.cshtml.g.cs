@@ -27,7 +27,7 @@ using Booking_Frontend.WebApp.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"c7167b06c4dd55f04d1b0f6d0b27dc189ec557170e0b062812cd9b34bd56a00f", @"/Views/Shared/Components/SlideshowLocation/Default.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"c93967b2c4110f66ab46b8da40c5024caee8b3fc262835a4708f702e42e39ded", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"4b599e0366a677a8ea3b9eec10ab2dceb089884055e7760cbfe0a588b4990470", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Shared_Components_SlideshowLocation_Default : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     #nullable disable

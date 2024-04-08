@@ -30,6 +30,15 @@ namespace Booking_Frontend.WebApp.Controllers
             return View();
         }
 
+
+
+        [HttpPost] //Hiện view
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return View("login");
+        }
+
         // Display view login
         [HttpGet]     
         public async Task<IActionResult> Login()
@@ -38,6 +47,26 @@ namespace Booking_Frontend.WebApp.Controllers
             HttpContext.Session.Remove("Token");
             return View();
         }
+        
+        [HttpGet]     
+        public async Task<IActionResult> Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterByUser request)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            var result = await _userAPI.RegisterByUser(request);
+            if (!result.IsSuccessed) return View();
+            var loginRequest = new LoginRequest
+            {
+                Email = request.Email,
+                Password = request.Password,
+                RemmemberMe = false
+            };
+            return RedirectToAction("login", loginRequest);
+        }
 
         // Authentication account  
         [HttpPost]     
@@ -45,11 +74,12 @@ namespace Booking_Frontend.WebApp.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var token = await _userAPI.Authenticate(request);
+            if (token == null) return View("login");
             var userPrincipal = _userAPI.ValidatorToken(token);
             if (!userPrincipal.IsInRole(Roles.Client.ToString()) && !userPrincipal.IsInRole(Roles.Owner.ToString())) return View("login");
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1),
+                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(3),
                 IsPersistent = false
             };
             HttpContext.Session.SetString("DefaultLanguageId", _config["DefaultLanguageId"]);
@@ -58,7 +88,8 @@ namespace Booking_Frontend.WebApp.Controllers
             var userClaim = userPrincipal.Claims;
             if(userPrincipal.IsInRole(Roles.Client.ToString()))
             {
-                return RedirectToAction("index", "client");
+                var userId = userPrincipal.FindFirst(c => c.Type == "UserId").Value;
+                return RedirectToAction("index", "client", new { id = userId });
             } else if (userPrincipal.IsInRole(Roles.Owner.ToString()))
             {
                 var userId = userPrincipal.FindFirst(c => c.Type == "UserId").Value;

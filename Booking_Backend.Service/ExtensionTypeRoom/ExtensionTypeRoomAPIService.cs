@@ -64,7 +64,44 @@ namespace Booking_Backend.Service.ExtensionTypeRoom
             }).ToListAsync();
             return data;
         }
-        
+
+        public async Task<List<ExtensionType>> GetExtensionGroup(string languageId)
+        {
+            return await _context.ExtensionTypes
+           .Include(etype => etype.ExtensionTypeTranslations)
+           .Include(etype => etype.Extensions).ThenInclude(e => e.ExtensionTranslations)
+           .Where(etype => etype.ExtensionTypeTranslations.Any(x => x.Language_Id == languageId))
+           .Select(etype => new ExtensionType
+           {
+               Id = etype.Id,
+               ExtensionTypeTranslations = etype.ExtensionTypeTranslations
+                   .Where(x => x.Language_Id == languageId)
+                   .Select(x => new ExtensionTypeTranslation
+                   {
+                       Id = x.Id,
+                       Name = x.Name,
+                       Language_Id = x.Language_Id
+                   }).ToList(),
+               Extensions = etype.Extensions
+                   .Where(e => e.ExtensionTranslations.Any(x => x.Language_Id == languageId))
+                   .Select(e => new Extension
+                   {
+                       Id = e.Id,
+                       ExtensionType = e.ExtensionType,
+                       ExtensionType_Id = e.ExtensionType_Id,
+                       Room_Extensions = e.Room_Extensions,
+                       ExtensionTranslations = e.ExtensionTranslations
+                           .Where(x => x.Language_Id == languageId)
+                           .Select(x => new ExtensionTranslation
+                           {
+                               Id = x.Id,
+                               Name = x.Name,
+                               Language_Id = x.Language_Id
+                           }).ToList()
+                   }).ToList()
+           }).ToListAsync();
+        }
+
         public async Task<PageResult<ExtensionTypeRoomViewModel>> GetExtensionTypeRoom(GetExtensionTypeRoomRequest request)
         {
             var query = from ex in _context.ExtensionTypes

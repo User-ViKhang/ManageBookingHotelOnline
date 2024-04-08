@@ -1,5 +1,6 @@
 ﻿using Booking_Backend.Data.EF;
 using Booking_Backend.Data.Entities;
+using Booking_Backend.Data.Enums;
 using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.HotelTypes.ViewModel;
@@ -7,8 +8,11 @@ using Booking_Backend.Repository.Paging.ViewModel;
 using Booking_Backend.Service.Files;
 using Booking_Backend.Service.Images;
 using Booking_Backend.Utilities.Exceptions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +32,43 @@ namespace Booking_Backend.Service.Hotels
             _context = context;
             _image = image;
             _storage = storage;
+        }
+
+        public async Task<bool> CreateImageHotel(int Id, CreateImageHotelRequest request)
+        {
+            var hotel = await _context.Hotels.FindAsync(Id);
+            if (hotel == null) return false;
+
+            if (hotel.Images == null)
+            {
+                hotel.Images = new List<Image>();
+            }
+
+            var image = new Image
+            {
+                Caption = $"Initial image hotel at " + DateTime.UtcNow.ToString(),
+                Created = DateTime.UtcNow,
+                ImageSize = request.Image.Length,
+                ImageUrl = await _image.SaveFile(request.Image),
+                Hotel_Id = hotel.Id
+            };
+
+            hotel.Images.Add(image);
+            _context.Images.Add(image);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> CreateImageThumbnailHotel(int Id, CreateImageHotelRequest request)
+        {
+            var hotel = await _context.Hotels.FindAsync(Id);
+
+            if(hotel == null) return false;
+            await _storage.DeleteFileAsync(hotel.Thumbnail);
+            hotel.Thumbnail = await _image.SaveFile(request.Image);
+            _context.Hotels.Update(hotel);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<HotelDetailViewModel> GetHotelById(int Id, string LanguageId)
@@ -56,59 +97,6 @@ namespace Booking_Backend.Service.Hotels
                         .ThenInclude(b => b.BedTranslations)
                 .FirstOrDefaultAsync(h => h.Id == Id);
 
-            /*if (hotel == null)
-            {
-                throw new BookingException("Hotel not found");
-            }
-
-            var data = new Hotel
-            {
-                Id = hotel.Id,
-                Hotline = hotel.Hotline,
-                Establish = hotel.Establish,
-                Latitude = hotel.Latitude,
-                Longitude = hotel.Longitude,
-                Thumbnail = hotel.Thumbnail,
-                Images = hotel.Images.Select(i => new Image
-                {
-                    Id = i.Id,
-                    Caption = i.Caption,
-                    ImageSize = i.ImageSize,
-                    ImageUrl = i.ImageUrl,
-                    Created = i.Created,
-                }).ToList(),
-                HotelTranslations = hotel.HotelTranslations.Where(ht=>ht.Language_Id==LanguageId).Select(ht => new HotelTranslation
-                {
-                    Id = ht.Id,
-                    Address = ht.Address,
-                    Area = ht.Area,
-                    Description = ht.Description,
-                    Name = ht.Name,
-                }).ToList(),
-                Rooms = hotel.Rooms.Select(ht => new Room
-                {
-                    Id = ht.Id,
-                    RoomCode = ht.RoomCode,
-                    Maximum = ht.Maximum,
-                    Status = ht.Status,
-                    PriceOverNight = ht.PriceOverNight,
-                    RoomType = new RoomType
-                }).ToList(),
-                HotelType = new HotelType
-                {
-                    HotelTypeTranslations = hotel.HotelType.HotelTypeTranslations.Where(ht => ht.Language_Id == LanguageId).Select(ht => new HotelTypeTranslation
-                    {
-                        Name = ht.Name,
-                    }).ToList()
-                },
-                ViewHotel = new ViewHotel
-                {
-                    ViewHotelTranslations = hotel.ViewHotel.ViewHotelTranslations.Where(ht => ht.Language_Id == LanguageId).Select(vt => new ViewHotelTranslation
-                    {
-                        Name = vt.Name
-                    }).ToList()
-                }
-            };*/
 
             if (hotel == null)
             {
@@ -139,7 +127,7 @@ namespace Booking_Backend.Service.Hotels
                     Description = ht.Description,
                     Name = ht.Name,
                 }).ToList(),
-                Rooms = hotel.Rooms.Select(ht => new Room
+                Rooms = hotel.Rooms.Where(x=>x.Status == StatusRoom.Empty).Select(ht => new Room
                 {
                     Id = ht.Id,
                     RoomCode = ht.RoomCode,
@@ -232,7 +220,9 @@ namespace Booking_Backend.Service.Hotels
                 Address = x.hotelTranslation.Address,
                 HotelTypeName = x.hotelTypeTranslation.Name,
                 ShortDescription = x.hotelTranslation.ShortDescription,
-                Thumbnail = x.hotel.Thumbnail
+                Thumbnail = x.hotel.Thumbnail,
+                Preview = x.hotel.Preview,
+                Score = x.hotel.Score
             }).ToListAsync();
             var PagedResult = new PageResult<HotelViewModel>()
             {
@@ -267,6 +257,37 @@ namespace Booking_Backend.Service.Hotels
                 Language_Id = hotelTranslation.Language_Id
             };
             return hotelOwnerViewModel;
+        }
+
+        public async Task<List<Image>> GetListImageHotel(int Id)
+        {
+            var images = await _context.Images.Where(x=>x.Hotel_Id == Id).ToListAsync();
+            return images;
+        }
+
+        public async Task<bool> DeleteHotelImage(int Id)
+        {
+            var img = await _context.Images.FindAsync(Id);
+            if (img == null) return false;
+            var remove = _context.Images.Remove(img);
+            await _storage.DeleteFileAsync(img.ImageUrl);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<HotelViewViewModel>> GetHotelByView(string languageId, int viewId)
+        {
+            var view = _context.ViewHotels.FindAsync(viewId);
+            if (view == null) return null;
+            var hotel = _context.Hotels.Where(x => x.ViewHotel_Id == viewId).Select(x => new HotelViewViewModel
+            {
+                Id = x.Id,
+                ImageHotel = x.Thumbnail,
+                HotelName = x.HotelTranslations.FirstOrDefault(x=>x.Language_Id == languageId).Name,
+                StartPrice = 0,
+                Address = x.HotelTranslations.FirstOrDefault(x=>x.Language_Id == languageId).Address
+            }).ToList();
+            return hotel;
         }
     }
 }

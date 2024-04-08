@@ -47,8 +47,9 @@ body header#page-header .login-logout .select-language {
   margin-left: 20px;
 }
 body header#page-header .login-logout .select-language .language-quocki:hover {
-  background-color: #3888bd;
-  color: white;
+  background-color: white;
+  color: #3888bd;
+  border: thin solid #3888bd;
   transition: background-color linear 0.2s;
 }
 body header#page-header .login-logout .select-language .language-quocki {
@@ -100,11 +101,10 @@ body .find-room .area-find-room {
   position: absolute;
   width: 1000px;
   top: -350px;
-  height: 300px;
-  box-shadow: 1px 1px 5px 1px rgb(184, 180, 180);
+  height: 270px;
   border-radius: 15px;
   background-color: #f6f8fa;
-  background-color: rgba(245, 241, 241, 0.8);
+  background-color: rgba(245, 241, 241, 0.4);
 }
 body .find-room .area-find-room .container .option-hotel .item-btn {
   display: flex;
@@ -180,9 +180,14 @@ body .find-room .area-find-room .container .row .wrapper {
   width: 100px;
 }
 
+.input-address::placeholder {
+  font-weight: 300;
+  color: #ccc;
+}
+
 .btn-find-room {
   position: absolute;
-  bottom: -100px;
+  bottom: -70px;
   left: calc(50% - 110px);
 }
 .btn-find-room .btn-find {
@@ -216,6 +221,10 @@ body .find-room .area-find-room .container .row .wrapper {
 .group-location .card-location .card-img:hover {
   transform: scale(1.1);
   transition: transform ease 1s;
+}
+
+.link-hotel:hover {
+  text-decoration: none;
 }
 
 .img-6 {
@@ -273,9 +282,6 @@ body .find-room .area-find-room .container .row .wrapper {
   font-size: 30px;
   border-radius: 50%;
   border: thin solid #ccc;
-}
-.slide-show-category i#chevron-left-icon {
-  left: -25px;
 }
 .slide-show-category i#chevron-right-icon {
   right: -25px;

@@ -16,6 +16,7 @@ using Booking_Backend.Service.Images;
 using Booking_Backend.Service.Languages;
 using Booking_Backend.Service.LocationServices;
 using Booking_Backend.Service.Profiles;
+using Booking_Backend.Service.Rooms;
 using Booking_Backend.Service.RoomTypeHotel;
 using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Service.ServicesHotel;
@@ -97,6 +98,7 @@ namespace Booking_Backend.API
             services.AddTransient<IBookingAPIService, BookingAPIService>();
             services.AddTransient<IGuestCustomerAPIService, GuestCustomerAPIService>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IRoomAPIService, RoomAPIService>();
             services.AddOptions<MailSettings>().Configure<IConfiguration>((settings, configuration) =>
             {
                 configuration.GetSection("MailSettings").Bind(settings);

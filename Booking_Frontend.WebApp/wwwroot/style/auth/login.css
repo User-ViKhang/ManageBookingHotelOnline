@@ -117,6 +117,14 @@
     box-shadow: 2px 2px 5px #ccc;
 }
 
+.btn-facebook {
+    width: 100%;
+}
+
+.btn-google {
+    width: 100%;
+}
+
 .social-item .social-item_facebook button {
     background-color: #003580;
     color: white;

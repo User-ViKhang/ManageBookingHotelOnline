@@ -4,11 +4,13 @@ using Booking_Frontend.APIIntegration.BedService;
 using Booking_Frontend.APIIntegration.BookingService;
 using Booking_Frontend.APIIntegration.ExtensionRoom;
 using Booking_Frontend.APIIntegration.ExtensionTypeRoom;
+using Booking_Frontend.APIIntegration.FormatMoney;
 using Booking_Frontend.APIIntegration.HotelService;
 using Booking_Frontend.APIIntegration.HotelType;
 using Booking_Frontend.APIIntegration.Language;
 using Booking_Frontend.APIIntegration.LocationService;
 using Booking_Frontend.APIIntegration.Profile;
+using Booking_Frontend.APIIntegration.RoomService;
 using Booking_Frontend.APIIntegration.RoomType;
 using Booking_Frontend.APIIntegration.ServiceHotel;
 using Booking_Frontend.APIIntegration.User;
@@ -84,9 +86,12 @@ namespace Booking_Frontend.WebApp
             services.AddScoped<ILocationClientService, LocationClientService>();
             services.AddScoped<IHotelClientService, HotelClientService>();
             services.AddScoped<IBookingClientService, BookingClientService>();
+            services.AddScoped<IRoomClientService, RoomClientService>();
+            services.AddScoped<IExtensionTypeRoomClientService, ExtensionTypeRoomClientService>();
+            services.AddScoped<IFormatMoney, FormatMoney>();
             services.AddSession(option =>
             {
-                option.IdleTimeout = TimeSpan.FromMinutes(10);
+                option.IdleTimeout = TimeSpan.FromHours(3);
             });
 
         }

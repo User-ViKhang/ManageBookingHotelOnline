@@ -26,7 +26,7 @@ namespace Booking_Backend.Service.ServicesHotel
         {
             var serviceVI = await _context.ServiceHotelTranslations.FirstOrDefaultAsync(x => x.Name == request.NameVI);
             var serviceEN = await _context.ServiceHotelTranslations.FirstOrDefaultAsync(x => x.Name == request.NameEN);
-            if(serviceVI != null || serviceEN != null) return false;
+            if (serviceVI != null || serviceEN != null) return false;
 
             var service = new ServiceHotel()
             {
@@ -44,10 +44,34 @@ namespace Booking_Backend.Service.ServicesHotel
         public async Task<bool> DeleteServiceHotel(int Id)
         {
             var serviceHotel = await _context.ServiceHotels.FindAsync(Id);
-            if(serviceHotel == null) return false;
+            if (serviceHotel == null) return false;
             _context.ServiceHotels.Remove(serviceHotel);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<int>> GetAllServiceHotelByIdHotel(int idHotel)
+        {
+            var hotel = await _context.Hotels.FindAsync(idHotel);
+            if (hotel == null) return null;
+            var hotelServiceIds = await _context.Hotel_Services.Where(x => x.Hotel_Id == idHotel).Select(x => x.Service_Id).ToListAsync();
+            return hotelServiceIds;
+        }
+
+        public async Task<List<ServiceHotelViewModel>> GetServiceByHotelId(int hotelId, string languageId)
+        {
+            var hotel = await _context.Hotels.FindAsync(hotelId);
+            if (hotel == null) return null;
+            return _context.Hotel_Services
+                                    .Include(hs => hs.Service).ThenInclude(sv=>sv.ServiceHotelTranslations)
+                                    .Include(hs => hs.Hotel)
+                                    .Where(hs => hs.Hotel_Id == hotelId && hs.Service.ServiceHotelTranslations.FirstOrDefault().Language_Id == languageId)
+                                    .Select(x => new ServiceHotelViewModel
+                                    {
+                                        Id = x.Service_Id,
+                                        Name = x.Service.ServiceHotelTranslations.FirstOrDefault().Name,
+                                        Description = x.Service.ServiceHotelTranslations.FirstOrDefault().Description
+                                    }).ToList();
         }
 
         public async Task<PageResult<ServiceHotelViewModel>> GetServiceHotel(GetServiceHotelRequest request)
@@ -84,7 +108,7 @@ namespace Booking_Backend.Service.ServicesHotel
         {
             var service = await _context.ServiceHotels.FindAsync(Id);
             if (service == null) return null;
-            var serviceHotelTranslation = await _context.ServiceHotelTranslations.FirstOrDefaultAsync(x=>x.Language_Id == languageId && x.ServiceHotel_Id == service.Id);
+            var serviceHotelTranslation = await _context.ServiceHotelTranslations.FirstOrDefaultAsync(x => x.Language_Id == languageId && x.ServiceHotel_Id == service.Id);
             var serviceHotelViewModel = new ServiceHotelViewModel()
             {
                 Id = service.Id,
@@ -104,6 +128,54 @@ namespace Booking_Backend.Service.ServicesHotel
             serviceHotelTranslation.Name = request.Name;
             serviceHotelTranslation.Description = request.Description;
             _context.ServiceHotelTranslations.Update(serviceHotelTranslation);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateServiceHotel(List<int> IdsService, int hotelId)
+        {
+            // Get the hotel
+            var hotel = _context.Hotels.FirstOrDefault(h => h.Id == hotelId);
+
+            if (hotel == null)
+            {
+                // Handle hotel not found
+                return false;
+            }
+
+            // Get the existing service ids for the hotel
+            var existingServiceIds = _context.Hotel_Services.Where(x=>x.Hotel_Id==hotelId).Select(hs => hs.Service_Id).ToList();
+
+            // Find the service ids to add
+            var serviceIdsToAdd = IdsService.Where(id => !existingServiceIds.Contains(id)).ToList();
+
+            // Find the service ids to remove
+            var serviceIdsToRemove = existingServiceIds.Where(id => !IdsService.Contains(id)).ToList();
+
+            // Add new services
+            foreach (var serviceId in serviceIdsToAdd)
+            {
+                var hotelService = new Hotel_Service
+                {
+                    Hotel_Id = hotelId,
+                    Service_Id = serviceId
+                };
+
+                _context.Hotel_Services.Add(hotelService);
+            }
+
+            // Remove old services
+            foreach (var serviceId in serviceIdsToRemove)
+            {
+                var hotelService = _context.Hotel_Services.FirstOrDefault(hs => hs.Service_Id == serviceId);
+
+                if (hotelService != null)
+                {
+                    _context.Hotel_Services.Remove(hotelService);
+                }
+            }
+
+            // Save changes
             await _context.SaveChangesAsync();
             return true;
         }

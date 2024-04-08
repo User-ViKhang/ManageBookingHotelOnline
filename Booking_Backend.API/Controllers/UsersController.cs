@@ -45,6 +45,15 @@ namespace Booking_Backend.API.Controllers
             return Ok(resultToken.ResultOject);
         }
 
+        [HttpPost("register-user"), AllowAnonymous]
+        public async Task<IActionResult> Register([FromBody] RegisterByUser request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var resultToken = await _userService.RegisterByUser(request);
+            if (!resultToken.IsSuccessed) return BadRequest(resultToken.Message);
+            return Ok(resultToken.ResultOject);
+        }
+
         [HttpPost("forget-password"), AllowAnonymous]
         public async Task<IActionResult> ForgetPassword([FromBody] string email)
         {
@@ -89,9 +98,6 @@ namespace Booking_Backend.API.Controllers
             var user = await _userService.GetUserById(id);
             return Ok(user);
         }
-
-
-
     }
 }
     

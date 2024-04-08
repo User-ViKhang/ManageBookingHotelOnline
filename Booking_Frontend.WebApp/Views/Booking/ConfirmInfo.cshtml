@@ -1,6 +1,7 @@
 ﻿@using Booking_Backend.Repository.BookingRepo.Request;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using Booking_Backend.Repository.BookingRepo.ViewModel;
-@model CreateBookingRequest;
+@model BillViewModel;
 @inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
 @{
@@ -13,8 +14,8 @@
 
     <div class="container pt-3">
         <form method="post" asp-action="index" asp-controller="booking">
-            <input type="hidden" name="RoomId" value="@Model.RoomId" />
-            <input type="hidden" name="HotelId" value="@Model.HotelId" />
+            <input type="hidden" name="RoomId" value="@Model.CreateBookingViewModel.RoomId" />
+            <input type="hidden" name="HotelId" value="@Model.CreateBookingViewModel.HotelId" />
             <input type="hidden" name="LanguageId" value="@culture" />
             <div class="row">
             <div class="col-md-8">
@@ -39,9 +40,9 @@
                             <div class="nation-info">
                                 <label for="">Quốc tịch</label>
                                 <select class="form-control" name="Nation">                               <!--Nation-->
-                                    <option value="Việt Nam">1</option>
-                                    <option>1</option>
-                                    <option>1</option>
+                                    <option value="Việt Nam">Việt Nam</option>
+                                    <option value="">English (UK)</option>
+                                    <option>English (US)</option>
                                 </select>
                             </div>
                         </div>
@@ -59,7 +60,7 @@
                     <div class="col-md-12 d-flex pb-3">
                         <div class="info-hotel ">
                             <div class="d-flex justify-content-between">
-                                <h5 class="mb-1 pr-3">@Model.HotelName</h5>
+                                <h5 class="mb-1 pr-3">@Model.CreateBookingViewModel.HotelName</h5>
                                 <div class="d-flex align-items-center text-light" style="padding: 10px; height: 40px; background-color: #3888bd" class="text-light">9.1</div>
                             </div>
                             <div class="order-room">
@@ -69,8 +70,8 @@
                                     <img style="width: 100%" src="../../img/location/biet-thu-dep.png" alt="">
                                 </div>
                                 <div class="col-md-7">
-                                    <div style="font-size: 12px;">@Model.Address</div>
-                                    <div style="font-size: 14px; color: red; font-weight: 500">@Model.Hotline</div>
+                                    <div style="font-size: 12px;">@Model.CreateBookingViewModel.Address</div>
+                                    <div style="font-size: 14px; color: red; font-weight: 500">@Model.CreateBookingViewModel.Hotline</div>
                                 </div>
                             </div>
                         </div>
@@ -87,13 +88,14 @@
                             <div class="order-room">
                             </div>
                             <div class="row mt-3">
-                                <div class="col-md-5">
+                                @* <div class="col-md-5">
                                     <img style="width: 100%" src="../../img/location/biet-thu-dep.png" alt="">
-                                </div>
-                                <div class="col-md-7">
-                                    <h6 class="room-name">@Model.RoomTypeName</h6>
-                                    <h6>@Model.BedName</h6>
-                                    <h6>@ViewData["TotalPeople"]</h6>
+                                </div> *@
+                                <div class="col-md-12">
+                                    <h6 class="room-name">@Model.CreateBookingViewModel.RoomTypeName</h6>
+                                    <div style="font-weight: 300">@Model.CreateBookingViewModel.BedName</div>
+                                    <div style="font-weight: 300">Số người: @ViewData["TotalPeople"]</div>
+                                    <input type="hidden" name="TotalPeople" value="@ViewData["TotalPeople"]" />
                                 </div>
                             </div>
                         </div>
@@ -107,10 +109,10 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-12 order-room">
-                                    <h6 class="room-name">Số lượng phòng: @Model.RoomQuality</h6>
-                                    <input type="hidden" name="TotalRoom" value="@Model.RoomQuality" />
-                                    <h6>Giá gốc: @Model.Price</h6>
-                                    <input type="hidden" name="Price" value="@Model.Price" />
+                                    <h6 class="room-name">Số lượng phòng: @Model.CreateBookingViewModel.RoomQuality</h6>
+                                    <input type="hidden" name="TotalRoom" value="@Model.CreateBookingViewModel.RoomQuality" />
+                                    <h6>Giá gốc: @Convert.ToInt32(Model.CreateBookingViewModel.Price)</h6>
+                                    <input type="hidden" name="Price" value="@Model.CreateBookingViewModel.Price" />
 
                                 </div>
                                 <h6 class="p-3">Tổng thanh toán:</h6>

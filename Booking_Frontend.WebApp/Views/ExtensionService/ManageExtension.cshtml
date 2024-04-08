@@ -1,0 +1,73 @@
+﻿@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel
+
+@{
+    ViewData["Title"] = "ExtensionService";
+    Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+}
+
+@section IndexStyle {
+    <link rel="stylesheet" href="~/style/owner/extensionservice/index.css">
+}
+<div id="layoutSidenav_content">
+    <div class="container mt-3">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td class="col-md-1">STT</td>
+                    <td class="col-md-3">Phòng</td>
+                    <td>Tiện ích phòng</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count = 0;
+                }
+                @foreach (var room in Model.ExtensionChecked)
+                {
+                    <form method="post" action="/extension-room/update/@room.Id">
+                        <tr>
+                            @{
+                                count++; 
+                                List<int> Ids = new List<int>();
+                                @foreach (var exitem in room.Room_Extensions)
+                                {
+                                    Ids.Add(exitem.Extension_Id);
+                                }
+                            }
+                            <td>@count</td>
+                            <td style="font-size:14px">
+                                <div>Mã phòng: @room.RoomCode</div>
+                                <div>Loại phòng: @room.RoomType.RoomTypeTranslations.FirstOrDefault().Name</div>
+                                <div>Loại giường: @room.Bed.BedTranslations.FirstOrDefault().Name</div>
+                                <button type="submit" class="btn btn-outline-primary mt-3"><i  class="bi bi-floppy2-fill"></i> Lưu tiện ích</button>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    @foreach (var item in Model.ExtensionGroupViewModel)
+                                    {
+                                        <div class="col-md-4">
+                                            <hr>
+                                            <h6 class="mb-1 mt-3">@item.ExtensionTypeTranslations.FirstOrDefault().Name</h6>
+                                            @foreach (var ex in item.Extensions)
+                                            {
+                                                <div>
+                                                    <input type="checkbox" name="Ids" value="@ex.Id" class="form-check-input"
+                                                    @if (Ids.Contains(ex.Id))
+                                                    {
+                                                        <text> checked </text>
+                                                    }
+                                                    />@ex.ExtensionTranslations.FirstOrDefault().Name
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

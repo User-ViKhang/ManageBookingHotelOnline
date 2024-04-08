@@ -4,6 +4,7 @@ using Booking_Backend.Repository.RoomType.Request;
 using Booking_Backend.Service.ExtensionTypeRoom;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System.Threading.Tasks;
 
 namespace Booking_Backend.API.Controllers
@@ -46,7 +47,17 @@ namespace Booking_Backend.API.Controllers
             return Ok(isResult);
         }
 
-        
+
+        [HttpGet("{languageId}/extension-group")]
+        public async Task<IActionResult> GetExtensionGroup(string languageId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var extensionRoom = await _ex.GetExtensionGroup(languageId);
+            if (extensionRoom == null) return NotFound();
+            return Ok(extensionRoom);
+        }
+
+
         [HttpPut("{Id}")]
         public async Task<IActionResult> Update(int Id, [FromBody] UpdateExtensionTypeRoomRequest request)
         {

@@ -1,4 +1,6 @@
-﻿using Booking_Backend.Repository.Common;
+﻿using Booking_Backend.Data.Entities;
+using Booking_Backend.Repository.Common;
+using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.HotelTypes.Requests;
 using Booking_Backend.Repository.HotelTypes.ViewModel;
 using Booking_Backend.Repository.Paging.ViewModel;

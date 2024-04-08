@@ -22,5 +22,21 @@
   {
     "outputFile": "wwwroot/style/owner/notifybooking/index.css",
     "inputFile": "wwwroot/style/owner/notifybooking/index.scss"
+  },
+  {
+    "outputFile": "wwwroot/style/owner/detailbooking/detailbooking.css",
+    "inputFile": "wwwroot/style/owner/detailbooking/detailbooking.scss"
+  },
+  {
+    "outputFile": "wwwroot/style/owner/extensionservice/index.css",
+    "inputFile": "wwwroot/style/owner/extensionservice/index.scss"
+  },
+  {
+    "outputFile": "wwwroot/style/owner/manageextension/index.css",
+    "inputFile": "wwwroot/style/owner/manageextension/index.scss"
+  },
+  {
+    "outputFile": "wwwroot/style/stockman/index.css",
+    "inputFile": "wwwroot/style/stockman/index.scss"
   }
 ]

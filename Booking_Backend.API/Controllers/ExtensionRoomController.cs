@@ -26,6 +26,7 @@ namespace Booking_Backend.API.Controllers
             if (extensionRoom == null) return NotFound();
             return Ok(extensionRoom);
         }
+
         
         [HttpPost]
         public async Task<IActionResult> CreateExtensionRoom([FromBody] CreateExtensionRoomRequest request)
