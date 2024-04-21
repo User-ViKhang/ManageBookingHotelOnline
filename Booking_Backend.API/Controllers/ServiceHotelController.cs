@@ -1,4 +1,6 @@
-﻿using Booking_Backend.Repository.Service.Request;
+﻿using Booking_Backend.Repository.Hotels.ViewModels;
+using Booking_Backend.Repository.Service.Request;
+using Booking_Backend.Service.Hotels;
 using Booking_Backend.Service.ServicesHotel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +14,12 @@ namespace Booking_Backend.API.Controllers
     public class ServiceHotelController : ControllerBase
     {
         private readonly IServiceAPIService _service;
+        private readonly IHotelAPIService _hotel;
 
-        public ServiceHotelController(IServiceAPIService service)
+        public ServiceHotelController(IServiceAPIService service, IHotelAPIService hotel)
         {
             _service = service;
+            _hotel = hotel;
         }
 
         [HttpPost]
@@ -82,23 +86,18 @@ namespace Booking_Backend.API.Controllers
         }
 
         [HttpPut("service-hotel/update/{hotelId}")]
-        public async Task<IActionResult> PutHotelServices(int hotelId, [FromBody] List<int> IdsService)
+        public async Task<IActionResult> PutHotelServices(int hotelId, [FromBody] HotelInfoViewModel hotelVM)
         {
-            if (IdsService == null || IdsService.Count == 0)
+            if (hotelVM.IdsService == null || hotelVM.IdsService.Count == 0)
             {
+                await _hotel.ChangeDes(hotelId, hotelVM.Description, hotelVM.LanguageId);
                 return BadRequest("Danh sách Id Service không được để trống.");
             }
-
-            var result = await _service.UpdateServiceHotel(IdsService, hotelId);
-
-            if (result)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest("Có lỗi xảy ra khi cập nhật dữ liệu.");
-            }
+            await _hotel.ChangeDes(hotelId, hotelVM.Description, hotelVM.LanguageId);
+            var result = await _service.UpdateServiceHotel(hotelVM, hotelId);
+            if(!result) return BadRequest();
+            return Ok();
+            
         }
     }
 }

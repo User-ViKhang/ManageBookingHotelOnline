@@ -4,6 +4,7 @@
 @{
     var culture = CultureInfo.CurrentCulture.Name;
 }
+
 <!doctype html>
 <html lang="en">
 
@@ -28,8 +29,58 @@
           rel="stylesheet">
 </head>
 
+<style>
+    .manage-profile {
+        display: none;
+    }
+
+        .wrapper-btn-items:hover + .manage-profile,
+        .manage-profile:hover {
+            display: block;
+            z-index: 100;
+        }
+    .info-profile:hover {
+        background-color: #e0f0fa;
+        color: black;
+    }
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        text-align: center;
+    }
+
+    .popup button {
+        margin: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .btn-cart {
+        position: relative;
+    }
+
+    .badge {
+        position: absolute;
+        top: -5px;
+        left: -10px;
+    }
+</style>
+
 <body>
-    <header id="page-header" class="navbar-gonow d-flex">
+    <header id="page-header" class="navbar-gonow d-flex" style="box-shadow: 0px 0px 3px 3px #ccc">
         <nav class="header__logoandlinks d-flex">
             <div class="wrapper-logo-primary">
                 <a href="" class="link-logo-primary">
@@ -50,57 +101,122 @@
                     <option value="/en-US/Home/SetCultureCookie?cltr=en&returnUrl=/en-US" localize-content>Tiếng Anh</option>
                 </select>
             </div>
-            @if (User.Identity.IsAuthenticated)
+            @if (Model.UserClient != null)
             {
-                <div class="wrapper-btn wrapper-btn-login">
-                    <a href="" class="btn-link login-link">
-                        <i class="bi bi-cart3 text-dark"></i>
-                    </a>
-                </div>
-                <div class="wrapper-btn wrapper-btn-profile" style="position: relative">
-                    <div class="d-flex wrapper-btn-items">
-                        <div class="wrapper-avatar">
-                            @if (Model.UserClient != null)
-                            {
-                                <img src="../../img/location/biet-thu-dep.png" style="height: 40px; width: 40px; border-radius: 50%" />
-                                @* <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.Avatar )" style="height: 40px; width: 40px; border-radius: 50%" /> *@
-                            } 
-                        </div>
-                        <div class="pl-2 user-name text-dark">
-                            @User.Identity.Name
-                            <div style="font-size:10px">Genus cấp 1</div>
+                <div class="wrapper-btn wrapper-btn-login" style="">
+                    <div id="btnCard" href="" class="btn-link card-link p-0" style="border-radius: 50%; background-color: white; height: 40px; width: 40px">
+                        <div class="btn-cart d-flex justify-content-center align-items-center" style="height: 100%; width: 100%;">
+                            <i id="cart-close" class="fa-solid fa-cart-shopping"></i>
+                            <i id="cart-open" style="display: none" class="bi bi-cart"></i>
+                            <div class="badge" style="height: 20px; width: 20px; background-color: red;color:white; font-size: 12px; border-radius: 50%">1</div>
                         </div>
                     </div>
-                    <div class="manage-profile" style="position: absolute; top: 40px; display: none">
+                    <div id="popupCard" class="cart-container" style="z-index:1; display:none;position: absolute; right: 125px; top: 70px; box-shadow: 0 0 10px 5px #929597;">
+                        <div class="cart-whiteboard" style="width: 500px; min-height: 100px; background-color: white">
+                            <ul class="p-3 mb-0" style="width:100%; height:100%; padding-left: 0; list-style: none">
+                                @foreach (var item in Model.GetAllBookingCartByUserId)
+                                {
+                                    <li style="width: 100%; height: 75px" class="pb-0">
+                                        <div style="width:100%" class=" item-remove-cart">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <img src="@(Configuration["HostServer"] + item.Thumbnail)" class="" style="width: 70px; height: 70px; object-fit: cover" />
+                                                </div>
+                                                <div class="col-md-8" style="font-size: 13px">
+                                                    <h4 class="mb-2">@item.HotelName</h4>
+                                                    <div>Chất lượng đánh giá: @item.Score</div>
+                                                    <div>Thêm vào lúc: @item.Created</div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="/cart/delete/@item.HotelId">
+                                                        <div class="btn-display-remove d-flex justify-content-center align-items-center" style="color: white; height: 100%; background-color: red">
+                                                            <i class="bi bi-trash3-fill"></i>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <hr />
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrapper-btn wrapper-btn-profile" style="position: relative">
+                    <div class="d-flex wrapper-btn-items p-1 pr-3" style="background-color: white; border-radius: 15px">
+                        <div class="wrapper-avatar">
+                            <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.AvatarUrl )" style="height: 40px; width: 40px; border-radius: 50%" />
+                        </div>
+                        <div class="pl-2 user-name text-dark">
+                            @Model.UserClient.ResultOject.DisplayName
+                            <div style="font-size:10px; color: #4a85e6">Genus cấp 1</div>
+                        </div>
+                    </div>
+                    <div class="manage-profile" style="position: absolute; top: 40px">
                         <ul class="list-option-profile pl-0 m-0" style="list-style: none; border-radius: 5px; background-color: white; box-shadow: 0 0 7px 3px #ccc; width: 120px">
-                            <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Hồ sơ</a></li>
+                            <li class="p-1 pl-2 info-profile"><a asp-action="index" asp-controller="profile" class="p-0" style="font-size: 15px; color: black">Hồ sơ</a></li>
                             <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Lịch sử</a></li>
                             <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Tiến trình</a></li>
                             <li class="p-1 pl-2"><div onclick="showLogoutPopup()" class="btn btn-outline-primary" style="font-size: 14px">Đăng xuất</div></li>
                         </ul>
                     </div>
-
                 </div>
             }
             else
             {
                 <div class="wrapper-btn wrapper-btn-login">
-                    <a href="@(culture)/auth/login" class="btn-link login-link">
+                    <a href="/@(culture)/auth/login" class="btn-link login-link" style="color: white;">
                         <localize>Đăng nhập</localize>
                     </a>
                 </div>
                 <div class="wrapper-btn wrapper-btn-register">
-                    <a href="@(culture)/auth/register" class="btn-link register-link">
+                    <a href="/@(culture)/auth/register" class="btn-link register-link" style="color: white;">
                         <localize>Tạo tài khoản</localize>
                     </a>
                 </div>
             }
             </nav>
+            <div id="logoutPopup" class="popup" style="display: none;">
+                <div class="popup-content">
+                    <p>Bạn có chắc muốn đăng xuất?</p>
+                    <form method="post" asp-action="logout" asp-controller="auth" id="form-logout">
+                        <button class="btn btn-outline-danger" onclick="cancelLogout()">Không</button>
+                        <button type="submit" class="btn btn-primary" onclick="logout()">Đăng xuất</button>
+                    </form>
+                </div>
+            </div>
     </header>
+    <script>
+        function showLogoutPopup() {
+            document.getElementById("logoutPopup").style.display = "block";
+        }
+
+        function cancelLogout() {
+            document.getElementById("logoutPopup").style.display = "none";
+        }
+
+        function logout() {
+            var form = document.getElementById('form-logout'); // Thay 'yourFormId' bằng id thực của form
+            form.submit();
+        }
+
+        document.getElementById("cart-close").addEventListener("click", () => {
+            document.getElementById("popupCard").style.display = "inline-block";
+            document.getElementById("cart-close").style.display = "none";
+            document.getElementById("cart-open").style.display = "inline-block";
+        })
+        document.getElementById("cart-open").addEventListener("click", () => {
+            document.getElementById("popupCard").style.display = "none";
+            document.getElementById("cart-close").style.display = "inline-block";
+            document.getElementById("cart-open").style.display = "none";
+        })
+        </script>
 
     @RenderBody()
 
     <footer class="footer-gonnow"></footer>
+    
 
     <script src="~/js/client/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

@@ -19,6 +19,8 @@ namespace Booking_Frontend.APIIntegration.HotelService
         Task<bool> CreateImageHotel(int Id, CreateImageHotelRequest request);
         Task<List<Image>> GetListImageHotel(int Id);
         Task<bool> DeleteHotelImage(int Id);
+        Task<bool> RegisterHotel(InfoOwnerRegisterViewModel request);
+        Task<bool> UpdateHotel(int Id, UpdateHotelRequest request);
 
 
     }

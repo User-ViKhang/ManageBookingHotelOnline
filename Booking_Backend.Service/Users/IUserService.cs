@@ -14,9 +14,11 @@ namespace Booking_Backend.Service.Users
     public interface IUserService
     {
         Task<string> Authenticate(LoginRequest request);
+        Task<bool> ChangeRoleOwner(string Id);
         Task<APIResult<string>> Register(RegisterRequest request, string roleName);
         Task<APIResult<string>> RegisterByUser(RegisterByUser request);
-        Task<APIResult<string>> ForgetPassword(string email);
+        Task<APIResult<string>> ForgetPassword(ForgetPasswordViewModel request);
+        Task<APIResult<bool>> ResetPassword(ResetPasswordViewModel request);
         Task<APIResult<string>> EmailExist(string email);
         Task<APIResult<ClaimsPrincipal>> ValidatorToken(string token);
         Task<APIResult<PageResult<UserViewModel>>> GetAll(GetUserPageRequest request);

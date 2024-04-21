@@ -27,6 +27,10 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet">
+    <link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
+" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <style>
         .info-profile:hover {
             background-color: #e0f0fa;
@@ -65,15 +69,62 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+
+        .btn-register-hotel {
+            padding: 10px;
+        }
+
+        .btn-register-hotel:hover {
+            padding: 10px;
+                background-color: #4a85e6;
+        }
+
+        .link-register-hotel:hover {
+            text-decoration: none;
+        }
+
+        .btn-cart {
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top:-5px;
+            left: -10px;
+        }
+
+        .cart-whiteboard::before {
+            content: "";
+            position: absolute;
+            right: 97px;
+            top:-15px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid white; 
+         }
+
+        .item-remove-cart {
+            position: relative; /* Cần để xác định vị trí tuyệt đối cho btn-display-remove */
+        }
+
+        .btn-display-remove {
+            transition: width 0.3s; /* Thêm hiệu ứng chuyển động cho việc thay đổi chiều dài */
+            width: 0px; /* Bắt đầu với chiều dài 0 */
+        }
+
+        .btn-display-remove {
+            width: 60px; /* Khi hover vào thẻ li, chiều dài của btn-display-remove tăng lên 60px */
+        }
+
     </style>
 </head>
-
-
 <body>
-    <header id="page-header" class="navbar-gonow d-flex">
+    <header id="page-header" class="navbar-gonow d-flex" style="box-shadow: 0px 0px 3px 3px #929597; z-index:100; position: fixed">
         <nav class="header__logoandlinks d-flex">
             <div class="wrapper-logo-primary">
-                <a href="" class="link-logo-primary">
+                <a href="/" class="link-logo-primary">
                     <div class="wrapper-link-logo">
                         <img src="../../img/logo-gonow_net.png" alt="" class="logo-primary">
                     </div>
@@ -83,7 +134,17 @@
             </div>
         </nav>
         <div class="login-logout d-flex">
-
+            @if (Model.UserClient != null)
+            {
+                <a href="/register/economic" class="link-register-hotel">
+                    <div class="btn-register-hotel" style="color: white">Đăng kí chỗ nghỉ của quý vị</div>
+                </a>
+            } else
+            {
+                <a href="/" class="link-register-hotel">
+                    <div class="btn-register-hotel" style="color: white">Đăng kí chỗ nghỉ của quý vị</div>
+                </a>
+            }
             <div class="select-language">
                 <select class="language-quocki text-dark" id="languageSelect" onchange="changeLanguage()">
                     <option localize-content>Ngôn ngữ</option>
@@ -91,54 +152,83 @@
                     <option value="/en-US/Home/SetCultureCookie?cltr=en&returnUrl=/en-US" localize-content>Tiếng Anh</option>
                 </select>
             </div>
-            <div class="help-gonow">
-                <i class="bi bi-info-circle text-dark"></i>
-            </div>
-            @if (User.Identity.IsAuthenticated)
+
+            @if (Model.UserClient != null)
             {
-                <div class="wrapper-btn wrapper-btn-login">
-                    <a href="" class="btn-link login-link">
-                        <i class="bi bi-cart3 text-dark"></i>
-                    </a>
+                <div class="wrapper-btn wrapper-btn-login" style="">
+                    <div id="btnCard" href="" class="btn-link card-link p-0" style="border-radius: 50%; background-color: white; height: 40px; width: 40px">
+                        <div class="btn-cart d-flex justify-content-center align-items-center" style="height: 100%; width: 100%;">
+                            <i id="cart-close" class="fa-solid fa-cart-shopping"></i>
+                            <i id="cart-open" style="display: none" class="bi bi-cart"></i>
+                            <div class="badge" style="height: 20px; width: 20px; background-color: red;color:white; font-size: 12px; border-radius: 50%">1</div>
+                        </div>
+                    </div>
+                    <div id="popupCard" class="cart-container" style="display:none;position: absolute; right: 125px; top: 70px; box-shadow: 0 0 10px 5px #929597;">
+                        <div class="cart-whiteboard" style="width: 500px; min-height: 100px; background-color: white">
+                            <ul class="p-3 mb-0" style="width:100%; height:100%; padding-left: 0; list-style: none">
+                                @foreach(var item in Model.GetAllBookingCartByUserId)
+                                {
+                                    <li style="width: 100%; height: 75px" class="pb-0">
+                                        <div style="width:100%" class=" item-remove-cart">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <img src="@(Configuration["HostServer"] + item.Thumbnail)" class="" style="width: 70px; height: 70px; object-fit: cover" />
+                                                </div>
+                                                <div class="col-md-8" style="font-size: 13px">
+                                                    <h4 class="mb-2">@item.HotelName</h4>
+                                                    <div>Chất lượng đánh giá: @item.Score</div>
+                                                    <div>Thêm vào lúc: @item.Created</div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="/cart/delete/@item.HotelId">
+                                                        <div class="btn-display-remove d-flex justify-content-center align-items-center" style="color: white; height: 100%; background-color: red">
+                                                            <i class="bi bi-trash3-fill"></i>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <hr />
+                                } 
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="wrapper-btn wrapper-btn-profile" style="position: relative">
-                    <div class="d-flex wrapper-btn-items">
+                    <div class="d-flex wrapper-btn-items p-1 pr-3" style="background-color: white; border-radius: 15px">
                         <div class="wrapper-avatar">
-                            @if (Model.UserClient != null)
-                            {
-                                <img src="../../img/location/biet-thu-dep.png" style="height: 40px; width: 40px; border-radius: 50%" />
-                                @* <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.Avatar )" style="height: 40px; width: 40px; border-radius: 50%" /> *@
-                            }
+                             <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.AvatarUrl )" style="height: 40px; width: 40px; border-radius: 50%" /> 
                         </div>
                         <div class="pl-2 user-name text-dark">
-                            @User.Identity.Name
-                            <div style="font-size:10px">Genus cấp 1</div>
+                            @Model.UserClient.ResultOject.DisplayName
+                            <div style="font-size:10px; color: #4a85e6">Genus cấp 1</div>
                         </div>
                     </div>
                     <div class="manage-profile" style="position: absolute; top: 40px">
                         <ul class="list-option-profile pl-0 m-0" style="list-style: none; border-radius: 5px; background-color: white; box-shadow: 0 0 7px 3px #ccc; width: 120px">
-                            <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Hồ sơ</a></li>
+                            <li class="p-1 pl-2 info-profile"><a asp-action="index" asp-controller="profile" class="p-0" style="font-size: 15px; color: black">Hồ sơ</a></li>
                             <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Lịch sử</a></li>
                             <li class="p-1 pl-2 info-profile"><a href="" class="p-0" style="font-size: 15px; color: black">Tiến trình</a></li>
                             <li class="p-1 pl-2"><div onclick="showLogoutPopup()" class="btn btn-outline-primary" style="font-size: 14px">Đăng xuất</div></li>
                         </ul>
                     </div>
-                    
                 </div>
             }
             else
             {
                 <div class="wrapper-btn wrapper-btn-login">
-                    <a href="@(culture)/auth/login" class="btn-link login-link">
+                    <a href="/@(culture)/auth/login" class="btn-link login-link" style="color: white">
                         <localize>Đăng nhập</localize>
                     </a>
                 </div>
                 <div class="wrapper-btn wrapper-btn-register">
-                    <a href="@(culture)/auth/register" class="btn-link register-link">
+                    <a href="/@(culture)/auth/register" class="btn-link register-link" style="color: white">
                         <localize>Tạo tài khoản</localize>
                     </a>
                 </div>
             }
+        </div>
     </header>
 
     <div id="logoutPopup" class="popup" style="display: none;">
@@ -156,7 +246,20 @@
     <!--Footer-->
     <footer class="footer-gonnow">
     </footer>
-
+    <script>
+        document.getElementById("cart-close").addEventListener("click", () => {
+            document.getElementById("popupCard").style.display = "inline-block";
+            document.getElementById("cart-close").style.display = "none";
+            document.getElementById("cart-open").style.display = "inline-block";
+        })
+        document.getElementById("cart-open").addEventListener("click", () => {
+            document.getElementById("popupCard").style.display = "none";
+            document.getElementById("cart-close").style.display = "inline-block";
+            document.getElementById("cart-open").style.display = "none";
+        })
+    </script>
+    <script src="
+        https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
     <script src="~/js/client/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

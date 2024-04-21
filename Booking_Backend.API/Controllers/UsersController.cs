@@ -1,4 +1,5 @@
-﻿using Booking_Backend.Repository.Users.Request;
+﻿using Booking_Backend.Repository.Accounts.ViewModels;
+using Booking_Backend.Repository.Users.Request;
 using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Service.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +17,7 @@ namespace Booking_Backend.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -51,7 +53,7 @@ namespace Booking_Backend.API.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var resultToken = await _userService.RegisterByUser(request);
             if (!resultToken.IsSuccessed) return BadRequest(resultToken.Message);
-            return Ok(resultToken.ResultOject);
+            return Ok();
         }
 
         [HttpPost("forget-password"), AllowAnonymous]
@@ -97,6 +99,27 @@ namespace Booking_Backend.API.Controllers
         {
             var user = await _userService.GetUserById(id);
             return Ok(user);
+        }
+        
+        [HttpPost(), Authorize]
+        public async Task<IActionResult> ChangeRoleOwner(string id)
+        {
+            var user = await _userService.ChangeRoleOwner(id);
+            return Ok(user);
+        }
+
+        [HttpPost("resettoken"), AllowAnonymous]
+        public async Task<IActionResult> ResetToken(ForgetPasswordViewModel request)
+        {
+            var token = await _userService.ForgetPassword(request);
+            return Ok(token);
+        }
+
+        [HttpPost("resetpassword"), AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel request)
+        {
+            var result = await _userService.ResetPassword(request);
+            return Ok(result);
         }
     }
 }

@@ -9,7 +9,7 @@ body header#page-header {
   align-items: center;
   height: 60px;
   width: 100%;
-  background-color: white;
+  background-color: #6e9eeb;
   padding: 0 70px;
   justify-content: space-between;
 }
@@ -83,7 +83,7 @@ body header#page-header .login-logout .wrapper-btn .btn-link:hover {
 }
 body header#page-header .login-logout .wrapper-btn a.register-link {
   border-radius: 5px;
-  border: thin solid #3888bd;
+  border: thin solid white;
 }
 body header#page-header .login-logout .wrapper-btn-login {
   margin-right: 15px;

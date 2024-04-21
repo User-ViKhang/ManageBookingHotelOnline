@@ -4,10 +4,13 @@ using Booking_Backend.Repository.SendMail.ViewModel;
 using Booking_Backend.Repository.Users.Request;
 using Booking_Backend.Repository.Users.Validator;
 using Booking_Backend.Service.BedService;
+using Booking_Backend.Service.BillService;
+using Booking_Backend.Service.BookingCartService;
 using Booking_Backend.Service.BookingService;
 using Booking_Backend.Service.CommentService;
 using Booking_Backend.Service.ExtensionRoom;
 using Booking_Backend.Service.ExtensionTypeRoom;
+using Booking_Backend.Service.ExternalService;
 using Booking_Backend.Service.Files;
 using Booking_Backend.Service.GuestCustomerService;
 using Booking_Backend.Service.Hotels;
@@ -99,6 +102,9 @@ namespace Booking_Backend.API
             services.AddTransient<IGuestCustomerAPIService, GuestCustomerAPIService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IRoomAPIService, RoomAPIService>();
+            services.AddTransient<IBillAPIService, BillAPIService>();
+            services.AddTransient<IExternalAPIService, ExternalAPIService>();
+            services.AddTransient<IBookingCartAPIService, BookingCartAPIService>();
             services.AddOptions<MailSettings>().Configure<IConfiguration>((settings, configuration) =>
             {
                 configuration.GetSection("MailSettings").Bind(settings);

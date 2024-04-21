@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Booking_Frontend.APIIntegration.BookingCartService;
 
 namespace Booking_Frontend.WebApp.Controllers
 {
@@ -24,29 +25,33 @@ namespace Booking_Frontend.WebApp.Controllers
         private readonly IHotelTypeClientService _hotelType;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserAPI _user;
+        private readonly IBookingCartClientService _cart;
 
-        public HomeController(ILogger<HomeController> logger, ISharedCultureLocalizer loc, IHotelTypeClientService hotelType, IHttpContextAccessor httpContextAccessor, IUserAPI user)
+        public HomeController(ILogger<HomeController> logger, ISharedCultureLocalizer loc, IHotelTypeClientService hotelType, IHttpContextAccessor httpContextAccessor, IUserAPI user, IBookingCartClientService cart)
         {
             _logger = logger;
             _loc = loc;
             _hotelType = hotelType;
             _httpContextAccessor = httpContextAccessor;
             _user = user;
+            _cart = cart;
         }
 
         public async Task<IActionResult> Index()
         {
             //var msg = _loc.GetLocalizedString("Đà Nẳng");
             var languageId = CultureInfo.CurrentCulture.Name;
-            if(_httpContextAccessor.HttpContext.Session.GetString("UserIdClient") != null)
+            if(_httpContextAccessor.HttpContext.Session.GetString("UserId_Client") != null)
             {
-                var userId = _httpContextAccessor.HttpContext.Session.GetString("UserIdClient");
+                var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Client");
+                var cart = await _cart.GetAllBookingCartByUserId(Guid.Parse(userId));
                 var lst = await _hotelType.GetAllHotelType(languageId);
                 var user = await _user.GetUserById(userId);
                 var data = new DetailViewModel()
                 {
                     lstHotelTypeVM = lst,
-                    UserClient = user
+                    UserClient = user,
+                    GetAllBookingCartByUserId = cart
                 };
                 return View(data);
             }else

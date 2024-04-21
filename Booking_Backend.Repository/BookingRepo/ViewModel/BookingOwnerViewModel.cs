@@ -20,6 +20,7 @@ namespace Booking_Backend.Repository.BookingRepo.ViewModel
         public Room Room { get; set; }
         public Bed Bed { get; set; }
         public Booking_Backend.Data.Entities.RoomType RoomType {  get; set; }
-        public GuestCustomer GuestCustomer { get; set; }
+        public GuestCustomer? GuestCustomer { get; set; }
+        public AppUser? User { get; set; }
     }
 }

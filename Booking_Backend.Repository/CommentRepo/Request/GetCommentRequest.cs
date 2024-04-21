@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Booking_Backend.Repository.CommentRepo.Request
 {
-    public class GetCommentRequest : PagingRequestBase
+    public class GetCommentRequest
     {
         public int Hotel_Id { get; set; }
     }

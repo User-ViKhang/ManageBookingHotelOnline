@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Booking_Backend.Data.Entities;
+using Booking_Backend.Repository.Hotels.ViewModels;
 
 namespace Booking_Frontend.APIIntegration.ServiceHotel
 {
@@ -59,9 +60,9 @@ namespace Booking_Frontend.APIIntegration.ServiceHotel
             return await PutAsyncNotFile<UpdateServiceHotelRequest>($"/api/servicehotel/{Id}", request);
         }
 
-        public async Task<bool> UpdateService_Hotel(List<int> IdsService, int hotelId)
+        public async Task<bool> UpdateService_Hotel(HotelInfoViewModel hotelVM)
         {
-            return await PutAsyncNotFile<List<int>>($"/api/servicehotel/service-hotel/update/{hotelId}", IdsService);
+            return await PutAsyncNotFile<HotelInfoViewModel>($"/api/servicehotel/service-hotel/update/{hotelVM.Hotel_Id}", hotelVM);
         }
     }
 }

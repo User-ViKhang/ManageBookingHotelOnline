@@ -41,16 +41,16 @@ namespace Booking_Frontend.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var languageId = CultureInfo.CurrentCulture.Name;
-            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
             var hotel = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
-            var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId);
+            //var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId, null);
             var images = await _hotel.GetListImageHotel(hotel.Id);
 
             return View(new NotifyBookingViewModel()
             {
                 UserId = userId,
                 HotelViewModel = hotel,
-                BookingOwnerViewModel = booking,
+                //BookingOwnerViewModel = booking,
                 Images = images
 
             });
@@ -60,17 +60,18 @@ namespace Booking_Frontend.WebApp.Controllers
         public async Task<IActionResult> Index(CreateImageHotelRequest request)
         {
             var languageId = CultureInfo.CurrentCulture.Name;
-            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
             var hotel = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
             var updateThumbnailHotel = await _hotel.CreateImageThumbnailHotel(hotel.Id, request);
-            var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId);
+            var hotelVM = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
+            //var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId, null);
             var images = await _hotel.GetListImageHotel(hotel.Id);
 
             return View(new NotifyBookingViewModel()
             {
                 UserId = userId,
-                HotelViewModel = hotel,
-                BookingOwnerViewModel = booking,
+                HotelViewModel = hotelVM,
+                //BookingOwnerViewModel = booking,
                 Images = images
             });
         }
@@ -79,16 +80,16 @@ namespace Booking_Frontend.WebApp.Controllers
         public async Task<IActionResult> Index(int Id, CreateImageHotelRequest request)
         {
             var languageId = CultureInfo.CurrentCulture.Name;
-            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
             var hotel = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
             var createImage = await _hotel.CreateImageHotel(Id, request);
             var images = await _hotel.GetListImageHotel(hotel.Id);
-            var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId);
+            //var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId, null);
             return View(new NotifyBookingViewModel()
             {
                 UserId = userId,
                 HotelViewModel = hotel,
-                BookingOwnerViewModel = booking,
+                //BookingOwnerViewModel = booking,
                 Images = images
             });
         }

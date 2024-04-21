@@ -1,5 +1,6 @@
 ﻿using Booking_Backend.Data.Entities;
 using Booking_Backend.Data.Enums;
+using Booking_Backend.Repository.Bill;
 using Booking_Backend.Repository.BookingRepo.Request;
 using Booking_Backend.Repository.BookingRepo.ViewModel;
 using Booking_Backend.Repository.Common;
@@ -26,6 +27,16 @@ namespace Booking_Frontend.APIIntegration.BookingService
             IConfiguration config)
             : base(httpClientfactory, httpContextAccessor, config) { }
 
+        public async Task<bool> Bill(CheckoutRequest request)
+        {
+            return await PostAsyncNotFile<CheckoutRequest>($"/api/booking/check-out/bill", request);
+        }
+
+        public async Task<BillClientViewModel> BillClient(int bookingId, string languageId)
+        {
+            return await GetAsync<BillClientViewModel>($"/api/booking/{languageId}/booking-bill/{bookingId}");
+        }
+
         public async Task<bool> ChangeStatusBooking(int Id, UpdateStatusBookingRequest request)
         {
             return await PatchAsyncNotFile<UpdateStatusBookingRequest>($"/api/update-state/{Id}", request);
@@ -41,8 +52,10 @@ namespace Booking_Frontend.APIIntegration.BookingService
             return await PostAsyncNotFile<BookingRequest>($"/api/booking", request);
         }
 
-        public async Task<List<BookingOwnerViewModel>> GetAllBookingOwner(int hotelId, string LanguageId)
+        public async Task<List<BookingOwnerViewModel>> GetAllBookingOwner(int hotelId, string LanguageId, StatusBooking? status)
         {
+            if(status != null)
+                return await GetAsync<List<BookingOwnerViewModel>>($"/api/booking/{LanguageId}/booking-hotel/{hotelId}?status={status.Value}");
             return await GetAsync<List<BookingOwnerViewModel>>($"/api/booking/{LanguageId}/booking-hotel/{hotelId}");
         }
 

@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking_Frontend.AdminApp",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking_Frontend.WebApp", "Booking_Frontend.WebApp\Booking_Frontend.WebApp.csproj", "{5E59726F-2EA5-4F49-8839-F9BC378F8D23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booking_Frontend.APIIntegration", "Booking_Frontend.APIIntegration\Booking_Frontend.APIIntegration.csproj", "{65D096CC-AB2D-4099-B257-F2CD54AB2104}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking_Frontend.APIIntegration", "Booking_Frontend.APIIntegration\Booking_Frontend.APIIntegration.csproj", "{65D096CC-AB2D-4099-B257-F2CD54AB2104}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

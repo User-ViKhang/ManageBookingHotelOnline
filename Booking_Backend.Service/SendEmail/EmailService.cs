@@ -23,6 +23,35 @@ namespace Booking_Backend.Service.SendEmail
             _mailSettings = mailSettingsOptions.Value;
         }
 
+        public async Task<bool> SendEmail(MailData mailData)
+        {
+            try
+            {
+                var emailMessage = new MimeMessage();
+                emailMessage.From.Add(new MailboxAddress(_mailSettings.DisplayName, _mailSettings.Mail));
+                emailMessage.To.Add(new MailboxAddress(mailData.ReceiverName, mailData.ReceiverEmail));
+                emailMessage.Subject = mailData.Title;
+                emailMessage.Body = new TextPart("html")
+                {
+                    Text = mailData.Body
+                };
+                var username = _mailSettings.Mail;
+
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
+                    await client.AuthenticateAsync(_mailSettings.Mail, _mailSettings.Password);
+                    await client.SendAsync(emailMessage);
+                    await client.DisconnectAsync(true);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<APIResult<string>> SendEmailAsync(MailData mailData)
         {
             try

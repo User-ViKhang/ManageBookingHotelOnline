@@ -73,7 +73,7 @@
                                     Ghi nhớ tài khoản
                                 </div>
                                 <div class='signin-account'>
-                                    <a href='agu.edu.vn'>Lấy lại mật khẩu!</a>
+                                    <a asp-action="forgotpassword" asp-controller="auth">Lấy lại mật khẩu!</a>
                                 </div>
                             </div>
                             <div class='input-submit-wrapper'>
@@ -85,22 +85,24 @@
                                 <hr></hr>
                                 <span class='line-social-text'>hoặc sử dụng các chọn lựa khác</span>
                             </div>
-                            <div class='social-group'>
-                                <div class='social-item'>
-                                    <div class='social-item_facebook'>
-                                        <button class="btn-facebook">
-                                            <i class="p-r-7 f-s fa-brands fa-facebook"></i>
-                                            Facebook
-                                        </button>
-                                    </div>
-                                    <div class='social-item_google'>
-                                        <button class="btn-google d-flex">
-                                            <img src="~/img/logo/Google__G__logo.png" alt="Google Logo" class="google-icon" />
-                                            <span class="p-l-7">Google</span>
-                                        </button>
+                            <form method="post" asp-route-returnUrl="" asp-action="auth" asp-controller="ExternalLogin">
+                                <div class='social-group'>
+                                    <div class='social-item'>
+                                        <div class='social-item_facebook'>
+                                            <button type="submit" class="btn-facebook" value="Facebook" name="provider">
+                                                <i class="p-r-7 f-s fa-brands fa-facebook"></i>
+                                                Facebook
+                                            </button>
+                                        </div>
+                                        <div class='social-item_google'>
+                                            <button type="submit" class="btn-google d-flex" value="Google" name="provider">
+                                                <img src="~/img/logo/Google__G__logo.png" alt="Google Logo" class="google-icon" />
+                                                <span class="p-l-7">Google</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="signin-link">
                             <a href="">Bạn vẫn chưa có tài khoản nữa sao?</a>

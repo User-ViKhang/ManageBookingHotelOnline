@@ -142,7 +142,13 @@
                 <div class="card-img-wrap card-img wrap-img-user">
                     <div class="upload-container">
                         <div class="avatarPreview">
-                            <img class="avatar-preview-img" src="@(Configuration["HostServer"] + Model.ResultOject.Avatar.ImageUrl)" />
+                            @if (@Model.ResultOject.Avatar != null)
+                            {
+                                <img class="avatar-preview-img" src="@(Configuration["HostServer"] + Model.ResultOject.Avatar.ImageUrl)" />
+                            }    else
+                            {
+                                <img class="avatar-preview-img" src="../../images/user/istockphoto-1200064810-170667a.jpg" />
+                            }
                         </div>
                         <div class=" wrap-img-user">
                             <input type="file" id="uploadInput" class="upload-input" name="Avatar" accept="image/*" onchange="previewAvatar(event)">

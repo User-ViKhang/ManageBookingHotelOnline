@@ -51,6 +51,8 @@ namespace Booking_Backend.Data.EF
             modelBuilder.ApplyConfiguration(new LocationConfiguration());
             modelBuilder.ApplyConfiguration(new LocationTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new GuestCustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new BillConfiguration());
+            modelBuilder.ApplyConfiguration(new BookingCartConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -95,5 +97,7 @@ namespace Booking_Backend.Data.EF
         public DbSet<Location> Locations { get; set; }
         public DbSet<LocationTranslation> LocationTranslations { get; set; }
         public DbSet<GuestCustomer> GuestCustomers { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<BookingCarts> BookingCarts { get; set; }
     }
 }

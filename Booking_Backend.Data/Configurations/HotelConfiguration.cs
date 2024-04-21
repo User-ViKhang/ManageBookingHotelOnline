@@ -18,8 +18,8 @@ namespace Booking_Backend.Data.Configurations
 
             builder.Property(x => x.Hotline).HasColumnType("varchar(11)");
             builder.Property(x => x.Establish).HasColumnType("date");
-            builder.Property(x => x.Latitude).HasColumnType("decimal");
-            builder.Property(x => x.Longitude).HasColumnType("decimal");
+            builder.Property(x => x.Latitude).HasColumnType("decimal(9,6)");
+            builder.Property(x => x.Longitude).HasColumnType("decimal(9,6)");
             builder.Property(x => x.Thumbnail);
             builder.Property(x => x.Preview).HasDefaultValue(0).IsRequired(false);
             builder.Property(x => x.Score).HasDefaultValue(0m).IsRequired(false);

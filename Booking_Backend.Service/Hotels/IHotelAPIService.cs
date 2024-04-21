@@ -17,12 +17,15 @@ namespace Booking_Backend.Service.Hotels
         Task<HotelOwnerViewModel> GetHotelByUserId(Guid Id, string LanguageId);
 
         Task<bool> CreateImageThumbnailHotel(int Id, CreateImageHotelRequest request);
+        Task<bool> UpdateHotel(int Id, UpdateHotelRequest request);
         Task<bool> CreateImageHotel(int Id, CreateImageHotelRequest request);
         Task<List<Image>> GetListImageHotel(int Id);
         Task<bool> DeleteHotelImage(int Id);
 
         Task<List<HotelViewViewModel>> GetHotelByView(string languageId, int viewId);
 
+        Task<bool> RegisterHotel(InfoOwnerRegisterViewModel request);
+        Task<bool> ChangeDes(int HotelId, string Des, string LanguageId);
 
     }
 }

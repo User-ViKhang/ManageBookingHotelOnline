@@ -69,7 +69,7 @@ namespace Booking_Frontend.AdminApp.Controllers
                 PageSize = pageSize
             };
             var data = await _userAPI.GetClient(request);
-            return View(data);
+                return View(data);
         }
 
         //Hiện trang và thông tin cập nhật

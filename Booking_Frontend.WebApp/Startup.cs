@@ -1,7 +1,10 @@
-using Booking_Backend.Repository.Users.Validator;
+﻿using Booking_Backend.Repository.Users.Validator;
 using Booking_Frontend.AdminApp.Service.APIFree;
 using Booking_Frontend.APIIntegration.BedService;
+using Booking_Frontend.APIIntegration.BookingCartService;
 using Booking_Frontend.APIIntegration.BookingService;
+using Booking_Frontend.APIIntegration.CommentService;
+using Booking_Frontend.APIIntegration.EmailService;
 using Booking_Frontend.APIIntegration.ExtensionRoom;
 using Booking_Frontend.APIIntegration.ExtensionTypeRoom;
 using Booking_Frontend.APIIntegration.FormatMoney;
@@ -14,6 +17,7 @@ using Booking_Frontend.APIIntegration.RoomService;
 using Booking_Frontend.APIIntegration.RoomType;
 using Booking_Frontend.APIIntegration.ServiceHotel;
 using Booking_Frontend.APIIntegration.User;
+using Booking_Frontend.APIIntegration.ViewService;
 using Booking_Frontend.WebApp.LocalizationResources;
 using FluentValidation.AspNetCore;
 using LazZiya.ExpressLocalization;
@@ -72,7 +76,19 @@ namespace Booking_Frontend.WebApp
             {
                 option.LoginPath = "/auth/login";
                 option.AccessDeniedPath = "/home/index";
-            });
+            })
+                .AddGoogle(googleOptions =>
+                {
+                    // Đọc thông tin Authentication:Google từ appsettings.json
+                    IConfigurationSection googleAuthNSection = Configuration.GetSection("Authentication:Google");
+
+                    // Thiết lập ClientID và ClientSecret để truy cập API google
+                    googleOptions.ClientId = googleAuthNSection["ClientId"];
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+                    // Cấu hình Url callback lại từ Google (không thiết lập thì mặc định là /signin-google)
+                    googleOptions.CallbackPath = "/dang-nhap-tu-google";
+
+                });
             services.AddScoped<IUserAPI, UserAPI>();
             services.AddScoped<IAPIFree, APIFree>();
             services.AddScoped<IProfileClientService, ProfileClientService>();
@@ -89,6 +105,10 @@ namespace Booking_Frontend.WebApp
             services.AddScoped<IRoomClientService, RoomClientService>();
             services.AddScoped<IExtensionTypeRoomClientService, ExtensionTypeRoomClientService>();
             services.AddScoped<IFormatMoney, FormatMoney>();
+            services.AddScoped<IViewClientService, ViewClientService>();
+            services.AddScoped<IEmailServiceClient, EmailServiceClient>();
+            services.AddScoped<ICommentClientService, CommentClientService>();
+            services.AddScoped<IBookingCartClientService, BookingCartClientService>();
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromHours(3);
@@ -127,6 +147,9 @@ namespace Booking_Frontend.WebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{culture=vi-VN}/{controller=home}/{action=index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "default2",
+                    pattern: "{controller=home}/{action=index}/{id?}");
 
                 //endpoints.MapControllerRoute(
                 //    name: "Step 1 booking",

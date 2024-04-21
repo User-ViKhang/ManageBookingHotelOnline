@@ -5,8 +5,11 @@ using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.HotelTypes.ViewModel;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.SendMail.Request;
 using Booking_Backend.Service.Files;
 using Booking_Backend.Service.Images;
+using Booking_Backend.Service.SendEmail;
+using Booking_Backend.Service.Users;
 using Booking_Backend.Utilities.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,12 +29,16 @@ namespace Booking_Backend.Service.Hotels
         private readonly BookingContext _context;
         private readonly IImageService _image;
         private readonly IStorageService _storage;
+        private readonly IEmailService _emailService;
+        private readonly IUserService _user;
 
-        public HotelAPIService(BookingContext context, IImageService image, IStorageService storage)
+        public HotelAPIService(BookingContext context, IImageService image, IStorageService storage, IEmailService emailService, IUserService user)
         {
             _context = context;
             _image = image;
             _storage = storage;
+            _emailService = emailService;
+            _user = user;
         }
 
         public async Task<bool> CreateImageHotel(int Id, CreateImageHotelRequest request)
@@ -63,11 +70,19 @@ namespace Booking_Backend.Service.Hotels
         {
             var hotel = await _context.Hotels.FindAsync(Id);
 
-            if(hotel == null) return false;
-            await _storage.DeleteFileAsync(hotel.Thumbnail);
-            hotel.Thumbnail = await _image.SaveFile(request.Image);
-            _context.Hotels.Update(hotel);
-            await _context.SaveChangesAsync();
+            if (hotel == null) return false;
+            if(hotel.Thumbnail != null)
+            {
+                await _storage.DeleteFileAsync(hotel.Thumbnail);
+                hotel.Thumbnail = await _image.SaveFile(request.Image);
+                _context.Hotels.Update(hotel);
+                await _context.SaveChangesAsync();
+            } else
+            {
+                hotel.Thumbnail = await _image.SaveFile(request.Image);
+                _context.Hotels.Update(hotel);
+                await _context.SaveChangesAsync();
+            }
             return true;
         }
 
@@ -92,7 +107,7 @@ namespace Booking_Backend.Service.Hotels
                 .Include(h => h.Rooms)
                     .ThenInclude(r => r.RoomType)
                         .ThenInclude(rt => rt.RoomTypeTranslations)
-                .Include(h=>h.Rooms)
+                .Include(h => h.Rooms)
                     .ThenInclude(r => r.Bed)
                         .ThenInclude(b => b.BedTranslations)
                 .FirstOrDefaultAsync(h => h.Id == Id);
@@ -126,8 +141,9 @@ namespace Booking_Backend.Service.Hotels
                     Area = ht.Area,
                     Description = ht.Description,
                     Name = ht.Name,
+                    ShortDescription = ht.ShortDescription,
                 }).ToList(),
-                Rooms = hotel.Rooms.Where(x=>x.Status == StatusRoom.Empty).Select(ht => new Room
+                Rooms = hotel.Rooms.Where(x => x.Status == StatusRoom.Empty).Select(ht => new Room
                 {
                     Id = ht.Id,
                     RoomCode = ht.RoomCode,
@@ -200,17 +216,17 @@ namespace Booking_Backend.Service.Hotels
             if (locationTranslation == null) throw new BookingException("Không tim thấy địa chỉ");
             var locationId = locationTranslation.Location_Id;
 
-            var query = from hotel in _context.Hotels 
-                            where hotel.Location_Id == locationId
-                        join hotelTranslation in _context.HotelTranslations on hotel.Id equals hotelTranslation.Hotel_Id 
-                            where hotelTranslation.Language_Id == request.LanguageId
+            var query = from hotel in _context.Hotels
+                        where hotel.Location_Id == locationId
+                        join hotelTranslation in _context.HotelTranslations on hotel.Id equals hotelTranslation.Hotel_Id
+                        where hotelTranslation.Language_Id == request.LanguageId
                         join hotelType in _context.HotelTypes on hotel.HotelType_Id equals hotelType.Id
                         join hotelTypeTranslation in _context.HotelTypeTranslations on hotelType.Id equals hotelTypeTranslation.HotelType_Id
-                            where hotelTypeTranslation.Language_Id == request.LanguageId
+                        where hotelTypeTranslation.Language_Id == request.LanguageId
                         join viewHotel in _context.ViewHotels on hotel.ViewHotel_Id equals viewHotel.Id
                         join viewHotelTranslation in _context.ViewHotelTranslations on viewHotel.Id equals viewHotelTranslation.ViewHotel_Id
-                            where viewHotelTranslation.Language_Id == request.LanguageId
-                        select new { hotel,  hotelTranslation, hotelTypeTranslation, viewHotelTranslation };
+                        where viewHotelTranslation.Language_Id == request.LanguageId
+                        select new { hotel, hotelTranslation, hotelTypeTranslation, viewHotelTranslation };
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
             .Select(x => new HotelViewModel()
@@ -236,10 +252,10 @@ namespace Booking_Backend.Service.Hotels
 
         public async Task<HotelOwnerViewModel> GetHotelByUserId(Guid Id, string LanguageId)
         {
-            var userId = await _context.Users.Where(x=>x.Id == Id).Select(x=>x.Id).FirstOrDefaultAsync();
+            var userId = await _context.Users.Where(x => x.Id == Id).Select(x => x.Id).FirstOrDefaultAsync();
             if (userId == Guid.Empty) throw new BookingException("Người dùng không tồn tại");
-            var hotel = _context.Hotels.Where(x=>x.User_Id == userId).FirstOrDefault();
-            var hotelTranslation = _context.HotelTranslations.Where(x=>x.Hotel_Id==hotel.Id && x.Language_Id == LanguageId).FirstOrDefault();
+            var hotel = _context.Hotels.Where(x => x.User_Id == userId).FirstOrDefault();
+            var hotelTranslation = _context.HotelTranslations.Where(x => x.Hotel_Id == hotel.Id && x.Language_Id == LanguageId).FirstOrDefault();
             if (hotel == null) throw new BookingException("Chỗ nghĩ không tồn tại");
             var hotelOwnerViewModel = new HotelOwnerViewModel()
             {
@@ -254,14 +270,18 @@ namespace Booking_Backend.Service.Hotels
                 Address = hotelTranslation.Address,
                 Description = hotelTranslation.Description,
                 ShortDescription = hotelTranslation.ShortDescription,
-                Language_Id = hotelTranslation.Language_Id
+                Language_Id = hotelTranslation.Language_Id,
+                LocationId = hotel.Location_Id,
+                HotelTypeId = hotel.HotelType_Id,
+                ViewHotelId = hotel.ViewHotel_Id,
+                
             };
             return hotelOwnerViewModel;
         }
 
         public async Task<List<Image>> GetListImageHotel(int Id)
         {
-            var images = await _context.Images.Where(x=>x.Hotel_Id == Id).ToListAsync();
+            var images = await _context.Images.Where(x => x.Hotel_Id == Id).ToListAsync();
             return images;
         }
 
@@ -283,11 +303,84 @@ namespace Booking_Backend.Service.Hotels
             {
                 Id = x.Id,
                 ImageHotel = x.Thumbnail,
-                HotelName = x.HotelTranslations.FirstOrDefault(x=>x.Language_Id == languageId).Name,
+                HotelName = x.HotelTranslations.FirstOrDefault(x => x.Language_Id == languageId).Name,
                 StartPrice = 0,
-                Address = x.HotelTranslations.FirstOrDefault(x=>x.Language_Id == languageId).Address
+                Address = x.HotelTranslations.FirstOrDefault(x => x.Language_Id == languageId).Address
             }).ToList();
             return hotel;
+        }
+
+        public async Task<bool> RegisterHotel(InfoOwnerRegisterViewModel request)
+        {
+            var createHotel = new Hotel
+            {
+                Hotline = "",
+                Establish = DateTime.UtcNow,
+                Latitude = 0,
+                Longitude = 0,
+                HotelType_Id = request.HotelTypeId,
+                ViewHotel_Id = 1,
+                Location_Id = request.LocationId,
+                User_Id = Guid.Parse(request.UserId),
+                HotelTranslations = new List<HotelTranslation>()
+                {
+                    new HotelTranslation {Name = request.HotelNameVI, Language_Id = "vi-VN"},
+                    new HotelTranslation {Name = request.HotelNameEN, Language_Id = "en-US"},
+                }
+            };
+            var changeRole = await _user.ChangeRoleOwner(request.UserId);
+            var user = await _user.GetUserById(request.UserId);
+            var mailContent = new MailData
+            {
+                ReceiverEmail = user.ResultOject.Email,
+                ReceiverName = user.ResultOject.UserName,
+                Title = "Gonow.net - Xác nhận yêu cầu bán phòng",
+                Body =
+                                   $"<br/>Xin chào {user.ResultOject.UserName},\n\n" +
+                                   $"<br/>Chúc mừng! Yêu cầu đăng kí bán phòng của bạn đã được chấp nhận!\n" +
+                                   $"<br/><a href='https://localhost:5000/vi-VN/auth/login'>Nhấp chọn vào đây để bắt đầu đăng tin</a>\n" +
+                                   $"<br/> Trân trọng,\nGonow.net"
+            };
+            var sendmail = await _emailService.SendEmailAsync(mailContent);
+            await _context.AddAsync(createHotel);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> ChangeDes(int HotelId, string Des, string LanguageId)
+        {
+            var hotel = _context.Hotels
+                .Include(h => h.HotelTranslations)
+                .FirstOrDefault(h => h.Id == HotelId);
+            if (hotel == null) return false;
+            hotel.HotelTranslations.FirstOrDefault(x => x.Language_Id == LanguageId).Description = Des;
+            hotel.HotelTranslations.FirstOrDefault(x => x.Language_Id == LanguageId).Description = Des;
+            _context.Hotels.Update(hotel);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateHotel(int Id, UpdateHotelRequest request)
+        {
+            var hotel = await _context.Hotels.FindAsync(Id);
+            if (hotel == null) return false;
+            var updateHotel = await _context.Hotels
+                                .Include(h => h.HotelTranslations)
+                                .FirstOrDefaultAsync(h => h.Id == Id && h.HotelTranslations.FirstOrDefault().Language_Id == request.LanguageId);
+            updateHotel.Hotline  = request.Hotline;
+            updateHotel.HotelTranslations.FirstOrDefault().Name = request.Name;
+            updateHotel.HotelTranslations.FirstOrDefault().Address = request.Address;
+            updateHotel.HotelTranslations.FirstOrDefault().Description = request.Description;
+            updateHotel.HotelTranslations.FirstOrDefault().ShortDescription = request.ShortDescription;
+            updateHotel.Establish = request.Establish;
+            updateHotel.HotelType = await _context.HotelTypes.FindAsync(request.HotelTypeId);
+            updateHotel.Location = await _context.Locations.FindAsync(request.LocationId);
+            updateHotel.ViewHotel = await _context.ViewHotels.FindAsync(request.ViewId);
+            //updateHotel.Latitude = request.Latitude;
+            //updateHotel.Longitude = request.Longitude;
+            _context.Hotels.Update(updateHotel);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

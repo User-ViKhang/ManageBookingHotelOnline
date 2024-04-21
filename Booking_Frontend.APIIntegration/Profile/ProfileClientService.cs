@@ -79,7 +79,7 @@ namespace Booking_Frontend.APIIntegration.Profile
             client.BaseAddress = new Uri(_config["HostServer"]);
             var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
-
+            var dth = request.Birthday;
             var requestContent = new MultipartFormDataContent();
             if (request.Avatar != null)
             {
@@ -97,7 +97,7 @@ namespace Booking_Frontend.APIIntegration.Profile
             requestContent.Add(new StringContent(request.FirstName), "firstName");
             requestContent.Add(new StringContent(request.LastName), "lastName");
             requestContent.Add(new StringContent(request.DisplayName), "displayName");
-            requestContent.Add(new StringContent(request.Birthday.ToString()), "birthday");
+            requestContent.Add(new StringContent(request.Birthday.ToString("MM/dd/yyyy HH:mm:ss")), "birthday");
             requestContent.Add(new StringContent(request.Nation), "nation");
             requestContent.Add(new StringContent(request.Gender), "gender");
             requestContent.Add(new StringContent(request.Address), "address");

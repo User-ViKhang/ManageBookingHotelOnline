@@ -1,4 +1,5 @@
-﻿using Booking_Backend.Repository.Common;
+﻿using Booking_Backend.Repository.Accounts.ViewModels;
+using Booking_Backend.Repository.Common;
 using Booking_Backend.Repository.Paging.ViewModel;
 using Booking_Backend.Repository.Users.Request;
 using Booking_Backend.Repository.Users.ViewModel;
@@ -10,6 +11,7 @@ namespace Booking_Frontend.APIIntegration.User
     public interface IUserAPI
     {
         Task<string> Authenticate(LoginRequest request);
+        Task<APIResult<string>> ForgetPassword(ForgetPasswordViewModel request);
         ClaimsPrincipal ValidatorToken(string jwt);
         Task<APIResult<PageResult<UserViewModel>>> GetAll(GetUserPageRequest request);
         Task<APIResult<PageResult<UserViewModel>>> GetOwner(GetUserPageRequest request);
@@ -18,6 +20,7 @@ namespace Booking_Frontend.APIIntegration.User
         Task<APIResult<UserViewModel>> UpdateUser(string Id, UserViewModel request);
         Task<APIResult<UserViewModel>> Create(string roleName, RegisterRequest request);
         Task<APIResult<string>> RegisterByUser(RegisterByUser request);
+        Task<APIResult<bool>> ResetPassword(ResetPasswordViewModel request);
 
     }
 }

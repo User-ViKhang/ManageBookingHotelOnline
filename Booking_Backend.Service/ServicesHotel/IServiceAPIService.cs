@@ -1,4 +1,5 @@
-﻿using Booking_Backend.Repository.Paging.ViewModel;
+﻿using Booking_Backend.Repository.Hotels.ViewModels;
+using Booking_Backend.Repository.Paging.ViewModel;
 using Booking_Backend.Repository.Service.Request;
 using Booking_Backend.Repository.Service.ViewModel;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,7 +15,7 @@ namespace Booking_Backend.Service.ServicesHotel
         Task<bool> CreateServiceHotel(CreateServiceHotelRequest request);
         Task<bool> UpdateServiceHotel(int Id, UpdateServiceHotelRequest request);
         Task<bool> DeleteServiceHotel(int Id);
-        Task<bool> UpdateServiceHotel(List<int> IdsService, int hotelId);
+        Task<bool> UpdateServiceHotel(HotelInfoViewModel hotelVM, int hotelId);
 
 
         Task<PageResult<ServiceHotelViewModel>> GetServiceHotel(GetServiceHotelRequest request);

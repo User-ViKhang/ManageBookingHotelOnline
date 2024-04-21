@@ -18,13 +18,40 @@ namespace Booking_Backend.API.Controllers
             _comment = comment;
         }
 
-        /*[HttpGet]
-        public async Task<IActionResult> GetCommentBy_HotelId([FromQuery] GetCommentRequest request) 
+        [HttpGet("{hotelId}")]
+        public async Task<IActionResult> GetAllCommentByHotelId(int hotelId)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var result = await _comment.GetCommentBy_HotelId(request);
+            var result = await _comment.GetAllCommentByHotelId(hotelId);
             if (result == null) return BadRequest();
             return Ok(result);
-        }*/
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateComment(CreateCommentRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var result = await _comment.CreateComment(request);
+            if (!result) return BadRequest();
+            return Ok(result);
+        }
+
+        [HttpPost("{Id}")]
+        public async Task<IActionResult> UpdateComment(int Id, UpdateCommentRequest request) 
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var result = await _comment.UpdateComment(Id, request);
+            if (!result) return BadRequest();
+            return Ok(result);
+        }
+        
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteComment(int Id) 
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var result = await _comment.DeleteComment(Id);
+            if (!result) return BadRequest();
+            return Ok(result);
+        }
     }
 }

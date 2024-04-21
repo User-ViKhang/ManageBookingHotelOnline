@@ -18,6 +18,7 @@ namespace Booking_Backend.Data.Entities
 
         public List<Comment> Comments { get; set; }
         public List<Hotel_Service> Hotel_Services { get; set; }
+        public List<BookingCarts> BookingCarts { get; set; }
         public List<Image> Images { get; set; }
         public List<Room> Rooms { get; set; }
         [JsonIgnore]

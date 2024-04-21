@@ -12,7 +12,7 @@ body {
         align-items: center;
         height: 60px;
         width: 100%;
-        background-color: white;
+        background-color: #6e9eeb;
         padding: 0 70px;
         justify-content: space-between;
 
@@ -116,7 +116,7 @@ body {
 
                 a.register-link {
                     border-radius: 5px;
-                    border: thin solid $--primary-color;
+                    border: thin solid white;
                 }
             }
 

@@ -1,4 +1,5 @@
-﻿using Booking_Backend.Repository.Common;
+﻿using Booking_Backend.Repository.Accounts.ViewModels;
+using Booking_Backend.Repository.Common;
 using Booking_Backend.Repository.Paging.ViewModel;
 using Booking_Backend.Repository.Users.Request;
 using Booking_Backend.Repository.Users.ViewModel;
@@ -158,6 +159,36 @@ namespace Booking_Frontend.APIIntegration.User
             if (response.IsSuccessStatusCode)
                 return JsonConvert.DeserializeObject<APIResult_Success<string>>(body);
             return JsonConvert.DeserializeObject<APIResult_Error<string>>("Faild");
+        }
+
+        public async Task<APIResult<string>> ForgetPassword(ForgetPasswordViewModel request)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var json = JsonConvert.SerializeObject(request);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync($"/api/users/resettoken", httpContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<APIResult_Success<string>>(body);
+            return JsonConvert.DeserializeObject<APIResult_Error<string>>("Faild");
+        }
+
+        public async Task<APIResult<bool>> ResetPassword(ResetPasswordViewModel request)
+        {
+            var client = _httpClientfactory.CreateClient();
+            client.BaseAddress = new Uri(_config["HostServer"]);
+            var session = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+            var json = JsonConvert.SerializeObject(request);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync($"/api/users/resetpassword", httpContent);
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<APIResult_Success<bool>>(body);
+            return JsonConvert.DeserializeObject<APIResult_Error<bool>>("Faild");
         }
     }
 }

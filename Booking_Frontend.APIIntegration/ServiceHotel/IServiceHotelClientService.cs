@@ -1,4 +1,5 @@
 ﻿using Booking_Backend.Data.Entities;
+using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.HotelTypes.Requests;
 using Booking_Backend.Repository.HotelTypes.ViewModel;
 using Booking_Backend.Repository.Paging.ViewModel;
@@ -17,7 +18,7 @@ namespace Booking_Frontend.APIIntegration.ServiceHotel
         Task<bool> CreateServiceHotel(CreateServiceHotelRequest request);
         Task<bool> DeleteServiceHotel(int Id);
 
-        Task<bool> UpdateService_Hotel(List<int> IdsService, int hotelId);
+        Task<bool> UpdateService_Hotel(HotelInfoViewModel hotelVM);
         Task<List<int>> GetAllServiceHotelByIdHotel(int idHotel);
         Task<List<ServiceHotelViewModel>> GetServiceByHotelId(int idHotelId, string languageId);
 

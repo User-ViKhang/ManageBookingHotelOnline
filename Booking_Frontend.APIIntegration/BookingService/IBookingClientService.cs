@@ -1,5 +1,6 @@
 ﻿using Booking_Backend.Data.Entities;
 using Booking_Backend.Data.Enums;
+using Booking_Backend.Repository.Bill;
 using Booking_Backend.Repository.BookingRepo.Request;
 using Booking_Backend.Repository.BookingRepo.ViewModel;
 using Booking_Backend.Repository.Common;
@@ -17,11 +18,14 @@ namespace Booking_Frontend.APIIntegration.BookingService
     public interface IBookingClientService
     {
         Task<bool> CreateBooking(BookingRequest request);
-        Task<List<BookingOwnerViewModel>> GetAllBookingOwner(int hoteId, string LanguageId);
+        Task<List<BookingOwnerViewModel>> GetAllBookingOwner(int hoteId, string LanguageId, StatusBooking? status);
         Task<BookingOwnerViewModel> GetBookingOwnerById(int bookingId, string LanguageId);
         Task<bool> ChangeStatusBooking(int Id, UpdateStatusBookingRequest request);
         Task<APIResult<string>> SendEmailAsync(MailData mailData);
         Task<bool> ConfirmBooking(int Id, ConfirmBookingRequest request);
+        Task<bool> Bill(CheckoutRequest request);
+        Task<BillClientViewModel> BillClient(int bookingId, string languageId);
+
 
     }
 }

@@ -1,0 +1,166 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Booking_Backend.Data.Enums;
+@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel;
+@{
+    ViewData["Title"] = "Owner Home Page";
+    Layout = "_LayoutOwner";
+}
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+<style>
+    .left-info {
+        background-color: white;
+        box-shadow: 0 0 3px 4px #eff1f3;
+    }
+
+    .title-info {
+        font-size: 14px;
+    }
+</style>
+
+<div id="layoutSidenav_content">
+    <div class="p-4" style="background-color: white">
+        <form method="post" action="/profile/hotelinfo/@Model.HotelViewModel.Id">
+            <div class="row">
+                <div class="col-md-6" style="">
+                    <div class="left-info" style="padding: 15px;">
+                        <div class="group-info">
+                            <div class="title-info">Tên chỗ nghỉ</div>
+                            <input name="Name" class="form-control" asp-for=@Model.HotelViewModel.Name />
+                        </div>
+                        <div class="group-info mt-2">
+                            <div class="title-info">Địa chỉ</div>
+                            <input name="Address" class="form-control" asp-for=@Model.HotelViewModel.Address />
+                        </div>
+                        <div class="group-info mt-2">
+                            <div class="title-info">Điện thoại</div>
+                            <input name="Hotline" class="form-control" asp-for=@Model.HotelViewModel.Hotline />
+                        </div>
+                        <div class="group-info mt-2">
+                            <div class="title-info">Ngày thành lập</div>
+                            <input asp-for=@Model.HotelViewModel.Establish type="date" name="Establish" class="form-control" />
+                        </div>
+                        <div class="group-info mt-2">
+                            <div class="title-info">Lĩnh vực kinh doanh</div>
+                            <select name="HotelTypeId" class="form-select">
+                                @foreach (var item in Model.AllHotelType)
+                                {
+                                    if (Model.HotelViewModel.HotelTypeId == item.Id)
+                                    {
+                                        <option selected value="@item.Id">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="group-info mt-2">
+                            <div class="title-info">khu vực hoạt động</div>
+                            <select name="LocationId" class="form-select">
+                                @foreach (var item in Model.AllLocation)
+                                {
+                                    if (Model.HotelViewModel.LocationId == item.Id)
+                                    {
+                                        <option selected value="@item.Id">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="group-info mt-2">
+                            <div class="title-info">Vị trí đắt địa</div>
+                            <select name="ViewId" class="form-select">
+                                @foreach (var item in Model.AllViewServices.Items)
+                                {
+                                    if (Model.HotelViewModel.ViewHotelId == item.Id)
+                                    {
+                                        <option selected value="@item.Id">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="group-info mt-2">
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="left-info" style="padding: 15px">
+                        <div class="group-info mt-2">
+                            <div class="title-info">Mô tả ngắn chỗ nghỉ <span style="color: red">(thông tin này sẽ được trưng bày)</span></div>
+                            <textarea name="ShortDescription" style="width: 100%; padding: 15px; height: 120px; outline: none">@Model.HotelViewModel.ShortDescription</textarea>
+                        </div>
+                        <div class="group-info mt-2">
+                            <div class="title-info">Mô tả chỗ nghỉ <span style="color: red">(thông tin này sẽ được trưng bày ở chi tiết)</span></div>
+                            <textarea name="Description" style="width: 100%; padding: 15px; height: 315px; outline:none">@Model.HotelViewModel.Description</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="map" style="height: 600px; width: 100%"></div>
+
+            <!--
+              The `defer` attribute causes the callback to execute after the full HTML
+              document has been parsed. For non-blocking uses, avoiding race conditions,
+              and consistent behavior across browsers, consider loading using Promises.
+              See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+              for more information.
+              -->
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZrtQzXb5fZt24woBQVN4Vtp-lrL28mqY&callback=initMap&v=weekly"
+                    defer></script>
+            <input id="ipLatitude" type="hidden" name="Latitude" />
+            <input id="ipLongitude" type="hidden" name="Longitude" />
+        </form>
+    </div>
+</div>
+<script>
+    function initMap() {
+        const uluru = { lat: @Model.HotelViewModel.Latitude, lng: @Model.HotelViewModel.Longitude };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: uluru,
+        });
+        // Thêm sự kiện 'click' vào bản đồ
+        map.addListener("click", (event) => {
+            // Lấy tọa độ khi click
+            const clickedLocation = event.latLng;
+            // Lấy vĩ độ và kinh độ
+            const latitude = clickedLocation.lat();
+            const longitude = clickedLocation.lng();
+            // In ra console
+            console.log("Vĩ độ:", latitude);
+            console.log("Kinh độ:", longitude);
+        });
+        const contentString = ''
+        const infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            ariaLabel: "Uluru",
+        });
+        const marker = new google.maps.Marker({
+            position: uluru,
+            map,
+            title: "Uluru (Ayers Rock)",
+        });
+
+        marker.addListener("click", () => {
+            infowindow.open({
+                anchor: marker,
+                map,
+            });
+        });
+    }
+
+    window.initMap = initMap;
+</script>

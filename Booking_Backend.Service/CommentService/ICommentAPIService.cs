@@ -12,7 +12,10 @@ namespace Booking_Backend.Service.CommentService
 {
     public interface ICommentAPIService
     {
-        //Task<PageResult<CommentViewModel>> GetCommentBy_HotelId(GetCommentRequest request);
+        Task<List<CommentViewModel>> GetAllCommentByHotelId(int hotelId);
+        Task<bool> CreateComment(CreateCommentRequest request);
+        Task<bool> UpdateComment(int Id, UpdateCommentRequest request);
+        Task<bool> DeleteComment(int Id);
 
     }
 }

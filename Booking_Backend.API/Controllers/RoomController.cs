@@ -1,4 +1,5 @@
-﻿using Booking_Backend.Repository.RoomRepo.ViewModel;
+﻿using Booking_Backend.Repository.RoomRepo.Request;
+using Booking_Backend.Repository.RoomRepo.ViewModel;
 using Booking_Backend.Service.Rooms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,15 @@ namespace Booking_Backend.API.Controllers
             if(!ModelState.IsValid) return BadRequest(ModelState);
             var room = await _room.GetRoomByRoomId(roomId, languageId);
             if(room == null) return NotFound();
+            return Ok(room);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRoom([FromBody] CreateRoomRequest request)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+            var room = await _room.CreateRoom(request);
+            if(!room) return NotFound();
             return Ok(room);
         }
 

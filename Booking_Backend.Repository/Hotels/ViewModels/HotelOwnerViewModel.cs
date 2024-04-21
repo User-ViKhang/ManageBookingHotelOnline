@@ -19,6 +19,9 @@ namespace Booking_Backend.Repository.Hotels.ViewModels
         public string Description { get; set; }
         public string? ShortDescription { get; set; }
         public string Language_Id { get; set; }
+        public int? HotelTypeId { get; set; }
+        public int? ViewHotelId { get; set; }
+        public int? LocationId { get; set; }
 
     }
 }

@@ -81,6 +81,15 @@ namespace Booking_Backend.API.Controllers
             if (!isResult) return BadRequest();
             return Ok(isResult);
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateHotel([FromBody] InfoOwnerRegisterViewModel request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var isResult = await _hotelAPIService.RegisterHotel(request);
+            if (!isResult) return BadRequest();
+            return Ok(isResult);
+        }
 
 
         [HttpDelete("{Id}")]
@@ -88,6 +97,15 @@ namespace Booking_Backend.API.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var isResult = await _hotelAPIService.DeleteHotelImage(Id);
+            if (!isResult) return BadRequest();
+            return Ok(isResult);
+        }
+
+        [HttpPut("infohotel/{Id}")]
+        public async Task<IActionResult> UpdateHotel(int Id, [FromBody] UpdateHotelRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var isResult = await _hotelAPIService.UpdateHotel(Id, request);
             if (!isResult) return BadRequest();
             return Ok(isResult);
         }

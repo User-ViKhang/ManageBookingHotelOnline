@@ -1,5 +1,6 @@
 ﻿using Booking_Backend.Data.Entities;
 using Booking_Backend.Data.Enums;
+using Booking_Backend.Repository.ExtensionRoom.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,5 +18,6 @@ namespace Booking_Backend.Repository.RoomRepo.ViewModel
         public Bed Bed { get; set; }
         public int BedId { get; set; }
         public int RoomTypeId { get; set; }
+        public List<ExtensionRoomViewModel> ExtensionViewModels { get; set; }
     }
 }

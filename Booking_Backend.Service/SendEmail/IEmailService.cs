@@ -10,5 +10,6 @@ namespace Booking_Backend.Service.SendEmail
     public interface IEmailService
     {
         Task<APIResult<string>> SendEmailAsync(MailData mailData);
+        Task<bool> SendEmail(MailData mailData);
     }
 }

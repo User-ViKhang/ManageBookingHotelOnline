@@ -11,6 +11,7 @@ using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Utilities.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -50,6 +51,7 @@ namespace Booking_Backend.Service.Users
 
         public async Task<string> Authenticate(LoginRequest request)
         {
+            //var prop = _signInManager.ConfigureExternalAuthenticationProperties();
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null) return null;
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RemmemberMe, true);
@@ -272,20 +274,23 @@ namespace Booking_Backend.Service.Users
                 Id = user.Id.ToString(),
                 UserName = user.UserName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber==null ? "" : user.PhoneNumber,
+                PhoneNumber = user.PhoneNumber == null ? "" : user.PhoneNumber,
                 FirstName = user.FirstName == null ? "" : user.FirstName,
                 LastName = user.LastName == null ? "" : user.LastName,
                 DisplayName = user.DisplayName == null ? "" : user.DisplayName,
                 Birthday = user.Birthday == null ? DateTime.UtcNow : user.Birthday,
-                Nation = user.Nation == null ? "" : user.Nation,
-                Gender = user.Gender == null ? "" : user.Gender,
+                Nation = user.Nation == null ? "Việt Nam" : user.Nation,
+                Gender = user.Gender,
                 Address = user.Address == null ? "" : user.Address,
-                Dashboard =  user.Dashboard.ToString() == null ? 0 : user.Dashboard,
+                Dashboard = user.Dashboard.ToString() == null ? 0 : user.Dashboard,
                 AvatarUrl = user.AvatarUrl == null ? "" : user.AvatarUrl,
                 Created = user.Created,
                 Status = user.Status,
-                Avatar = await _profile.GetImageByUserId(Id)
             };
+            if (await _profile.GetImageByUserId(Id) != null)
+            {
+                result.Avatar = await _profile.GetImageByUserId(Id);
+            }
             return new APIResult_Success<UserViewModel>(result);
         }
 
@@ -293,7 +298,7 @@ namespace Booking_Backend.Service.Users
         {
             if (await _userManager.FindByEmailAsync(request.Email) != null)
                 return new APIResult_Error<string>("Email người dùng đã tồn tại!");
-            if(await _userManager.FindByNameAsync(request.UserName) != null)
+            if (await _userManager.FindByNameAsync(request.UserName) != null)
                 return new APIResult_Error<string>("UserName người dùng đã tồn tại!");
             var user = new AppUser
             {
@@ -306,6 +311,31 @@ namespace Booking_Backend.Service.Users
             if (!result.Succeeded) return new APIResult_Error<string>("Đăng kí tài khoản thất bại, vui lòng kiểm tra lại.");
             await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
             return new APIResult_Success<string>("Tạo tài khoản thành công!");
+        }
+
+        public async Task<bool> ChangeRoleOwner(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            if (user == null) return false;
+            await _userManager.RemoveFromRoleAsync(user, Roles.Client.ToString());
+            await _userManager.AddToRoleAsync(user, Roles.Owner.ToString());
+            return true;
+        }
+
+        public async Task<APIResult<string>> ForgetPassword(ForgetPasswordViewModel request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if(user==null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                return new APIResult_Error<string>("Tài khoản người dùng không tồn tại");
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return new APIResult_Success<string>(code);
+        }
+
+        public async Task<APIResult<bool>> ResetPassword(ResetPasswordViewModel request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            var result = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
+            return new APIResult_Success<bool>();
         }
     }
 }

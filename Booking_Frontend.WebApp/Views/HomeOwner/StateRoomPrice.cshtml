@@ -12,6 +12,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Mã phòng</th>
+                    <th>Trạng thái</th>
                     <th>Sức chứa</th>
                     <th>Đơn giá</th>
                     <th>Kiểu phòng</th>
@@ -27,8 +28,9 @@
                         <tr>
                             <td>@room.Id</td>
                             <td>@room.RoomCode</td>
+                            <td>@room.Status</td>
                             <td>@room.Maximum</td>
-                            <td>@room.PriceOverNight</td>
+                            <td>@room.PriceOverNight.ToString("N0") VND</td>
                             <td>@room.RoomType.RoomTypeTranslations.FirstOrDefault().Name</td>
                             <td>@room.Bed.BedTranslations.FirstOrDefault().Name</td>
                             <td><a href="/stateroom-price/get-room/@room.Id"><div class="btn btn-warning"><i class="bi bi-pencil-square" style="color: white"></i></div></a></td>
@@ -52,6 +54,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Mã phòng</th>
+                    <th>Trạng thái</th>
                     <th>Sức chứa</th>
                     <th>Đơn giá</th>
                     <th>Kiểu phòng</th>

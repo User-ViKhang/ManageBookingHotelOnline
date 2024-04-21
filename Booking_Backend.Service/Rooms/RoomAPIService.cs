@@ -3,7 +3,9 @@ using Booking_Backend.Data.Entities;
 using Booking_Backend.Data.Enums;
 using Booking_Backend.Repository.BookingRepo.ViewModel;
 using Booking_Backend.Repository.Common;
+using Booking_Backend.Repository.ExtensionRoom.ViewModel;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.RoomRepo.Request;
 using Booking_Backend.Repository.RoomRepo.ViewModel;
 using Booking_Backend.Utilities.Exceptions;
 using FluentValidation.Resources;
@@ -251,6 +253,41 @@ namespace Booking_Backend.Service.Rooms
 
             // Save changes
             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> CreateRoom(CreateRoomRequest request)
+        {
+            var hotel = await _context.Hotels.FindAsync(request.HotelId);
+            if (hotel == null) throw new BookingException("Chỗ nghỉ không tồn tại");
+            var room = new Room
+            {
+                RoomCode = request.RoomCode,
+                Maximum = request.Maximum,
+                PriceOverNight = request.Price,
+                RoomType = await _context.RoomTypes.FindAsync(request.RoomTypeId),
+                RoomType_Id = request.RoomTypeId,
+                Bed = await _context.Beds.FindAsync(request.BedId),
+                Bed_Id = request.BedId,
+                Room_Extensions = new List<Room_Extension>(),
+                Hotel = hotel,
+                Hotel_Id = hotel.Id
+            };
+            foreach (var extensionId in request.Ids)
+            {
+                var extension = await _context.Extensions.FindAsync(extensionId);
+                if (extension != null)
+                {
+                    room.Room_Extensions.Add(new Room_Extension
+                    {
+                        Extension = extension,
+                        Extension_Id = extensionId
+                    });
+                }
+            }
+            await _context.Rooms.AddAsync(room);
+            await _context.SaveChangesAsync();
+            var result = await _context.Rooms.FindAsync(room.Id);
             return true;
         }
     }

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Booking_Backend.Utilities.Exceptions;
 using Booking_Backend.Repository.LocationRepo;
+using Booking_Backend.Repository.LocationRepo.ViewModel;
 
 namespace Booking_Backend.Service.LocationServices
 {
@@ -28,6 +29,16 @@ namespace Booking_Backend.Service.LocationServices
             return totalProperties;
         }
 
-
+        public async Task<List<LocationViewModel>> GetLocations(string Language_Id)
+        {
+            var locations = await _context.Locations.Include(l => l.LocationTranslations)
+                .Select(x => new LocationViewModel
+                {
+                    Id = x.Id,
+                    Name = x.LocationTranslations.FirstOrDefault(x =>x.Language_Id == Language_Id).Name,
+                    Language_Id = Language_Id
+                }).ToListAsync();
+            return locations;
+        }
     }
 }

@@ -23,17 +23,17 @@
                     <h5>Hãy cho chúng tôi biết bạn là ai?</h5>
                     <div class="fullname-info mt-4">
                         <label for="">Họ tên khách hàng</label>
-                        <input type="text" name="FullName" class="form-control">       <!--FullName-->
+                        <input type="text" value="@Model.CreateBookingViewModel.fullnameCustomer" name="FullName" class="form-control">       <!--FullName-->
                     </div>
                     <div class="email-info mt-4">
                         <label for="">Email khách hàng</label>
-                        <input type="email" name="Email" class="form-control">              <!--Email-->
+                        <input type="email" value="@Model.CreateBookingViewModel.emailCustomer" name="Email" class="form-control">              <!--Email-->
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <div class="phone-info">
                                 <label for="">Số điện thoại</label>
-                                <input type="tel" name="PhoneNumber" class="form-control">  <!--PhoneNumber-->
+                                <input value="@Model.CreateBookingViewModel.phoneCustomer" type="tel" name="PhoneNumber" class="form-control">  <!--PhoneNumber-->
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -61,15 +61,14 @@
                         <div class="info-hotel ">
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-1 pr-3">@Model.CreateBookingViewModel.HotelName</h5>
-                                <div class="d-flex align-items-center text-light" style="padding: 10px; height: 40px; background-color: #3888bd" class="text-light">9.1</div>
                             </div>
                             <div class="order-room">
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-5">
-                                    <img style="width: 100%" src="../../img/location/biet-thu-dep.png" alt="">
+                                    <img style="width: 100%" src="@(Configuration["HostServer"] + Model.CreateBookingViewModel.ThumbnailHotel)" alt="">
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-md-7 p-1">
                                     <div style="font-size: 12px;">@Model.CreateBookingViewModel.Address</div>
                                     <div style="font-size: 14px; color: red; font-weight: 500">@Model.CreateBookingViewModel.Hotline</div>
                                 </div>
@@ -83,14 +82,46 @@
                                 <h5 class="pl-2 pr-3">@ViewData["DateCheckOut"]</h5>
                                 <input type="hidden" value="@ViewData["DateCheckIn"]" name="CheckIn" />
                                 <input type="hidden" value="@ViewData["DateCheckOut"]" name="CheckOut" />
-                                <div style="padding: 5px; height: 35px; background-color: #3888bd" class="text-light">2N1D</div>
+                                <div style="padding: 5px; height: 35px; background-color: #3888bd" class="text-light">
+                                    @{
+                                        int result = DateTime.Parse(ViewData["DateCheckOut"].ToString()).Day - DateTime.Parse(ViewData["DateCheckIn"].ToString()).Day;
+                                        string message = "";
+
+                                        switch (result)
+                                        {
+                                            case 0:
+                                                message = "";
+                                                break;
+                                            case 1:
+                                                message = "2N1D";
+                                                break;
+                                            case 2:
+                                                message = "3N2D";
+                                                break;
+                                            case 3:
+                                                message = "4N3D";
+                                                break;   
+                                            case 4:
+                                                message = "5N4D";
+                                                break;    
+                                            case 5:
+                                                message = "6N5D";
+                                                break;    
+                                            case 6:
+                                                message = "7N6D";
+                                                break;     
+                                            default:
+                                                message = "Long time";
+                                                break;
+                                        }
+                                        <text>
+                                            @message</text>
+                                    }
+                                </div>
                             </div>
                             <div class="order-room">
                             </div>
                             <div class="row mt-3">
-                                @* <div class="col-md-5">
-                                    <img style="width: 100%" src="../../img/location/biet-thu-dep.png" alt="">
-                                </div> *@
                                 <div class="col-md-12">
                                     <h6 class="room-name">@Model.CreateBookingViewModel.RoomTypeName</h6>
                                     <div style="font-weight: 300">@Model.CreateBookingViewModel.BedName</div>
@@ -111,17 +142,16 @@
                                 <div class="col-md-12 order-room">
                                     <h6 class="room-name">Số lượng phòng: @Model.CreateBookingViewModel.RoomQuality</h6>
                                     <input type="hidden" name="TotalRoom" value="@Model.CreateBookingViewModel.RoomQuality" />
-                                    <h6>Giá gốc: @Convert.ToInt32(Model.CreateBookingViewModel.Price)</h6>
+                                    <h6>Giá gốc: @Model.CreateBookingViewModel.Price.ToString("N0") VND</h6>
                                     <input type="hidden" name="Price" value="@Model.CreateBookingViewModel.Price" />
 
                                 </div>
-                                <h6 class="p-3">Tổng thanh toán:</h6>
+                                <h6 class="p-3">Tổng thanh toán: @((Model.CreateBookingViewModel.Price * Model.CreateBookingViewModel.RoomQuality).ToString("N0")) VND</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </form>
     </div>
 

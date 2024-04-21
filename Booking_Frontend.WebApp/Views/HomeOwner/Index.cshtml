@@ -15,79 +15,114 @@
         <div class="homeowner-page">
             <div class="title-addbooking d-flex">
                 <div class="title">
-                    <h3>Bảng thông báo đặt phòng</h3>
-                </div>
-                <div class="addbooking">
-                    <div class="btn btn-outline-primary">Thêm đặt phòng</div>
+                    <h3>Thống kê doanh thu theo đơn đặt phòng</h3>
                 </div>
             </div>
         </div>
-        <div class="pl-3">
-            <div class="row ">
-                <div class="col-md-8">
-                    <div class="col-md-12">
-                        <form method="post" action="/">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="search-by-id d-flex">
-                                        <input class="form-control searchId" placeholder="ID booking..." />
-                                        <button class="btn btn-outline-primary"><i class="bi bi-search"></i></button>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 d-flex">
-                                    <div class="search-by-id d-flex">
-                                        <select asp-items="Html.GetEnumSelectList<StatusBooking>()" class="form-select mr-2"></select>
-                                        <button class="btn btn-outline-primary"><i class="bi bi-funnel"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+       
+        <div class="homeowner-table mt-3">
+            <form method="post" action="/booking/statistical">
+                <div class="d-flex justify-content-end mb-3" >
+                    <button class="btn" style="background-color: #3cda5b; color: white"> <i class="bi bi-file-earmark-spreadsheet"></i> Xuất Excel</button>
                 </div>
-            </div>
-
-        </div>
-
-        <div class="homeowner-table">
-            <table class="table table-hover table-striped table-all-booking">
-                <thead>
-                <th></th>
-                <th class="id-booking">#Booking</th>
-                <th>Đơn hàng</th>
-                <th class="number-guest">Số khách</th>
-                <th>Người đặt</th>
-                <th>Trạng thái</th>
-                <th>CheckIn</th>
-                <th>CheckOut</th>
-                </thead>
-                <tbody>
-                    @{
-                        foreach (var item in Model.BookingOwnerViewModel)
-                        {
-                            <tr>
-                                <td></td>
-                                <td>Booking - <a href="/detail-booking/@item.Id" class="underline-none">#@item.Id</a></td>
-                                <td><a href="/detail-booking/@item.Id" class="underline-none">@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name</a> </td>
-                                <td>2</td>
-                                <td><a href="/detail-booking/@item.Id" class="underline-none">@item.GuestCustomer.FullName </a></td>
-                                <td><a href="/detail-booking/@item.Id" class="underline-none">#@item.Id</a> - @item.Status</td>
-                                <td>@item.CheckIn</td>
-                                <td>@item.CheckOut</td>
-                            </tr>
+                <table class="table table-hover table-bordered" style="font-size: 13px">
+                    <thead style="background-color: #f6f8fa; font-weight: bold">
+                    <th style="font-weight: 600">STT</th>
+                    <th style="font-weight: 600" class="id-booking">#Booking</th>
+                    <th style="font-weight: 600">Số</th>
+                    <th style="font-weight: 600">Đơn hàng</th>
+                    <th style="font-weight: 600; width: 135px" >Loại giường</th>
+                    <th style="font-weight: 600" class="number-guest">Khách</th>
+                    <th style="font-weight: 600" class="number-guest">Ngày/Đêm</th>
+                    <th style="font-weight: 600">Người đặt</th>
+                    <th style="font-weight: 600" class="number-guest">Phụ thu</th>
+                    <th style="font-weight: 600">Phòng</th>
+                    <th style="font-weight: 600">Tổng/vnd</th>
+                    <th style="font-weight: 600">Ngày tạo</th>
+                    </thead>
+                    <tbody>
+                        @{
+                            int count = 0;
+                            foreach (var item in Model.BookingOwnerViewModel)
+                            {
+                                count++ ;
+                                <tr>
+                                    <td>@count</td>
+                                    <td>Booking - #@item.Id</td>
+                                    <td>@item.Room.RoomCode</td>
+                                    <td>@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name</td>
+                                    <td>@item.Bed.BedTranslations.FirstOrDefault().Name</td>
+                                    <td>x @item.TotalPeople <i class="bi bi-person-fill"></i></td>
+                                    <td class="text-center">
+                                    @{
+                                            DateTime date1 = item.CheckIn;
+                                            DateTime date2 = item.CheckOut;
+                                            TimeSpan difference = date2 - date1;
+                                            int numberOfDays = difference.Days;
+                                            <text>@(numberOfDays + 1)N @(numberOfDays)D</text>
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            string UserName;
+                                            if(item.GuestCustomer != null)
+                                            {
+                                                UserName = @item.GuestCustomer.FullName + " - (Guest)";
+                                            }    else
+                                            {
+                                                UserName = @item.User.UserName;
+                                            }
+                                            <text>@UserName</text>
+                                        }
+                                    </td>
+                                    <td class="text-center">0</td>
+                                    <td>@item.TotalAmount.ToString("N0")</td>
+                                    <td>@((item.TotalAmount * numberOfDays).ToString("N0"))</td>
+                                    <td>@item.Created.ToString("dd/MM/yyyy hh:mm tt")</td>
+                                </tr>
+                                <input type="hidden" value="@count" name="StatisticalRequests[@(count - 1)].STT" />
+                                <input type="hidden" value="@item.Id" name="StatisticalRequests[@(count - 1)].BookingId" />
+                                <input type="hidden" value="@item.Room.RoomCode" name="StatisticalRequests[@(count - 1)].RoomCode" />
+                                <input type="hidden" value="@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name" name="StatisticalRequests[@(count - 1)].RoomTypeName" />
+                                <input type="hidden" value="@item.Bed.BedTranslations.FirstOrDefault().Name" name="StatisticalRequests[@(count - 1)].BedName" />
+                                <input type="hidden" value="@item.TotalPeople" name="StatisticalRequests[@(count - 1)].TotalPeople" />
+                                <input type="hidden" value="@numberOfDays" name="StatisticalRequests[@(count - 1)].DayNumber" />
+                                <input type="hidden" value="@UserName" name="StatisticalRequests[@(count - 1)].UserName" />
+                                <input type="hidden" value="0" name="StatisticalRequests[@(count - 1)].Phuthu" />
+                                <input type="hidden" value="@item.TotalAmount.ToString("N0")" name="StatisticalRequests[@(count - 1)].Price" />
+                                <input type="hidden" value="@((item.TotalAmount * numberOfDays).ToString("N0"))" name="StatisticalRequests[@(count - 1)].TotalPrice" />
+                                <input type="hidden" value="@item.Created.ToString("dd/MM/yyyy hh:mm tt")" name="StatisticalRequests[@(count - 1)].Create" />
+                            }
                         }
-                    }
-                </tbody>
-                <tfoot>
-                <th></th>
-                <th class="id-booking">#Booking</th>
-                <th>Đơn hàng</th>
-                <th class="number-guest">Số khách</th>
-                <th>Người đặt</th>
-                <th>Trạng thái</th>
-                <th>CheckIn</th>
-                <th>CheckOut</th>
-                </tfoot>
-            </table>
+                    </tbody>
+                    <tfoot style="background-color: #f6f8fa">
+                    <th style="font-weight: 600">STT</th>
+                    <th style="font-weight: 600" class="id-booking">#Booking</th>
+                    <th style="font-weight: 600">Số</th>
+                    <th style="font-weight: 600">Đơn hàng</th>
+                    <th style="font-weight: 600">Loại giường</th>
+                    <th style="font-weight: 600" class="number-guest">Khách</th>
+                    <th style="font-weight: 600" class="number-guest">Ngày/Đêm</th>
+                    <th style="font-weight: 600">Người đặt</th>
+                    <th style="font-weight: 600" class="number-guest">Phụ thu</th>
+                    <th style="font-weight: 600">Tổng tiền</th>
+                    <th style="font-weight: 600">Tổng/vnd</th>
+                    <th style="font-weight: 600">Ngày tạo</th>
+                    </tfoot>
+                </table>
+            </form>
         </div>
     </div>
 </div>
+<script>
+    const statusSelect = document.getElementById('statusSelect');
+    const filterLink = document.getElementById('filterLink');
+
+    // Thêm sự kiện onclick cho thẻ a
+    statusSelect.onchange = function () {
+        const selectedStatus = statusSelect.value;
+        filterLink.href = "/@culture/homeowner/index/@Model.UserId?status=" + selectedStatus;
+        filterLink.click()
+        filterLink.textContent = selectedStatus === "" ? "Trạng thái đặt phòng" : selectedStatus;
+    };
+</script>

@@ -81,7 +81,6 @@ namespace Booking_Backend.Service.Profiles
             user.Gender = request.Gender;
             user.Address = request.Address;
             user.Dashboard = request.Dashboard;
-            user.AvatarUrl = request.AvatarUrl;
 
             if (request.Avatar != null)
             {
@@ -92,7 +91,23 @@ namespace Booking_Backend.Service.Profiles
                     avatar.ImageUrl = await _image.SaveFile(request.Avatar);
                     avatar.isDefault = true;
                     _context.UserImages.Update(avatar);
+                    user.AvatarUrl = avatar.ImageUrl;
+                } else
+                {
+                    user.UserImages = new List<UserImage>()
+                    {
+                        new UserImage()
+                        {
+                            Caption = "avatar + " + request.UserName,
+                            Created = DateTime.Now,
+                            ImageSize = request.Avatar.Length,
+                            ImageUrl = await _image.SaveFile(request.Avatar),
+                            isDefault = true,
+                        }
+                    };
+                    user.AvatarUrl = user.UserImages.FirstOrDefault().ImageUrl;
                 }
+
             }
             var userModel = new UserViewModel()
             {
@@ -219,7 +234,7 @@ namespace Booking_Backend.Service.Profiles
         public async Task<UserImageViewModel> GetImageByUserId(string Id)
         {
             var image = await _context.UserImages.FirstOrDefaultAsync(x => x.User_Id == Guid.Parse(Id));
-            if (image == null) throw new BookingException("Khong tim thay");
+            if (image == null) return null;
             var result = new UserImageViewModel()
             {
                 Id = image.Id,

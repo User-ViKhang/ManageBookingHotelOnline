@@ -1,6 +1,7 @@
 ﻿using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Common;
 using Booking_Backend.Repository.HotelTypes.ViewModel;
+using Booking_Backend.Repository.RoomRepo.Request;
 using Booking_Backend.Repository.RoomRepo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Booking_Frontend.APIIntegration.RoomService
         Task<bool> UpdateRoom(int roomId, RoomViewModel request);
         Task<List<Room>> GetRoomsByHotelIdToExtension(int hotelId, string languageId);
         Task<bool> UpdateExtension_Room(List<int> Ids, int roomId);
+        Task<bool> CreateRoom(CreateRoomRequest request);
 
 
 

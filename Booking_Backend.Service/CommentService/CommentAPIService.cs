@@ -22,42 +22,60 @@ namespace Booking_Backend.Service.CommentService
             _context = context;
         }
 
-        /*public async Task<PageResult<CommentViewModel>> GetCommentBy_HotelId(GetCommentRequest request)
+        public async Task<bool> CreateComment(CreateCommentRequest request)
         {
-            var query = from comment in _context.Comments
-                        join hotel in _context.Hotels on comment.Hotel_Id equals hotel.Id
-                        join user in _context.Users on comment.User_Id equals user.Id
-                        where hotel.Id == request.Hotel_Id
-                        select new {comment, hotel, user};
-
-            int totalRow = await query.CountAsync();
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
-            .Select(x => new CommentViewModel()
+            var createComment = new Comment
             {
-                Id = x.comment.Id,
-                Content = x.comment.Content,
+                Content = request.Content,
                 Created = DateTime.Now,
-                Hotel = new HotelTranslation()
-                {
-                    Id = x.hotel.Id,
-                    Name = x.hotel.Name,
-                    Language = x.hotel.Language,
-                },
-                User = new AppUser()
-                {
-                    Id = x.user.Id,
-                    UserName = x.user.UserName
-                }
-                
-            }).ToListAsync();
-            var PagedResult = new PageResult<CommentViewModel>()
-            {
-                Items = data,
-                PageIndex = request.PageIndex,
-                PageSize = request.PageSize,
-                TotalRecord = totalRow
+                Hotel_Id = request.HotelId,
+                Hotel = await _context.Hotels.FindAsync(request.HotelId),
+                User = await _context.Users.FindAsync(Guid.Parse(request.UserId)),
+                User_Id = Guid.Parse(request.UserId)
             };
-            return PagedResult;
-        }*/
+            _context.Comments.Add(createComment);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteComment(int Id)
+        {
+            var comment = await _context.Comments.FindAsync(Id);
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<CommentViewModel>> GetAllCommentByHotelId(int hotelId)
+        {
+            var commnet = await  _context.Comments
+                        .Include(cmt => cmt.User)
+                        .Where(cmt => cmt.Hotel_Id == hotelId)
+                        .Select(cmt => new CommentViewModel
+                        {   
+                            Id = cmt.Id,
+                            Content = cmt.Content,
+                            Created = cmt.Created,
+                            User = new AppUser
+                            {
+                                Id = cmt.User.Id,
+                                UserName = cmt.User.UserName,
+                                UserImages = cmt.User.UserImages,
+                                DisplayName = cmt.User.DisplayName
+                            },
+                            HotelId = hotelId
+                        }).ToListAsync();
+            return commnet;
+        }
+
+        public async Task<bool> UpdateComment(int Id, UpdateCommentRequest request)
+        {
+            var comment = await _context.Comments.FindAsync(Id);
+            comment.Content = request.Content;
+            comment.Created = DateTime.Now;
+            _context.Comments.Update(comment);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

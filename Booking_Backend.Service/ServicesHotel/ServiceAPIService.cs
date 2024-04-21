@@ -1,5 +1,6 @@
 ﻿using Booking_Backend.Data.EF;
 using Booking_Backend.Data.Entities;
+using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.HotelTypes.ViewModel;
 using Booking_Backend.Repository.Paging.ViewModel;
 using Booking_Backend.Repository.Service.Request;
@@ -132,7 +133,7 @@ namespace Booking_Backend.Service.ServicesHotel
             return true;
         }
 
-        public async Task<bool> UpdateServiceHotel(List<int> IdsService, int hotelId)
+        public async Task<bool> UpdateServiceHotel(HotelInfoViewModel hotelVM, int hotelId)
         {
             // Get the hotel
             var hotel = _context.Hotels.FirstOrDefault(h => h.Id == hotelId);
@@ -143,14 +144,15 @@ namespace Booking_Backend.Service.ServicesHotel
                 return false;
             }
 
+
             // Get the existing service ids for the hotel
             var existingServiceIds = _context.Hotel_Services.Where(x=>x.Hotel_Id==hotelId).Select(hs => hs.Service_Id).ToList();
 
             // Find the service ids to add
-            var serviceIdsToAdd = IdsService.Where(id => !existingServiceIds.Contains(id)).ToList();
+            var serviceIdsToAdd = hotelVM.IdsService.Where(id => !existingServiceIds.Contains(id)).ToList();
 
             // Find the service ids to remove
-            var serviceIdsToRemove = existingServiceIds.Where(id => !IdsService.Contains(id)).ToList();
+            var serviceIdsToRemove = existingServiceIds.Where(id => !hotelVM.IdsService.Contains(id)).ToList();
 
             // Add new services
             foreach (var serviceId in serviceIdsToAdd)

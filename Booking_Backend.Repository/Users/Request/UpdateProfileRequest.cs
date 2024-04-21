@@ -19,6 +19,7 @@ namespace Booking_Backend.Repository.Users.Request
         public string Address { get; set; }
         public int Dashboard { get; set; }
         public string AvatarUrl { get; set; }
+        public string Email { get; set; }
         public IFormFile Avatar { get; set; }
     }
 }

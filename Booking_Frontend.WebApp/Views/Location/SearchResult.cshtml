@@ -50,7 +50,7 @@
             <div class="col-md-9 main-page">
                 <div class="total-properties-bylocation">
                     <span>@Model.ListHotelByLocation.Items.FirstOrDefault().Area</span> có
-                    <span> @Model.ListHotelByLocation.TotalRecord</span>
+                    <span> 62</span>
                     <span localize-content>chỗ nghỉ</span>
                 </div>
                 <div class="navbar-main-page">
@@ -78,7 +78,7 @@
                                 <div class="hotel-info">
                                     <div class="row">
                                         <div class="col-md-4 image-location">
-                                            <img src="@(Configuration["HostServer"] + item.Thumbnail)" style="height: 100%; width: 100%; object-fit:cover;" alt="">
+                                            <img src="@(Configuration["HostServer"] + item.Thumbnail)" style="height: 230px; width: 100%; object-fit:cover;" alt="">
                                         </div>
                                         <div class="col-md-6 body-card">
                                             <a class="link-hotel" href="@url" style="">
@@ -128,7 +128,7 @@
                     }
 
                 </div>
-                <div class=" paging-bottom">
+                @* <div class=" paging-bottom">
                     <div class="paging-navigation">
                         <div class="col-md-12">
                             <div class="row">
@@ -154,7 +154,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> *@
                 <br><br>
             </div>
         </div>

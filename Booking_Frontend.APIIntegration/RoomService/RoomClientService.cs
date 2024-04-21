@@ -1,6 +1,7 @@
 ﻿using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Common;
 using Booking_Backend.Repository.HotelTypes.ViewModel;
+using Booking_Backend.Repository.RoomRepo.Request;
 using Booking_Backend.Repository.RoomRepo.ViewModel;
 using Booking_Frontend.APIIntegration.HotelType;
 using FluentValidation.Resources;
@@ -21,6 +22,11 @@ namespace Booking_Frontend.APIIntegration.RoomService
             IHttpContextAccessor httpContextAccessor,
             IConfiguration config)
             : base(httpClientfactory, httpContextAccessor, config) { }
+
+        public async Task<bool> CreateRoom(CreateRoomRequest request)
+        {
+            return await PostAsyncNotFile<CreateRoomRequest>("/api/room", request);
+        }
 
         public async Task<APIResult<List<RoomViewModel>>> GetAllRoomByHotelId(int hotelId, string languageId)
         {

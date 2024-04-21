@@ -14,6 +14,7 @@ namespace Booking_Backend.Data.Entities
         public string Nation { get; set; }
         [JsonIgnore]
         public List<Booking> Bookings { get; set; }
+        public List<Bill> Bills { get; set; }
 
     }
 }

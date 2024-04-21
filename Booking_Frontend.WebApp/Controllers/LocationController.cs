@@ -1,6 +1,10 @@
-﻿using Booking_Backend.Repository.Hotels.Request;
+﻿using Booking_Backend.Repository.BookingCartRepo.ViewModel;
+using Booking_Backend.Repository.Common;
+using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.Users.ViewModel;
+using Booking_Frontend.APIIntegration.BookingCartService;
 using Booking_Frontend.APIIntegration.HotelService;
 using Booking_Frontend.APIIntegration.HotelType;
 using Booking_Frontend.APIIntegration.User;
@@ -21,13 +25,15 @@ namespace Booking_Frontend.WebApp.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IHotelTypeClientService _hotelType;
         private readonly IUserAPI _user;
+        private readonly IBookingCartClientService _cart;
 
-        public LocationController(IHotelClientService hotelClientService, IHttpContextAccessor httpContextAccessor, IHotelTypeClientService hotelType, IUserAPI user)
+        public LocationController(IHotelClientService hotelClientService, IHttpContextAccessor httpContextAccessor, IHotelTypeClientService hotelType, IUserAPI user, IBookingCartClientService cart)
         {
             _hotelClientService = hotelClientService;
             _httpContextAccessor = httpContextAccessor;
             _hotelType = hotelType;
             _user = user;
+            _cart = cart;
         }
 
         public IActionResult Index()
@@ -43,9 +49,15 @@ namespace Booking_Frontend.WebApp.Controllers
             _httpContextAccessor.HttpContext.Session.SetString("total-people", totalPeople.ToString());
             if(!ModelState.IsValid) return BadRequest(ModelState);
             var languageId = CultureInfo.CurrentCulture.Name;
-            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserIdClient");
             var lst = await _hotelType.GetAllHotelType(languageId);
-            var user = await _user.GetUserById(userId);
+            APIResult<UserViewModel> user = null;
+            List<ListBookingCartByUserIdModel> cart = null;
+            if(_httpContextAccessor.HttpContext.Session.GetString("UserId_Client") != null)
+            {
+                var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Client");
+                cart = await _cart.GetAllBookingCartByUserId(Guid.Parse(userId));
+                user = await _user.GetUserById(userId);
+            }
             var request = new GetHotelByLocationRequest()
             {
                 PageIndex = 1,
@@ -65,7 +77,8 @@ namespace Booking_Frontend.WebApp.Controllers
                     ListHotelByLocation = data,
                     ListHotelType = hotelTypes,
                     lstHotelTypeVM = lst,
-                    UserClient = user
+                    UserClient = user,
+                    GetAllBookingCartByUserId = cart
                 };
                 hotelLocationViewModel.ListHotelByLocation.Items.FirstOrDefault().Area = locationName;
                 hotelLocationViewModel.ListHotelByLocation.Items.FirstOrDefault().CheckIn = request.DateCheckIn;

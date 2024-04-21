@@ -2,6 +2,7 @@
 using Booking_Backend.Data.Enums;
 using Booking_Backend.Repository.Common;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.RoomRepo.Request;
 using Booking_Backend.Repository.RoomRepo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,6 @@ namespace Booking_Backend.Service.Rooms
         Task<bool> UpdateRoom(int roomId, RoomViewModel request);
         Task<List<Room>> GetRoomsByHotelIdToExtension(int hotelId, string languageId);
         Task<bool> UpdateRoom_Extension(List<int> IdsExtension, int roomId);
-
+        Task<bool> CreateRoom(CreateRoomRequest request);
     }
 }

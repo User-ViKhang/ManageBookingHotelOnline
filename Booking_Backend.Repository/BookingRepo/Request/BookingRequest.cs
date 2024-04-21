@@ -18,9 +18,13 @@ namespace Booking_Backend.Repository.BookingRepo.Request
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Nation { get; set; }
+        public string Thumbnail { get; set; }
         public StatusBooking Status { get; set; }
         public decimal Price { get; set; }
         public int TotalPeople { get; set; }
+
+        public AppUser? User { get; set; }
+        public string? UserId { get; set; }
 
         public int HotelId { get; set; }
         public int RoomId { get; set; }

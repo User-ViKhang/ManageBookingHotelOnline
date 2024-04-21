@@ -2,6 +2,7 @@
 using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.RoomRepo.Request;
 using Booking_Frontend.APIIntegration.ExtensionRoom;
 using FluentValidation.Resources;
 using Microsoft.AspNetCore.Http;
@@ -90,6 +91,16 @@ namespace Booking_Frontend.APIIntegration.HotelService
         public async Task<List<Image>> GetListImageHotel(int Id)
         {
             return await GetAsync<List<Image>>($"/api/hotel/image-hotel/{Id}");
+        }
+
+        public async Task<bool> RegisterHotel(InfoOwnerRegisterViewModel request)
+        {
+            return await PostAsyncNotFile<InfoOwnerRegisterViewModel>("/api/hotel", request);
+        }
+
+        public async Task<bool> UpdateHotel(int Id, UpdateHotelRequest request)
+        {
+            return await PutAsyncNotFile<UpdateHotelRequest>($"/api/hotel/infohotel/{Id}", request);
         }
     }
 }

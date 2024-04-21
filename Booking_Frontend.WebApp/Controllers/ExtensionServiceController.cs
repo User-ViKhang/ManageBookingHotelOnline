@@ -13,6 +13,7 @@ using Booking_Frontend.APIIntegration.ServiceHotel;
 using Booking_Backend.Repository.Service.Request;
 using System.Collections.Generic;
 using Booking_Frontend.APIIntegration.ExtensionTypeRoom;
+using Booking_Backend.Repository.Hotels.ViewModels;
 
 namespace Booking_Frontend.WebApp.Controllers
 {
@@ -43,10 +44,10 @@ namespace Booking_Frontend.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var languageId = CultureInfo.CurrentCulture.Name;
-            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
             var hotel = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
             var hotel_services = await _service.GetAllServiceHotelByIdHotel(hotel.Id);
-            var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId);
+            //var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId, null);
             var services = await _service.GetServiceHotel(new GetServiceHotelRequest
             {
                 LanguageId = languageId,
@@ -58,7 +59,7 @@ namespace Booking_Frontend.WebApp.Controllers
             {
                 UserId = userId,
                 HotelViewModel = hotel,
-                BookingOwnerViewModel = booking,
+                //BookingOwnerViewModel = booking,
                 ServiceOwnerViewModel = services,
                 ServiceIdsChecked = hotel_services
 
@@ -69,9 +70,9 @@ namespace Booking_Frontend.WebApp.Controllers
         public async Task<IActionResult> ManageExtension()
         {
             var languageId = CultureInfo.CurrentCulture.Name;
-            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
             var hotel = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
-            var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId);
+            //var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId, null);
             var extensiongroup = await _extension.GetExtensionGroup(languageId);
             var extensionChecked = await _room.GetRoomsByHotelIdToExtension( hotel.Id, languageId);
             var services = await _service.GetServiceHotel(new GetServiceHotelRequest
@@ -85,7 +86,7 @@ namespace Booking_Frontend.WebApp.Controllers
             {
                 UserId = userId,
                 HotelViewModel = hotel,
-                BookingOwnerViewModel = booking,
+                //BookingOwnerViewModel = booking,
                 ServiceOwnerViewModel = services,
                 ExtensionGroupViewModel = extensiongroup,
                 ExtensionChecked = extensionChecked
@@ -93,22 +94,23 @@ namespace Booking_Frontend.WebApp.Controllers
         }
         
         [HttpPost("extension-service/update/{hotelId}")]
-        public async Task<IActionResult> UpdatePost(List<int> Ids, int hotelId)
+        public async Task<IActionResult> UpdatePost(int hotelId, HotelInfoViewModel hotelVM)
         {
             var languageId = CultureInfo.CurrentCulture.Name;
-            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
             var hotel = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
-            var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId);
-            var isUpdateResult = await _service.UpdateService_Hotel(Ids, hotelId);
+            //var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId, null);
+            hotelVM.LanguageId = languageId;
+            var isUpdateResult = await _service.UpdateService_Hotel(hotelVM);
             var hotel_services = await _service.GetAllServiceHotelByIdHotel(hotelId);
             var services = await _service.GetServiceHotel(new GetServiceHotelRequest
             {
                 LanguageId = languageId,
                 Keyword = "",
                 PageIndex = 1,
-                PageSize = 100
+                PageSize = 30
             });
-            return new RedirectResult("/extension-manage");
+            return new RedirectResult("/extension-service");
         }
         
         
@@ -116,9 +118,9 @@ namespace Booking_Frontend.WebApp.Controllers
         public async Task<IActionResult> ManageExtension(List<int> Ids, int roomId)
         {
             var languageId = CultureInfo.CurrentCulture.Name;
-            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
             var hotel = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
-            var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId);
+            //var booking = await _booking.GetAllBookingOwner(hotel.Id, languageId, null);
             var updateRoom_Extension = await _room.UpdateExtension_Room(Ids, roomId);
             var extensiongroup = await _extension.GetExtensionGroup(languageId);
             var extensionChecked = await _room.GetRoomsByHotelIdToExtension(hotel.Id, languageId);
@@ -133,7 +135,7 @@ namespace Booking_Frontend.WebApp.Controllers
             {
                 UserId = userId,
                 HotelViewModel = hotel,
-                BookingOwnerViewModel = booking,
+                //BookingOwnerViewModel = booking,
                 ServiceOwnerViewModel = services,
                 ExtensionGroupViewModel = extensiongroup,
                 ExtensionChecked = extensionChecked

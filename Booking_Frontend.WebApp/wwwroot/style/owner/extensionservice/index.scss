@@ -37,3 +37,12 @@
     left: 5px;
     font-size: 25px;
 }
+.description::before {
+    content: "Mô tả chỗ nghĩ";
+    position: absolute;
+    background-color: white;
+    padding: 0 5px;
+    top: -10%;
+    left: 5px;
+    font-size: 25px;
+}

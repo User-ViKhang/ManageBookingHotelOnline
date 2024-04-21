@@ -602,6 +602,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.1.1, )"
+            },
             "LazZiya.ExpressLocalization": {
               "target": "Package",
               "version": "[5.0.0-beta2, )"
@@ -610,9 +614,9 @@
               "target": "Package",
               "version": "[6.0.2, )"
             },
-            "Microsoft.AspNet.Mvc": {
+            "Microsoft.AspNetCore.Authentication.Google": {
               "target": "Package",
-              "version": "[5.3.0, )"
+              "version": "[3.1.20, )"
             },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
