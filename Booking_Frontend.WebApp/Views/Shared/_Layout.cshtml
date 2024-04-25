@@ -198,7 +198,13 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                 <div class="wrapper-btn wrapper-btn-profile" style="position: relative">
                     <div class="d-flex wrapper-btn-items p-1 pr-3" style="background-color: white; border-radius: 15px">
                         <div class="wrapper-avatar">
-                             <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.AvatarUrl )" style="height: 40px; width: 40px; border-radius: 50%" /> 
+                            @if(Model.UserClient.ResultOject.AvatarUrl != "")
+                            {
+                                <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.AvatarUrl )" style="height: 40px; width: 40px; border-radius: 50%" />
+                            } else
+                            {
+                                <img src="/img/user-profile-icon-trendy-flat-260nw-1923506948.png" style="height: 40px; width: 40px; border-radius: 50%" />
+                            }
                         </div>
                         <div class="pl-2 user-name text-dark">
                             @Model.UserClient.ResultOject.DisplayName

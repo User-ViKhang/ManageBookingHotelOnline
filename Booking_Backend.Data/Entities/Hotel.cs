@@ -15,6 +15,7 @@ namespace Booking_Backend.Data.Entities
         public string? Thumbnail { get; set; }
         public int? Preview { get; set; }
         public decimal? Score { get; set; }
+        public decimal? PriceDefault { get; set; }
 
         public List<Comment> Comments { get; set; }
         public List<Hotel_Service> Hotel_Services { get; set; }

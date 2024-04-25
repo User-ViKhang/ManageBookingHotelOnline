@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace Booking_Frontend.WebApp.Controllers
 {
-    [Authorize(Roles = "Client")]
     public class ClientController : Controller
     {
         public IActionResult Index(string Id)

@@ -22,11 +22,11 @@ namespace Booking_Backend.API.Controllers
             _bookingAPIService = bookingAPIService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateBooking(BookingRequest request)
+        [HttpPost("{payment}")]
+        public async Task<IActionResult> CreateBooking(BookingRequest request, Payment payment)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var result = await _bookingAPIService.CreateBooking(request);
+            var result = await _bookingAPIService.CreateBooking(request, payment);
             if (!result) return BadRequest();
             return Ok(result);
         }

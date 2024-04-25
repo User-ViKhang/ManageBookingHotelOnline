@@ -13,10 +13,12 @@ namespace Booking_Backend.Repository.BookingRepo.ViewModel
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public decimal TotalAmount { get; set; }
+        public decimal TotalPrice { get; set; }
         public int TotalRoom { get; set; }
         public int? TotalPeople { get; set; }
         public string? Note { get; set; }
         public StatusBooking Status { get; set; }
+        public Payment Payment { get; set; }
         public Room Room { get; set; }
         public Bed Bed { get; set; }
         public Booking_Backend.Data.Entities.RoomType RoomType {  get; set; }

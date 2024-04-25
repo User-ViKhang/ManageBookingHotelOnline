@@ -79,7 +79,7 @@ namespace Booking_Frontend.APIIntegration.HotelService
 
         public async Task<PageResult<HotelViewModel>> GetHotelByLocation(GetHotelByLocationRequest request)
         {
-            return await GetAsync<PageResult<HotelViewModel>>($"/api/Hotel?LanguageId={request.LanguageId}&LocationName={request.LocationName}&DateCheckIn={request.DateCheckIn.ToString("MM-dd-yyyy")}&DateCheckOut={request.DateCheckOut.ToString("MM-dd-yyyy")}&TotalPeople={request.TotalPeople}&PageIndex={request.PageIndex}&PageSize={request.PageSize}");
+            return await GetAsync<PageResult<HotelViewModel>>($"/api/Hotel?LanguageId={request.LanguageId}&LocationName={request.LocationName}&DateCheckIn={request.DateCheckIn.ToString("MM-dd-yyyy")}&DateCheckOut={request.DateCheckOut.ToString("MM-dd-yyyy")}&TotalPeople={request.TotalPeople}&PageIndex={request.PageIndex}&PageSize={request.PageSize}&isHightFeedBack={request.IsHightFeedBack}&isLowPrice={request.isLowPrice}");
                                                                                               //https://localhost:5001/api/Hotel?LanguageId=vi-VN&LocationName=Da%20Lat&DateCheckIn=11-11-2024&DateCheckOut=11-11-2024&TotalPeople=2&PageIndex=1&PageSize=10
         }
 

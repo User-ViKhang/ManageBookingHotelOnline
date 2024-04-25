@@ -17,7 +17,7 @@ namespace Booking_Frontend.APIIntegration.BookingService
 {
     public interface IBookingClientService
     {
-        Task<bool> CreateBooking(BookingRequest request);
+        Task<bool> CreateBooking(BookingRequest request, Payment payment);
         Task<List<BookingOwnerViewModel>> GetAllBookingOwner(int hoteId, string LanguageId, StatusBooking? status);
         Task<BookingOwnerViewModel> GetBookingOwnerById(int bookingId, string LanguageId);
         Task<bool> ChangeStatusBooking(int Id, UpdateStatusBookingRequest request);

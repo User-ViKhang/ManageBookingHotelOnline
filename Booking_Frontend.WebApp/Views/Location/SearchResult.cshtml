@@ -55,13 +55,10 @@
                 </div>
                 <div class="navbar-main-page">
                     <div class="nav-item-title nav-item" localize-content>Sắp xếp theo</div>
-                    <a href="#">
-                        <div class="nav-item-1 nav-item" localize-content>Phù hợp nhất</div>
-                    </a>
-                    <a href="#">
+                    <a href="@(Context.Request.QueryString + "&isLowPrice=true")">
                         <div class="nav-item-2 nav-item" localize-content>Giá thấp nhất</div>
                     </a>
-                    <a href="#">
+                    <a href="@(Context.Request.QueryString + "&isHightFeedBack=true")">
                         <div class="nav-item-3 nav-item" localize-content>Đánh giá cao</div>
                     </a>
                     <a href="#">
@@ -105,7 +102,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex">
-                                                    <strong class="feed-back-text">Rất tốt</strong>
+                                                    <strong class="feed-back-text">@(Math.Round((decimal)item.PriceDefault).ToString("N0")) VND</strong>
                                                 </div>
                                             </div>
                                             <div class="row mt-5">

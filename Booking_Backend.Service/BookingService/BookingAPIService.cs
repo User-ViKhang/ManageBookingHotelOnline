@@ -170,13 +170,10 @@ namespace Booking_Backend.Service.BookingService
             return true;
         }
 
-        public async Task<bool> CreateBooking(BookingRequest request)
+        public async Task<bool> CreateBooking(BookingRequest request, Payment payment)
         {
             if(request.UserId == null)
             {
-                var emptyGuest = await _context.GuestCustomers.FirstOrDefaultAsync(x => x.Email == request.Email && x.FullName == request.FullName);
-                if (emptyGuest == null)
-                {
                     var guestCustomerRequest = new CreateGuestCustomerRequest()
                     {
                         FullName = request.FullName,
@@ -185,7 +182,6 @@ namespace Booking_Backend.Service.BookingService
                         PhoneNumber = request.PhoneNumber
                     };
                     var guestCus = await _guestCus.CreateGuestCustomer(guestCustomerRequest);
-                }
 
                 var guest = await _context.GuestCustomers.FirstOrDefaultAsync(x => x.Email == request.Email);
 
@@ -202,12 +198,13 @@ namespace Booking_Backend.Service.BookingService
                     CheckIn = request.CheckIn,
                     CheckOut = request.CheckOut,
                     Created = DateTime.UtcNow,
-                    TotalAmount = (decimal)request.TotalRoom * request.Price,
+                    TotalAmount = request.Sum,
                     TotalRoom = request.TotalRoom,
                     TotalPeople = request.TotalPeople,
                     Note = request.Note,
                     GuestCustomer = guest,
                     Status = StatusBooking.Pedding,
+                    Payment = payment
                 };
                 _context.Bookings.Add(createBooking);
 
@@ -247,13 +244,14 @@ namespace Booking_Backend.Service.BookingService
                     CheckIn = request.CheckIn,
                     CheckOut = request.CheckOut,
                     Created = DateTime.UtcNow,
-                    TotalAmount = (decimal)request.TotalRoom * request.Price,
+                    TotalAmount = request.Sum,
                     TotalRoom = request.TotalRoom,
                     TotalPeople = request.TotalPeople,
                     Note = request.Note,
                     User = user,
                     User_Id = Guid.Parse(request.UserId),
                     Status = StatusBooking.Pedding,
+                    Payment = payment
                 };
                 _context.Bookings.Add(createBooking);
 
@@ -303,6 +301,7 @@ namespace Booking_Backend.Service.BookingService
                     CheckIn = rb.Booking.CheckIn,
                     CheckOut = rb.Booking.CheckOut,
                     TotalAmount = rb.Booking.TotalAmount,
+                    TotalPrice = rb.Room.PriceOverNight,
                     TotalPeople = rb.Booking.TotalPeople,
                     TotalRoom = rb.Booking.TotalRoom,
                     Note = rb.Booking.Note,
@@ -367,6 +366,8 @@ namespace Booking_Backend.Service.BookingService
                 User = booking.User,
                 Note = booking.Note,
                 TotalPeople = booking.TotalPeople,
+                Payment = booking.Payment,
+                TotalPrice = booking.Room_Bookings.FirstOrDefault().Room.PriceOverNight,
                 RoomType = new RoomType
                 {
                     Id = booking.Room_Bookings.FirstOrDefault().Room.RoomType.Id,

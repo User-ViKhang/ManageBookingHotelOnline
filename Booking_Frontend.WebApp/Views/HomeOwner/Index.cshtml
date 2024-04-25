@@ -76,8 +76,8 @@
                                         }
                                     </td>
                                     <td class="text-center">0</td>
-                                    <td>@item.TotalAmount.ToString("N0")</td>
-                                    <td>@((item.TotalAmount * numberOfDays).ToString("N0"))</td>
+                                    <td>@item.TotalPrice.ToString("N0")</td>
+                                    <td>@((item.TotalAmount).ToString("N0"))</td>
                                     <td>@item.Created.ToString("dd/MM/yyyy hh:mm tt")</td>
                                 </tr>
                                 <input type="hidden" value="@count" name="StatisticalRequests[@(count - 1)].STT" />

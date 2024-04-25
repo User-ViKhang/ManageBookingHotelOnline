@@ -21,19 +21,19 @@
                     <h4 class="pb-0">Tìm theo</h4>
                     <div>
                         <div class="pl-2" style="font-weight:300; font-size: 11px">Địa điểm</div>
-                        <input class="form-control" placeholder="Địa chỉ" />
+                        <input class="form-control" val placeholder="Địa chỉ" />
                     </div>
                     <div class="mt-1">
                         <div class="pl-2" style="font-weight:300; font-size: 11px">Ngày nhận phòng</div>
-                        <input type="date" class="form-control" placeholder="Địa chỉ" />
+                    <input type="text" class="form-control" value="@ViewData["check-in"]" placeholder="Địa chỉ" />
                     </div>  
                     <div class="mt-1">
                     <div class="pl-2" style="font-weight:300; font-size: 11px">Ngày trả phòng</div>
-                        <input type="date" class="form-control" placeholder="Địa chỉ" />
+                    <input type="text" value="@ViewData["check-out"]" class="form-control" placeholder="Địa chỉ" />
                     </div>    
                     <div class="mt-1">
                     <div class="pl-2" style="font-weight:300; font-size: 11px">Số người</div>
-                        <input type="number" class="form-control" value="1" />
+                    <input type="number" class="form-control" value="@ViewData["people"]" />
                     </div>
                     <button class="btn btn-primary mt-2" style="width: 100%">Tìm ngay</button>
                     <div class="mt-3" style="height: 150px">
@@ -52,7 +52,7 @@
                       See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
                       for more information.
                       -->
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZrtQzXb5fZt24woBQVN4Vtp-lrL28mqY&callback=initMap&v=weekly"
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyYgiP09op4gI41iF5BDNUwyz0vPRPHSw&callback=initMap&v=weekly"
                             defer></script>
 
 
@@ -286,7 +286,15 @@
                 <div class="row p-3">
                     <div class="col-md-1">
                         <div class="wrapper-avatar justify-content-center d-flex">
-                            <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.Avatar.ImageUrl)" style="height: 60px; width:60px" />
+                            @if(Model.UserClient.ResultOject.AvatarUrl != "")
+                            {
+                                <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.AvatarUrl)" style="height: 60px; width:60px" />
+
+                            }  else
+                            {
+                                <img src="/img/user-profile-icon-trendy-flat-260nw-1923506948.png" style="height: 60px; width:60px" />
+
+                            }
                         </div>
                     </div>
                     <div class="col-md-7">
@@ -357,9 +365,9 @@
 
     function initMap() {
         const uluru = {
-            lat: 10.420120, lng: 105.295059 };
+            lat: @Html.Raw(Json.Serialize(Model.HotelDetail.Latitude)), lng: @Html.Raw(Json.Serialize(Model.HotelDetail.Longitude)) };
         const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 12,
+            zoom: 15,
             center: uluru,
         });
         // Thêm sự kiện 'click' vào bản đồ

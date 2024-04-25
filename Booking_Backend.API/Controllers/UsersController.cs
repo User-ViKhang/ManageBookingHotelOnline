@@ -32,13 +32,12 @@ namespace Booking_Backend.API.Controllers
         [HttpPost("authenticate"), AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
             var resultToken = await _userService.Authenticate(request);
             if (string.IsNullOrEmpty(resultToken)) return BadRequest("Email và Password không chính xác!");
             return Ok(new {token = resultToken});
         }
 
-        [HttpPost("register/{roleName}"), AllowAnonymous]
+        [HttpPost("register/{roleName}"), AllowAnonymous]   
         public async Task<IActionResult> Register(string roleName, [FromBody] RegisterRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -53,7 +52,7 @@ namespace Booking_Backend.API.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var resultToken = await _userService.RegisterByUser(request);
             if (!resultToken.IsSuccessed) return BadRequest(resultToken.Message);
-            return Ok();
+            return Ok(resultToken);
         }
 
         [HttpPost("forget-password"), AllowAnonymous]

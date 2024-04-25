@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZiYBmOx5TF2emLqJlSGw5QzumcBaURJd2BZQ0uxSMxzEJkUA9ihdXBQtOOPn31L9/ouJghEBFd81f7wdZWMMCA==",
+  "dgSpecHash": "6bmBhIXBvi6+R7nSUBnOCWlbdvDPAYHx542NmSpmdakYBX9aPa0CwwNY2aaUOU6o6p7LTkxbGmg1qBQesiGZvA==",
   "success": true,
   "projectFilePath": "Z:\\GRADUATE\\BackEnd\\Booking_Backend\\Booking_Frontend.WebApp\\Booking_Frontend.WebApp.csproj",
   "expectedPackageFiles": [
@@ -20,6 +20,7 @@
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.cookies\\2.2.0\\microsoft.aspnetcore.authentication.cookies.2.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\3.1.0\\microsoft.aspnetcore.authentication.facebook.3.1.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\3.1.20\\microsoft.aspnetcore.authentication.google.3.1.20.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.32\\microsoft.aspnetcore.authentication.jwtbearer.3.1.32.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",

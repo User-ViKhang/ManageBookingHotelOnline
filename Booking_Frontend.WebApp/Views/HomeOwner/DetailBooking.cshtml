@@ -19,7 +19,15 @@
                                 <div class="col-md-12">
                                     <div class="detail-info">
                                         <h6 style="margin-bottom: 0px">Đơn hàng #<a href="">@Model.BookingOwnerDetailViewModel.Id</a> chi tiết</h6>
-                                        <div style="font-size: 14px;">Thanh toán qua hình thức chuyển khoản ngân hàng</div>
+                                        <div style="font-size: 14px;">
+                                            @if(Model.BookingOwnerDetailViewModel.Payment == Payment.VNPay)
+                                            {
+                                                <text>Hình thức thanh toán VNPay</text>
+                                            }     else
+                                            {
+                                                <text>Hình thức thanh toán tại chỗ nghỉ</text>
+                                            }
+                                        </div>
                                         <form method="post" action="confirm/@Model.BookingOwnerDetailViewModel.Id">
                                             <div class="row mt-4">
                                                 <div class="col-md-6">
@@ -112,14 +120,14 @@
                                                     }
                                                     </td>
                                                     <td>x @Model.BookingOwnerDetailViewModel.TotalRoom</td>
-                                                    <td>@Model.BookingOwnerDetailViewModel.TotalAmount.ToString("N0")</td>
-                                                    <td>@((Model.BookingOwnerDetailViewModel.TotalAmount * numberOfDays).ToString("N0"))</td>
+                                                    <td>@Model.BookingOwnerDetailViewModel.TotalPrice.ToString("N0")</td>
+                                                    <td>@((Model.BookingOwnerDetailViewModel.TotalAmount).ToString("N0"))</td>
                                                 </tr>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <td colspan="6" class="align-right" style="font-weight: 500">Tổng hóa đơn:</td>
-                                            <td colspan="6" style="color: red">@((Model.BookingOwnerDetailViewModel.TotalAmount * numberOfDays).ToString("N0")) VND</td>
+                                            <td colspan="6" style="color: red">@((Model.BookingOwnerDetailViewModel.TotalAmount).ToString("N0")) VND</td>
                                                 </tr>
                                             </tfoot>
                                         </table>

@@ -38,6 +38,7 @@
           "EPPlus": "7.1.1",
           "LazZiya.ExpressLocalization": "5.0.0-beta2",
           "LazZiya.TagHelpers": "6.0.2",
+          "Microsoft.AspNetCore.Authentication.Facebook": "3.1.0",
           "Microsoft.AspNetCore.Authentication.Google": "3.1.20",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.5",
@@ -504,6 +505,17 @@
           "Microsoft.AspNetCore.Authentication.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Http": "2.2.0",
           "Microsoft.AspNetCore.Http.Extensions": "2.2.0"
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Facebook/3.1.0": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.100.19.56601"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Facebook.dll": {}
         }
       },
       "Microsoft.AspNetCore.Authentication.Google/3.1.20": {
@@ -5013,6 +5025,13 @@
       "sha512": "sha512-XlVJzJ5wPOYW+Y0J6Q/LVTEyfS4ssLXmt60T0SPP+D8abVhBTl+cgw2gDHlyKYIkcJg7btMVh383NDkMVqD/fg==",
       "path": "microsoft.aspnetcore.authentication.core/2.2.0",
       "hashPath": "microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VtkBmB6TnL4AR0kLPdErqr/NT7Jc9SP3Jtrl6XfNEir88p1z8QzQZ3pWS1faL4h3EH2RDK/oWUq25VaZlJnzDQ==",
+      "path": "microsoft.aspnetcore.authentication.facebook/3.1.0",
+      "hashPath": "microsoft.aspnetcore.authentication.facebook.3.1.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.Google/3.1.20": {
       "type": "package",

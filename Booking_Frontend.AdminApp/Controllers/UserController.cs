@@ -115,6 +115,7 @@ namespace Booking_Frontend.AdminApp.Controllers
         [HttpPost] //Hiện view
         public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("login", "user");
         }

@@ -32,7 +32,6 @@ using OfficeOpenXml.Style;
 
 namespace Booking_Frontend.WebApp.Controllers
 {
-    [Authorize(Roles = "Owner")]
     public class HomeOwnerController : Controller
     {
         private readonly IHotelClientService _hotel;

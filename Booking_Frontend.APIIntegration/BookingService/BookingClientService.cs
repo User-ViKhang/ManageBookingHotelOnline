@@ -47,9 +47,9 @@ namespace Booking_Frontend.APIIntegration.BookingService
             return await PostAsyncNotFile<ConfirmBookingRequest>($"/api/booking/confirm/{Id}", request);
         }
 
-        public async Task<bool> CreateBooking(BookingRequest request)
+        public async Task<bool> CreateBooking(BookingRequest request, Payment payment)
         {
-            return await PostAsyncNotFile<BookingRequest>($"/api/booking", request);
+            return await PostAsyncNotFile<BookingRequest>($"/api/booking/{payment}", request);
         }
 
         public async Task<List<BookingOwnerViewModel>> GetAllBookingOwner(int hotelId, string LanguageId, StatusBooking? status)

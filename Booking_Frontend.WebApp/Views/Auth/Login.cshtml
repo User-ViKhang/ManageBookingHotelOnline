@@ -85,7 +85,7 @@
                                 <hr></hr>
                                 <span class='line-social-text'>hoặc sử dụng các chọn lựa khác</span>
                             </div>
-                            <form method="post" asp-route-returnUrl="" asp-action="auth" asp-controller="ExternalLogin">
+                            <form method="post" asp-route-returnUrl="/" asp-action="externallogin" asp-controller="auth">
                                 <div class='social-group'>
                                     <div class='social-item'>
                                         <div class='social-item_facebook'>
@@ -95,7 +95,7 @@
                                             </button>
                                         </div>
                                         <div class='social-item_google'>
-                                            <button type="submit" class="btn-google d-flex" value="Google" name="provider">
+                                            <button title="Sử dụng dịch vụ đăng kí Google" type="submit" class="btn-google d-flex" value="Google" name="provider">
                                                 <img src="~/img/logo/Google__G__logo.png" alt="Google Logo" class="google-icon" />
                                                 <span class="p-l-7">Google</span>
                                             </button>

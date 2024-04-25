@@ -29,5 +29,6 @@ namespace Booking_Backend.Repository.BookingRepo.Request
         public int HotelId { get; set; }
         public int RoomId { get; set; }
         public string LanguageId { get; set; }
+        public decimal Sum { get; set; }
     }
 }

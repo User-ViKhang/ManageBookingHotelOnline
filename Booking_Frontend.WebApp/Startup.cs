@@ -1,4 +1,7 @@
-﻿using Booking_Backend.Repository.Users.Validator;
+﻿using Booking_Backend.Data.EF;
+using Booking_Backend.Data.Entities;
+using Booking_Backend.Repository.Users.Validator;
+using Booking_Backend.Utilities.Constants;
 using Booking_Frontend.AdminApp.Service.APIFree;
 using Booking_Frontend.APIIntegration.BedService;
 using Booking_Frontend.APIIntegration.BookingCartService;
@@ -19,13 +22,16 @@ using Booking_Frontend.APIIntegration.ServiceHotel;
 using Booking_Frontend.APIIntegration.User;
 using Booking_Frontend.APIIntegration.ViewService;
 using Booking_Frontend.WebApp.LocalizationResources;
+using Booking_Frontend.WebApp.Service.VnPayService;
 using FluentValidation.AspNetCore;
 using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -50,11 +56,19 @@ namespace Booking_Frontend.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
+            services.AddHttpContextAccessor();
             var cultures = new[]
             {
                 new CultureInfo("en-US"),
                 new CultureInfo("vi-VN"),
             };
+            services.AddDbContext<BookingContext>(options =>
+            options.UseSqlServer("Server=DESKTOP-JRGDO84\\SQLEXPRESS;Database=Booking_DB;Trusted_Connection=True;"));
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<BookingContext>()
+                .AddDefaultTokenProviders();
+            services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
+            services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
 
             services.AddControllersWithViews()
                 .AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
@@ -79,14 +93,18 @@ namespace Booking_Frontend.WebApp
             })
                 .AddGoogle(googleOptions =>
                 {
-                    // Đọc thông tin Authentication:Google từ appsettings.json
-                    IConfigurationSection googleAuthNSection = Configuration.GetSection("Authentication:Google");
-
-                    // Thiết lập ClientID và ClientSecret để truy cập API google
+                    var googleAuthNSection = Configuration.GetSection("Authentication:Google");
                     googleOptions.ClientId = googleAuthNSection["ClientId"];
                     googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
-                    // Cấu hình Url callback lại từ Google (không thiết lập thì mặc định là /signin-google)
+                    googleOptions.SaveTokens = true;
                     googleOptions.CallbackPath = "/dang-nhap-tu-google";
+                })
+                .AddFacebook(opt =>
+                {
+                    var googleAuthNSection = Configuration.GetSection("Authentication:Facebook");
+                    opt.ClientId = googleAuthNSection["ClientId"];
+                    opt.ClientSecret = googleAuthNSection["ClientSecret"];
+                    opt.CallbackPath = "/dang-nhap-tu-facebook";
 
                 });
             services.AddScoped<IUserAPI, UserAPI>();
@@ -109,6 +127,7 @@ namespace Booking_Frontend.WebApp
             services.AddScoped<IEmailServiceClient, EmailServiceClient>();
             services.AddScoped<ICommentClientService, CommentClientService>();
             services.AddScoped<IBookingCartClientService, BookingCartClientService>();
+            services.AddSingleton<IVnPayService, VnPayService>();
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromHours(3);
@@ -150,6 +169,11 @@ namespace Booking_Frontend.WebApp
                 endpoints.MapControllerRoute(
                     name: "default2",
                     pattern: "{controller=home}/{action=index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "authCallback",
+                    pattern: "vi-VN/Auth/OnGetCallbackAsync",
+                    defaults: new { controller = "Auth", action = "OnGetCallbackAsync" }
+    );
 
                 //endpoints.MapControllerRoute(
                 //    name: "Step 1 booking",

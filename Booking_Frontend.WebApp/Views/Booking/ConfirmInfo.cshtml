@@ -1,4 +1,5 @@
-﻿@using Booking_Backend.Repository.BookingRepo.Request;
+﻿@using Booking_Backend.Data.Enums;
+@using Booking_Backend.Repository.BookingRepo.Request;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using Booking_Backend.Repository.BookingRepo.ViewModel;
 @model BillViewModel;
@@ -52,7 +53,15 @@
                         <label for="">Bổ sung yêu cầu</label>
                         <textarea name="Note"></textarea>                <!--Note-->
                     </div>
-                    <button class="btn btn-primary" type="submit">Tiếp tục đặt phòng</button>
+                    @if(Model.CreateBookingViewModel.TotalPrice != 0)
+                    {
+                        <button class="btn btn-primary" name="payment" type="submit" value="@Payment.COD">Thanh toán trực tiếp</button>
+                        <button class="btn btn-primary" name="payment" type="submit" value="@(Payment.VNPay)">Thanh toán VNPay</button>
+                    }  else
+                    {
+                        <button class="btn btn-primary" disabled name="payment" type="submit" value="@Payment.COD">Thanh toán trực tiếp</button>
+                        <button class="btn btn-primary" disabled name="payment" type="submit" value="@(Payment.VNPay)">Thanh toán VNPay</button>
+                    }
                 </div>
             </div>
             <div class="col-md-4">
@@ -146,7 +155,8 @@
                                     <input type="hidden" name="Price" value="@Model.CreateBookingViewModel.Price" />
 
                                 </div>
-                                <h6 class="p-3">Tổng thanh toán: @((Model.CreateBookingViewModel.Price * Model.CreateBookingViewModel.RoomQuality).ToString("N0")) VND</h6>
+                                <h6 class="p-3">Tổng thanh toán: @(Model.CreateBookingViewModel.TotalPrice.ToString("N0")) VND</h6>
+                                <input value="@(Model.CreateBookingViewModel.TotalPrice)" name="Sum" type="hidden" />
                             </div>
                         </div>
                     </div>

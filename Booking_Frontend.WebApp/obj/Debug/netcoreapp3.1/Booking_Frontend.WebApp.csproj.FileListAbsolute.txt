@@ -536,3 +536,9 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ResetPassword.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ResetPasswordConfirmation.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Google.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ExternalLogin.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Auth\CallBackView.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ConfirmUserExternal.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Booking\PaymentSuccess.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Booking\PaymentFail.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Facebook.dll

@@ -16,13 +16,18 @@ namespace Booking_Backend.Data.Entities
         public int TotalRoom { get; set; }
         public string? Note { get; set; }
         public int? TotalPeople { get; set; }
+        public Payment Payment { get; set; }
+
         [JsonIgnore]
         public AppUser? User { get; set; }
         public Guid? User_Id { get; set; }
+
         [JsonIgnore]
         public GuestCustomer? GuestCustomer { get; set; }
         public int? GuestCustomer_Id { get; set; }
+
         public StatusBooking Status { get; set; }
+
         public List<Room_Booking> Room_Bookings { get; set; }
 
     }

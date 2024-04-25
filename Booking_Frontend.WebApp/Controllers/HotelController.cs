@@ -61,6 +61,9 @@ namespace Booking_Frontend.WebApp.Controllers
         [HttpGet("{culture}/hotel/{Id}")]
         public async Task<IActionResult> Detail(int Id, string culture)
         {
+            ViewData["check-in"] = _httpContextAccessor.HttpContext.Session.GetString("date-checkin");
+            ViewData["check-out"] = _httpContextAccessor.HttpContext.Session.GetString("date-checkout");
+            ViewData["people"] = _httpContextAccessor.HttpContext.Session.GetInt32("total-people");
             var hotelDetail = await _hotelClient.GetHotelById(Id, culture);
             if (hotelDetail == null) return NotFound();
             var rooms = await _room.GetRoomsByHotelIdToExtension(Id, culture);

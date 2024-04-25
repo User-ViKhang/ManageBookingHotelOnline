@@ -127,9 +127,12 @@
 </div>
 <script>
     function initMap() {
-        const uluru = { lat: @Model.HotelViewModel.Latitude, lng: @Model.HotelViewModel.Longitude };
+        const uluru = {
+            lat: 10.369871, lng: 105.430910
+
+        };
         const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 12,
+            zoom: 13,
             center: uluru,
         });
         // Thêm sự kiện 'click' vào bản đồ
@@ -137,8 +140,8 @@
             // Lấy tọa độ khi click
             const clickedLocation = event.latLng;
             // Lấy vĩ độ và kinh độ
-            const latitude = clickedLocation.lat();
-            const longitude = clickedLocation.lng();
+            document.getElementById("ipLatitude").value = (clickedLocation.lat().toFixed(6))/1000000;
+            document.getElementById("ipLongitude").value = clickedLocation.lng().toFixed(6);
             // In ra console
             console.log("Vĩ độ:", latitude);
             console.log("Kinh độ:", longitude);

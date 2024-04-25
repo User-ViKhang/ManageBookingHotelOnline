@@ -1,6 +1,7 @@
 ﻿using Booking_Backend.Data.EF;
 using Booking_Backend.Data.Entities;
 using Booking_Backend.Data.Enums;
+using Booking_Backend.Repository;
 using Booking_Backend.Repository.BookingRepo.Request;
 using Booking_Backend.Repository.BookingRepo.ViewModel;
 using Booking_Backend.Repository.SendMail.Request;
@@ -9,14 +10,18 @@ using Booking_Frontend.APIIntegration.BookingService;
 using Booking_Frontend.APIIntegration.HotelService;
 using Booking_Frontend.APIIntegration.RoomService;
 using Booking_Frontend.APIIntegration.User;
+using Booking_Frontend.WebApp.Helper;
 using Booking_Frontend.WebApp.Models;
 using Booking_Frontend.WebApp.Models.Owner;
+using Booking_Frontend.WebApp.Service.VnPayService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Booking_Frontend.WebApp.Controllers
@@ -28,24 +33,41 @@ namespace Booking_Frontend.WebApp.Controllers
         private readonly IHotelClientService _hotel;
         private readonly IRoomClientService _room;
         private readonly IUserAPI _user;
+        private readonly IVnPayService _vnpay;
 
-        public BookingController(IHttpContextAccessor httpContextAccessor, IBookingClientService booking, IHotelClientService hotel, IRoomClientService room, IUserAPI user)
+        public BookingController(IHttpContextAccessor httpContextAccessor, IBookingClientService booking, IHotelClientService hotel, IRoomClientService room, IUserAPI user, IVnPayService vnpay)
         {
             _httpContextAccessor = httpContextAccessor;
             _booking = booking;
             _hotel = hotel;
             _room = room;
             _user = user;
+            _vnpay = vnpay;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(BookingRequest request)
+        public async Task<IActionResult> Index(BookingRequest request, Payment payment)
         {
-            if(_httpContextAccessor.HttpContext.Session.GetString("UserId_Client") != null)
+            if (_httpContextAccessor.HttpContext.Session.GetString("UserId_Client") != null)
             {
                 request.UserId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Client");
             }
-            var result = await _booking.CreateBooking(request);
+
+            if (payment == Payment.VNPay)
+            {
+                var vnPayModel = new VnPaymentRequestModel
+                {
+                    Amount = double.Parse(request.Sum.ToString()),
+                    CreatedDate = DateTime.Now,
+                    Description = $"{request.FullName} {request.PhoneNumber}",
+                    FullName = request.FullName,
+                    OrderId = Guid.NewGuid(),
+                };
+                TempData["bookingrequest"] = JsonSerializer.Serialize(request);
+                return Redirect(_vnpay.CreatePaymentUrl(HttpContext, vnPayModel));
+            }
+
+            var result = await _booking.CreateBooking(request, Payment.COD);
             return RedirectToAction("BookingSuccess", "Page");
         }
 
@@ -55,9 +77,6 @@ namespace Booking_Frontend.WebApp.Controllers
             ViewData["DateCheckIn"] = _httpContextAccessor.HttpContext.Session.GetString("date-checkin");
             ViewData["DateCheckOut"] = _httpContextAccessor.HttpContext.Session.GetString("date-checkout");
             ViewData["TotalPeople"] = _httpContextAccessor.HttpContext.Session.GetString("total-people");
-            request.CheckIn = _httpContextAccessor.HttpContext.Session.GetString("date-checkin");
-            request.CheckOut = _httpContextAccessor.HttpContext.Session.GetString("date-checkout");
-            request.TotalPeople = Int16.Parse(_httpContextAccessor.HttpContext.Session.GetString("total-people"));
             if(_httpContextAccessor.HttpContext.Session.GetString("UserId_Client") != null)
             {
                 var user = await _user.GetUserById(_httpContextAccessor.HttpContext.Session.GetString("UserId_Client"));
@@ -70,10 +89,36 @@ namespace Booking_Frontend.WebApp.Controllers
             {
                 request.RoomQuality = 1;
             }
+            int dayCheckin = DateTime.Parse(ViewData["DateCheckIn"].ToString()).Day;
+            int dayCheckout = DateTime.Parse(ViewData["DateCheckOut"].ToString()).Day;
+            int totalDate = dayCheckout - dayCheckin;
+            decimal totalPrice = request.Price * totalDate;
+            request.TotalPrice = totalPrice;
             return View(new BillViewModel
             {
                 CreateBookingViewModel = request
             });
+        }
+
+        public IActionResult PaymentFail()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> PaymentCallBackAsync()
+        {
+            var response = _vnpay.PaymentExecute(Request.Query);
+            if(response == null || response.VnPayResponseCode != "00")
+            {
+                TempData["Message"] = $"Lỗi thanh toán VNPay: {response.VnPayResponseCode}";
+                return RedirectToAction("PaymentFail");
+            }
+
+            string jsonData = TempData["bookingrequest"] as string;
+            var bookingRequest = JsonSerializer.Deserialize<BookingRequest>(jsonData);
+            var result = await _booking.CreateBooking(bookingRequest, Payment.VNPay);
+            return RedirectToAction("BookingSuccess", "Page");
+
         }
     }
 }

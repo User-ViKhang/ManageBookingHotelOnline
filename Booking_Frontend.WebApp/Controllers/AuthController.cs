@@ -18,6 +18,14 @@ using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Repository.SendMail.Request;
 using System.Text.Encodings.Web;
 using Booking_Frontend.APIIntegration.EmailService;
+using Booking_Backend.Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Org.BouncyCastle.Asn1.Cmp;
+using Booking_Backend.Utilities.Exceptions;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.AspNetCore.Authorization;
+using OfficeOpenXml.FormulaParsing.LexicalAnalysis;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Booking_Frontend.WebApp.Controllers
 {
@@ -26,20 +34,22 @@ namespace Booking_Frontend.WebApp.Controllers
         private readonly IUserAPI _userAPI;
         private readonly IConfiguration _config;
         private readonly IEmailServiceClient _email;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public AuthController(IUserAPI userAPI, IConfiguration config, IEmailServiceClient email)
+        public AuthController(IUserAPI userAPI, IConfiguration config, IEmailServiceClient email, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
             _userAPI = userAPI;
             _config = config;
             _email = email;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
-
 
         [HttpPost] //Hiện view
         public async Task<IActionResult> Logout()
@@ -54,7 +64,6 @@ namespace Booking_Frontend.WebApp.Controllers
         public async Task<IActionResult> Login()
         {
             HttpContext.Session.Clear();
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return View();
         }
         
@@ -138,9 +147,101 @@ namespace Booking_Frontend.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult ExternalLogin(string provider)
+        public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
-            return Content(provider);
+            var redirectUrl = Url.Action("CallBackView", "Auth", values: new { returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return new ChallengeResult(provider, properties);
+        }
+
+        [Authorize]
+        [HttpGet("/use-server-external")]
+        public async Task<IActionResult> CallBackView(string returnUrl = null)
+        {
+            returnUrl = returnUrl ?? Url.Action("Index", "Home");
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if(info == null)
+            {
+                return RedirectToAction("Login");
+            }
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+            var accessToken = info.AuthenticationTokens.FirstOrDefault().Value;
+            HttpContext.Session.SetString("Token", accessToken);
+            if (result.Succeeded)
+            {
+                var emailUser = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var registedUser = await _userManager.FindByEmailAsync(emailUser);
+                return RedirectToAction("index", "homeowner", new { id = registedUser.Id });
+            } else if(result.IsLockedOut)
+            {
+                return RedirectToAction("Logout");
+            } else
+            {
+                var ProviderDisplayName = info.ProviderDisplayName;
+                if(info.Principal.HasClaim(c=>c.Type == ClaimTypes.Email))
+                {
+                    var Input = new RegisterByUser
+                    {
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                    };
+                }
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Confirmation(RegisterByUser request, string returnUrl)
+        {
+            returnUrl = returnUrl ?? Url.Action("Index", "Home");
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {   
+                return RedirectToAction("login");
+            }
+            if(ModelState.IsValid)
+            {
+                var registedUser = await _userManager.FindByEmailAsync(request.Email);
+                string externalEmail = null;
+                AppUser externalEmailUser = null;
+                if(info.Principal.HasClaim(c=>c.Type== ClaimTypes.Email))
+                {
+                    externalEmail = info.Principal.FindFirstValue(ClaimTypes.Email);
+                }
+                if(externalEmail != null)
+                {
+                    externalEmailUser = await _userManager.FindByEmailAsync(externalEmail);
+                }
+
+                if((registedUser != null) && (externalEmailUser != null))
+                {
+                    if(registedUser.Id == externalEmailUser.Id) {
+                        var resultLink = await _userManager.AddLoginAsync(registedUser, info);
+                        if(resultLink.Succeeded)
+                        {
+                            await _signInManager.SignInAsync(externalEmailUser, isPersistent: false);
+                            return RedirectToAction("index", "client", new { id = registedUser.Id });
+                        }
+                    }
+                }
+                if ((externalEmail== request.Email) && (externalEmailUser == null))
+                {
+                        var user = new AppUser
+                    {
+                        UserName = request.Email,
+                        Email = request.Email
+                    };
+                    var result = await _userManager.CreateAsync(user);
+                    await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
+
+                    if (result.Succeeded)
+                    {
+                        var resultLogin = await _userManager.AddLoginAsync(user, info);
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return LocalRedirect(returnUrl);
+                    }
+                }
+            }
+                    return View();
         }
 
         [HttpGet]

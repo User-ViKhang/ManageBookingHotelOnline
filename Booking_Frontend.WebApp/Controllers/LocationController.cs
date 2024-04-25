@@ -42,12 +42,15 @@ namespace Booking_Frontend.WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SearchResult(string locationName, DateTime dateCheckIn, DateTime dateCheckOut, int totalPeople)
+        public async Task<IActionResult> SearchResult(string locationName, DateTime dateCheckIn, DateTime dateCheckOut, int totalPeople, bool isHightFeedBack, bool isLowPrice)
         {
             _httpContextAccessor.HttpContext.Session.SetString("date-checkin", dateCheckIn.ToString("dd/MM/yyyy"));
             _httpContextAccessor.HttpContext.Session.SetString("date-checkout", dateCheckOut.ToString("dd/MM/yyyy"));
             _httpContextAccessor.HttpContext.Session.SetString("total-people", totalPeople.ToString());
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            ViewData["date-checkin"] = _httpContextAccessor.HttpContext.Session.GetString("date-checkin");
+            ViewData["date-checkout"] = _httpContextAccessor.HttpContext.Session.GetString("date-checkout");
+            ViewData["total-people"] = _httpContextAccessor.HttpContext.Session.GetString("total-people");
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             var languageId = CultureInfo.CurrentCulture.Name;
             var lst = await _hotelType.GetAllHotelType(languageId);
             APIResult<UserViewModel> user = null;
@@ -66,7 +69,9 @@ namespace Booking_Frontend.WebApp.Controllers
                 LocationName = locationName,
                 DateCheckIn = DateTime.Parse(_httpContextAccessor.HttpContext.Session.GetString("date-checkin")),
                 DateCheckOut = DateTime.Parse(_httpContextAccessor.HttpContext.Session.GetString("date-checkout")),
-                TotalPeople = totalPeople
+                TotalPeople = totalPeople,
+                IsHightFeedBack = isHightFeedBack,
+                isLowPrice = isLowPrice,
             };
             var hotelTypes = await _hotelType.GetAllHotelType(CultureInfo.CurrentCulture.Name);
             var data = await _hotelClientService.GetHotelByLocation(request);

@@ -38,7 +38,15 @@
                 <div class="col-md-4 text-center">
                     <div class="card-wrapper" style="width: 100%; padding: 20px; background-color: #f8f8f8; box-shadow: 0 0 3px 2px #ccc">
                         <div class="card-avatar" style="overflow: hidden;width: 100%; height: 250px; border: thin solid #ccc; border-radius: 50%; background-color: white">
-                            <img style="width: 100%; height: 100%" src="@(Configuration["HostServer"] + @Model.UpdateProfileRequestModel.AvatarUrl )" />
+                            @if(Model.UserClient.ResultOject.AvatarUrl != "")
+                            {
+                                <img style="width: 100%; height: 100%" src="@(Configuration["HostServer"] + @Model.UpdateProfileRequestModel.AvatarUrl )" />
+
+                            }            else
+                            {
+                                <img style="width: 100%; height: 100%" src="/img/user-profile-icon-trendy-flat-260nw-1923506948.png" />
+
+                            }
                         </div>
                         <div class=" wrap-img-user mt-3">
                             <input type="file" id="uploadInput" class="upload-input" name="Avatar" accept="image/*" onchange="previewAvatar(event)">

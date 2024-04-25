@@ -19,5 +19,6 @@ namespace Booking_Backend.Repository.Hotels.ViewModels
         public DateTime CheckOut { get; set; }
         public int? Preview { get; set; }
         public decimal? Score { get; set; }
+        public decimal? PriceDefault { get; set; }
     }
 }

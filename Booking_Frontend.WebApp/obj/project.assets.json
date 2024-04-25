@@ -267,6 +267,22 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.Facebook/3.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Authentication.Google/3.1.20": {
         "type": "package",
         "compile": {
@@ -4868,6 +4884,20 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Core.xml",
         "microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.authentication.core.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/3.1.0": {
+      "sha512": "VtkBmB6TnL4AR0kLPdErqr/NT7Jc9SP3Jtrl6XfNEir88p1z8QzQZ3pWS1faL4h3EH2RDK/oWUq25VaZlJnzDQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.facebook/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Facebook.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.Facebook.xml",
+        "microsoft.aspnetcore.authentication.facebook.3.1.0.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.facebook.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.Google/3.1.20": {
@@ -12154,6 +12184,7 @@
       "EPPlus >= 7.1.1",
       "LazZiya.ExpressLocalization >= 5.0.0-beta2",
       "LazZiya.TagHelpers >= 6.0.2",
+      "Microsoft.AspNetCore.Authentication.Facebook >= 3.1.0",
       "Microsoft.AspNetCore.Authentication.Google >= 3.1.20",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5"
@@ -12228,6 +12259,10 @@
           "LazZiya.TagHelpers": {
             "target": "Package",
             "version": "[6.0.2, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Facebook": {
+            "target": "Package",
+            "version": "[3.1.0, )"
           },
           "Microsoft.AspNetCore.Authentication.Google": {
             "target": "Package",

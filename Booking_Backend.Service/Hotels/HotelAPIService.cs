@@ -215,7 +215,6 @@ namespace Booking_Backend.Service.Hotels
 
             if (locationTranslation == null) throw new BookingException("Không tim thấy địa chỉ");
             var locationId = locationTranslation.Location_Id;
-
             var query = from hotel in _context.Hotels
                         where hotel.Location_Id == locationId
                         join hotelTranslation in _context.HotelTranslations on hotel.Id equals hotelTranslation.Hotel_Id
@@ -227,6 +226,14 @@ namespace Booking_Backend.Service.Hotels
                         join viewHotelTranslation in _context.ViewHotelTranslations on viewHotel.Id equals viewHotelTranslation.ViewHotel_Id
                         where viewHotelTranslation.Language_Id == request.LanguageId
                         select new { hotel, hotelTranslation, hotelTypeTranslation, viewHotelTranslation };
+            if(request.IsHightFeedBack == true)
+            {
+                query = query.OrderByDescending(x => x.hotel.Score);
+            }
+            if(request.isLowPrice == true)
+            {
+                query = query.OrderBy(x => x.hotel.PriceDefault);
+            }
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
             .Select(x => new HotelViewModel()
@@ -238,7 +245,8 @@ namespace Booking_Backend.Service.Hotels
                 ShortDescription = x.hotelTranslation.ShortDescription,
                 Thumbnail = x.hotel.Thumbnail,
                 Preview = x.hotel.Preview,
-                Score = x.hotel.Score
+                Score = x.hotel.Score,
+                PriceDefault = x.hotel.PriceDefault,
             }).ToListAsync();
             var PagedResult = new PageResult<HotelViewModel>()
             {

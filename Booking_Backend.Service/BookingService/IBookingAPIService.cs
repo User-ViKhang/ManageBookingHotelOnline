@@ -13,7 +13,7 @@ namespace Booking_Backend.Service.BookingService
 {
     public interface IBookingAPIService
     {
-        Task<bool> CreateBooking(BookingRequest request);
+        Task<bool> CreateBooking(BookingRequest request, Payment payment);
         Task<List<BookingOwnerViewModel>> GetAllBookingOwner(int hoteId, string LanguageId, StatusBooking? status);
         Task<BookingOwnerViewModel> GetBookingOwnerById(int bookingId, string LanguageId);
         Task<bool> ConfirmBooking(int Id, ConfirmBookingRequest request);

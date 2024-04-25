@@ -15,6 +15,7 @@ namespace Booking_Backend.Repository.BookingRepo.Request
         public string RoomTypeName { get; set; }
         public string BedName { get; set; }
         public decimal Price { get; set; }
+        public decimal TotalPrice { get; set; }
         public int RoomQuality { get; set; }
         public string ThumbnailHotel { get; set; }
 
