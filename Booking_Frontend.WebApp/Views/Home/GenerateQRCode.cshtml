@@ -1,0 +1,14 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="container">
+    <form method="post" asp-controller="home" asp-action="generateqrcode">
+        <input type="text" class="form-control" name="QRCodeString" />
+        <button type="submit">Do</button>
+    </form>
+    @if (!string.IsNullOrEmpty(ViewBag.URL))
+    {
+        <div class="col-md-12">
+            <img src="@ViewBag.URL" />
+        </div>
+    }
+</div>

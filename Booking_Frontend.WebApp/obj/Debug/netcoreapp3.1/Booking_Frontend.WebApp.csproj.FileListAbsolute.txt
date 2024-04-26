@@ -529,8 +529,6 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\Microsoft.IO.RecyclableMemoryStream.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
-Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ForgotPassword.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ForgotPasswordConfirmation.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ResetPassword.cshtml.g.cs
@@ -542,3 +540,10 @@ Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Booking\PaymentSuccess.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Booking\PaymentFail.cshtml.g.cs
 Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Facebook.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\GenerateQRCode.cshtml.g.cs
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\QRCoder.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+Z:\GRADUATE\BackEnd\Booking_Backend\Booking_Frontend.WebApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll

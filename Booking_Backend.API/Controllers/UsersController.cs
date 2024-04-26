@@ -93,7 +93,7 @@ namespace Booking_Backend.API.Controllers
             return Ok(user);
         }
         
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}"), AllowAnonymous]
         public async Task<IActionResult> GetUserById(string id)
         {
             var user = await _userService.GetUserById(id);

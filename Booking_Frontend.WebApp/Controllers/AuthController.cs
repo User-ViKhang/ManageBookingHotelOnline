@@ -154,7 +154,6 @@ namespace Booking_Frontend.WebApp.Controllers
             return new ChallengeResult(provider, properties);
         }
 
-        [Authorize]
         [HttpGet("/use-server-external")]
         public async Task<IActionResult> CallBackView(string returnUrl = null)
         {
@@ -165,13 +164,13 @@ namespace Booking_Frontend.WebApp.Controllers
                 return RedirectToAction("Login");
             }
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
-            var accessToken = info.AuthenticationTokens.FirstOrDefault().Value;
-            HttpContext.Session.SetString("Token", accessToken);
+            //var accessToken = info.AuthenticationTokens.FirstOrDefault().Value;
+            //HttpContext.Session.SetString("Token", accessToken);
             if (result.Succeeded)
             {
                 var emailUser = info.Principal.FindFirstValue(ClaimTypes.Email);
                 var registedUser = await _userManager.FindByEmailAsync(emailUser);
-                return RedirectToAction("index", "homeowner", new { id = registedUser.Id });
+                return RedirectToAction("index", "client", new { id = registedUser.Id });
             } else if(result.IsLockedOut)
             {
                 return RedirectToAction("Logout");
@@ -237,7 +236,8 @@ namespace Booking_Frontend.WebApp.Controllers
                     {
                         var resultLogin = await _userManager.AddLoginAsync(user, info);
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("index", "client", new { id = registedUser.Id });
+
                     }
                 }
             }

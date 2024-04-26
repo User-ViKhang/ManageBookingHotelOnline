@@ -11,5 +11,6 @@ namespace Booking_Backend.Service.SendEmail
     {
         Task<APIResult<string>> SendEmailAsync(MailData mailData);
         Task<bool> SendEmail(MailData mailData);
+
     }
 }
