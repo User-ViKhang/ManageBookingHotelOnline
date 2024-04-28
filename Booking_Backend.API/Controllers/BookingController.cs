@@ -57,6 +57,14 @@ namespace Booking_Backend.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{LanguageId}/proccess-booking/{Id}")]
+        public async Task<IActionResult> GetBookingOwnerById(string Id, string LanguageId)
+        {
+            var result = await _bookingAPIService.GetBookingOwnerByUserId(Id, LanguageId);
+            if (result == null) return NotFound();
+            return Ok(result);
+        }
+
         [HttpGet]
         public async Task<IActionResult> DeleteBooking(int roomId, int bookingId)
         {

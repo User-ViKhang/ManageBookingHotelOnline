@@ -25,6 +25,7 @@ namespace Booking_Frontend.APIIntegration.BookingService
         Task<bool> ConfirmBooking(int Id, ConfirmBookingRequest request);
         Task<bool> Bill(CheckoutRequest request);
         Task<BillClientViewModel> BillClient(int bookingId, string languageId);
+        Task<List<BookingHistoriesViewModel>> GetBookingOwnerByUserId(string userId, string LanguageId);
 
 
     }

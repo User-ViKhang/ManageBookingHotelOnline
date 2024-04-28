@@ -150,8 +150,8 @@ body {
         .area-find-room {
             position: absolute;
             width: 1000px;
-            top: -350px;
-            height: 270px;
+            top: -370px;
+            height: 300px;
             border-radius: 15px;
             background-color: $--textlight-color;
             background-color: rgba(245, 241, 241, 0.4);
@@ -265,10 +265,16 @@ body {
     }
 }
 
+.suggest-location {
+    display:none;
+    position: absolute;
+    z-index:1;
+}
+
 
 .home-page {
     padding: 0;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .text-center {

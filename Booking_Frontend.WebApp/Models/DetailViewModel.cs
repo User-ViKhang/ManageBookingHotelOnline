@@ -1,5 +1,6 @@
 ﻿using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.BookingCartRepo.ViewModel;
+using Booking_Backend.Repository.BookingRepo.ViewModel;
 using Booking_Backend.Repository.CommentRepo.ViewModel;
 using Booking_Backend.Repository.Common;
 using Booking_Backend.Repository.Hotels.ViewModels;
@@ -24,6 +25,8 @@ namespace Booking_Frontend.WebApp.Models
         public UpdateProfileRequest UpdateProfileRequestModel { get; set; }
         public List<CommentViewModel> GetAllCommentByHotelId { get; set; }
         public List<ListBookingCartByUserIdModel> GetAllBookingCartByUserId { get; set; }
+        public List<BookingOwnerViewModel> GetAllBookingByUserId { get; set; }
+        public List<BookingHistoriesViewModel> BookingHistoriesViewModel { get; set; }
 
 
     }

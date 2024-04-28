@@ -25,6 +25,7 @@ using Booking_Backend.Service.SendEmail;
 using Booking_Frontend.APIIntegration.EmailService;
 using MimeKit;
 using System.Net.Mime;
+using Booking_Frontend.APIIntegration.BookingService;
 
 namespace Booking_Frontend.WebApp.Controllers
 {
@@ -38,8 +39,9 @@ namespace Booking_Frontend.WebApp.Controllers
         private readonly IBookingCartClientService _cart;
         private readonly IWebHostEnvironment _webhost;
         private readonly IEmailServiceClient _email;
+        private readonly IBookingClientService _booking;
 
-        public HomeController(ILogger<HomeController> logger, ISharedCultureLocalizer loc, IHotelTypeClientService hotelType, IHttpContextAccessor httpContextAccessor, IUserAPI user, IBookingCartClientService cart, IWebHostEnvironment webhost, IEmailServiceClient email)
+        public HomeController(ILogger<HomeController> logger, ISharedCultureLocalizer loc, IHotelTypeClientService hotelType, IHttpContextAccessor httpContextAccessor, IUserAPI user, IBookingCartClientService cart, IWebHostEnvironment webhost, IEmailServiceClient email, IBookingClientService booking)
         {
             _logger = logger;
             _loc = loc;
@@ -49,6 +51,7 @@ namespace Booking_Frontend.WebApp.Controllers
             _cart = cart;
             _webhost = webhost;
             _email = email;
+            _booking = booking;
         }
 
         public async Task<IActionResult> Index()
@@ -97,6 +100,22 @@ namespace Booking_Frontend.WebApp.Controllers
 
 
             return View();
+        }
+
+        [HttpGet("proccess-booking")]
+        public async Task<IActionResult> ProccessBooking()
+        {
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Client");
+            var user = await _user.GetUserById(userId);
+            var cart = await _cart.GetAllBookingCartByUserId(Guid.Parse(userId));
+            var bookings = await _booking.GetBookingOwnerByUserId(userId, CultureInfo.CurrentCulture.Name); 
+
+            return View(new DetailViewModel
+            {
+                UserClient = user,
+                GetAllBookingCartByUserId = cart,
+                BookingHistoriesViewModel = bookings
+            });
         }
 
 

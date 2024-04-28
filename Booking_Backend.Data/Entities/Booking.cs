@@ -27,6 +27,7 @@ namespace Booking_Backend.Data.Entities
         public int? GuestCustomer_Id { get; set; }
 
         public StatusBooking Status { get; set; }
+        [JsonIgnore]
 
         public List<Room_Booking> Room_Bookings { get; set; }
 

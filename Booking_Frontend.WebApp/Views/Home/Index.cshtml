@@ -12,7 +12,7 @@
 <div class="content">
     <div class="" style="padding: 0 50px">
         <div class="" style="">
-            <div style="width: 100%; height:500px"  >
+            <div style="width: 100%; height:550px"  >
                 <img src="../img/banner-sale/tr87_VPCH.jpg" style="height:100%; width: 100%; object-fit: cover"  />
             </div>
         </div>
@@ -20,19 +20,33 @@
     <div class="container find-room">
         <div class="area-find-room">
             <div class="container">
-                <form method="get" action="@Url.Action("searchResult", "location")">
+                <form method="get" action="@Url.Action("searchResult", "location")" onsubmit="return validateForm()">
                     <div class="row mt-3">
                         <div class="wrapper">
                             <div class="col-md-11">
-                                <div class="wrapper-search mt-3">
+                                <div id="wrapper-search" class="wrapper-search mt-3">
                                     <i class="bi bi-search mr-3"></i>
                                     @if(culture == "vi-VN")
                                     {
-                                        <input type="text" name="locationName" class="form-search input-address"  placeholder="Nhập địa điểm du lịch của quí vị...">
+                                        <input  id="input-address" type="text" name="locationName" class="form-search input-address" placeholder="Nhập địa điểm du lịch của quí vị...">
                                     } else
                                     {
                                         <input type="text" name="locationName" class="form-search input-address" placeholder="Enter your travel destination...">
                                     }
+                                    <div id="suggest-location" class="suggest-location" style="background-color: white; width: 1200px; top: 70px; border-radius: 5px; box-shadow: 0 0 7px 1px #e2dede;">
+                                        <div class="row p-5">
+                                            <div class="col-md-2">
+                                                <div><a href="">aaa</a></div>
+                                                <div><a href="">aaa</a></div>
+                                                <div><a href="">aaa</a></div>
+                                            </div>
+                                            <div class="col-md-2">fff</div>
+                                            <div class="col-md-2">fff</div>
+                                            <div class="col-md-2">fff</div>
+                                            <div class="col-md-2">fff</div>
+                                            <div class="col-md-2">fff</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +102,7 @@
                                         </div>
                                         <div class="col-md-11">
                                             <div class="row pl-3">
-                                                <input type="number" value="1" class="number-people-input" name="totalPeople" />
+                                                <input type="number" min="1" value="1" class="number-people-input" name="totalPeople" />
                                                 <span localize-content>Người sử dụng</span>
                                             </div>
                                         </div>

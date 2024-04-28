@@ -16,6 +16,7 @@
     <PackageReference Include="EPPlus" Version="7.1.1" />
     <PackageReference Include="LazZiya.ExpressLocalization" Version="5.0.0-beta2" />
     <PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.20" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />

@@ -141,7 +141,7 @@ namespace Booking_Backend.Service.BookingService
             return true;
         }
 
-        public async Task<bool>     ConfirmBooking(int Id, ConfirmBookingRequest request)
+        public async Task<bool> ConfirmBooking(int Id, ConfirmBookingRequest request)
         {
             var changeState = await this.ChangeStatusBooking(Id, request.Status);
             var changeStatusRoom = await _room.ChangeStatusRoom(request.RoomId, StatusRoom.Full);
@@ -172,16 +172,16 @@ namespace Booking_Backend.Service.BookingService
 
         public async Task<bool> CreateBooking(BookingRequest request, Payment payment)
         {
-            if(request.UserId == null)
+            if (request.UserId == null)
             {
-                    var guestCustomerRequest = new CreateGuestCustomerRequest()
-                    {
-                        FullName = request.FullName,
-                        Email = request.Email,
-                        Nation = request.Nation,
-                        PhoneNumber = request.PhoneNumber
-                    };
-                    var guestCus = await _guestCus.CreateGuestCustomer(guestCustomerRequest);
+                var guestCustomerRequest = new CreateGuestCustomerRequest()
+                {
+                    FullName = request.FullName,
+                    Email = request.Email,
+                    Nation = request.Nation,
+                    PhoneNumber = request.PhoneNumber
+                };
+                var guestCus = await _guestCus.CreateGuestCustomer(guestCustomerRequest);
 
                 var guest = await _context.GuestCustomers.FirstOrDefaultAsync(x => x.Email == request.Email);
 
@@ -227,7 +227,8 @@ namespace Booking_Backend.Service.BookingService
                 };
                 var sendMail = await _emailService.SendEmailAsync(sendMailRequest);
                 return true;
-            } else
+            }
+            else
             {
                 var hotel = await _context.Hotels
                            .Include(x => x.User)
@@ -238,7 +239,7 @@ namespace Booking_Backend.Service.BookingService
                 resultRoom.Status = StatusRoom.Full;
                 _context.Rooms.Update(resultRoom);
                 var user = await _userManager.FindByIdAsync(request.UserId);
-                if(user == null) return false;
+                if (user == null) return false;
                 var createBooking = new Booking()
                 {
                     CheckIn = request.CheckIn,
@@ -403,6 +404,45 @@ namespace Booking_Backend.Service.BookingService
                 TotalRoom = booking.TotalRoom
             };
             return bookingVM;
+        }
+
+        [HttpGet("{LanguageId}/{userId}")]
+        public async Task<List<BookingHistoriesViewModel>> GetBookingOwnerByUserId(string userId, string LanguageId)
+        {
+            var bookings = await _context.Bookings
+               .Where(b => b.User_Id == Guid.Parse(userId))
+               .Select(b => new
+               {
+                   CheckIn = b.CheckIn,
+                   CheckOut = b.CheckOut,
+                   Payment = b.Payment,
+                   TotalAmount = b.TotalAmount,
+                   Status = b.Status,
+                   Room = b.Room_Bookings.Select(rb => new
+                   {
+                       RoomCode = rb.Room.RoomCode,
+                       HotelName = rb.Room.Hotel.HotelTranslations.FirstOrDefault(x => x.Language_Id == LanguageId).Name,
+                       RoomTypeName = rb.Room.RoomType.RoomTypeTranslations.FirstOrDefault(x => x.Language_Id == LanguageId).Name,
+                       BedName = rb.Room.Bed.BedTranslations.FirstOrDefault(x => x.Language_Id == LanguageId).Name
+                   }).FirstOrDefault()
+               })
+               .ToListAsync();
+
+            var viewModelList = bookings.Select(b => new BookingHistoriesViewModel
+            {
+                HotelName = b.Room.HotelName,
+                RoomCode = b.Room.RoomCode,
+                RoomTypeName = b.Room.RoomTypeName,
+                BedName = b.Room.BedName,
+                StayDay = (int)b.CheckOut.Day - (int)b.CheckIn.Day,
+                Payment = b.Payment,
+                Total = b.TotalAmount,
+                Status = b.Status,
+                CheckIn = b.CheckIn,
+                CheckOut = b.CheckOut
+            }).ToList();
+
+            return viewModelList;
         }
     }
 }

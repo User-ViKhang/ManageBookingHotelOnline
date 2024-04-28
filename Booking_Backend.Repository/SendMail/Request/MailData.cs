@@ -10,6 +10,6 @@ namespace Booking_Backend.Repository.SendMail.Request
         public string ReceiverEmail { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
-        public string AttachmentPath { get; set; }
     }
+
 }

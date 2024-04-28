@@ -65,17 +65,6 @@ namespace Booking_Backend.Service.SendEmail
                     Text = mailData.Body
                 };
 
-
-                var builder = new BodyBuilder();
-                builder.HtmlBody = mailData.Body;
-
-                // Nếu có tệp đính kèm, thêm nó vào email
-                if (!string.IsNullOrEmpty(mailData.AttachmentPath))
-                {
-                    builder.Attachments.Add(mailData.AttachmentPath);
-                }
-
-
                 var username = _mailSettings.Mail;
 
                 using (var client = new SmtpClient())

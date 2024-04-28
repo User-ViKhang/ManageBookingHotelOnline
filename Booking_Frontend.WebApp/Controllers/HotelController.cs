@@ -73,8 +73,7 @@ namespace Booking_Frontend.WebApp.Controllers
             if (_httpContextAccessor.HttpContext.Session.GetString("UserId_Client") != null)
             {
                 var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Client");
-                 cart = await _cart.GetAllBookingCartByUserId(Guid.Parse(userId));
-
+                cart = await _cart.GetAllBookingCartByUserId(Guid.Parse(userId));
                 user = await _user.GetUserById(userId);
             }
             var comments = await _comment.GetAllCommentByHotelId(Id);

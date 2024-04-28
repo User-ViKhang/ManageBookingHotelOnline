@@ -64,6 +64,11 @@ namespace Booking_Frontend.APIIntegration.BookingService
             return await GetAsync<BookingOwnerViewModel>($"/api/booking/{LanguageId}/detail-booking/{bookingId}");
         }
 
+        public async Task<List<BookingHistoriesViewModel>> GetBookingOwnerByUserId(string userId, string LanguageId)
+        {
+            return await GetAsync<List<BookingHistoriesViewModel>>($"/api/booking/{LanguageId}/proccess-booking/{userId}");
+        }
+
         public async Task<APIResult<string>> SendEmailAsync(MailData mailData)
         {
             return await SendMail<MailData>($"/api/sendmail", mailData);

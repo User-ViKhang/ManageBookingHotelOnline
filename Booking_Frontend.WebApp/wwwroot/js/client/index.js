@@ -197,3 +197,22 @@ document.getElementById("date-checkout").addEventListener("change", () => {
         var selectedUrl = document.getElementById("languageSelect").value;
         window.location.href = selectedUrl; // Chuyển hướng đến URL được chọn
     }
+
+var searchBox = document.getElementById("input-address")
+var suggestLocation = document.getElementById("suggest-location")
+searchBox.addEventListener("click", function () {
+    suggestLocation.style.display = "block"
+})
+window.addEventListener("click", function () {
+    suggestLocation.style.display = "none"
+
+})
+
+function validateForm() {
+    var inputField = document.getElementById("input-address").value;
+    if (inputField === "") {
+        alert("Vui lòng điền vào trường địa điểm.");
+        return false; // Ngăn form được gửi đi
+    }
+    return true; // Cho phép form được gửi đi
+}
