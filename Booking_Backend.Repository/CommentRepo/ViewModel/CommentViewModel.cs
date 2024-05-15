@@ -12,5 +12,6 @@ namespace Booking_Backend.Repository.CommentRepo.ViewModel
         public DateTime Created { get; set; }
         public int HotelId { get; set; }
         public AppUser User { get; set; }
+        public int CountComment { get; set; }
     }
 }

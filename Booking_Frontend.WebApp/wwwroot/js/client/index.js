@@ -43,6 +43,34 @@
 
 
 
+
+
+
+
+//var loader = function () {
+//    setTimeout(function () {
+//        $('#loader').css({ 'opacity': 0, 'visibility': 'hidden' });
+//    }, 1000);
+//};
+//$(function () {
+//    loader();
+//});
+window.onload = function () {
+    setTimeout(function () {
+        $('#loader').css({ 'opacity': 0, 'visibility': 'hidden' });
+    }, 1000);
+};
+
+
+
+
+
+
+
+
+
+
+
 function showLogoutPopup() {
     document.getElementById("logoutPopup").style.display = "block";
 }
@@ -193,10 +221,10 @@ document.getElementById("date-checkout").addEventListener("change", () => {
 
 
 
-    function changeLanguage() {
-        var selectedUrl = document.getElementById("languageSelect").value;
-        window.location.href = selectedUrl; // Chuyển hướng đến URL được chọn
-    }
+function changeLanguage() {
+    var selectedUrl = document.getElementById("languageSelect").value;
+    window.location.href = selectedUrl; // Chuyển hướng đến URL được chọn
+}
 
 var searchBox = document.getElementById("input-address")
 var suggestLocation = document.getElementById("suggest-location")
@@ -216,3 +244,6 @@ function validateForm() {
     }
     return true; // Cho phép form được gửi đi
 }
+
+
+

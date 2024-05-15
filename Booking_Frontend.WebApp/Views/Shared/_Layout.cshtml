@@ -11,12 +11,15 @@
     <title>@(ViewData["Title"])</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/img/icon-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/style/variable/variable.css">
     <link rel="stylesheet" href="~/style/client/index.css">
     <link rel="stylesheet" href="~/style/client/detail.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     @RenderSection("IndexStyle", required: false)
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -30,7 +33,9 @@
     <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 " rel="stylesheet">
+    <link href="~/lib/lightbox2/node_modules/lightbox2/dist/css/lightbox.css" rel="stylesheet" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
     <style>
         .info-profile:hover {
             background-color: #e0f0fa;
@@ -118,15 +123,21 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
             width: 60px; /* Khi hover vào thẻ li, chiều dài của btn-display-remove tăng lên 60px */
         }
 
+        
+
     </style>
 </head>
 <body>
-    <header id="page-header" class="navbar-gonow d-flex" style="box-shadow: 0px 0px 3px 3px #929597; z-index:100; position: fixed">
+    <div id="loader" class="d-flex justify-content-center align-items-center">
+        <div class="continuous-4"></div>
+    </div>
+    <header id="page-header" class="navbar-gonow d-flex" style="z-index:100; position: fixed">
         <nav class="header__logoandlinks d-flex">
             <div class="wrapper-logo-primary">
                 <a href="/" class="link-logo-primary">
-                    <div class="wrapper-link-logo">
+                    <div class="wrapper-link-logo d-flex" >
                         <img src="../../img/logo-gonow_net.png" alt="" class="logo-primary">
+                        <div style="font-size: 30px; font-weight: bold; color: white; padding-top: 17px; text-decoration: none">Gonow.net</div>
                     </div>
                 </a>
             </div>
@@ -215,7 +226,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                         <ul class="list-option-profile pl-0 m-0" style="list-style: none; border-radius: 5px; background-color: white; box-shadow: 0 0 7px 3px #ccc; width: 120px">
                             <li class="p-1 pl-2 info-profile"><a asp-action="index" asp-controller="profile" class="p-0" style="font-size: 15px; color: black">Hồ sơ</a></li>
                             <li class="p-1 pl-2 info-profile"><a href="/proccess-booking" class="p-0" style="font-size: 15px; color: black">Tiến trình</a></li>
-                            <li class="p-1 pl-2"><div onclick="showLogoutPopup()" class="btn btn-outline-primary" style="font-size: 14px">Đăng xuất</div></li>
+                            <li class="p-1 pl-2"><div id="logoutButton" class="btn btn-outline-primary" style="font-size: 14px">Đăng xuất</div></li>
                         </ul>
                     </div>
                 </div>
@@ -236,22 +247,86 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
         </div>
     </header>
 
-    <div id="logoutPopup" class="popup" style="display: none;">
+   @*  <div id="logoutPopup" class="popup" style="display: none;">
         <div class="popup-content">
             <p>Bạn có chắc muốn đăng xuất?</p>
-            <form method="post" asp-action="logout" asp-controller="auth" id="form-logout">
-                <button class="btn btn-outline-danger" onclick="cancelLogout()">Không</button>
-                <button type="submit" class="btn btn-primary" onclick="logout()">Đăng xuất</button>
-            </form>
         </div>
-    </div>
+    </div> *@
+            <form method="post" asp-action="logout" asp-controller="auth" id="form-logout">
+            </form>
     <!--Header-->
     @RenderBody()
-
+  
     <!--Footer-->
     <footer class="footer-gonnow">
+            <div class="row">
+                <div class="col-md-3">
+                    <div style="height: 100%">
+                        <img src="/img/logo-gonow_net.png" style="width: 100%; object-fit: cover" />
+                    </div>
+                </div>
+                <div class="col-md-2" style="color: white">
+                    <div class="pt-5">Danh mục chỗ nghỉ</div>
+                    <div style="font-weight: 300; font-size: 11px">Khách sạn sang trọng</div>
+                    <div style="font-weight: 300; font-size: 11px">Căn hộ cao cấp</div>
+                    <div style="font-weight: 300; font-size: 11px">Biệt thự view biển</div>
+                    <div style="font-weight: 300; font-size: 11px">Nhà trọ cơ bản</div>
+                    <div style="font-weight: 300; font-size: 11px">Resort tiện nghi</div>
+                    <div style="font-weight: 300; font-size: 11px">Villa sân vườn</div>
+                    <div style="font-weight: 300; font-size: 11px">Căn nhà tập thể</div>
+                    <div style="font-weight: 300; font-size: 11px">Khu nghỉ dưỡng</div>
+                </div>
+                <div class="col-md-2" style="color: white">
+                    <div class="pt-5">Loại phòng phổ biến</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Standard</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Superior</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Deluxe</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Suite</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Junior Suit</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Executive Suite</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Gia Đình</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng tổng thống</div>
+                </div>
+                <div class="col-md-2" style="color: white">
+                    <div class="pt-5">Đặt phòng Gonow.net</div>
+                    <div style="font-weight: 300; font-size: 11px">Giá cả hợp lí,sang xịn,minh bạch</div>
+                    <div style="font-weight: 300; font-size: 11px">Đặt phòng nhanh chóng dễ dàng</div>
+                    <div style="font-weight: 300; font-size: 11px">Hoạt động kinh doanh hợp pháp</div>
+                    <div style="font-weight: 300; font-size: 11px">Thanh toán linh hoạt</div>
+                    <div style="font-weight: 300; font-size: 11px">Lựa chọn thoải mái, tường minh</div>
+                    <div style="font-weight: 300; font-size: 11px">Tham gia bán phòng đơn giản</div>
+                    <div style="font-weight: 300; font-size: 11px">Phúc lợi ngập tràn, muôn vàng</div>
+                    <div style="font-weight: 300; font-size: 11px">Thông tin xác thực, minh bạch</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mt-5">
+                        <img src="/img/logo/z5409558759587_5e5211d4d12bed0456fcb0494bb3ca2e.jpg" style="object-fit: cover; height: 150px; width: 150px"/>
+                        <div class="mt-2" style="color: white">Hà Vĩ Khang - DTH205809 &Copyright</div>
+                    </div>
+                </div>
+            </div>
     </footer>
     <script>
+
+        var logoutButton = document.getElementById("logoutButton");
+        var formLogout = document.getElementById("form-logout");
+        logoutButton.addEventListener("click", (e) => {
+            e.preventDefault()
+            Swal.fire({
+                title: "Xác nhận đăng xuất tài khoản",
+                text: "",
+                icon: "danger",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Đăng xuất"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formLogout.submit()
+                }
+            });
+        })
+
         document.getElementById("cart-close").addEventListener("click", () => {
             document.getElementById("popupCard").style.display = "inline-block";
             document.getElementById("cart-close").style.display = "none";
@@ -263,6 +338,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
             document.getElementById("cart-open").style.display = "none";
         })
     </script>
+    <script src="~/lib/lightbox2/node_modules/lightbox2/dist/js/lightbox-plus-jquery.js"></script>
     <script src="
         https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
     <script src="~/js/client/index.js"></script>

@@ -11,11 +11,13 @@ using Booking_Frontend.APIIntegration.HotelService;
 using Booking_Frontend.APIIntegration.RoomService;
 using Booking_Frontend.APIIntegration.User;
 using Booking_Frontend.WebApp.Helper;
+using Booking_Frontend.WebApp.Hubs;
 using Booking_Frontend.WebApp.Models;
 using Booking_Frontend.WebApp.Models.Owner;
 using Booking_Frontend.WebApp.Service.VnPayService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
@@ -34,8 +36,9 @@ namespace Booking_Frontend.WebApp.Controllers
         private readonly IRoomClientService _room;
         private readonly IUserAPI _user;
         private readonly IVnPayService _vnpay;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public BookingController(IHttpContextAccessor httpContextAccessor, IBookingClientService booking, IHotelClientService hotel, IRoomClientService room, IUserAPI user, IVnPayService vnpay)
+        public BookingController(IHttpContextAccessor httpContextAccessor, IBookingClientService booking, IHotelClientService hotel, IRoomClientService room, IUserAPI user, IVnPayService vnpay, IHubContext<NotificationHub> hubContext)
         {
             _httpContextAccessor = httpContextAccessor;
             _booking = booking;
@@ -43,6 +46,7 @@ namespace Booking_Frontend.WebApp.Controllers
             _room = room;
             _user = user;
             _vnpay = vnpay;
+            _hubContext = hubContext;
         }
 
         [HttpPost]
@@ -58,7 +62,7 @@ namespace Booking_Frontend.WebApp.Controllers
                 var vnPayModel = new VnPaymentRequestModel
                 {
                     Amount = double.Parse(request.Sum.ToString()),
-                    CreatedDate = DateTime.Now,
+                    //CreatedDate = DateTime.Now,
                     Description = $"{request.FullName} {request.PhoneNumber}",
                     FullName = request.FullName,
                     OrderId = Guid.NewGuid(),
@@ -68,6 +72,7 @@ namespace Booking_Frontend.WebApp.Controllers
             }
 
             var result = await _booking.CreateBooking(request, Payment.COD);
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", request.HotelId.ToString(), "Thông báo mới: Khách hàng đã đặt phòng.");
             return RedirectToAction("BookingSuccess", "Page");
         }
 
@@ -117,6 +122,7 @@ namespace Booking_Frontend.WebApp.Controllers
             string jsonData = TempData["bookingrequest"] as string;
             var bookingRequest = JsonSerializer.Deserialize<BookingRequest>(jsonData);
             var result = await _booking.CreateBooking(bookingRequest, Payment.VNPay);
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", bookingRequest.HotelId.ToString(), "Thông báo mới: Khách hàng đã đặt phòng.");
             return RedirectToAction("BookingSuccess", "Page");
 
         }

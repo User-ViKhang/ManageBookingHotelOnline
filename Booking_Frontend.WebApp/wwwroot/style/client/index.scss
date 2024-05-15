@@ -12,7 +12,7 @@ body {
         align-items: center;
         height: 60px;
         width: 100%;
-        background-color: #6e9eeb;
+        background-color: #003580;
         padding: 0 70px;
         justify-content: space-between;
 
@@ -24,8 +24,9 @@ body {
                 .link-logo-primary {
                     .wrapper-link-logo {
                         .logo-primary {
-                            width: 100%;
-                            height: auto;
+                            padding-top: 10px;
+                            object-fit: cover;
+                            width: 55%;
                         }
                     }
                 }
@@ -685,8 +686,7 @@ body {
 
 
 .footer-gonnow {
-    height: 200px;
-    background-color: $--primary-color;
+    background-color: #003580;
 }
 
 .search-hotel {
@@ -760,4 +760,50 @@ body {
 
 .number-people-input {
     width: 100%;
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1; /* Hiển thị loader khi trang chưa được load */
+    display: flex; /* Thêm dòng này để hiển thị loader */
+    justify-content: center; /* Thêm dòng này để căn giữa loader */
+    align-items: center; /* Thêm dòng này để căn giữa loader */
+}
+
+.continuous-4 {
+    width: 120px;
+    height: 22px;
+    border-radius: 40px;
+    color: #514b82;
+    border: 2px solid;
+    position: relative;
+    overflow: hidden;
+}
+
+.continuous-4::before {
+    content: "";
+    position: absolute;
+    margin: 2px;
+    width: 14px;
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    border-radius: inherit;
+    background: currentColor;
+    box-shadow: -10px 0 12px 3px;
+    clip-path: polygon(0 5%, 100% 0,100% 100%,0 95%,-30px 50%);
+    animation: ct4 1s infinite linear;
+}
+
+@keyframes ct4 {
+    100% {
+        left: calc(100% + 20px)
+    }
 }

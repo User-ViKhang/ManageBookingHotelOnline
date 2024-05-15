@@ -53,6 +53,8 @@ namespace Booking_Backend.Data.EF
             modelBuilder.ApplyConfiguration(new GuestCustomerConfiguration());
             modelBuilder.ApplyConfiguration(new BillConfiguration());
             modelBuilder.ApplyConfiguration(new BookingCartConfiguration());
+            modelBuilder.ApplyConfiguration(new FeedbackCustomerCofiguration());
+            modelBuilder.ApplyConfiguration(new Comment_AppUserConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -61,23 +63,19 @@ namespace Booking_Backend.Data.EF
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppRoleClaims");
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
 
-            //Data seeding
             modelBuilder.Seed();
-
-            //base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<BedTranslation> BedTranslations { get; set; }
-        public DbSet<Bed> Beds { get; set; } //
-
+        public DbSet<Bed> Beds { get; set; } 
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<ExtensionTranslation> ExtensionTranslations { get; set; }
-        public DbSet<Extension> Extensions { get; set; } //
+        public DbSet<Extension> Extensions { get; set; } 
         public DbSet<ExtensionTypeTranslation> ExtensionTypeTranslations { get; set; }
-        public DbSet<ExtensionType> ExtensionTypes { get; set; } //
+        public DbSet<ExtensionType> ExtensionTypes { get; set; } 
         public DbSet<HotelTranslation> HotelTranslations { get; set; }
-        public DbSet<Hotel> Hotels { get; set; } //
+        public DbSet<Hotel> Hotels { get; set; } 
         public DbSet<Hotel_Service> Hotel_Services { get; set; }
         public DbSet<HotelType> HotelTypes { get; set; }
         public DbSet<HotelTypeTranslation> HotelTypeTranslations { get; set; }
@@ -99,5 +97,7 @@ namespace Booking_Backend.Data.EF
         public DbSet<GuestCustomer> GuestCustomers { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BookingCarts> BookingCarts { get; set; }
+        public DbSet<FeedbackCustomer> FeedbackCustomers { get; set; }
+        public DbSet<Comment_User> Comment_Users { get; set; }
     }
 }

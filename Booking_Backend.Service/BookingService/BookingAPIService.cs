@@ -183,7 +183,7 @@ namespace Booking_Backend.Service.BookingService
                 };
                 var guestCus = await _guestCus.CreateGuestCustomer(guestCustomerRequest);
 
-                var guest = await _context.GuestCustomers.FirstOrDefaultAsync(x => x.Email == request.Email);
+                var guest = await _context.GuestCustomers.FirstOrDefaultAsync(x => x.Id == guestCus.ResultOject.Id);
 
                 var hotel = await _context.Hotels
                            .Include(x => x.User)

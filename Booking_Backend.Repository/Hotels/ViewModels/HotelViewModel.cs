@@ -20,5 +20,6 @@ namespace Booking_Backend.Repository.Hotels.ViewModels
         public int? Preview { get; set; }
         public decimal? Score { get; set; }
         public decimal? PriceDefault { get; set; }
+        public int CountFeedback { get; set; }
     }
 }

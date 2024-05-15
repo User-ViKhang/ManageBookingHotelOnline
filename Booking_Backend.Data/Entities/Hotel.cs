@@ -14,10 +14,12 @@ namespace Booking_Backend.Data.Entities
         public decimal Longitude { get; set; }
         public string? Thumbnail { get; set; }
         public int? Preview { get; set; }
-        public decimal? Score { get; set; }
+        public decimal Score { get; set; }
         public decimal? PriceDefault { get; set; }
+        public int CountFeedBack { get; set; }
 
         public List<Comment> Comments { get; set; }
+        public List<FeedbackCustomer> FeedbackCustomers { get; set; }
         public List<Hotel_Service> Hotel_Services { get; set; }
         public List<BookingCarts> BookingCarts { get; set; }
         public List<Image> Images { get; set; }
@@ -33,6 +35,13 @@ namespace Booking_Backend.Data.Entities
         public int? Location_Id { get; set; }
         public AppUser User { get; set; }
         public Guid? User_Id { get; set; }
+
+        public decimal StaffScore { get; set; }
+        public decimal ComfortScore { get; set; }
+        public decimal FacilitiesScore { get; set; }
+        public decimal CleanlinessScores { get; set; }
+        public decimal ValueScore { get; set; }
+        public decimal LocationScore { get; set; }
 
     }
 }

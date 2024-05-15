@@ -14,5 +14,6 @@ namespace Booking_Backend.Repository.Hotels.Request
         public int TotalPeople { get; set; }
         public bool IsHightFeedBack { get; set; }
         public bool isLowPrice { get; set; }
+        public int HotelTypeId { get; set; }
     }
 }

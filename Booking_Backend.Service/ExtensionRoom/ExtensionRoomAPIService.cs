@@ -28,7 +28,7 @@ namespace Booking_Backend.Service.ExtensionRoom
         {
             var extensionVI = await _context.ExtensionTranslations.FirstOrDefaultAsync(x => x.Name == request.NameVI);
             var extensionEN = await _context.ExtensionTranslations.FirstOrDefaultAsync(x => x.Name == request.NameEN);
-            if (extensionVI != null && extensionEN != null) throw new BookingException("Tiện ích phòng đã tồn tại");
+            if (extensionVI != null && extensionEN != null) return false;
             var extensionRoom = new Extension()
             {
                 ExtensionType_Id = request.ExtensionType_Id,

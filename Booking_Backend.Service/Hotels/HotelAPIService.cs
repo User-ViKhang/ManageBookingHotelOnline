@@ -5,6 +5,7 @@ using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.HotelTypes.ViewModel;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.RateRepo;
 using Booking_Backend.Repository.SendMail.Request;
 using Booking_Backend.Service.Files;
 using Booking_Backend.Service.Images;
@@ -88,15 +89,6 @@ namespace Booking_Backend.Service.Hotels
 
         public async Task<HotelDetailViewModel> GetHotelById(int Id, string LanguageId)
         {
-            /*var hotel = await _context.Hotels
-                .Include(h => h.HotelTranslations)
-                .Include(h => h.Images)
-                .Include(h => h.HotelType)
-                .Include(h => h.HotelType.HotelTypeTranslations)
-                .Include(h => h.ViewHotel)
-                .Include(h => h.ViewHotel.ViewHotelTranslations)
-                .Include(h => h.Rooms)
-                .FirstOrDefaultAsync(h => h.Id == Id);*/
             var hotel = await _context.Hotels
                 .Include(h => h.HotelTranslations)
                 .Include(h => h.Images)
@@ -120,6 +112,14 @@ namespace Booking_Backend.Service.Hotels
 
             var data = new HotelDetailViewModel
             {
+                CountFeedback = hotel.CountFeedBack,
+                StaffScore = hotel.StaffScore,
+                CleanlinessScores = hotel.CleanlinessScores,
+                ComfortScore = hotel.ComfortScore,
+                FacilitiesScore = hotel.FacilitiesScore,    
+                LocationScore = hotel.LocationScore,
+                ValueScore = hotel.ValueScore,
+                Score = hotel.Score,
                 Id = hotel.Id,
                 Hotline = hotel.Hotline,
                 Establish = hotel.Establish,
@@ -234,11 +234,16 @@ namespace Booking_Backend.Service.Hotels
             {
                 query = query.OrderBy(x => x.hotel.PriceDefault);
             }
+            if(request.HotelTypeId != 0)
+            {
+                query = query.Where(x => x.hotelTypeTranslation.HotelType_Id == request.HotelTypeId).AsQueryable();
+            }
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
             .Select(x => new HotelViewModel()
             {
                 Id = x.hotel.Id,
+                CountFeedback = x.hotel.CountFeedBack,
                 Name = x.hotelTranslation.Name,
                 Address = x.hotelTranslation.Address,
                 HotelTypeName = x.hotelTypeTranslation.Name,
@@ -282,7 +287,7 @@ namespace Booking_Backend.Service.Hotels
                 LocationId = hotel.Location_Id,
                 HotelTypeId = hotel.HotelType_Id,
                 ViewHotelId = hotel.ViewHotel_Id,
-                
+                Price = hotel.PriceDefault
             };
             return hotelOwnerViewModel;
         }
@@ -376,6 +381,7 @@ namespace Booking_Backend.Service.Hotels
                                 .Include(h => h.HotelTranslations)
                                 .FirstOrDefaultAsync(h => h.Id == Id && h.HotelTranslations.FirstOrDefault().Language_Id == request.LanguageId);
             updateHotel.Hotline  = request.Hotline;
+            updateHotel.PriceDefault  = request.Price;
             updateHotel.HotelTranslations.FirstOrDefault().Name = request.Name;
             updateHotel.HotelTranslations.FirstOrDefault().Address = request.Address;
             updateHotel.HotelTranslations.FirstOrDefault().Description = request.Description;
@@ -388,6 +394,49 @@ namespace Booking_Backend.Service.Hotels
             //updateHotel.Longitude = request.Longitude;
             _context.Hotels.Update(updateHotel);
             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RatingMe(RatingRequest request)
+        {
+            var hotel = await _context.Hotels.FindAsync(request.HotelId);
+            if (hotel == null) return false;
+            var feedbackCustomer = new FeedbackCustomer
+            {
+                UserId = Guid.Parse(request.UserId),
+                HotelId = request.HotelId,
+                StaffScore = request.StaffScore,
+                CleanlinessScore = request.CleanlinessScores,
+                ComfortScore = request.ComfortScore,
+                FacilitiesScore = request.FacilitiesScore,
+                LocationScore = request.LocationScore,
+                ValueScore = request.ValueScore,
+                Score = (request.StaffScore + request.CleanlinessScores + request.ComfortScore + request.FacilitiesScore + request.LocationScore + request.LocationScore) / 6
+            };
+            await _context.FeedbackCustomers.AddAsync(feedbackCustomer);
+            await _context.SaveChangesAsync();
+
+            var feedback = _context.FeedbackCustomers
+                .Where(x => x.HotelId == request.HotelId);
+
+            decimal staffScore = feedback.Select(x => x.StaffScore).Average();
+            decimal comfortScore = feedback.Select(x => x.ComfortScore).Average();
+            decimal facilitiesScore = feedback.Select(x => x.FacilitiesScore).Average();
+            decimal cleanlinessScore = feedback.Select(x => x.CleanlinessScore).Average();
+            decimal locationScore = feedback.Select(x => x.LocationScore).Average();
+            decimal valueScore = feedback.Select(x => x.ValueScore).Average();
+            decimal score = feedback.Select(x => x.Score).Average();
+            hotel.StaffScore = staffScore;
+            hotel.ComfortScore = comfortScore;
+            hotel.FacilitiesScore = facilitiesScore;
+            hotel.CleanlinessScores = cleanlinessScore;
+            hotel.LocationScore = locationScore;
+            hotel.ValueScore = valueScore;  
+            hotel.Score = score;
+            hotel.CountFeedBack = hotel.CountFeedBack + 1;
+            _context.Hotels.Update(hotel);  
+            await _context.SaveChangesAsync();
+
             return true;
         }
     }

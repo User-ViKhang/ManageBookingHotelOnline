@@ -25,6 +25,8 @@ namespace Booking_Backend.Data.Entities
         public List<Hotel> Hotels { get; set; }
         public List<Bill> Bills { get; set; }
         public List<BookingCarts> BookingCarts { get; set; }
+        public List<FeedbackCustomer> FeedbackCustomers { get; set; }
+        public List<Comment_User> Comment_Users { get; set; }
 
     }
 }

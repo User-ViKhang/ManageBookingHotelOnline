@@ -26,7 +26,7 @@ namespace Booking_Frontend.WebApp.Models.Owner
         public HotelOwnerViewModel HotelViewModel { get; set; }
         public PageResult<ViewHotelViewModel> AllViewServices { get; set; }
         public HotelTypeOwnerViewModel HotelTypeViewModel { get; set; }
-        public UserOwnerViewModel UserViewModel { get; set; }
+        public UserViewModel UserViewModel { get; set; }
         public UserImageOwnerViewModel UserImageViewModel { get; set; }
         public List<HotelTypeViewModel> AllHotelType { get; set; }
         public List<Booking_Backend.Repository.LocationRepo.ViewModel.LocationViewModel> AllLocation { get; set; }

@@ -2,6 +2,7 @@
 using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.RateRepo;
 using Booking_Backend.Repository.RoomRepo.Request;
 using Booking_Frontend.APIIntegration.ExtensionRoom;
 using FluentValidation.Resources;
@@ -79,7 +80,7 @@ namespace Booking_Frontend.APIIntegration.HotelService
 
         public async Task<PageResult<HotelViewModel>> GetHotelByLocation(GetHotelByLocationRequest request)
         {
-            return await GetAsync<PageResult<HotelViewModel>>($"/api/Hotel?LanguageId={request.LanguageId}&LocationName={request.LocationName}&DateCheckIn={request.DateCheckIn.ToString("MM-dd-yyyy")}&DateCheckOut={request.DateCheckOut.ToString("MM-dd-yyyy")}&TotalPeople={request.TotalPeople}&PageIndex={request.PageIndex}&PageSize={request.PageSize}&isHightFeedBack={request.IsHightFeedBack}&isLowPrice={request.isLowPrice}");
+            return await GetAsync<PageResult<HotelViewModel>>($"/api/Hotel?LanguageId={request.LanguageId}&LocationName={request.LocationName}&DateCheckIn={request.DateCheckIn.ToString("MM-dd-yyyy")}&DateCheckOut={request.DateCheckOut.ToString("MM-dd-yyyy")}&TotalPeople={request.TotalPeople}&PageIndex={request.PageIndex}&PageSize={request.PageSize}&isHightFeedBack={request.IsHightFeedBack}&isLowPrice={request.isLowPrice}&HotelTypeId={request.HotelTypeId}");
                                                                                               //https://localhost:5001/api/Hotel?LanguageId=vi-VN&LocationName=Da%20Lat&DateCheckIn=11-11-2024&DateCheckOut=11-11-2024&TotalPeople=2&PageIndex=1&PageSize=10
         }
 
@@ -91,6 +92,11 @@ namespace Booking_Frontend.APIIntegration.HotelService
         public async Task<List<Image>> GetListImageHotel(int Id)
         {
             return await GetAsync<List<Image>>($"/api/hotel/image-hotel/{Id}");
+        }
+
+        public async Task<bool> RatingMe(RatingRequest request)
+        {
+            return await PostAsyncNotFile<RatingRequest>("/api/hotel/rating/me", request);
         }
 
         public async Task<bool> RegisterHotel(InfoOwnerRegisterViewModel request)

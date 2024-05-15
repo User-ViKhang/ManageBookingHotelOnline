@@ -2,6 +2,7 @@
 using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.RateRepo;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace Booking_Frontend.APIIntegration.HotelService
         Task<bool> DeleteHotelImage(int Id);
         Task<bool> RegisterHotel(InfoOwnerRegisterViewModel request);
         Task<bool> UpdateHotel(int Id, UpdateHotelRequest request);
+        Task<bool> RatingMe(RatingRequest request);
 
 
     }

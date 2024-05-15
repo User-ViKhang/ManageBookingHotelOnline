@@ -7,7 +7,7 @@
     var culture = CultureInfo.CurrentCulture.Name;
 }
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Gonow.net | Chỗ nghỉ ở " + ViewData["locationName"];
     Layout = "_LayoutSearchResult";
 }
 <style>
@@ -15,37 +15,74 @@
        text-decoration:none;
     }
 </style>
-<div class="home-page-search-result">
-    
+<div class="home-page-search-result" style="padding-top: 40px">
     <div class="container mt-5 mb-5">
         @* <div class="url-find-room">Trang chủ > Việt Nam > Thành phố Đà Nẵng > Đà Nẵng</div> *@
-        <div class="row">
-            <div class="col-md-3 tabbar-left pl-5 pr-5 pt-3 pb-3">
-                <div class="mt-3" style="font-weight: 300; font-size: 25px" localize-content>Bộ lọc tự động</div>
-                @foreach(var item in Model.ListHotelType)
-                {
-                    <div style="font-size: 17px" class="filter-container-hoteltype d-flex mt-2">
-                        <input type="checkbox" class="form-check-inline"/> 
-                        <div class="">@item.Name</div>
-                    </div>
-                }
-                <hr />
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <div class=" tabbar-left pl-5 pr-5 pt-3 pb-3">
+                    <div class="mt-3" style="font-weight: 300; font-size: 25px" localize-content>Bộ lọc tự động</div>
+                    @foreach (var item in Model.ListHotelType)
+                    {
+                        <div style="font-size: 17px" class="filter-container-hoteltype d-flex mt-2">
+                            <input id="ipHotelType_@item.Id" type="checkbox" class="form-check-inline" data-hoteltypeid="@item.Id" />
+                            <div class="">@item.Name</div>
+                        </div>
+                    }
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Lấy giá trị của tham số 'hoteltypeId' từ URL
+                            var urlParams = new URLSearchParams(window.location.search);
+                            var hoteltypeId = urlParams.get('HotelTypeId');
 
-                <div class="mt-3" style="font-weight: 300; font-size: 25px" localize-content>Bậc hạng</div>
-                <div style="font-size: 17px" class="filter-container-hoteltype d-flex mt-2">
-                    <input type="checkbox" class="form-check-inline" />
-                    <div class="">9 <span localize-content>điểm trở lên</span></div>
-                </div>
-                <div style="font-size: 17px" class="filter-container-hoteltype d-flex mt-2">
-                    <input type="checkbox" class="form-check-inline" />
-                    <div class="">8 <span localize-content>điểm trở lên</span></div>
-                </div>
-                <div style="font-size: 17px" class="filter-container-hoteltype d-flex mt-2">
-                    <input type="checkbox" class="form-check-inline" />
-                    <div class="">7 <span localize-content>điểm trở lên</span></div>
-                </div>
+                            // Nếu hoteltypeId được tìm thấy trong URL
+                            if (hoteltypeId !== null) {
+                                // Lặp qua tất cả các checkbox và kiểm tra xem id của checkbox có khớp với hoteltypeId hay không
+                                var checkboxes = document.querySelectorAll('input[type="checkbox"].form-check-inline');
+                                checkboxes.forEach(function (checkbox) {
+                                    var itemId = checkbox.getAttribute('data-hoteltypeid');
+                                    if (itemId === hoteltypeId) {
+                                        checkbox.checked = true; // Thêm thuộc tính 'checked' nếu id khớp
+                                    }
+                                });
+                            }
+                        });
+                    </script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var checkboxes = document.querySelectorAll('input[type="checkbox"].form-check-inline');
+                            checkboxes.forEach(function (checkbox) {
+                                checkbox.addEventListener('click', function () {
+                                    var hotelTypeId = this.getAttribute('data-hoteltypeid');
+                                    if (this.checked) {
+                                        var currentUrl = window.location.href;
+                                        var newUrl = currentUrl + '&HotelTypeId=' + hotelTypeId;
+                                        window.location.href = newUrl;
+                                    } else {
+                                        // Handle case when checkbox is unchecked, if needed
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                    <hr />
+
+                    <div class="mt-3" style="font-weight: 300; font-size: 25px" localize-content>Bậc hạng</div>
+                    <div style="font-size: 17px" class="filter-container-hoteltype d-flex mt-2">
+                        <input type="checkbox" class="form-check-inline" />
+                        <div class="">9 <span localize-content>điểm trở lên</span></div>
+                    </div>
+                    <div style="font-size: 17px" class="filter-container-hoteltype d-flex mt-2">
+                        <input type="checkbox" class="form-check-inline" />
+                        <div class="">8 <span localize-content>điểm trở lên</span></div>
+                    </div>
+                    <div style="font-size: 17px" class="filter-container-hoteltype d-flex mt-2">
+                        <input type="checkbox" class="form-check-inline" />
+                        <div class="">7 <span localize-content>điểm trở lên</span></div>
+                    </div>
                 
-                <hr />
+                    <hr />
+                </div>
             </div>
             <div class="col-md-9 main-page">
                 <div class="total-properties-bylocation">
@@ -92,7 +129,7 @@
                                         <div class="col-md-2 price-and-feeback">
                                             <div class="row">
                                                 <div class="col-md-12 d-flex" localize-content>
-                                                    Đánh giá:<strong> @(item.Preview == null ? 0 : @item.Preview)</strong>
+                                                    Đánh giá:<strong> @(item.CountFeedback)</strong>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -125,33 +162,6 @@
                     }
 
                 </div>
-                @* <div class=" paging-bottom">
-                    <div class="paging-navigation">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-8 paging-item">
-                                    <a class="link-paging" href="#">
-                                        <div class="btn-previous"><i class="bi bi-arrow-left-square"></i></div>
-                                    </a>
-                                    <a class="link-paging" href=""><div class="btn-item">1</div></a>
-                                    <a class="link-paging" href=""><div class="btn-item">2</div></a>
-                                    <a class="link-paging" href=""><div class="btn-item">3</div></a>
-                                    <a class="link-paging" href=""><div class="btn-item">...</div></a>
-                                    <a class="link-paging" href=""><div class="btn-item">10</div></a>
-                                    <a class="link-paging" href="#">
-                                        <div class="btn-next"><i class="bi bi-arrow-right-square"></i></div>
-                                    </a>
-                                </div>
-                                <div class="col-md-4 paging-item paging-end">
-                                    <div style="padding-right: 10px">Hiển thị: </div>
-                                    <div>1</div>
-                                    <div>-</div>
-                                    <div>25</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> *@
                 <br><br>
             </div>
         </div>

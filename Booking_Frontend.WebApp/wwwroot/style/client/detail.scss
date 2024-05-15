@@ -248,3 +248,11 @@
         justify-content: flex-end;
     }
 }
+
+.rating i {
+    cursor: pointer;
+}
+
+.rating i:hover {
+    transform: scale(1.1)
+}

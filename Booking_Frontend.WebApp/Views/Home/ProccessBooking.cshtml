@@ -10,7 +10,7 @@
     var culture = CultureInfo.CurrentCulture.Name;
 }
 
-<div class=""  style="padding-top: 80px; height: 100vh">
+<div class=""  style="padding-top: 80px">
     <div class="container">
         <h4>Đơn hàng của quý vị!</h4>
         <table class="table">
@@ -29,10 +29,14 @@
                 </tr>
             </thead>     
             <tbody class="" style="font-weight: 300; font-size: 13px">
+                @{
+                    int count = 0;
+                }
                 @foreach(var item in Model.BookingHistoriesViewModel)
                 {
+                    count = count + 1;
                     <tr>
-                        <td>1</td>
+                        <td>@count</td>
                         <td>@item.HotelName</td>
                         <td>@item.RoomCode</td>
                         <td>@item.RoomTypeName</td>
@@ -110,6 +114,7 @@
                     <td>Kiểu phòng</td>
                     <td>Loại giường</td>
                     <td>Lưu trú</td>
+                    <td>Ngày trả</td>
                     <td>Tổng tiền</td>
                     <td>Thanh toán</td>
                     <td>Trạng thái</td>

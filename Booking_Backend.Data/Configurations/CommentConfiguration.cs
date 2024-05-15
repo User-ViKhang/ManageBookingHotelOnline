@@ -18,6 +18,7 @@ namespace Booking_Backend.Data.Configurations
 
             builder.Property(x => x.Content).HasColumnType("nvarchar(max)");
             builder.Property(x => x.Created).HasDefaultValue(DateTime.UtcNow);
+            builder.Property(x => x.CountComment).HasDefaultValue(0);
 
             builder.HasOne(x => x.Hotel).WithMany(x => x.Comments).HasForeignKey(x => x.Hotel_Id);
             builder.HasOne(x => x.User).WithMany(x => x.Comments).HasForeignKey(x => x.User_Id);

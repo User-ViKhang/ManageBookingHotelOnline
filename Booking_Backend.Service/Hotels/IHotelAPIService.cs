@@ -2,6 +2,7 @@
 using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.Hotels.ViewModels;
 using Booking_Backend.Repository.Paging.ViewModel;
+using Booking_Backend.Repository.RateRepo;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,10 @@ namespace Booking_Backend.Service.Hotels
 
         Task<bool> RegisterHotel(InfoOwnerRegisterViewModel request);
         Task<bool> ChangeDes(int HotelId, string Des, string LanguageId);
+
+        Task<bool> RatingMe(RatingRequest request);
+
+
 
     }
 }

@@ -60,7 +60,7 @@
                             </select>
                         </div>
                         <div class="group-info mt-2">
-                            <div class="title-info">khu vực hoạt động</div>
+                            <div class="title-info">Khu vực hoạt động</div>
                             <select name="LocationId" class="form-select">
                                 @foreach (var item in Model.AllLocation)
                                 {
@@ -75,6 +75,10 @@
                                 }
                             </select>
                         </div>
+                        <div class="group-info mt-2">
+                            <div class="title-info">Mức giá trung bình</div>
+                            <input name="Price" class="form-control" value=@Math.Round((decimal)Model.HotelViewModel.Price) />
+                        </div>      
                         <div class="group-info mt-2">
                             <div class="title-info">Vị trí đắt địa</div>
                             <select name="ViewId" class="form-select">

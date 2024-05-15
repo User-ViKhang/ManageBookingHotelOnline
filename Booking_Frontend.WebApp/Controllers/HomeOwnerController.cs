@@ -29,6 +29,9 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using SendGrid;
 using OfficeOpenXml.Style;
+using Booking_Frontend.APIIntegration.User;
+using Booking_Backend.Repository.Users.Request;
+using Booking_Frontend.APIIntegration.Profile;
 
 namespace Booking_Frontend.WebApp.Controllers
 {
@@ -43,8 +46,10 @@ namespace Booking_Frontend.WebApp.Controllers
         private readonly IFormatMoney _format;
         private readonly IExtensionTypeRoomClientService _extension;
         private readonly IExtensionRoomClientService _ex;
+        private readonly IUserAPI _user;
+        private readonly IProfileClientService _profile;
 
-        public HomeOwnerController(IHotelClientService hotel, IBookingClientService booking, IRoomClientService room, IHttpContextAccessor httpContextAccessor, IRoomTypeClientService roomType, IBedClientService bed, IFormatMoney format, IExtensionTypeRoomClientService extension, IExtensionRoomClientService ex)
+        public HomeOwnerController(IHotelClientService hotel, IBookingClientService booking, IRoomClientService room, IHttpContextAccessor httpContextAccessor, IRoomTypeClientService roomType, IBedClientService bed, IFormatMoney format, IExtensionTypeRoomClientService extension, IExtensionRoomClientService ex, IUserAPI user, IProfileClientService profile)
         {
             _hotel = hotel;
             _booking = booking;
@@ -55,6 +60,8 @@ namespace Booking_Frontend.WebApp.Controllers
             _format = format;
             _extension = extension;
             _ex = ex;
+            _user = user;
+            _profile = profile;
         }
 
         public async Task<IActionResult> Index(string Id)
@@ -203,7 +210,7 @@ namespace Booking_Frontend.WebApp.Controllers
         {
             var changeState = await _booking.ConfirmBooking(Id, request);
             if (!changeState) return BadRequest();
-            return new RedirectResult($"/detail-booking/{Id}");
+            return new RedirectResult("/booking/feed");
         }
 
         [HttpGet("booking/check-out")]
@@ -344,7 +351,30 @@ namespace Booking_Frontend.WebApp.Controllers
                 RoomId = RoomId,
             };
             var checkout = await _booking.Bill(request);
-            return new RedirectResult("/booking/feed");
+            return new RedirectResult("/booking/check-out");
+        }
+
+        [HttpGet("/owner/profile")]        
+        public async Task<IActionResult> ProfileOwner()
+        {
+            var languageId = CultureInfo.CurrentCulture.Name;
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
+            var hotel = await _hotel.GetHotelByUserId(Guid.Parse(userId), languageId);
+            var user = await _user.GetUserById(userId);
+            return View(new NotifyBookingViewModel
+            {
+                UserId = userId,
+                HotelViewModel = hotel,
+                UserViewModel = user.ResultOject
+            });
+        }
+
+        [HttpPost("/owner/profile"), Consumes("multipart/form-data")]
+        public async Task<IActionResult> UpdateUser(UpdateProfileRequest request)
+        {
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId_Owner");
+            var upddateUser = await _profile.UpdateProfile(userId, request);
+            return new RedirectResult("/owner/profile");
         }
 
 

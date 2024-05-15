@@ -3,6 +3,7 @@ using Booking_Backend.Repository.CommentRepo.Request;
 using Booking_Backend.Service.CommentService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Booking_Backend.API.Controllers
@@ -27,6 +28,15 @@ namespace Booking_Backend.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("like/{UserId}")]
+        public async Task<IActionResult> GetAllCommentByUserId(Guid UserId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var result = await _comment.GetAllCommentLikeByUserId(UserId);
+            if (result == null) return BadRequest();
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateComment(CreateCommentRequest request)
         {
@@ -41,6 +51,15 @@ namespace Booking_Backend.API.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var result = await _comment.UpdateComment(Id, request);
+            if (!result) return BadRequest();
+            return Ok(result);
+        }
+
+        [HttpPost("like")]
+        public async Task<IActionResult> LikeComment(LikeCommentRequest request) 
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var result = await _comment.LikeComment(request);
             if (!result) return BadRequest();
             return Ok(result);
         }

@@ -27,6 +27,7 @@ namespace Booking_Frontend.WebApp.Models
         public List<ListBookingCartByUserIdModel> GetAllBookingCartByUserId { get; set; }
         public List<BookingOwnerViewModel> GetAllBookingByUserId { get; set; }
         public List<BookingHistoriesViewModel> BookingHistoriesViewModel { get; set; }
+        public List<Comment_User> CommentLike { get; set; }
 
 
     }

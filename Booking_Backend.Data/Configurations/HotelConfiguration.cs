@@ -23,7 +23,16 @@ namespace Booking_Backend.Data.Configurations
             builder.Property(x => x.Thumbnail);
             builder.Property(x => x.Preview).HasDefaultValue(0).IsRequired(false);
             builder.Property(x => x.PriceDefault).HasDefaultValue(0m).IsRequired(false);
-            builder.Property(x => x.Score).HasDefaultValue(0m).IsRequired(false);
+            builder.Property(x => x.Score).HasDefaultValue(0m).HasColumnType("decimal(3,1)");
+            builder.Property(x => x.CountFeedBack).HasDefaultValue(0).HasColumnType("int");
+
+            builder.Property(x => x.StaffScore).HasDefaultValue(0m).HasColumnType("decimal(3,1)");
+            builder.Property(x => x.CleanlinessScores).HasDefaultValue(0m).HasColumnType("decimal(3,1)");
+            builder.Property(x => x.ComfortScore).HasDefaultValue(0m).HasColumnType("decimal(3,1)");
+            builder.Property(x => x.FacilitiesScore).HasDefaultValue(0m).HasColumnType("decimal(3,1)");
+            builder.Property(x => x.LocationScore).HasDefaultValue(0m).HasColumnType("decimal(3,1)");
+            builder.Property(x => x.ValueScore).HasDefaultValue(0m).HasColumnType("decimal(3,1)");
+
 
             builder.HasOne(x => x.HotelType).WithMany(x => x.Hotels).HasForeignKey(x => x.HotelType_Id);
             builder.HasOne(x => x.ViewHotel).WithMany(x => x.Hotels).HasForeignKey(x => x.ViewHotel_Id);

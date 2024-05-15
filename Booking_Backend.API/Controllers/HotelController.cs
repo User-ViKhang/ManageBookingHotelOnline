@@ -1,5 +1,6 @@
 ﻿using Booking_Backend.Repository.Hotels.Request;
 using Booking_Backend.Repository.HotelTypes.Requests;
+using Booking_Backend.Repository.RateRepo;
 using Booking_Backend.Service.Hotels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -87,6 +88,15 @@ namespace Booking_Backend.API.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var isResult = await _hotelAPIService.RegisterHotel(request);
+            if (!isResult) return BadRequest();
+            return Ok(isResult);
+        }
+        
+        [HttpPost("rating/me")]
+        public async Task<IActionResult> RatingMe([FromBody] RatingRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var isResult = await _hotelAPIService.RatingMe(request);
             if (!isResult) return BadRequest();
             return Ok(isResult);
         }

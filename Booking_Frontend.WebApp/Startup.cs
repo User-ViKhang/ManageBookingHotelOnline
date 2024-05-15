@@ -21,6 +21,7 @@ using Booking_Frontend.APIIntegration.RoomType;
 using Booking_Frontend.APIIntegration.ServiceHotel;
 using Booking_Frontend.APIIntegration.User;
 using Booking_Frontend.APIIntegration.ViewService;
+using Booking_Frontend.WebApp.Hubs;
 using Booking_Frontend.WebApp.LocalizationResources;
 using Booking_Frontend.WebApp.Service.VnPayService;
 using FluentValidation.AspNetCore;
@@ -69,7 +70,7 @@ namespace Booking_Frontend.WebApp
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
-
+            services.AddSignalR();
             services.AddControllersWithViews()
                 .AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
                 {
@@ -169,11 +170,7 @@ namespace Booking_Frontend.WebApp
                 endpoints.MapControllerRoute(
                     name: "default2",
                     pattern: "{controller=home}/{action=index}/{id?}");
-                endpoints.MapControllerRoute(
-                    name: "authCallback",
-                    pattern: "vi-VN/Auth/OnGetCallbackAsync",
-                    defaults: new { controller = "Auth", action = "OnGetCallbackAsync" }
-    );
+                endpoints.MapHub<NotificationHub>("/notificationHub");
 
                 //endpoints.MapControllerRoute(
                 //    name: "Step 1 booking",

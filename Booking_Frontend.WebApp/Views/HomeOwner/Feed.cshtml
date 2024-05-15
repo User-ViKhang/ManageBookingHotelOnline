@@ -11,6 +11,30 @@
 }
 
 <div id="layoutSidenav_content">
+    <div style="position: fixed">
+        <script>
+            var connection = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
+            connection.on("ReceiveNotification", function (hotelId, message) {
+                if (parseInt(hotelId) === @Model.HotelViewModel.Id) {
+                    var audio = new Audio("/audio/livechat-129007.mp3");
+                    audio.play()
+                    Swal.fire({
+                        title: 'Thông báo đặt phòng mới!',
+                        text: message,
+                        icon: 'info',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+            connection.start().catch(function (err) {
+                return console.error(err.toString());
+            });
+        </script>
+    </div>
     <div class="container">
         <div class="homeowner-page">
             <div class="title-addbooking d-flex">
@@ -36,26 +60,26 @@
                     @{
                         foreach (var item in Model.BookingOwnerViewModel)
                         {
-                            <tr>
-                                <td></td>
-                                <td>Booking - <a href="/detail-booking/@item.Id" class="underline-none">#@item.Id</a></td>
-                                <td><a href="/detail-booking/@item.Id" class="underline-none">@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name</a> </td>
-                                <td>x @item.TotalPeople <i class="bi bi-person-fill"></i></td>
-                                <td><a href="/detail-booking/@item.Id" class="underline-none">
-                                        @{
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>Booking - <a href="/detail-booking/@item.Id" class="underline-none">#@item.Id</a></td>
+                                                                    <td><a href="/detail-booking/@item.Id" class="underline-none">@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name</a> </td>
+                                                                    <td>x @item.TotalPeople <i class="bi bi-person-fill"></i></td>
+                                                                    <td><a href="/detail-booking/@item.Id" class="underline-none">
+                                                                            @{
                                             if(item.User != null)
                                             {
-                                                <text>@item.User.UserName</text>
+                                                                                                                        <text>@item.User.UserName</text>
                                             } else
                                             {
-                                                <text>@item.GuestCustomer.FullName</text>
+                                                                                                                        <text>@item.GuestCustomer.FullName</text>
                                             }
-                                        }
-                                </a></td>
-                                <td>@item.Created</td>
-                                <td>@item.CheckIn.ToString("dd/MM/yyyy")</td>
-                                <td>@item.CheckOut.ToString("dd/MM/yyyy")</td>
-                            </tr>
+                                                                            }
+                                                                    </a></td>
+                                                                    <td>@item.Created</td>
+                                                                    <td>@item.CheckIn.ToString("dd/MM/yyyy")</td>
+                                                                    <td>@item.CheckOut.ToString("dd/MM/yyyy")</td>
+                                                                </tr>
                         }
                     }
                 </tbody>
@@ -70,6 +94,7 @@
                 <th style="font-weight: 600">Ngày check-out</th>
                 </tfoot>
             </table>
+
         </div>
     </div>
 </div>

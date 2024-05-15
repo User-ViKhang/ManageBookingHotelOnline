@@ -36,6 +36,16 @@ namespace Booking_Frontend.APIIntegration.CommentService
             return await GetAsync<List<CommentViewModel>>($"/api/comment/{hotelId}");
         }
 
+        public async Task<List<Comment_User>> GetAllCommentLikeByUserId(Guid UserId)
+        {
+            return await GetAsync<List<Comment_User>>($"/api/comment/like/{UserId}");
+        }
+
+        public async Task<bool> LikeComment(LikeCommentRequest request)
+        {
+            return await PostAsyncNotFile<LikeCommentRequest>($"/api/comment/like", request);
+        }
+
         public async Task<bool> UpdateComment(int Id, UpdateCommentRequest request)
         {
             return await PostAsyncNotFile<UpdateCommentRequest>($"/api/comment/{Id}", request);

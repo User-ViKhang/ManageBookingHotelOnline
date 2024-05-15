@@ -6,8 +6,10 @@ namespace Booking_Backend.Data.Enums
 {
     public enum Score
     {
+        
         TuyetHao,
-        TuyetVoi
+        TuyetVoi,
+
 
     }
 }

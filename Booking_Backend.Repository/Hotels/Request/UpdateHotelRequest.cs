@@ -18,5 +18,6 @@ namespace Booking_Backend.Repository.Hotels.Request
         public string LanguageId { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+        public decimal Price { get; set; }
     }
 }

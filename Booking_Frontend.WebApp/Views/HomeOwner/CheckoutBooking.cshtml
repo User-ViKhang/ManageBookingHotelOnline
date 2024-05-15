@@ -62,13 +62,7 @@
                                     </a></td>
                                     <td>@item.Created.ToString("dd/MM/yyyy hh:mm tt")</td>
                                     <td>
-                                        @{
-                                            DateTime date1 = item.CheckIn;
-                                            DateTime date2 = item.CheckOut;
-                                            TimeSpan difference = date2 - date1;
-                                            int numberOfDays = difference.Days;
-                                            <text>@((numberOfDays * item.Room.PriceOverNight).ToString("N0"))</text>
-                                        }
+                                        @item.TotalAmount.ToString("N0")
                                     </td>
                                     <td><button type="submit" class="btn btn-primary">Trả phòng</button></td>
                                 </tr>

@@ -24,17 +24,17 @@
                     <h5>Hãy cho chúng tôi biết bạn là ai?</h5>
                     <div class="fullname-info mt-4">
                         <label for="">Họ tên khách hàng</label>
-                        <input type="text" value="@Model.CreateBookingViewModel.fullnameCustomer" name="FullName" class="form-control">       <!--FullName-->
+                        <input required type="text" value="@Model.CreateBookingViewModel.fullnameCustomer" name="FullName" class="form-control">       <!--FullName-->
                     </div>
                     <div class="email-info mt-4">
                         <label for="">Email khách hàng</label>
-                        <input type="email" value="@Model.CreateBookingViewModel.emailCustomer" name="Email" class="form-control">              <!--Email-->
+                        <input required type="email" value="@Model.CreateBookingViewModel.emailCustomer" name="Email" class="form-control">              <!--Email-->
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <div class="phone-info">
                                 <label for="">Số điện thoại</label>
-                                <input value="@Model.CreateBookingViewModel.phoneCustomer" type="tel" name="PhoneNumber" class="form-control">  <!--PhoneNumber-->
+                                <input required value="@Model.CreateBookingViewModel.phoneCustomer" type="tel" name="PhoneNumber" class="form-control">  <!--PhoneNumber-->
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -164,5 +164,16 @@
             </div>
         </form>
     </div>
+
+   @*  <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
+        connection.start().then(function () {
+        connection.invoke("NotifyHotelOwner", "@Model.CreateBookingViewModel.HotelId.ToString()", "Thông báo mới từ khách hàng: Một phòng mới đã được đặt.").catch(function (err) {
+                    return console.error(err.toString());
+                });
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script> *@
 
    
