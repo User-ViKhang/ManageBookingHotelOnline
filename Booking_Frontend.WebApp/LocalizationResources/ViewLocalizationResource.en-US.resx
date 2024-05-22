@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Bãi biển" xml:space="preserve">
+    <value>Beach</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Bậc hạng" xml:space="preserve">
+    <value>Grade level</value>
+  </data>
+  <data name="Bắt đầu từ" xml:space="preserve">
+    <value>Starting from</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Bộ lọc tự động" xml:space="preserve">
+    <value>Automatic filter</value>
+  </data>
+  <data name="chỗ nghỉ" xml:space="preserve">
+    <value>properties</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Chỗ nghỉ nổi bật trong tháng qua" xml:space="preserve">
+    <value>Featured property in the past month</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Chỗ nghỉ qua đêm" xml:space="preserve">
+    <value>Accommodation for night</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Chỗ nghỉ trong ngày" xml:space="preserve">
+    <value>Accommodation for day</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Các điểm thu hút khách du lịch Việt Nam" xml:space="preserve">
+    <value>Vietnamese tourist attractions</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Giá thấp nhất" xml:space="preserve">
+    <value>Lowest price</value>
+  </data>
+  <data name="Giảm giá 10% cho chỗ nghỉ" xml:space="preserve">
+    <value>10% discount for accommodation</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Giảm đến 15% cho thuê xe" xml:space="preserve">
+    <value>Up to 15% off car rental</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Hiển thị" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Hiển thị bản đồ" xml:space="preserve">
+    <value>Following map</value>
+  </data>
+  <data name="Huế" xml:space="preserve">
+    <value>Hue</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Khuyến mãi" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="Khám phá các địa điểm hàng đầu Việt Nam" xml:space="preserve">
+    <value>Explore top locations in Vietnam</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Khám phá Việt Nam với những địa điểm du lịch thú vị" xml:space="preserve">
+    <value>Explore Vietnam with interesting tourist destinations</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Không có khách sạn được tìm thấy" xml:space="preserve">
+    <value>No hotels found</value>
+  </data>
+  <data name="Lãng mạn" xml:space="preserve">
+    <value>Romantic</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Lên kế hoạch nhanh chóng dễ dàng và tiện lợi" xml:space="preserve">
+    <value>Plan quickly, easily and conveniently</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Ngôn ngữ" xml:space="preserve">
+    <value>Language</value>
+    <comment>Share/Layout</comment>
+  </data>
+  <data name="Người lớn" xml:space="preserve">
+    <value>Adult</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Người sử dụng" xml:space="preserve">
+    <value>Adult</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Nhà ở yêu thích của du khách" xml:space="preserve">
+    <value>Favorite accommodation of tourists</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Nơi hội tụ những địa điểm lí tưởng của 63 tỉnh thành" xml:space="preserve">
+    <value>Where ideal locations of 63 provinces and cities converge</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Phan Thiết" xml:space="preserve">
+    <value>Phan Thiet</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Phòng" xml:space="preserve">
+    <value>Phòng</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Phù hợp nhất" xml:space="preserve">
+    <value>Best fit</value>
+  </data>
+  <data name="Phú Quốc" xml:space="preserve">
+    <value>Phu Quoc</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Phục vụ mọi chất lượng hãng xe cung cấp, bao chạy bao êm" xml:space="preserve">
+    <value>Serving all the quality car brands provide, including smooth running</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Sắp xếp theo" xml:space="preserve">
+    <value>Sorted by</value>
+  </data>
+  <data name="Số điểm:" xml:space="preserve">
+    <value>Score: </value>
+  </data>
+  <data name="TD. Hà Nội" xml:space="preserve">
+    <value>Ha Noi capital</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Tham khảo các loại nghi dưỡng" xml:space="preserve">
+    <value>Refer to the types of treatments</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Thiên nhiên" xml:space="preserve">
+    <value>Nature</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Thành phố" xml:space="preserve">
+    <value>City</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Tiếng Anh" xml:space="preserve">
+    <value>English</value>
+    <comment>Share/Layout</comment>
+  </data>
+  <data name="Tiếng Việt" xml:space="preserve">
+    <value>Việt Nam</value>
+    <comment>Share/Layout</comment>
+  </data>
+  <data name="TP. Hồ Chí Minh" xml:space="preserve">
+    <value>Ho Chi Minh city</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Trẻ em" xml:space="preserve">
+    <value>Children</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Tìm khách sạn gần nhất" xml:space="preserve">
+    <value>Find near most hotel ...</value>
+    <comment>Share/Layout</comment>
+  </data>
+  <data name="Tìm phòng trống" xml:space="preserve">
+    <value>Search now</value>
+  </data>
+  <data name="Tạo tài khoản" xml:space="preserve">
+    <value>Register</value>
+    <comment>Share/Layout</comment>
+  </data>
+  <data name="Tận hưởng giảm giá các chỗ nghỉ tham gia trên toàn Việt Nam" xml:space="preserve">
+    <value>Enjoy discounts at participating properties across Vietnam</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Từ biệt thự, lâu đài cung điện chúng tôi đều có hết" xml:space="preserve">
+    <value>From villas to castles and palaces we have it all</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Vịnh Hạ Long" xml:space="preserve">
+    <value>Ha Long Bay</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Xem bản đồ" xml:space="preserve">
+    <value>Following map</value>
+  </data>
+  <data name="Yên tĩnh" xml:space="preserve">
+    <value>Peaceful</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Đi nhiều hơn, trả ít hơn, ưu đãi hời hơn" xml:space="preserve">
+    <value>Travel more, pay less, get better deals</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="điểm trở lên" xml:space="preserve">
+    <value>points or more</value>
+  </data>
+  <data name="Đà Lạt" xml:space="preserve">
+    <value>Da Lat</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Đà Nẳng" xml:space="preserve">
+    <value>Da Nang</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Đà Nẵng" xml:space="preserve">
+    <value>Da Nang</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="đánh giá" xml:space="preserve">
+    <value>reviews</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Đánh giá cao" xml:space="preserve">
+    <value>Appreciate</value>
+  </data>
+  <data name="Đánh giá:" xml:space="preserve">
+    <value>Evaluate:</value>
+  </data>
+  <data name="Đăng nhập" xml:space="preserve">
+    <value>Login</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="ơi! bạn là Gonower cấp 1 trong chương trình khách hàng thân thiết của chúng tôi" xml:space="preserve">
+    <value>! you are a level 1 Gonower in our loyalty program</value>
+    <comment>Home/Index</comment>
+  </data>
+  <data name="Ưu đãi tài khoản thành viên" xml:space="preserve">
+    <value>Member account incentives</value>
+    <comment>Home/Index</comment>
+  </data>
+</root>

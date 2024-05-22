@@ -1,0 +1,112 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Booking_Backend.Data.Enums;
+@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel;
+@{
+    ViewData["Title"] = "Owner Home Page";
+    Layout = "_LayoutOwner";
+}
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+<div id="layoutSidenav_content">
+    <div style="position: fixed">
+        <script>
+            var connection = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
+            connection.on("ReceiveNotification", function (hotelId, message) {
+                if (parseInt(hotelId) === @Model.HotelViewModel.Id) {
+                    var audio = new Audio("/audio/livechat-129007.mp3");
+                    audio.play()
+                    Swal.fire({
+                        title: 'Thông báo đặt phòng mới!',
+                        text: message,
+                        icon: 'info',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+            connection.start().catch(function (err) {
+                return console.error(err.toString());
+            });
+        </script>
+    </div>
+    <div class="container">
+        <div class="homeowner-page">
+            <div class="title-addbooking d-flex">
+                <div class="title">
+                    <h3>Bảng tin đặt phòng - @DateTime.UtcNow.ToString("d/MM/yyyy")</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="homeowner-table mt-3">
+            <table class="table table-hover" style="font-size: 13px">
+                <thead style="background-color: #f6f8fa">
+                <th style="font-weight: 600"></th>
+                <th style="font-weight: 600" class="id-booking">#Booking</th>
+                <th style="font-weight: 600">Đơn hàng</th>
+                <th style="font-weight: 600" class="number-guest">Số khách</th>
+                <th style="font-weight: 600">Người đặt</th>
+                <th style="font-weight: 600">Ngày đặt hàng</th>
+                <th style="font-weight: 600">Ngày check-in</th>
+                <th style="font-weight: 600">Ngày check-out</th>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model.BookingOwnerViewModel)
+                        {
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>Booking - <a href="/detail-booking/@item.Id" class="underline-none">#@item.Id</a></td>
+                                                                    <td><a href="/detail-booking/@item.Id" class="underline-none">@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name</a> </td>
+                                                                    <td>x @item.TotalPeople <i class="bi bi-person-fill"></i></td>
+                                                                    <td><a href="/detail-booking/@item.Id" class="underline-none">
+                                                                            @{
+                                            if(item.User != null)
+                                            {
+                                                                                                                        <text>@item.User.UserName</text>
+                                            } else
+                                            {
+                                                                                                                        <text>@item.GuestCustomer.FullName</text>
+                                            }
+                                                                            }
+                                                                    </a></td>
+                                                                    <td>@item.Created</td>
+                                                                    <td>@item.CheckIn.ToString("dd/MM/yyyy")</td>
+                                                                    <td>@item.CheckOut.ToString("dd/MM/yyyy")</td>
+                                                                </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot style="background-color: #f6f8fa">
+                <th style="font-weight: 600"></th>
+                <th style="font-weight: 600" class="id-booking">#Booking</th>
+                <th style="font-weight: 600">Đơn hàng</th>
+                <th style="font-weight: 600" class="number-guest">Số khách</th>
+                <th style="font-weight: 600">Người đặt</th>
+                <th style="font-weight: 600">Ngày đặt hàng</th>
+                <th style="font-weight: 600">Ngày check-in</th>
+                <th style="font-weight: 600">Ngày check-out</th>
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    const statusSelect = document.getElementById('statusSelect');
+    const filterLink = document.getElementById('filterLink');
+
+    // Thêm sự kiện onclick cho thẻ a
+    statusSelect.onchange = function () {
+        const selectedStatus = statusSelect.value;
+        filterLink.href = "/@culture/homeowner/index/@Model.UserId?status=" + selectedStatus;
+        filterLink.click()
+        filterLink.textContent = selectedStatus === "" ? "Trạng thái đặt phòng" : selectedStatus;
+    };
+</script>

@@ -9,7 +9,7 @@ namespace Booking_Backend.Data.Entities
         public int Id { get; set; }
         public string Caption { get; set; }
         public decimal ImageSize { get; set; }
-        public decimal ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
         public DateTime Created { get; set; }
         public Hotel Hotel { get; set; }
         public int Hotel_Id { get; set; }

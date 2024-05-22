@@ -1,0 +1,129 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Booking_Backend.Data.Enums;
+@using Booking_Frontend.WebApp.Models.Owner;
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@model NotifyBookingViewModel;
+@{
+    ViewData["Title"] = "Owner Home Page";
+    Layout = "_LayoutOwner";
+}
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+<style>
+    .upload-label {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #uploadInput {
+        display: none;
+    }
+
+    .label-info {
+        color: black;
+        font-weight: 300;
+        font-size: 14px;
+    }
+</style>
+<div id="layoutSidenav_content">
+    <div class="" style="width: 100%; background-color: #f8f8f8">
+        <div class="" style="width: 1000px; background-color: white; margin: 20px auto; box-shadow: 0 0 3px 2px #ccc; padding: 20px">
+            <form method="post" action="/owner/profile" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <div class="card-wrapper" style="width: 100%; padding: 20px; background-color: #f8f8f8; box-shadow: 0 0 3px 2px #ccc">
+                            <div class="card-avatar" style="overflow: hidden;width: 100%; height: 250px; border: thin solid #ccc; border-radius: 50%; background-color: white">
+                                @if (Model.UserViewModel.AvatarUrl != "")
+                                {
+                                <img style="width: 100%; height: 100%" src="@(Configuration["HostServer"] + @Model.UserViewModel.AvatarUrl )" />
+
+                                }
+                                else
+                                {
+                                <img style="width: 100%; height: 100%" src="/img/user-profile-icon-trendy-flat-260nw-1923506948.png" />
+
+                                }
+                            </div>
+                            <div class=" wrap-img-user mt-3">
+                                <input type="file" id="uploadInput" class="upload-input" name="Avatar" accept="image/*" onchange="previewAvatar(event)">
+                                <label for="uploadInput" class="upload-label">Thay đổi ảnh</label>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-outline-primary mt-3" style="width: 100%"><i class="bi bi-floppy2-fill"></i> Cập nhật </button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="wrapper-info d-flex">
+                            <div class="info-displayname col-md-6">
+                                <div class="label-info" style="">Tên hiển thị</div>
+                                <input type="text" asp-for="@Model.UserViewModel.DisplayName" class="ip-displayname form-control" name="DisplayName" />
+                            </div>
+                            <div class="info-username pl-3 col-md-6">
+                                <div class="label-info" style="">Tên người dùng</div>
+                                <input type="text" asp-for="@Model.UserViewModel.UserName" name="UserName" class="ip-username form-control" />
+                            </div>
+                        </div>
+                        <div class="wrapper-info info-phone">
+                            <div class="label-info">Số điện thoại</div>
+                            <input type="tel" asp-for="@Model.UserViewModel.PhoneNumber" name="PhoneNumber" class="form-control" />
+                        </div>
+                        <div class="wrapper-info">
+                            <div class="label-info info-email">Email đăng kí</div>
+                            <input readonly type="email" asp-for="@Model.UserViewModel.Email" name="Email" class="form-control" />
+                        </div>
+                        <div class="wrapper-info d-flex">
+                            <div class="info-firstname col-md-6">
+                                <div class="label-info" style="">Họ lót</div>
+                                <input type="text" asp-for="@Model.UserViewModel.FirstName" name="FirstName" class="ip-displayname form-control" />
+                            </div>
+                            <div class="info-lastname pl-3 col-md-6">
+                                <div class="label-info" style="">Tên</div>
+                                <input type="text" asp-for="@Model.UserViewModel.LastName" name="LastName" class="ip-username form-control" />
+                            </div>
+                        </div>
+                        <div class="wrapper-info">
+                            <div class="row">
+                                <div class="info-birthday col-md-6">
+                                    <div class="label-info" style="width: 250px">Ngày sinh</div>
+                                    <input type="date" asp-for="@Model.UserViewModel.Birthday" name="Birthday" class="ip-birthday form-control" />
+                                </div>
+                                <div class="info-lastname col-md-6 align-items-center d-flex">
+                                    <div class="d-flex" style="">
+                                        <div class="">
+                                            <input type="radio" name="Gender" @(Model.UserViewModel.Gender == "Nam" ? "checked" : "") value="Nam" class="gender-item radio-Nam pr-3" />Nam
+                                        </div>
+                                        <div style="width: 20px"></div>
+                                        <div class="">
+                                            <input type="radio" name="Gender" @(Model.UserViewModel.Gender == "Nữ" ? "checked" : "") value="Nữ" class="gender-item radio-Nu" />Nữ
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wrapper-info">
+                            <div class="label-info info-nation">Quốc tịch</div>
+                            <input type="text" name="Nation" asp-for="@Model.UserViewModel.Nation" class="form-control" />
+                        </div>
+                        <div class="wrapper-info">
+                            <div class="label-info info-nation">Địa chỉ</div>
+                            <input type="text" name="Address" asp-for="@Model.UserViewModel.Address" class="form-control" />
+                        </div>
+                        <div class="wrapper-info">
+                            <div class="label-info info-nation">Số CCCD/CMND</div>
+                            <input type="text" name="Dashboard" asp-for="@Model.UserViewModel.Dashboard" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

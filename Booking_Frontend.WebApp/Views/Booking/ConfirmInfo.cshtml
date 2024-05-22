@@ -1,0 +1,179 @@
+﻿@using Booking_Backend.Data.Enums;
+@using Booking_Backend.Repository.BookingRepo.Request;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Booking_Backend.Repository.BookingRepo.ViewModel;
+@model BillViewModel;
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutProcessBooking";
+}
+
+    <div class="container pt-3">
+        <form method="post" asp-action="index" asp-controller="booking">
+            <input type="hidden" name="RoomId" value="@Model.CreateBookingViewModel.RoomId" />
+            <input type="hidden" name="HotelId" value="@Model.CreateBookingViewModel.HotelId" />
+            <input type="hidden" name="LanguageId" value="@culture" />
+            <div class="row">
+            <div class="col-md-8">
+                <div class="form-info-cus">
+                    <h5>Hãy cho chúng tôi biết bạn là ai?</h5>
+                    <div class="fullname-info mt-4">
+                        <label for="">Họ tên khách hàng</label>
+                        <input required type="text" value="@Model.CreateBookingViewModel.fullnameCustomer" name="FullName" class="form-control">       <!--FullName-->
+                    </div>
+                    <div class="email-info mt-4">
+                        <label for="">Email khách hàng</label>
+                        <input required type="email" value="@Model.CreateBookingViewModel.emailCustomer" name="Email" class="form-control">              <!--Email-->
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="phone-info">
+                                <label for="">Số điện thoại</label>
+                                <input required value="@Model.CreateBookingViewModel.phoneCustomer" type="tel" name="PhoneNumber" class="form-control">  <!--PhoneNumber-->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="nation-info">
+                                <label for="">Quốc tịch</label>
+                                <select class="form-control" name="Nation">                               <!--Nation-->
+                                    <option value="Việt Nam">Việt Nam</option>
+                                    <option value="">English (UK)</option>
+                                    <option>English (US)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-3">Nếu bạn nhập địa chỉ email của mình và không hoàn tất việc đặt chỗ, chúng tôi có thể gửi cho bạn lời nhắc để giúp bạn tiếp tục việc đặt chỗ.</p>
+                    <div class="note-text mt-3">
+                        <label for="">Bổ sung yêu cầu</label>
+                        <textarea name="Note"></textarea>                <!--Note-->
+                    </div>
+                    @if(Model.CreateBookingViewModel.TotalPrice != 0)
+                    {
+                        <button class="btn btn-primary" name="payment" type="submit" value="@Payment.COD">Thanh toán trực tiếp</button>
+                        <button class="btn btn-primary" name="payment" type="submit" value="@(Payment.VNPay)">Thanh toán VNPay</button>
+                    }  else
+                    {
+                        <button class="btn btn-primary" disabled name="payment" type="submit" value="@Payment.COD">Thanh toán trực tiếp</button>
+                        <button class="btn btn-primary" disabled name="payment" type="submit" value="@(Payment.VNPay)">Thanh toán VNPay</button>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12 d-flex pb-3">
+                        <div class="info-hotel ">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-1 pr-3">@Model.CreateBookingViewModel.HotelName</h5>
+                            </div>
+                            <div class="order-room">
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-5">
+                                    <img style="width: 100%" src="@(Configuration["HostServer"] + Model.CreateBookingViewModel.ThumbnailHotel)" alt="">
+                                </div>
+                                <div class="col-md-7 p-1">
+                                    <div style="font-size: 12px;">@Model.CreateBookingViewModel.Address</div>
+                                    <div style="font-size: 14px; color: red; font-weight: 500">@Model.CreateBookingViewModel.Hotline</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12  pb-3 d-flex">
+                        <div class="info-hotel ">
+                            <div class="d-flex">
+                                <h5 class="pr-2">@ViewData["DateCheckIn"]</h5> -
+                                <h5 class="pl-2 pr-3">@ViewData["DateCheckOut"]</h5>
+                                <input type="hidden" value="@ViewData["DateCheckIn"]" name="CheckIn" />
+                                <input type="hidden" value="@ViewData["DateCheckOut"]" name="CheckOut" />
+                                <div style="padding: 5px; height: 35px; background-color: #3888bd" class="text-light">
+                                    @{
+                                        int result = DateTime.Parse(ViewData["DateCheckOut"].ToString()).Day - DateTime.Parse(ViewData["DateCheckIn"].ToString()).Day;
+                                        string message = "";
+
+                                        switch (result)
+                                        {
+                                            case 0:
+                                                message = "";
+                                                break;
+                                            case 1:
+                                                message = "2N1D";
+                                                break;
+                                            case 2:
+                                                message = "3N2D";
+                                                break;
+                                            case 3:
+                                                message = "4N3D";
+                                                break;   
+                                            case 4:
+                                                message = "5N4D";
+                                                break;    
+                                            case 5:
+                                                message = "6N5D";
+                                                break;    
+                                            case 6:
+                                                message = "7N6D";
+                                                break;     
+                                            default:
+                                                message = "Long time";
+                                                break;
+                                        }
+                                        <text>
+                                            @message</text>
+                                    }
+                                </div>
+                            </div>
+                            <div class="order-room">
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <h6 class="room-name">@Model.CreateBookingViewModel.RoomTypeName</h6>
+                                    <div style="font-weight: 300">@Model.CreateBookingViewModel.BedName</div>
+                                    <div style="font-weight: 300">Số người: @ViewData["TotalPeople"]</div>
+                                    <input type="hidden" name="TotalPeople" value="@ViewData["TotalPeople"]" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-flex">
+                        <div class="info-hotel ">
+                            <div class="d-flex">
+                                <h5 class="pr-2">Phiếu thanh toán</h5>
+                            </div>
+                            <div class="order-room">
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 order-room">
+                                    <h6 class="room-name">Số lượng phòng: @Model.CreateBookingViewModel.RoomQuality</h6>
+                                    <input type="hidden" name="TotalRoom" value="@Model.CreateBookingViewModel.RoomQuality" />
+                                    <h6>Giá gốc: @Model.CreateBookingViewModel.Price.ToString("N0") VND</h6>
+                                    <input type="hidden" name="Price" value="@Model.CreateBookingViewModel.Price" />
+
+                                </div>
+                                <h6 class="p-3">Tổng thanh toán: @(Model.CreateBookingViewModel.TotalPrice.ToString("N0")) VND</h6>
+                                <input value="@(Model.CreateBookingViewModel.TotalPrice)" name="Sum" type="hidden" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+   @*  <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
+        connection.start().then(function () {
+        connection.invoke("NotifyHotelOwner", "@Model.CreateBookingViewModel.HotelId.ToString()", "Thông báo mới từ khách hàng: Một phòng mới đã được đặt.").catch(function (err) {
+                    return console.error(err.toString());
+                });
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script> *@
+
+   

@@ -1,0 +1,258 @@
+﻿@import '../variable/variable.scss';
+
+.search-room {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+    background-color: $--nav-search-secondary;
+
+    .search-box {
+        justify-content: center;
+
+
+        .search-by {
+            justify-content: flex-end;
+            height: 50px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            background-color: white;
+        }
+
+        .search-by-location {
+            i {
+                font-size: 20px;
+                padding-left: 10px;
+            }
+
+            input {
+                width: 90%;
+                height: 40px;
+                outline: none;
+                border: none;
+                color: $--nav-search-secondary;
+                padding-right: 10px;
+            }
+        }
+    }
+}
+
+.before-calender {
+    position: relative;
+}
+
+.before-calender::before {
+    position: absolute;
+    content: "";
+    height: 40px;
+    left: 0;
+    width: 1px;
+    background-color: #908a8a;
+}
+
+.navbar-main-page {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    border-radius: 7px;
+    border: thin solid #ccc;
+    overflow: hidden;
+
+    a:hover {
+        background-color: $--primary-color-2;
+        color: white;
+        text-decoration: none;
+    }
+
+    .nav-item {
+        display: flex;
+        height: 100%;
+        width: 170px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-item-title {
+        background-color: $--navbar-color;
+    }
+}
+
+.tabbar-left {
+    border: thin solid #ccc;
+}
+
+.hotel-info {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(152, 149, 149, 0.8);
+    border-radius: 8px;
+
+    h2 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 0.25em;
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        sup {
+            font-size: 0.75em;
+            margin-left: 4px;
+        }
+
+        span {
+            margin-left: 10px;
+        }
+    }
+
+    p {
+        margin-bottom: 0.5em;
+
+        a {
+            color: #3aa3ff;
+            text-decoration: none;
+        }
+
+        span {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    }
+
+    .ratings {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 10px;
+
+        span.rating-stars {
+            font-size: 1.2rem;
+            color: #ffc107;
+
+            i {
+                margin-right: 2px;
+            }
+        }
+
+        span.rating-count {
+            margin-left: 10px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    }
+}
+
+.total-properties-bylocation {
+    font-size: 25px;
+}
+
+.hotel-item-info {
+    padding: 10px 20px;
+}
+
+.hotel-info:hover {
+    box-shadow: 0 4px 6px $--primary-color-2;
+    background-color: rgba(220, 241, 246, 0.8);
+}
+
+.row {
+    .image-location {
+        padding-right: 0px;
+
+        img {
+            width: 90%;
+            height: calc(width(100%));
+            object-fit: cover;
+        }
+    }
+
+    .body-card {
+
+        .address-location {
+            font-size: 14px;
+            display: flex;
+        }
+
+        .short-des {
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+            font-size: 15px;
+            width: 100%;
+            word-wrap: break-word;
+            height: 130px;
+        }
+
+        .short-des::before {
+            content: "";
+            position: absolute;
+            height: 1px;
+            width: 100%;
+            background-color: #ccc;
+        }
+    }
+}
+
+.price-and-feeback {
+    position: relative;
+    font-size: 12px;
+}
+
+.price-and-feeback::before {
+    position: absolute;
+    content: '';
+    left: -10px;
+    height: 100%;
+    width: 1px;
+    background-color: $--nav-search-secondary;
+}
+
+.feed-back-text {
+    font-size: 20px;
+    text-decoration: underline;
+    color: red
+}
+
+.paging-bottom {
+    border: thin solid #ccc;
+    height: 40px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.paging-navigation {
+    padding: 6px 20px;
+    display: flex;
+    justify-content: center;
+
+    .paging-item {
+        display: flex;
+        align-items: center;
+
+        .link-paging {
+            padding: 0 10px;
+            font-size: 20px;
+        }
+    }
+
+    .paging-end {
+        justify-content: flex-end;
+    }
+}
+
+.rating i {
+    cursor: pointer;
+}
+
+.rating i:hover {
+    transform: scale(1.1)
+}

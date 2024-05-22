@@ -1,17 +1,34 @@
 using Booking_Backend.Data.EF;
 using Booking_Backend.Data.Entities;
+using Booking_Backend.Repository.SendMail.ViewModel;
 using Booking_Backend.Repository.Users.Request;
 using Booking_Backend.Repository.Users.Validator;
+using Booking_Backend.Service.BedService;
+using Booking_Backend.Service.BillService;
+using Booking_Backend.Service.BookingCartService;
+using Booking_Backend.Service.BookingService;
+using Booking_Backend.Service.CommentService;
+using Booking_Backend.Service.ExtensionRoom;
+using Booking_Backend.Service.ExtensionTypeRoom;
+using Booking_Backend.Service.ExternalService;
 using Booking_Backend.Service.Files;
+using Booking_Backend.Service.GuestCustomerService;
+using Booking_Backend.Service.Hotels;
 using Booking_Backend.Service.HotelTypes;
 using Booking_Backend.Service.Images;
 using Booking_Backend.Service.Languages;
+using Booking_Backend.Service.LocationServices;
 using Booking_Backend.Service.Profiles;
+using Booking_Backend.Service.Rooms;
+using Booking_Backend.Service.RoomTypeHotel;
 using Booking_Backend.Service.SendEmail;
+using Booking_Backend.Service.ServicesHotel;
 using Booking_Backend.Service.Users;
+using Booking_Backend.Service.ViewHotelService;
 using Booking_Backend.Utilities.Constants;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +63,7 @@ namespace Booking_Backend.API
         {
             services.AddDbContext<BookingContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",
@@ -70,6 +88,27 @@ namespace Booking_Backend.API
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IStorageService, StorageService>();
             services.AddScoped<ILanguageAPIService, LanguageAPIService>();
+            services.AddScoped<IHotelAPIService, HotelAPIService>();
+            services.AddScoped<IServiceAPIService, ServiceAPIService>();
+            services.AddScoped<IRoomTypeAPIService, RoomTypeAPIService>();
+            services.AddScoped<IExtensionTypeRoomAPIService, ExtensionTypeRoomAPIService>();
+            services.AddScoped<IExtensionRoomAPIService, ExtensionRoomAPIService>();
+            services.AddScoped<ICommentAPIService, CommentAPIService>();
+            services.AddScoped<IBedAPIService, BedAPIService>();
+            services.AddScoped<IViewHotelAPIService, ViewHotelAPIService>();
+            services.AddScoped<ILocationAPIService, LocationAPIService>();
+            services.AddScoped<IHotelAPIService, HotelAPIService>();
+            services.AddTransient<IBookingAPIService, BookingAPIService>();
+            services.AddTransient<IGuestCustomerAPIService, GuestCustomerAPIService>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IRoomAPIService, RoomAPIService>();
+            services.AddTransient<IBillAPIService, BillAPIService>();
+            services.AddTransient<IExternalAPIService, ExternalAPIService>();
+            services.AddTransient<IBookingCartAPIService, BookingCartAPIService>();
+            services.AddOptions<MailSettings>().Configure<IConfiguration>((settings, configuration) =>
+            {
+                configuration.GetSection("MailSettings").Bind(settings);
+            });
             services.AddControllers().
                 AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
             services.AddSwaggerGen(c =>

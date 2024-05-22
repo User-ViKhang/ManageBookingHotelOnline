@@ -1,0 +1,88 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Booking_Backend.Data.Enums;
+@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel;
+@{
+    ViewData["Title"] = "Owner Home Page";
+    Layout = "_LayoutOwner";
+}
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+<div id="layoutSidenav_content">
+    <div class="container">
+        <div class="homeowner-page">
+            <div class="title-addbooking d-flex">
+                <div class="title">
+                    <h3>Bảng thông báo trả phòng</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="homeowner-table mt-3">
+            <form method="post" action="/check-out/bill">
+                <table class="table table-hover" style="font-size: 13px">
+                    <thead style="background-color: #f6f8fa">
+                        <th style="font-weight: 600"></th>
+                        <th style="font-weight: 600" class="id-booking">#Booking</th>
+                        <th style="font-weight: 600">Đơn hàng</th>
+                        <th style="font-weight: 600">Mã phòng </th>
+                        <th style="font-weight: 600" class="number-guest">Số khách</th>
+                        <th style="font-weight: 600">Người đặt</th>
+                        <th style="font-weight: 600">Ngày tạo</th>
+                        <th style="font-weight: 600">Tổng tiền</th>
+                        <th style="font-weight: 600">Trả phòng</th>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.BookingOwnerViewModel)
+                            {
+                                <tr>
+                                    <input type="hidden" value="@item.Id" name="BookingId"/>
+                                    <input type="hidden" value="@item.Room.Id" name="RoomId"/>
+                                    <td></td>
+                                    <td>Booking - <a href="/detail-booking/@item.Id" class="underline-none">#@item.Id</a></td>
+                                    <td><a href="/detail-booking/@item.Id" class="underline-none">@item.RoomType.RoomTypeTranslations.FirstOrDefault().Name</a> </td>
+                                    <td>@item.Room.RoomCode</td>
+                                    <td>x @item.TotalPeople <i class="bi bi-person-fill"></i></td>
+                                    <td><a href="/detail-booking/@item.Id" class="underline-none">
+                                            @{
+                                                string UserName;
+                                                if (item.GuestCustomer != null)
+                                                {
+                                                    UserName = @item.GuestCustomer.FullName + " - (Guest)";
+                                                }
+                                                else
+                                                {
+                                                    UserName = @item.User.UserName;
+                                                }
+                                                <text>@UserName</text>
+                                            }
+                                    </a></td>
+                                    <td>@item.Created.ToString("dd/MM/yyyy hh:mm tt")</td>
+                                    <td>
+                                        @item.TotalAmount.ToString("N0")
+                                    </td>
+                                    <td><button type="submit" class="btn btn-primary">Trả phòng</button></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot style="background-color: #f6f8fa">
+                        <th style="font-weight: 600"></th>
+                        <th style="font-weight: 600" class="id-booking">#Booking</th>
+                        <th style="font-weight: 600">Đơn hàng</th>
+                    <th style="font-weight: 600">Mã phòng </th>
+                        <th style="font-weight: 600" class="number-guest">Số khách</th>
+                        <th style="font-weight: 600">Người đặt</th>
+                    <th style="font-weight: 600">Ngày tạo</th>
+                    <th style="font-weight: 600">Tổng tiền</th>
+
+                        <th style="font-weight: 600">Trả phòng</th>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

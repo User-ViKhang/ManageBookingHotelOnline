@@ -1,6 +1,6 @@
 ﻿using Booking_Backend.Repository.HotelTypes.Requests;
 using Booking_Backend.Repository.Users.Request;
-using Booking_Frontend.AdminApp.Service.HotelType;
+using Booking_Frontend.APIIntegration.HotelType;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -35,8 +35,19 @@ namespace Booking_Frontend.AdminApp.Controllers
         [HttpPost, Consumes("multipart/form-data")]
         public async Task<IActionResult> Update(int Id, [FromForm] UpdateHotelTypeRequest request)
         {
+            var languageId = HttpContext.Session.GetString("DefaultLanguageId");
+            request.Language_Id = languageId;
             if (!ModelState.IsValid) return BadRequest();
             var isResult = await _hotelTypeClientService.UpdateHotelType(Id, request);
+            if (!isResult) return BadRequest(isResult);
+            return RedirectToAction("Index");
+        }
+        
+        [HttpPost, Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] CreateHotelTypeRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            var isResult = await _hotelTypeClientService.CreateHotelType(request);
             if (!isResult) return BadRequest(isResult);
             return RedirectToAction("Index");
         }

@@ -17,187 +17,186 @@ namespace Booking_Backend.Data.Extensions
                 new Language() {Id="en-US", Name = "English", IsDefault = false }
                 );
 
-            //Hotels
+            // Hotel - Chỉnh sửa hoàn tất
             modelBuilder.Entity<Hotel>().HasData(
-                new Hotel() { 
-                    Id = 1, 
-                    Name = "Khách sạn Lê Tuấn Minh", 
-                    Area= "Đà Lạt", 
-                    Address="12 đường Bà Triệu, Đà Lạt", 
-                    Hotline="02963678333", 
-                    Establish= new DateTime(2002, 11, 11), 
-                    HotelType_Id=1, 
-                    ViewHotel_Id=1,
-                    Thumbnail= "/images/Thumnails/508886577.jpg", 
-                    Language="vi-VN"
-                    },
-                new Hotel() { 
-                    Id = 2, 
-                    Name = "Le Minh Tuan Hotel", 
-                    Area= "Da Lat", 
-                    Address="12 Ba Trieu Street, Da Lat", 
-                    Hotline="02963678333", 
-                    Establish= new DateTime(2002, 11, 11), 
-                    HotelType_Id=2, 
-                    ViewHotel_Id=2,
-                    Thumbnail= "/images/Thumnails/508886577.jpg", 
-                    Language="en-US"
-                    }
-                );
-
-            // ViewHotels
-            modelBuilder.Entity<ViewHotel>().HasData(
-                new ViewHotel() { Id = 1, Name = "Trung tâm thành phố", ImageUrl = "/images/ViewHotels/viewtrungtam.jpg", Language = "vi-VN" },
-                new ViewHotel() { Id = 2, Name = "City center", ImageUrl = "/images/ViewHotels/viewtrungtam.jpg", Language = "en-US" }
-
+                new Hotel()
+                {
+                    Id = 1,
+                    Hotline = "02963678333",
+                    Establish = new DateTime(2002, 11, 11),
+                    Latitude = 0,
+                    Longitude = 0,
+                    HotelType_Id = 1,
+                    ViewHotel_Id = 2
+                },
+                new Hotel()
+                {
+                    Id = 2,
+                    Hotline = "02963678463",
+                    Establish = new DateTime(2002, 02, 11),
+                    Latitude = 0,
+                    Longitude = 0,
+                    HotelType_Id = 1,
+                    ViewHotel_Id = 1
+                }
             );
 
-            // HotelTypes
+            // HotelTranslation - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<HotelTranslation>().HasData(
+                new HotelTranslation()
+                {
+                    Id = 1,
+                    Hotel_Id = 1,
+                    Name = "Khách sạn Lê Tuấn Minh",
+                    Address = "12 đường Bà Triệu, Đà Lạt",
+                    Language_Id = "vi-VN",
+                    Area = "Đà Lạt",
+                    Description = "Khách sạn Lê Tuấn Minh",
+                },
+                new HotelTranslation()
+                {
+                    Id = 2,
+                    Hotel_Id = 1,
+                    Name = "Le Minh Tuan Hotel",
+                    Address = "12 Ba Trieu Street, Da Lat",
+                    Language_Id = "en-US",
+                    Area = "Da Lat",
+                    Description = "Le Minh Tuan Hotel",
+                },
+
+                new HotelTranslation()
+                {
+                    Id = 3,
+                    Hotel_Id = 2,
+                    Name = "Khách sạn Moon House",
+                    Address = "Côn Đảo, Vũng Tàu",
+                    Language_Id = "vi-VN",
+                    Area = "Vũng Tàu",
+                    Description = "Khách sạn Moon House",
+                },
+                new HotelTranslation()
+                {
+                    Id = 4,
+                    Hotel_Id = 2,
+                    Name = "Moon House Hotel",
+                    Address = "Con Dao, Vung Tau",
+                    Language_Id = "en-US",
+                    Area = "Vung Tau",
+                    Description = "Moon House Hotel",
+                }
+            );
+
+            // HotelTypeTranslation - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<HotelTypeTranslation>().HasData(
+                new HotelTypeTranslation() { Id = 1, HotelType_Id = 1, Name = "Khách sạn", Language_Id = "vi-VN" },
+                new HotelTypeTranslation() { Id = 2, HotelType_Id = 1, Name = "Hotel", Language_Id = "en-US" },
+
+                new HotelTypeTranslation() { Id = 3, HotelType_Id = 2, Name = "Nhà nghỉ", Language_Id = "vi-VN" },
+                new HotelTypeTranslation() { Id = 4, HotelType_Id = 2, Name = "Lodging", Language_Id = "en-US" }
+            );
+
+            // HotelTypes - Chỉnh sửa hoàn tất
             modelBuilder.Entity<HotelType>().HasData(
-                new HotelType() { Id = 1, Name = "Khách sạn", ImageUrl="/images/HotelTypes/khachsan.jpg", Language = "vi-VN" },
-                new HotelType() { Id = 2, Name = "Hotel", ImageUrl = "/images/HotelTypes/khachsan.jpg", Language= "en-US" },
+                new HotelType() { Id = 1, HotelTypeImage_Id = 1 },
+                new HotelType() { Id = 2, HotelTypeImage_Id = 2 }
+            );
 
-                new HotelType() { Id = 3, Name = "Nhà nghỉ", ImageUrl = "/images/HotelTypes/nhanghi.jpg", Language = "vi-VN" },
-                new HotelType() { Id = 4, Name = "Lodging", ImageUrl = "/images/HotelTypes/nhanghi.jpg", Language= "en-US" },
+            // HotelTypeImages - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<HotelTypeImage>().HasData(
+                new HotelTypeImage() { Id = 1, Caption = "caption hoteltype img 1", ImageSize = 111, ImageUrl = "imgrl hoteltype 1" },
+                new HotelTypeImage() { Id = 2, Caption = "caption hoteltype img 2", ImageSize = 222, ImageUrl = "imgrl hoteltype 2" }
+            );
+            
+            // ViewHotelTranslations - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<ViewHotelTranslation>().HasData(
+                new ViewHotelTranslation() { Id = 1, ViewHotel_Id = 1, Name = "Bãi biển", Language_Id = "vi-VN" },
+                new ViewHotelTranslation() { Id = 2, ViewHotel_Id = 1, Name = "Beach", Language_Id = "en-US" },
 
-                new HotelType() { Id = 5, Name = "Homestay", ImageUrl = "/images/HotelTypes/homestay.jpg", Language = "vi-VN" },
-                new HotelType() { Id = 6, Name = "Homestay", ImageUrl = "/images/HotelTypes/homestay.jpg", Language= "en-US" },
+                new ViewHotelTranslation() { Id = 3, ViewHotel_Id = 2, Name = "Trung tâm thành phố", Language_Id = "vi-VN" },
+                new ViewHotelTranslation() { Id = 4, ViewHotel_Id = 2, Name = "City center", Language_Id = "en-US" }
+            );
 
-                new HotelType() { Id = 7, Name = "Căn hộ", ImageUrl = "/images/HotelTypes/canho.jpg", Language = "vi-VN" },
-                new HotelType() { Id = 8, Name = "Apartment", ImageUrl = "/images/HotelTypes/canho.jpg", Language= "en-US" },
+            // ViewHotels - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<ViewHotel>().HasData(
+                new ViewHotel() { Id = 1 },
+                new ViewHotel() { Id = 2 }
+            );
 
-                new HotelType() { Id = 9, Name = "Biệt thự", ImageUrl = "/images/HotelTypes/bietthu.jpg", Language = "vi-VN" },
-                new HotelType() { Id = 10, Name = "Villa", ImageUrl = "/images/HotelTypes/bietthu.jpg", Language= "en-US" },
+            // RoomTypeTranslations - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<RoomTypeTranslation>().HasData(
+                new RoomTypeTranslation() { Id = 1, RoomType_Id = 1, Name = "Phòng Standard", Language_Id = "vi-VN" },
+                new RoomTypeTranslation() { Id = 2, RoomType_Id = 1, Name = "Standard Room", Language_Id = "en-US" },
 
-                new HotelType() { Id = 11, Name = "Khu nghỉ dưỡng", ImageUrl = "/images/HotelTypes/resort.jpg", Language = "vi-VN" },
-                new HotelType() { Id = 12, Name = "Resort", ImageUrl = "/images/HotelTypes/resort.jpg", Language= "en-US" },
+                new RoomTypeTranslation() { Id = 3, RoomType_Id = 2, Name = "Phòng Superior", Language_Id = "vi-VN" },
+                new RoomTypeTranslation() { Id = 4, RoomType_Id = 2, Name = "Superior Room", Language_Id = "en-US" }
+            );
 
-                new HotelType() { Id = 13, Name = "Nhà nguyên căn", ImageUrl = "/images/HotelTypes/cannha.jpg", Language = "vi-VN" },
-                new HotelType() { Id = 14, Name = "House", ImageUrl = "/images/HotelTypes/cannha.jpg", Language= "en-US" }
-                );
-
-
-            // RoomTypes
+            // RoomTypes - Chỉnh sửa hoàn tất
             modelBuilder.Entity<RoomType>().HasData(
-                new RoomType() { Id = 1, Name = "Phòng Standard", Language = "vi-VN" },
-                new RoomType() { Id = 2, Name = "Standard Room", Language= "en-US" },
-
-                new RoomType() { Id = 3, Name = "Phòng Superior", Language = "vi-VN" },
-                new RoomType() { Id = 4, Name = "Superior Room", Language = "en-US" },
-
-                new RoomType() { Id = 5, Name = "Phòng Deluxe", Language = "vi-VN" },
-                new RoomType() { Id = 6, Name = "Deluxe Room", Language = "en-US" },
-                
-                new RoomType() { Id = 7, Name = "Phòng Suite", Language = "vi-VN" },    
-                new RoomType() { Id = 8, Name = "Suite Room", Language = "en-US" },
-                
-                new RoomType() { Id = 9, Name = "Phòng Junior Suit", Language = "vi-VN" },
-                new RoomType() { Id = 10, Name = "Junior Suite Room", Language = "en-US" },
-                
-                new RoomType() { Id = 11, Name = "Phòng Executive Suite", Language = "vi-VN" },
-                new RoomType() { Id = 12, Name = "Executive Suite Room", Language = "en-US" }
+                new RoomType() { Id = 1 },
+                new RoomType() { Id = 2 }
             );
-            
-            // Beds
+
+            // ServiceHotelTranslations - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<ServiceHotelTranslation>().HasData(
+                new ServiceHotelTranslation() { Id = 1, ServiceHotel_Id = 1, Name = "Giặt và ủi quần áo", Description = "Có phụ thu lấy quần áo sau 24h", Language_Id = "vi-VN" },
+                new ServiceHotelTranslation() { Id = 2, ServiceHotel_Id = 1, Name = "Wash and iron clothes", Description = "There is an additional charge for picking up clothes after 24 hours", Language_Id = "en-US"},
+                
+                new ServiceHotelTranslation() { Id = 3, ServiceHotel_Id = 2, Name = "Cung cấp đồ ăn sáng", Description = "Không phụ thu, mỗi ngày một thực đơn", Language_Id = "vi-VN" },
+                new ServiceHotelTranslation() { Id = 4, ServiceHotel_Id = 2, Name = "Provide breakfast", Description = "No extra charge, one menu every day", Language_Id = "en-US"}
+            );
+
+            // ServiceHotels - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<ServiceHotel>().HasData(
+                new ServiceHotel() { Id = 1 },
+                new ServiceHotel() { Id = 2 }
+            );
+
+            // BedTranslation - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<BedTranslation>().HasData(
+                new BedTranslation() { Id = 1, Bed_Id = 1, Name = "Giường đơn", Description = "Một giường 1m x 1.2m", Language_Id = "vi-VN" },
+                new BedTranslation() { Id = 2, Bed_Id = 1, Name = "Single Bed", Description="One bed 1m x 1.2m", Language_Id = "en-US" },
+                
+                new BedTranslation() { Id = 3, Bed_Id = 2, Name = "Giường đôi nhỏ", Description = "Một giường nhỏ 1.5m x 1.2m", Language_Id = "vi-VN" },
+                new BedTranslation() { Id = 4, Bed_Id = 2, Name = "Double Bed", Description="One small double bed 1.5m x 2m", Language_Id = "en-US" }
+            );
+
+            // Beds - Chỉnh sửa hoàn tất
             modelBuilder.Entity<Bed>().HasData(
-                new Bed() { Id = 1, Name = "Giường đơn", Description = "Một giường 1m x 1.2m", Language = "vi-VN" },
-                new Bed() { Id = 2, Name = "Single Bed", Description="One bed 1m x 1.2m", Language = "en-US" },
-                
-                new Bed() { Id = 3, Name = "Giường đôi nhỏ", Description = "Một giường nhỏ 1.5m x 1.2m", Language = "vi-VN" },
-                new Bed() { Id = 4, Name = "Double Bed", Description="One small double bed 1.5m x 2m", Language = "en-US" },
-                
-                new Bed() { Id = 5, Name = "Giường đôi lớn", Description = "Một giường đôi lớn 1.6m x 2m", Language = "vi-VN" },
-                new Bed() { Id = 6, Name = "Queen size Bed", Description="One big double bed 1.6m x 2m", Language = "en-US" },
-
-                new Bed() { Id = 7, Name = "Giường cỡ lớn", Description = "Một giường đôi lớn 1.8m x 2m", Language = "vi-VN" },
-                new Bed() { Id = 8, Name = "King size Bed", Description="One big double bed 1.8m x 2m", Language = "en-US" },
-
-                new Bed() { Id = 9, Name = "Western King Bed", Description = "Một giường đôi lớn 1.8m x 2.1m", Language = "vi-VN" },
-                new Bed() { Id = 10, Name = "Western King Bed", Description="One big double bed 1.8m x 2.1m", Language = "en-US" },
-
-                new Bed() { Id = 11, Name = "Giường siêu lớn", Description = "Một giường đôi lớn 2m x 2.2m", Language = "vi-VN" },
-                new Bed() { Id = 12, Name = "Super King size", Description="One big double bed 2m x 2.2m", Language = "en-US" }
+                new Bed() { Id = 1 },
+                new Bed() { Id = 2 }
             );
-            
-            // ExtensionTypes
+
+            // ExtensionTypeTranslations - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<ExtensionTypeTranslation>().HasData(
+                new ExtensionTypeTranslation() { Id = 1, ExtensionType_Id = 1, Name = "Phòng tắm", Language_Id = "vi-VN" },
+                new ExtensionTypeTranslation() { Id = 2, ExtensionType_Id = 1, Name = "Bathroom", Language_Id = "en-US" },
+
+                new ExtensionTypeTranslation() { Id = 3, ExtensionType_Id = 2, Name = "Phòng ngủ", Language_Id = "vi-VN" },
+                new ExtensionTypeTranslation() { Id = 4, ExtensionType_Id = 2, Name = "Bedroom", Language_Id = "en-US" }
+            );
+
+            // ExtensionTypes - Chỉnh sửa hoàn tất
             modelBuilder.Entity<ExtensionType>().HasData(
-                new ExtensionType() { Id = 1, Name = "Phòng tắm", Language = "vi-VN" },
-                new ExtensionType() { Id = 2, Name = "Bathroom", Language = "en-US" },
+                new ExtensionType() { Id = 1 },
+                new ExtensionType() { Id = 2 }
+             );
 
-                new ExtensionType() { Id = 3, Name = "Phòng ngủ", Language = "vi-VN" },
-                new ExtensionType() { Id = 4, Name = "Bedroom", Language = "en-US" },
-
-                new ExtensionType() { Id = 5, Name = "Nhà bếp", Language = "vi-VN" },
-                new ExtensionType() { Id = 6, Name = "Kitchen", Language = "en-US" },
-
-                new ExtensionType() { Id = 7, Name = "Tiện ích trong phòng", Language = "vi-VN" },
-                new ExtensionType() { Id = 8, Name = "In-room amenities", Language = "en-US" },
-
-                new ExtensionType() { Id = 9, Name = "Ngoài trời", Language = "vi-VN" },
-                new ExtensionType() { Id = 10, Name = "Outdoor", Language = "en-US" },
-
-                new ExtensionType() { Id = 11, Name = "Chăm sóc sức khỏe", Language = "vi-VN" },
-                new ExtensionType() { Id = 12, Name = "Healthcare", Language = "en-US" },
-
-                new ExtensionType() { Id = 13, Name = "Lối vào dành cho người khuyết tật", Language = "vi-VN" },
-                new ExtensionType() { Id = 14, Name = "Disabled access", Language = "en-US" },
-
-                new ExtensionType() { Id = 15, Name = "Tổng quát", Language = "vi-VN" },
-                new ExtensionType() { Id = 16, Name = "General", Language = "en-US" },
-
-                new ExtensionType() { Id = 17, Name = "An ninh", Language = "vi-VN" },
-                new ExtensionType() { Id = 18, Name = "Security", Language = "en-US" },
-
-                new ExtensionType() { Id = 19, Name = "Chỗ đậu xe", Language = "vi-VN" },
-                new ExtensionType() { Id = 20, Name = "Parking", Language = "en-US" },
-
-                new ExtensionType() { Id = 21, Name = "Internet", Language = "vi-VN" },
-                new ExtensionType() { Id = 28, Name = "Internet", Language = "en-US" },
-
-                new ExtensionType() { Id = 22, Name = "Đồ ăn & thức uống", Language = "vi-VN" },
-                new ExtensionType() { Id = 23, Name = "Food & Beverage", Language = "en-US" },
-
-                new ExtensionType() { Id = 24, Name = "Truyền thông & Công nghệ", Language = "vi-VN" },
-                new ExtensionType() { Id = 25, Name = "Media & Technology", Language = "en-US" },
-
-                new ExtensionType() { Id = 26, Name = "Khu vực phòng khách", Language = "vi-VN" },
-                new ExtensionType() { Id = 27, Name = "Living Room Area", Language = "en-US" }
+            // ExtensionTranslations - Chỉnh sửa hoàn tất
+            modelBuilder.Entity<ExtensionTranslation>().HasData(
+                new ExtensionTranslation() { Id = 1, Extension_Id = 1, Name = "Giấy vệ sinh", Language_Id = "vi-VN" },
+                new ExtensionTranslation() { Id = 2, Extension_Id = 1, Name = "Toilet paper", Language_Id = "en-US" },
+                
+                new ExtensionTranslation() { Id = 3, Extension_Id = 2, Name = "Ra trải giường",  Language_Id = "vi-VN" },
+                new ExtensionTranslation() { Id = 4, Extension_Id = 2, Name = "Bedspread", Language_Id = "en-US" }
             );
 
-            // Extensions
+            // Extensions - Chỉnh sửa hoàn tất
             modelBuilder.Entity<Extension>().HasData(
-                new Extension() { Id = 1, Name = "Giấy vệ sinh", ExtensionType_Id = 1, Language = "vi-VN" },
-                new Extension() { Id = 2, Name = "Toilet paper", ExtensionType_Id = 2, Language = "en-US" },
-                new Extension() { Id = 3, Name = "Khăn tắm", ExtensionType_Id = 1, Language = "vi-VN" },
-                new Extension() { Id = 4, Name = "Bath towel", ExtensionType_Id = 2, Language = "en-US" },
-                new Extension() { Id = 5, Name = "Chậu rửa vệ sinh (bidet)", ExtensionType_Id = 1, Language = "vi-VN" },
-                new Extension() { Id = 6, Name = "Bidet", ExtensionType_Id = 2, Language = "en-US" },
-
-                new Extension() { Id = 7, Name = "Ra trải giường", ExtensionType_Id = 3, Language = "vi-VN" },
-                new Extension() { Id = 8, Name = "Bedspread", ExtensionType_Id = 4, Language = "en-US" },
-                new Extension() { Id = 9, Name = "Tủ hoặc phòng để quần áo", ExtensionType_Id = 3, Language = "vi-VN" },
-                new Extension() { Id = 10, Name = "Wardrobe or Closet", ExtensionType_Id = 4, Language = "en-US" },
-                new Extension() { Id = 11, Name = "Đồng hồ báo thức", ExtensionType_Id = 3, Language = "vi-VN" },
-                new Extension() { Id = 12, Name = "Alarm clock", ExtensionType_Id = 4, Language = "en-US" },
-
-                new Extension() { Id = 13, Name = "Bàn ăn", ExtensionType_Id = 5, Language = "vi-VN" },
-                new Extension() { Id = 14, Name = "Dining table", ExtensionType_Id = 6, Language = "en-US" },
-                new Extension() { Id = 15, Name = "Sản phẩm lau rửa", ExtensionType_Id = 5, Language = "vi-VN" },
-                new Extension() { Id = 16, Name = "Cleaning products", ExtensionType_Id = 6, Language = "en-US" },
-                new Extension() { Id = 17, Name = "Bếp nấu", ExtensionType_Id = 5, Language = "vi-VN" },
-                new Extension() { Id = 18, Name = "Cooking stove", ExtensionType_Id = 6, Language = "en-US" },
-
-                new Extension() { Id = 19, Name = "Ổ điện gần giường", ExtensionType_Id = 7, Language = "vi-VN" },
-                new Extension() { Id = 20, Name = "Power outlet near bed", ExtensionType_Id = 8, Language = "en-US" },
-
-                new Extension() { Id = 21, Name = "Bàn ghế ngoài trời", ExtensionType_Id = 9, Language = "vi-VN" },
-                new Extension() { Id = 22, Name = "Outdoor furniture", ExtensionType_Id = 10, Language = "en-US" },
-                new Extension() { Id = 23, Name = "Sân hiên phơi nắng", ExtensionType_Id = 9, Language = "vi-VN" },
-                new Extension() { Id = 24, Name = "Sun deck", ExtensionType_Id = 10, Language = "en-US" },
-                new Extension() { Id = 25, Name = "Tiện nghi BBQ", ExtensionType_Id = 9, Language = "vi-VN" },
-                new Extension() { Id = 26, Name = "BBQ facilities", ExtensionType_Id = 10, Language = "en-US" }
+                new Extension() { Id = 1, ExtensionType_Id = 1},
+                new Extension() { Id = 2, ExtensionType_Id = 2}
             );
-            
+
             // Roles
             var Administrators = new Guid("265E11DA-BC22-4FE7-B286-493D6A09D46F"); //Quản trị viên
             var Owner = new Guid("F0404419-A456-4CD6-A8BC-E19C246904C5"); //Chủ sở hữu

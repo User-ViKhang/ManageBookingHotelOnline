@@ -1,0 +1,83 @@
+﻿@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel
+
+@{
+    ViewData["Title"] = "ExtensionService";
+    Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+}
+
+@section IndexStyle {
+    <link rel="stylesheet" href="~/style/owner/extensionservice/index.css">
+}
+
+<div id="layoutSidenav_content">
+    <div class="">
+        <form method="post" action="/extension-service/update/@Model.HotelViewModel.Id">
+            <input type="hidden" name="Hotel_Id" value="@Model.HotelViewModel.Id" />
+            <div class="container mt-3">
+                <h4>Tiện nghi và loại hình dịch vụ</h4>
+                <hr />
+                <p style="font-size: 14px">Chỉnh sửa các chi tiết phòng, dịch vụ và các quy tắc chung cho chỗ nghỉ của quý vị !</p>
+                <div class="quydinhchung-group mt-5">
+                    <div class="row">
+                        <div class="col-md-6 nhanphong">
+                            <div style="border: thin solid #ccc; padding: 15px" class="group-nhanphong">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Từ</label>
+                                        <div class="ip-nhanphong">
+                                            <input class="form-control" type="time" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>đến (không bắt buộc)</label>
+                                        <div class="ip-nhanphong">
+                                            <input class="form-control" type="time" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 traphong">
+                            <div style="border: thin solid #ccc; padding: 15px" class="group-traphong">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Từ</label>
+                                        <div class="ip-nhanphong">
+                                            <input class="form-control" type="time" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>đến (không bắt buộc)</label>
+                                        <div class="ip-nhanphong">
+                                            <input class="form-control" type="time" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="description mt-5 p-3" style="border: thin solid #ccc; position:relative; padding: 10px ">
+                    <textarea name="Description" style="width: 100%; border: none; outline:none; height: 200px">@Model.HotelViewModel.Description</textarea>    
+                </div>  
+                <div class="service-group mt-5 p-3" style="border: thin solid #ccc; position:relative; padding: 10px ">
+                    @foreach (var item in Model.ServiceOwnerViewModel.Items)
+                    {
+                        <span class="service-item mr-3">
+                            <input type="checkbox" class="form-check-input" name="IdsService" @if (Model.ServiceIdsChecked.Contains(item.Id))
+                            {
+                                <text> checked </text>
+                            } value="@item.Id" class="pr-2" /><span class="pl-2">@item.Name</span>
+                        </span>
+                        <span style="padding: 0 10px">-</span>
+                    }
+                    <span style="color: blue; text-decoration: underline">Bạn cảm thấy chưa đủ dịch vụ mong muốn, hãy ấn vào đây !</span>
+                    <p style="font-size:12px; font-style: italic; color: red" class="mb-1">**Lưu ý: các dịch vụ nổi bật sẽ được hiển thị tại trang đăng tin của quý vị, hãy cân nhắc trước khi lựa chọn</p>
+                    <input type="submit" class="btn btn-primary" value="Lưu bài đăng" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

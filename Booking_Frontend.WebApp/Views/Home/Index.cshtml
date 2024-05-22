@@ -1,0 +1,445 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+
+@model DetailViewModel
+@{
+    ViewData["Title"] = "Gonow.net | Trang chủ - Uy tín chất lượng nhanh chóng";
+    Layout = "_Layout";
+}
+  @{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+<div class="content">
+    <div class="" style="padding: 0 50px">
+        <div class="" style="">
+            <div style="width: 100%; height:550px"  >
+                <img src="../img/banner-sale/tr87_VPCH.jpg" style="height:100%; width: 100%; object-fit: cover"  />
+            </div>
+        </div>
+    </div>
+    <div class="container find-room">
+        <div class="area-find-room">
+            <div class="container">
+                <form method="get" action="@Url.Action("searchResult", "location")" onsubmit="return validateForm()">
+                    <div class="row mt-3">
+                        <div class="wrapper">
+                            <div class="col-md-11">
+                                <div id="wrapper-search" class="wrapper-search mt-3">
+                                    <i class="bi bi-search mr-3"></i>
+                                    @if(culture == "vi-VN")
+                                    {
+                                        <input  id="input-address" type="text" name="locationName" class="form-search input-address" placeholder="Nhập địa điểm du lịch của quí vị...">
+                                    } else
+                                    {
+                                        <input type="text" name="locationName" class="form-search input-address" placeholder="Enter your travel destination...">
+                                    }
+                                    <div id="suggest-location" class="suggest-location" style="background-color: white; width: 1200px; top: 70px; border-radius: 5px; box-shadow: 0 0 7px 1px #e2dede;">
+                                        <div class="row p-5">
+                                            <div class="col-md-2">
+                                                <div><a href="">aaa</a></div>
+                                                <div><a href="">aaa</a></div>
+                                                <div><a href="">aaa</a></div>
+                                            </div>
+                                            <div class="col-md-2">fff</div>
+                                            <div class="col-md-2">fff</div>
+                                            <div class="col-md-2">fff</div>
+                                            <div class="col-md-2">fff</div>
+                                            <div class="col-md-2">fff</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row container-form mt-3">
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="wrapper-search">
+                                        <div class="col-md-12 d-flex p-0">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-3 d-flex">
+                                                        <div class="icon-checkdate">
+                                                            <i class="bi bi-calendar2"></i>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="row">
+                                                            <input type="date" id="date-checkin" class="date-checktime" name="dateCheckIn">
+                                                        </div>
+                                                        <div class="row">
+                                                            <span id="dayCheckIn" style="color: #9d9da0; font-size: 17px"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 straight">
+                                                <div class="row">
+                                                    <div class="col-md-3 d-flex">
+                                                        <div class="icon-checkdate">
+                                                            <i class="bi bi-calendar2-check"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="row">
+                                                            <input type="date" id="date-checkout" class="date-checktime" name="dateCheckOut">
+                                                        </div>
+                                                        <div class="row">
+                                                            <span id="dayCheckOut" style="color: #9d9da0; font-size: 17px"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="wrapper-search wrapper-number">
+                                        <div class="col-md-1">
+                                            <span><i class="bi bi-people"></i></span>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="row pl-3">
+                                                <input type="number" min="1" value="1" class="number-people-input" name="totalPeople" />
+                                                <span localize-content>Người sử dụng</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="btn-find-room">
+                                <button class="btn-find btn btn-info text-light" type="submit" localize-content>Tìm phòng trống</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container home-page">
+        <h3 class="text-center " localize-content>Các điểm thu hút khách du lịch Việt Nam</h3>
+        <div class="wrapper-poster">
+            <div class="row">
+                <div class="col-md-6 group-location">
+                    <div class="card-location">
+                        <a href="/@culture/location?locationName=Ho+Chi+Minh+city">
+                            <div class="card-img img-6">
+                                <span class="label-location text-dark" localize-content>TP. Hồ Chí Minh</span>
+                                <img src="../../img/location/tphcm.jpg" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 group-location">
+                    <div class="card-location">
+                        <a href="/@culture/location?locationName=Ha+Noi">
+                            <div class="card-img img-6">
+                                <span class="label-location text-dark" localize-content>TD. Hà Nội</span>
+                                <img src="../../img/location/tdhn.jpg" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-4 group-location">
+                    <div class="card-location">
+                        <a href="/@culture/location?locationName=Khanh+Hoa">
+                            <div class="card-img img-4">
+                                <span class="label-location text-dark" localize-content>Nha Trang</span>
+                                <img src="../../img/location/nhatrang.jpg" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 group-location">
+                    <div class="card-location">
+                        <a href="/@culture/location?locationName=Da+Nang">
+                            <div class="card-img img-4">
+                                <span class="label-location text-dark" localize-content>Đà Nẵng</span>
+                                <img src="../../img/location/danang.jpg" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 group-location">
+                    <div class="card-location">
+                        <a href="/@culture/location?locationName=Da+Lat">
+                            <div class="card-img img-4">
+                                <span class="label-location text-dark" localize-content>Đà Lạt</span>
+                                <img src="../../img/location/datlat.jpg" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="slide-show-location mt-5">
+            <h4 class="" localize-content>Khám phá Việt Nam với những địa điểm du lịch thú vị</h4>
+            <p localize-content>Nơi hội tụ những địa điểm lí tưởng của 63 tỉnh thành</p>
+            <div class="slide-show">
+                <a href="" class="link-item">
+                    <div class="content">
+                        <div class="card-location-slide">
+                            <img src="../../img/location/phuquoc.png" class="card-location-img" alt="">
+                            <div class="card-location-title">
+                                <p localize-content>Phú Quốc</p>
+                                <span>1.825 <span localize-content>chỗ nghỉ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="link-item">
+                    <div class="content">
+                        <div class="card-location-slide">
+                            <img src="../../img/location/nhatrang.jpg" class="card-location-img" alt="">
+                            <div class="card-location-title">
+                                <p localize-content>Nha Trang</p>
+                                <span>1.825 <span localize-content>chỗ nghỉ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="link-item">
+                    <div class="content">
+                        <div class="card-location-slide">
+                            <img src="../../img/location/danang.jpg" class="card-location-img" alt="">
+                            <div class="card-location-title">
+                                <p localize-content>Đà Nẵng</p>
+                                <span>1.825 <span localize-content>chỗ nghỉ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="link-item">
+                    <div class="content">
+                        <div class="card-location-slide">
+                            <img src="../../img/location/phanthiet.jpg" class="card-location-img" alt="">
+                            <div class="card-location-title">
+                                <p localize-content>Phan Thiết</p>
+                                <span>1.825 <span localize-content>chỗ nghỉ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="link-item">
+                    <div class="content">
+                        <div class="card-location-slide">
+                            <img src="../../img/location/vinhhalong.jpg" class="card-location-img" alt="">
+                            <div class="card-location-title">
+                                <p localize-content>Vịnh Hạ Long</p>
+                                <span>1.825 <span localize-content>chỗ nghỉ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="link-item">
+                    <div class="content">
+                        <div class="card-location-slide">
+                            <img src="../../img/location/hue.jpg" class="card-location-img" alt="">
+                            <div class="card-location-title">
+                                <p localize-content>Huế</p>
+                                <span>1.825 <span localize-content>chỗ nghỉ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="" class="link-item">
+                    <div class="content">
+                        <div class="card-location-slide">
+                            <img src="../../img/location/nhatrang.jpg" class="card-location-img" alt="">
+                            <div class="card-location-title">
+                                <p localize-content>Nha Trang</p>
+                                <span>1.825 <span localize-content>chỗ nghỉ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+
+
+        <div class="category-location-area">
+            <h4 class="mb-4" localize-content>Tham khảo các loại nghi dưỡng</h4>
+            <div class="slide-show-category-location">
+                @foreach(var item in Model.lstHotelTypeVM)
+                {
+                    <a href="" class="link-item-category">
+                        <div class="content-category">
+                            <div class="card-caterogy-slide">
+                                <img src="@(Configuration["HostServer"] + item.ImageUrl)" class="card-location-img" alt="">
+                                <div class="card-location-title">
+                                    <h5>@item.Name</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+
+
+
+
+
+
+        <br>
+        <br>
+        <div class="wrapper-slideshow">
+            <h4 localize-content>Đi nhiều hơn, trả ít hơn, ưu đãi hời hơn</h4>
+            <div class="container-slideshow">
+                <div class="slideshow-item">
+                    <div class="title-sale" localize-content>Giảm giá 10% cho chỗ nghỉ</div>
+                    <p localize-content>Tận hưởng giảm giá các chỗ nghỉ tham gia trên toàn Việt Nam</p>
+                </div>
+                <div class="slideshow-item">
+                    <div class="title-sale" localize-content>Giảm đến 15% cho thuê xe</div>
+                    <p localize-content>Phục vụ mọi chất lượng hãng xe cung cấp, bao chạy bao êm </p>
+                </div>
+                <div class="slideshow-item sale-member">
+                    <div class="title-sale" localize-content>Ưu đãi tài khoản thành viên</div>
+                    <p localize-content>Vĩ Khang ơi! bạn là Gonower cấp 1 trong chương trình khách hàng thân thiết của chúng tôi</p>
+                </div>
+                <div class="slideshow-item">
+                    <div class="title-sale" localize-content>Giảm giá 10% cho chỗ nghỉ</div>
+                    <p localize-content>Tận hưởng giảm giá các chỗ nghỉ tham gia trên toàn Việt Nam</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-show-location mt-5">
+            <h4 class="" localize-content>Lên kế hoạch nhanh chóng dễ dàng và tiện lợi</h4>
+            <p localize-content>Khám phá các địa điểm hàng đầu Việt Nam</p>
+            <div class="navbar-option">
+                <nav>
+                    <ul class="list-option">
+                        <a href="" class="link-option-item active-navbar-option-item">
+                            <i class="fa-solid fa-umbrella-beach"></i>
+                        <li class="option-item" localize-content>Bãi biển</li>
+                        </a>
+                        <a href="" class="link-option-item">
+                            <i class="fa-solid fa-seedling"></i>
+                        <li class="option-item" localize-content>Thiên nhiên</li>
+                        </a>
+                        <a href="" class="link-option-item">
+                            <i class="fa-solid fa-city"></i>
+                        <li class="option-item" localize-content>Thành phố</li>
+                        </a>
+                        <a href="" class="link-option-item ">
+                            <i class="fa-solid fa-shield-heart"></i>
+                        <li class="option-item" localize-content>Lãng mạn</li>
+                        </a>
+                        <a href="" class="link-option-item">
+                            <i class="fa-brands fa-soundcloud"></i>
+                        <li class="option-item" localize-content>Yên tĩnh</li>
+                        </a>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <br>
+        <div class="slide-show-hot-location">
+            <div class="title pl-2">
+            </div>
+            <div class="card-location-top card-location-top-1">
+                <i id="chevron-left-icon" class="bi bi-chevron-left"></i>
+                <div class="slide-show-location-toptrending carousel-1">
+                    <div class="card-slide-show-item-location card-price">
+                        <img src="../../img/location/danang.jpg" alt="" class="img-card-item-slide-show">
+                        <div class="title-card-item-slide-show mt-3 mb-0">
+                            <div class="location-name-card-item">Nhà trọ con thỏ</div>
+                            <div class="location-address-card-item">Long Xuyên, An Giang</div>
+                            <div class="location-feedback-card-item mt-3">
+                                <label class="score">8.9</label>
+                                <label for="Xuất sắc" class=""><span>Xuất sắc</span> - </label>
+                                <label for="">1.124 <span localize-content>chỗ nghỉ</span></label>
+                            </div>
+                        </div>
+                        <div class="location-price">
+                            Bắt đầu từ
+                            <strong style="color: red;">11.352.123</strong>
+                            VND
+                        </div>
+                    </div>
+                    <div class="card-slide-show-item-location card-price">
+                        <img src="../../img/location/danang.jpg" alt="" class="img-card-item-slide-show">
+                        <div class="title-card-item-slide-show mt-3 mb-0">
+                            <div class="location-name-card-item">Nhà trọ con thỏ</div>
+                            <div class="location-address-card-item">Long Xuyên, An Giang</div>
+                            <div class="location-feedback-card-item mt-3">
+                                <label class="score">8.9</label>
+                                <label for="Xuất sắc" class=""><span>Xuất sắc</span> - </label>
+                                <label for="">1.124 <span localize-content>chỗ nghỉ</span></label>
+                            </div>
+                        </div>
+                        <div class="location-price">
+                            Bắt đầu từ
+                            <strong style="color: red;">11.352.123</strong>
+                            VND
+                        </div>
+                    </div>
+                    <div class="card-slide-show-item-location card-price">
+                        <img src="../../img/location/danang.jpg" alt="" class="img-card-item-slide-show">
+                        <div class="title-card-item-slide-show mt-3 mb-0">
+                            <div class="location-name-card-item">Nhà trọ con thỏ</div>
+                            <div class="location-address-card-item">Long Xuyên, An Giang</div>
+                            <div class="location-feedback-card-item mt-3">
+                                <label class="score">8.9</label>
+                                <label for="Xuất sắc" class=""><span>Xuất sắc</span> - </label>
+                                <label for="">1.124 <span localize-content>chỗ nghỉ</span></label>
+                            </div>
+                        </div>
+                        <div class="location-price">
+                            Bắt đầu từ
+                            <strong style="color: red;">11.352.123</strong>
+                            VND
+                        </div>
+                    </div>
+                    <div class="card-slide-show-item-location card-price">
+                        <img src="../../img/location/danang.jpg" alt="" class="img-card-item-slide-show">
+                        <div class="title-card-item-slide-show mt-3 mb-0">
+                            <div class="location-name-card-item">Nhà trọ con thỏ</div>
+                            <div class="location-address-card-item">Long Xuyên, An Giang</div>
+                            <div class="location-feedback-card-item mt-3">
+                                <label class="score">8.9</label>
+                                <label for="Xuất sắc" class=""><span>Xuất sắc</span> - </label>
+                                <label for="">1.124 <span localize-content>chỗ nghỉ</span></label>
+                            </div>
+                        </div>
+                        <div class="location-price">
+                            Bắt đầu từ
+                            <strong style="color: red;">11.352.123</strong>
+                            VND
+                        </div>
+                    </div>
+                    <div class="card-slide-show-item-location card-price">
+                        <img src="../../img/location/danang.jpg" alt="" class="img-card-item-slide-show">
+                        <div class="title-card-item-slide-show mt-3 mb-0">
+                            <div class="location-name-card-item">Nhà trọ con thỏ</div>
+                            <div class="location-address-card-item">Long Xuyên, An Giang</div>
+                            <div class="location-feedback-card-item mt-3">
+                                <label class="score">8.9</label>
+                                <label for="Xuất sắc" class=""><span>Xuất sắc</span> - </label>
+                                <label for="">1.124 <span localize-content>chỗ nghỉ</span></label>
+                            </div>
+                        </div>
+                        <div class="location-price">
+                            Bắt đầu từ
+                            <strong style="color: red;">11.352.123</strong>
+                            VND
+                        </div>
+                    </div>
+                </div>
+                <i id="chevron-right-icon" class="bi bi-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+</div>

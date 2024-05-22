@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Booking_Backend.Data.Entities
 {
@@ -12,7 +13,8 @@ namespace Booking_Backend.Data.Entities
         public string ImageUrl { get; set; }
         public DateTime Created { get; set; }
         public bool isDefault { get; set; }
+
+        [JsonIgnore]
         public HotelType HotelType { get; set; }
-        public int HotelType_Id { get; set; }
     }
 }

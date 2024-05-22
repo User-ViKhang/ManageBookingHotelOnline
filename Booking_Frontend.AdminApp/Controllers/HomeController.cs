@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace Booking_Frontend.AdminApp.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

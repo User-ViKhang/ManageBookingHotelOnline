@@ -1,6 +1,6 @@
 ﻿using Booking_Backend.Repository.Paging.ViewModel;
 using Booking_Frontend.AdminApp.Models;
-using Booking_Frontend.AdminApp.Service.Language;
+using Booking_Frontend.APIIntegration.Language;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

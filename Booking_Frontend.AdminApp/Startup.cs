@@ -1,10 +1,15 @@
 using Booking_Backend.Data.Entities;
 using Booking_Backend.Repository.Users.Validator;
 using Booking_Frontend.AdminApp.Service.APIFree;
-using Booking_Frontend.AdminApp.Service.HotelType;
-using Booking_Frontend.AdminApp.Service.Language;
-using Booking_Frontend.AdminApp.Service.Profile;
-using Booking_Frontend.AdminApp.Service.User;
+using Booking_Frontend.APIIntegration.ExtensionRoom;
+using Booking_Frontend.APIIntegration.ExtensionTypeRoom;
+using Booking_Frontend.APIIntegration.HotelType;
+using Booking_Frontend.APIIntegration.Profile;
+using Booking_Frontend.APIIntegration.RoomType;
+using Booking_Frontend.APIIntegration.ServiceHotel;
+using Booking_Frontend.APIIntegration.User;
+using Booking_Frontend.APIIntegration.BedService;
+using Booking_Frontend.APIIntegration.Language;
 using FluentValidation.AspNetCore;
 using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -49,9 +54,14 @@ namespace Booking_Frontend.AdminApp
             services.AddScoped<IProfileClientService, ProfileClientService>();
             services.AddScoped<ILanguageClientService, LanguageClientService>();
             services.AddScoped<IHotelTypeClientService, HotelTypeClientService>();
+            services.AddScoped<IServiceHotelClientService, ServiceHotelClientService>();
+            services.AddScoped<IRoomTypeClientService, RoomTypeClientService>();
+            services.AddScoped<IExtensionTypeRoomClientService, ExtensionTypeRoomClientService>();
+            services.AddScoped<IExtensionRoomClientService, ExtensionRoomClientService>();
+            services.AddScoped<IBedClientService, BedClientService>();
             services.AddSession(option =>
             {
-                option.IdleTimeout = TimeSpan.FromMinutes(10);
+                option.IdleTimeout = TimeSpan.FromHours(3);
             });
         }
 
@@ -85,7 +95,7 @@ namespace Booking_Frontend.AdminApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=user}/{action=login}/{id?}");
             });
         }
     }

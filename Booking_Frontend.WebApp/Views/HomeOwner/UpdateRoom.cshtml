@@ -1,0 +1,63 @@
+﻿@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel;
+
+
+@{
+    ViewData["Title"] = "UpdateRoom";
+    Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <form method="post" action="/stateroom-price/update-room/@Model.RoomDetailOwnerViewModel.ResultOject.Id">
+                <div class="form-group">
+                    <label class="control-label">ID</label>
+                    <input readonly name="Id" class="form-control" value="@Model.RoomDetailOwnerViewModel.ResultOject.Id" />
+                </div>
+                <div class="form-group mt-3">
+                    <label class="control-label">Mã phòng nghỉ</label>
+                    <input class="form-control" name="RoomCode" value="@Model.RoomDetailOwnerViewModel.ResultOject.RoomCode" />
+                </div>
+                <div class="form-group mt-3">
+                    <label class="control-label">Sức chứa tối đa</label>
+                    <input type="number" name="Maximum" class="form-control" value="@Model.RoomDetailOwnerViewModel.ResultOject.Maximum" />
+                </div>
+                <div class="form-group mt-3">
+                    <label class="control-label">Đơn giá</label>
+                    <input class="form-control" type="" value="@(decimal.Parse(Model.RoomDetailOwnerViewModel.ResultOject.PriceOverNight.ToString(" 0.##")))"s name="PriceOverNight" />
+                </div>
+                <div class="form-group mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label">Thuộc kiểu phòng:</label>
+                            <select name="RoomTypeId" class="form-select">
+                                @foreach (var item in Model.RoomTypeOwnerViewModel.Items)
+                                {
+                                    <option value="@item.Id" @(Model.RoomDetailOwnerViewModel.ResultOject.RoomType.Id == @item.Id ? "selected" : "")>@item.Name</option>
+                                }
+                            </select>
+                        </div> 
+                        <div class="col-md-6">
+                            <label class="control-label">Thể loại giường:</label>
+                            <select name="BedId" class="form-select">
+                                @foreach (var item in Model.BedOwnerViewModel.Items)
+                                {
+                                    <option value="@item.Id" @(Model.RoomDetailOwnerViewModel.ResultOject.Bed.Id == @item.Id ? "selected" : "")>@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                    <a href="/stateroom-price/@Model.HotelViewModel.Id"><div class="btn btn-outline-primary">Hủy</div></a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+    </div>
+           </div>
+

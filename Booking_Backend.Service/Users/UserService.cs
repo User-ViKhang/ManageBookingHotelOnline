@@ -11,9 +11,11 @@ using Booking_Backend.Service.SendEmail;
 using Booking_Backend.Utilities.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -49,6 +51,7 @@ namespace Booking_Backend.Service.Users
 
         public async Task<string> Authenticate(LoginRequest request)
         {
+            //var prop = _signInManager.ConfigureExternalAuthenticationProperties();
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null) return null;
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RemmemberMe, true);
@@ -59,7 +62,6 @@ namespace Booking_Backend.Service.Users
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, string.Join(",", roles)),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
                 new Claim("UserId", user.Id.ToString())
             };
             var authSignKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Secret"]));
@@ -67,7 +69,7 @@ namespace Booking_Backend.Service.Users
                 issuer: _config["Tokens:Issuer"],
                 audience: _config["Tokens:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddHours(3),
                 signingCredentials: new SigningCredentials(authSignKey, SecurityAlgorithms.HmacSha256));
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -272,21 +274,68 @@ namespace Booking_Backend.Service.Users
                 Id = user.Id.ToString(),
                 UserName = user.UserName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                DisplayName = user.DisplayName,
-                Birthday = user.Birthday,
-                Nation = user.Nation,
+                PhoneNumber = user.PhoneNumber == null ? "" : user.PhoneNumber,
+                FirstName = user.FirstName == null ? "" : user.FirstName,
+                LastName = user.LastName == null ? "" : user.LastName,
+                DisplayName = user.DisplayName == null ? "" : user.DisplayName,
+                Birthday = user.Birthday == null ? DateTime.UtcNow : user.Birthday,
+                Nation = user.Nation == null ? "Việt Nam" : user.Nation,
                 Gender = user.Gender,
-                Address = user.Address,
-                Dashboard = user.Dashboard,
-                AvatarUrl = user.AvatarUrl,
+                Address = user.Address == null ? "" : user.Address,
+                Dashboard = user.Dashboard.ToString() == null ? 0 : user.Dashboard,
+                AvatarUrl = user.AvatarUrl == null ? "" : user.AvatarUrl,
                 Created = user.Created,
                 Status = user.Status,
-                Avatar = await _profile.GetImageByUserId(Id)
             };
+            if (await _profile.GetImageByUserId(Id) != null)
+            {
+                result.Avatar = await _profile.GetImageByUserId(Id);
+            }
             return new APIResult_Success<UserViewModel>(result);
+        }
+
+        public async Task<APIResult<string>> RegisterByUser(RegisterByUser request)
+        {
+            if (await _userManager.FindByEmailAsync(request.Email) != null)
+                return new APIResult_Error<string>("Email người dùng đã tồn tại!");
+            if (await _userManager.FindByNameAsync(request.UserName) != null)
+                return new APIResult_Error<string>("UserName người dùng đã tồn tại!");
+            var user = new AppUser
+            {
+                UserName = request.UserName,
+                DisplayName = "NewBie",
+                Email = request.Email,
+                EmailConfirmed = true,
+            };
+            var result = await _userManager.CreateAsync(user, request.Password);
+            if (!result.Succeeded) return new APIResult_Error<string>("Đăng kí tài khoản thất bại, vui lòng kiểm tra lại.");
+            await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
+            return new APIResult_Success<string>("Tạo tài khoản thành công!");
+        }
+
+        public async Task<bool> ChangeRoleOwner(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            if (user == null) return false;
+            await _userManager.RemoveFromRoleAsync(user, Roles.Client.ToString());
+            await _userManager.AddToRoleAsync(user, Roles.Owner.ToString());
+            return true;
+        }
+
+        public async Task<APIResult<string>> ForgetPassword(ForgetPasswordViewModel request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if(user==null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                return new APIResult_Error<string>("Tài khoản người dùng không tồn tại");
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return new APIResult_Success<string>(code);
+        }
+
+        public async Task<APIResult<bool>> ResetPassword(ResetPasswordViewModel request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            var result = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
+            return new APIResult_Success<bool>();
         }
     }
 }

@@ -8,8 +8,7 @@ namespace Booking_Backend.Repository.HotelTypes.Requests
     public class UpdateHotelTypeRequest
     {
         public string Name { get; set; }
-        public string ImageUrl { get; set; }
-        public string LanguageId { get; set; }
-        public IFormFile Thumbnail { get; set; }
+        public string Language_Id { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

@@ -1,0 +1,21 @@
+﻿.area-1::before {
+    position: absolute;
+    content: "Thêm kiểu nghỉ dưỡng";
+    font-size: 14px;
+    top: -12px;
+    background-color: white;
+    padding: 0 5px;
+    color: #007bff;
+    z-index: auto;
+}
+
+.area-2::before {
+    position: absolute;
+    content: "Add resort style";
+    font-size: 14px;
+    top: -12px;
+    background-color: white;
+    padding: 0 5px;
+    color: #007bff;
+    z-index: auto;
+}

@@ -20,6 +20,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using System.Text.RegularExpressions;
+using Booking_Backend.Repository.Hotels.ViewModels;
 
 namespace Booking_Backend.Service.HotelTypes
 {
@@ -29,36 +31,36 @@ namespace Booking_Backend.Service.HotelTypes
         private readonly IImageService _image;
         private readonly IStorageService _storage;
 
-        public HotelTypeService(BookingContext context, IImageService image, IStorageService storage)
+        public HotelTypeService(BookingContext context, IImageService hotelTypeImage, IStorageService storage)
         {
             _context = context;
-            _image = image;
+            _image = hotelTypeImage;
             _storage = storage;
         }
 
-        public async Task<bool> CreateHotelType(string languageId, CreateHotelTypeRequest request)
+        public async Task<bool> CreateHotelType(CreateHotelTypeRequest request)
         {
-            var hotelType = await _context.HotelTypes.FirstOrDefaultAsync(x => x.Name == request.Name);
-            if (hotelType != null) return false;
+            var hotelTypeVI = await _context.HotelTypeTranslations.FirstOrDefaultAsync(x => x.Name == request.NameVI && x.Language_Id == "vi-VN");
+            var hotelTypeEN = await _context.HotelTypeTranslations.FirstOrDefaultAsync(x => x.Name == request.NameEN && x.Language_Id == "en-US");
+            if (hotelTypeVI != null && hotelTypeEN != null) return false;
             var result = new HotelType
             {
-                Name = request.Name,
-                Language = languageId,
-            };
-            if (request.Thumbnail != null)
-            {
-                result.HotelTypeImages = new List<HotelTypeImage>()
+                HotelTypeTranslations = new List<HotelTypeTranslation>()
                 {
-                    new HotelTypeImage()
-                    {
-                        Caption = $"thumbnail-hoteltype-{request.Name}",
-                        ImageSize = request.Thumbnail.Length,
-                        ImageUrl = await _image.SaveFile(request.Thumbnail),
-                        Created = DateTime.Now,
-                        isDefault = true
-                    }
+                    new HotelTypeTranslation { Name = request.NameVI, Language_Id = "vi-VN"},
+                    new HotelTypeTranslation { Name = request.NameEN, Language_Id = "en-US"}
+                }
+            };
+            if (request.Image != null)
+            {
+                result.HotelTypeImage = new HotelTypeImage()
+                {
+                    Caption = $"Initial image hotel type at " + DateTime.UtcNow.ToString(),
+                    ImageSize = request.Image.Length,
+                    ImageUrl = await _image.SaveFile(request.Image),
+                    Created = DateTime.Now,
+                    isDefault = true
                 };
-                result.ImageUrl = await _image.SaveFile(request.Thumbnail);
             }
             _context.HotelTypes.Add(result);
             await _context.SaveChangesAsync();
@@ -69,37 +71,66 @@ namespace Booking_Backend.Service.HotelTypes
         {
             var hotelType = await _context.HotelTypes.FindAsync(Id);
             if (hotelType == null) return false;
-            var isResult = _context.HotelTypes.Remove(hotelType);
-            await _storage.DeleteFileAsync(hotelType.ImageUrl);
+            // Tìm record img
+            var hotelTypeImage = await _context.HotelTypeImages.FirstOrDefaultAsync(x=>x.Id == hotelType.HotelTypeImage_Id);
+            // Xóa record hoteltype
+            var removeHotelType = _context.HotelTypes.Remove(hotelType);
+            // Xóa file server
+            await _storage.DeleteFileAsync(hotelTypeImage.ImageUrl);
+            // Xóa record hoteltypeimage
+            var removeHotelTypeImage = _context.HotelTypeImages.Remove(hotelTypeImage);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<HotelTypeViewModel>> GetAllHotelType(string languageId)
+        {
+            var query = from h in _context.HotelTypes
+                        join ht in _context.HotelTypeTranslations on h.Id equals ht.HotelType_Id
+                        join hti in _context.HotelTypeImages on h.HotelTypeImage_Id equals hti.Id
+                        where ht.Language_Id == languageId
+                        select new { h, ht, hti};
+
+            var data = await query.Select(x => new HotelTypeViewModel()
+            {
+                Id = x.h.Id,
+                Name = x.ht.Name,
+                ImageUrl = x.hti.ImageUrl,
+                Language_Id = x.ht.Language_Id
+            }).ToListAsync();
+            return data;
         }
 
         // Lấy tất cả chỗ nghỉ dưỡng theo ngôn ngữ
         public async Task<PageResult<HotelTypeViewModel>> GetHotelType(GetAllHotelTypePagingRequest request)
         {
-            var query = from ht in _context.HotelTypes
-                        where ht.Language == request.LanguageId
-                        join hti in _context.HotelTypeImages on ht.Id equals hti.HotelType_Id into gj
-                        from subHotelTypeImage in gj.DefaultIfEmpty()
+            var query = from h in _context.HotelTypes
+                        join ht in _context.HotelTypeTranslations on h.Id equals ht.HotelType_Id into htGroup
+                        from ht in htGroup.DefaultIfEmpty()
+                        join ih in _context.HotelTypeImages on h.HotelTypeImage_Id equals ih.Id into ihGroup
+                        from ih in ihGroup.DefaultIfEmpty()
+                        where ht.Language_Id == request.LanguageId
                         select new
                         {
-                            ht,
-                            ImageUrl = subHotelTypeImage != null ? subHotelTypeImage.ImageUrl : null
+                            h.Id,
+                            ht.Name,
+                            ImageUrl = ih != null ? ih.ImageUrl : null,
+                            ht.Language_Id
                         };
 
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.ht.Name.Contains(request.Keyword));
+                query = query.Where(x => x.Name.Contains(request.Keyword));
             }
+
             int totalRow = await query.CountAsync();
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
             .Select(x => new HotelTypeViewModel()
             {
-                Id = x.ht.Id,
-                Name = x.ht.Name,
-                Language = x.ht.Language,
-                ImageUrl = x.ImageUrl
+                Id = x.Id,
+                Name = x.Name,
+                ImageUrl = x.ImageUrl,
+                Language_Id = x.Language_Id
             }).ToListAsync();
             var PagedResult = new PageResult<HotelTypeViewModel>()
             {
@@ -111,87 +142,66 @@ namespace Booking_Backend.Service.HotelTypes
             return PagedResult;
         }
 
-        public async Task<HotelTypeViewModel> GetHotelTypeById(string languageId, int hotelTypeId)
+        
+        public async Task<HotelTypeViewModel> GetHotelTypeById(string Language_Id, int Id)
         {
-            var hotelType = await _context.HotelTypes.FindAsync(hotelTypeId);
-            if (hotelType == null) return null;
-            var result = new HotelTypeViewModel()
+            var hotelType = await _context.HotelTypes.FindAsync(Id);
+            if (hotelType == null) return null; 
+            var hotelTypeTranslation = await _context.HotelTypeTranslations.FirstOrDefaultAsync(x=>x.HotelType_Id == hotelType.Id && x.Language_Id == Language_Id);
+            var hotelImage = await _context.HotelTypeImages.FirstOrDefaultAsync(x => x.Id == hotelType.HotelTypeImage_Id);
+            var hotelTypeVM = new HotelTypeViewModel()
             {
                 Id = hotelType.Id,
-                Name = hotelType.Name,
-                Language = languageId,
-                ImageUrl = hotelType.ImageUrl,
-                Thumbnail = await this.GetImageByHotelTypeId(hotelTypeId)
+                Name = hotelTypeTranslation.Name,
+                ImageUrl = hotelImage.ImageUrl,
+                Language_Id = hotelTypeTranslation.Language_Id,
             };
-            return result;
+            return hotelTypeVM;
         }
-
-        public async Task<HotelTypeImageViewModel> GetImageByHotelTypeId(int hotelTypeId)
+/*
+        /*public async Task<HotelTypeImageViewModel> GetImageByHotelTypeId(int hotelTypeId)
         {
-            var image = await _context.HotelTypeImages.FirstOrDefaultAsync(x => x.HotelType_Id == hotelTypeId);
-            if (image == null) return null;
+            var hotelTypeImage = await _context.HotelTypeImages.FirstOrDefaultAsync(x => x.HotelType_Id == hotelTypeId);
+            if (hotelTypeImage == null) return null;
             var result = new HotelTypeImageViewModel()
             {
-                Id = image.Id,
-                Caption = image.Caption,
-                ImageSize = image.ImageSize,
-                ImageUrl = image.ImageUrl,
-                Created = image.Created,
-                isDefault = image.isDefault
+                Id = hotelTypeImage.Id,
+                Caption = hotelTypeImage.Caption,
+                ImageSize = hotelTypeImage.ImageSize,
+                ImageUrl = hotelTypeImage.ImageUrl,
+                Created = hotelTypeImage.Created,
+                isDefault = hotelTypeImage.isDefault
             };
             return result;
-        }
+        }*/
 
         public async Task<bool> UpdateHotelType(int Id, UpdateHotelTypeRequest request)
         {
             var hotelType = await _context.HotelTypes.FindAsync(Id);
-
             if (hotelType == null) return false;
+            var hotelTypeTranslation = await _context.HotelTypeTranslations.FirstOrDefaultAsync(x => x.HotelType_Id == hotelType.Id && x.Language_Id == request.Language_Id);
+            var hotelTypeImage = await _context.HotelTypeImages.FirstOrDefaultAsync(x => x.Id == hotelType.HotelTypeImage_Id);
 
             hotelType.Id = Id;
-            hotelType.Name = request.Name;
-            hotelType.Language = request.LanguageId;
+            hotelTypeTranslation.Name = request.Name;
 
-            if (request.Thumbnail != null)
+            if (request.Image != null)
             {
-                var thumbnail = await _context.HotelTypeImages.FirstOrDefaultAsync(x => x.HotelType_Id == Id);
 
-                if (thumbnail != null) // Cập nhật img
-                {
-                    thumbnail.Caption = "hoteltypeimg-updated-" + request.Name;
-                    thumbnail.ImageSize = request.Thumbnail.Length;
-                    thumbnail.ImageUrl = await _image.SaveFile(request.Thumbnail);
-                    thumbnail.isDefault = true;
-                    hotelType.ImageUrl = thumbnail.ImageUrl;
-                    _context.HotelTypeImages.Update(thumbnail);
-                }
-                else // Tạo img
-                {
-                    hotelType.HotelTypeImages = new List<HotelTypeImage>()
-                    {
-                        new HotelTypeImage()
-                        {
-                            Caption = "hoteltypeimg-" + request.Name,
-                            ImageSize = request.Thumbnail.Length,
-                            ImageUrl = await _image.SaveFile(request.Thumbnail),
-                            isDefault = true
-                        }
-                    };
-                    hotelType.ImageUrl = hotelType.HotelTypeImages[0].ImageUrl;
-                }
-                hotelType.HotelTypeImages = new List<HotelTypeImage>()
-                {
-                    new HotelTypeImage()
-                    {
-                        Caption = thumbnail.Caption,
-                        ImageSize = thumbnail.ImageSize,
-                        ImageUrl = thumbnail.ImageUrl,
-                        isDefault = true,
-                        Created = DateTime.Now
-                    }
-                };
+                await _storage.DeleteFileAsync(hotelTypeImage.ImageUrl);
+
+                hotelTypeImage.Caption = "Hotel type image has been at " + DateTime.UtcNow.ToString();
+                hotelTypeImage.ImageUrl = await _image.SaveFile(request.Image);
+                hotelTypeImage.ImageSize = request.Image.Length;
+                hotelTypeImage.isDefault = true;
             }
+
+            _context.HotelTypes.Update(hotelType);
+            _context.HotelTypeImages.Update(hotelTypeImage);
+            _context.HotelTypeTranslations.Update(hotelTypeTranslation);
+
             await _context.SaveChangesAsync();
+
             return true;
         }
     }

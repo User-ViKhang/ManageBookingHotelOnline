@@ -1,0 +1,354 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DetailViewModel
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>@(ViewData["Title"])</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/img/icon-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/style/variable/variable.css">
+    <link rel="stylesheet" href="~/style/client/index.css">
+    <link rel="stylesheet" href="~/style/client/detail.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    @RenderSection("IndexStyle", required: false)
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+    <link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
+" rel="stylesheet">
+    <link href="~/lib/lightbox2/node_modules/lightbox2/dist/css/lightbox.css" rel="stylesheet" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+    <style>
+        .info-profile:hover {
+            background-color: #e0f0fa;
+            color: black;
+        }
+
+        .manage-profile {
+            display: none;
+        }
+
+            .wrapper-btn-items:hover + .manage-profile,
+            .manage-profile:hover {
+                display: block;
+            }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .popup button {
+            margin: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .btn-register-hotel {
+            padding: 10px;
+        }
+
+        .btn-register-hotel:hover {
+            padding: 10px;
+                background-color: #4a85e6;
+        }
+
+        .link-register-hotel:hover {
+            text-decoration: none;
+        }
+
+        .btn-cart {
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top:-5px;
+            left: -10px;
+        }
+
+        .cart-whiteboard::before {
+            content: "";
+            position: absolute;
+            right: 97px;
+            top:-15px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid white; 
+         }
+
+        .item-remove-cart {
+            position: relative; /* Cần để xác định vị trí tuyệt đối cho btn-display-remove */
+        }
+
+        .btn-display-remove {
+            transition: width 0.3s; /* Thêm hiệu ứng chuyển động cho việc thay đổi chiều dài */
+            width: 0px; /* Bắt đầu với chiều dài 0 */
+        }
+
+        .btn-display-remove {
+            width: 60px; /* Khi hover vào thẻ li, chiều dài của btn-display-remove tăng lên 60px */
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <div id="loader" class="d-flex justify-content-center align-items-center">
+        <div class="continuous-4"></div>
+    </div>
+    <header id="page-header" class="navbar-gonow d-flex" style="z-index:100; position: fixed">
+        <nav class="header__logoandlinks d-flex">
+            <div class="wrapper-logo-primary">
+                <a href="/" class="link-logo-primary">
+                    <div class="wrapper-link-logo d-flex" >
+                        <img src="../../img/logo-gonow_net.png" alt="" class="logo-primary">
+                        <div style="font-size: 30px; font-weight: bold; color: white; padding-top: 17px; text-decoration: none">Gonow.net</div>
+                    </div>
+                </a>
+            </div>
+            <div class="wrapper-links">
+            </div>
+        </nav>
+        <div class="login-logout d-flex">
+            @if (Model.UserClient != null)
+            {
+                <a href="/register/economic" class="link-register-hotel">
+                    <div class="btn-register-hotel" style="color: white">Đăng kí chỗ nghỉ của quý vị</div>
+                </a>
+            } else
+            {
+                <a href="/" class="link-register-hotel">
+                    <div class="btn-register-hotel" style="color: white">Đăng kí chỗ nghỉ của quý vị</div>
+                </a>
+            }
+            <div class="select-language">
+                <select class="language-quocki text-dark" id="languageSelect" onchange="changeLanguage()">
+                    <option localize-content>Ngôn ngữ</option>
+                    <option value="/vi-VN/Home/SetCultureCookie?cltr=en&returnUrl=/vi-VN" localize-content>Tiếng Việt</option>
+                    <option value="/en-US/Home/SetCultureCookie?cltr=en&returnUrl=/en-US" localize-content>Tiếng Anh</option>
+                </select>
+            </div>
+
+            @if (Model.UserClient != null)
+            {
+                <div class="wrapper-btn wrapper-btn-login" style="">
+                    <div id="btnCard" href="" class="btn-link card-link p-0" style="border-radius: 50%; background-color: white; height: 40px; width: 40px">
+                        <div class="btn-cart d-flex justify-content-center align-items-center" style="height: 100%; width: 100%;">
+                            <i id="cart-close" class="fa-solid fa-cart-shopping"></i>
+                            <i id="cart-open" style="display: none" class="bi bi-cart"></i>
+                            <div class="badge" style="height: 20px; width: 20px; background-color: red;color:white; font-size: 12px; border-radius: 50%">@Model.GetAllBookingCartByUserId.Count</div>
+                        </div>
+                    </div>
+                    <div id="popupCard" class="cart-container" style="display:none;position: absolute; right: 125px; top: 70px; box-shadow: 0 0 10px 5px #929597;">
+                        <div class="cart-whiteboard" style="width: 500px; min-height: 100px; background-color: white">
+                            <ul class="p-3 mb-0" style="width:100%; height:100%; padding-left: 0; list-style: none">
+                                @foreach(var item in Model.GetAllBookingCartByUserId)
+                                {
+                                    <li style="width: 100%; height: 75px" class="pb-0">
+                                        <div style="width:100%" class=" item-remove-cart">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <img src="@(Configuration["HostServer"] + item.Thumbnail)" class="" style="width: 70px; height: 70px; object-fit: cover" />
+                                                </div>
+                                                <div class="col-md-8" style="font-size: 13px">
+                                                    <h4 class="mb-2">@item.HotelName</h4>
+                                                    <div>Chất lượng đánh giá: @item.Score</div>
+                                                    <div>Thêm vào lúc: @item.Created</div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="/cart/delete/@item.HotelId">
+                                                        <div class="btn-display-remove d-flex justify-content-center align-items-center" style="color: white; height: 100%; background-color: red">
+                                                            <i class="bi bi-trash3-fill"></i>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <hr />
+                                } 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrapper-btn wrapper-btn-profile" style="position: relative">
+                    <div class="d-flex wrapper-btn-items p-1 pr-3" style="background-color: white; border-radius: 15px">
+                        <div class="wrapper-avatar">
+                            @if(Model.UserClient.ResultOject.AvatarUrl != "")
+                            {
+                                <img src="@(Configuration["HostServer"] + Model.UserClient.ResultOject.AvatarUrl )" style="height: 40px; width: 40px; border-radius: 50%" />
+                            } else
+                            {
+                                <img src="/img/user-profile-icon-trendy-flat-260nw-1923506948.png" style="height: 40px; width: 40px; border-radius: 50%" />
+                            }
+                        </div>
+                        <div class="pl-2 user-name text-dark">
+                            @Model.UserClient.ResultOject.DisplayName
+                            <div style="font-size:10px; color: #4a85e6">Genus cấp 1</div>
+                        </div>
+                    </div>
+                    <div class="manage-profile" style="position: absolute; top: 40px">
+                        <ul class="list-option-profile pl-0 m-0" style="list-style: none; border-radius: 5px; background-color: white; box-shadow: 0 0 7px 3px #ccc; width: 120px">
+                            <li class="p-1 pl-2 info-profile"><a asp-action="index" asp-controller="profile" class="p-0" style="font-size: 15px; color: black">Hồ sơ</a></li>
+                            <li class="p-1 pl-2 info-profile"><a href="/proccess-booking" class="p-0" style="font-size: 15px; color: black">Tiến trình</a></li>
+                            <li class="p-1 pl-2"><div id="logoutButton" class="btn btn-outline-primary" style="font-size: 14px">Đăng xuất</div></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="wrapper-btn wrapper-btn-login">
+                    <a href="/@(culture)/auth/login" class="btn-link login-link" style="color: white">
+                        <localize>Đăng nhập</localize>
+                    </a>
+                </div>
+                <div class="wrapper-btn wrapper-btn-register">
+                    <a href="/@(culture)/auth/register" class="btn-link register-link" style="color: white">
+                        <localize>Tạo tài khoản</localize>
+                    </a>
+                </div>
+            }
+        </div>
+    </header>
+
+   @*  <div id="logoutPopup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <p>Bạn có chắc muốn đăng xuất?</p>
+        </div>
+    </div> *@
+            <form method="post" asp-action="logout" asp-controller="auth" id="form-logout">
+            </form>
+    <!--Header-->
+    @RenderBody()
+  
+    <!--Footer-->
+    <footer class="footer-gonnow">
+            <div class="row">
+                <div class="col-md-3">
+                    <div style="height: 100%">
+                        <img src="/img/logo-gonow_net.png" style="width: 100%; object-fit: cover" />
+                    </div>
+                </div>
+                <div class="col-md-2" style="color: white">
+                    <div class="pt-5">Danh mục chỗ nghỉ</div>
+                    <div style="font-weight: 300; font-size: 11px">Khách sạn sang trọng</div>
+                    <div style="font-weight: 300; font-size: 11px">Căn hộ cao cấp</div>
+                    <div style="font-weight: 300; font-size: 11px">Biệt thự view biển</div>
+                    <div style="font-weight: 300; font-size: 11px">Nhà trọ cơ bản</div>
+                    <div style="font-weight: 300; font-size: 11px">Resort tiện nghi</div>
+                    <div style="font-weight: 300; font-size: 11px">Villa sân vườn</div>
+                    <div style="font-weight: 300; font-size: 11px">Căn nhà tập thể</div>
+                    <div style="font-weight: 300; font-size: 11px">Khu nghỉ dưỡng</div>
+                </div>
+                <div class="col-md-2" style="color: white">
+                    <div class="pt-5">Loại phòng phổ biến</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Standard</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Superior</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Deluxe</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Suite</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Junior Suit</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Executive Suite</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng Gia Đình</div>
+                    <div style="font-weight: 300; font-size: 11px">Phòng tổng thống</div>
+                </div>
+                <div class="col-md-2" style="color: white">
+                    <div class="pt-5">Đặt phòng Gonow.net</div>
+                    <div style="font-weight: 300; font-size: 11px">Giá cả hợp lí,sang xịn,minh bạch</div>
+                    <div style="font-weight: 300; font-size: 11px">Đặt phòng nhanh chóng dễ dàng</div>
+                    <div style="font-weight: 300; font-size: 11px">Hoạt động kinh doanh hợp pháp</div>
+                    <div style="font-weight: 300; font-size: 11px">Thanh toán linh hoạt</div>
+                    <div style="font-weight: 300; font-size: 11px">Lựa chọn thoải mái, tường minh</div>
+                    <div style="font-weight: 300; font-size: 11px">Tham gia bán phòng đơn giản</div>
+                    <div style="font-weight: 300; font-size: 11px">Phúc lợi ngập tràn, muôn vàng</div>
+                    <div style="font-weight: 300; font-size: 11px">Thông tin xác thực, minh bạch</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mt-5">
+                        <img src="/img/logo/z5409558759587_5e5211d4d12bed0456fcb0494bb3ca2e.jpg" style="object-fit: cover; height: 150px; width: 150px"/>
+                        <div class="mt-2" style="color: white">Hà Vĩ Khang - DTH205809 &Copyright</div>
+                    </div>
+                </div>
+            </div>
+    </footer>
+    <script>
+
+        var logoutButton = document.getElementById("logoutButton");
+        var formLogout = document.getElementById("form-logout");
+        logoutButton.addEventListener("click", (e) => {
+            e.preventDefault()
+            Swal.fire({
+                title: "Xác nhận đăng xuất tài khoản",
+                text: "",
+                icon: "danger",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Đăng xuất"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formLogout.submit()
+                }
+            });
+        })
+
+        document.getElementById("cart-close").addEventListener("click", () => {
+            document.getElementById("popupCard").style.display = "inline-block";
+            document.getElementById("cart-close").style.display = "none";
+            document.getElementById("cart-open").style.display = "inline-block";
+        })
+        document.getElementById("cart-open").addEventListener("click", () => {
+            document.getElementById("popupCard").style.display = "none";
+            document.getElementById("cart-close").style.display = "inline-block";
+            document.getElementById("cart-open").style.display = "none";
+        })
+    </script>
+    <script src="~/lib/lightbox2/node_modules/lightbox2/dist/js/lightbox-plus-jquery.js"></script>
+    <script src="
+        https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+    <script src="~/js/client/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3~/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+</html>

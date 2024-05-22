@@ -11,7 +11,6 @@ namespace Booking_Backend.Repository.HotelTypes.ViewModel
         public int Id { get; set; }
         public string Name { get; set; }
         public string ImageUrl { get; set; }
-        public string Language { get; set; }
-        public HotelTypeImageViewModel Thumbnail { get; set; }
+        public string Language_Id { get; set; }
     }
 }

@@ -1,0 +1,241 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Booking_Backend.Data.Enums;
+@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel;
+@{
+    ViewData["Title"] = "Owner Home Page";
+    Layout = "_LayoutOwner";
+}
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+<style>
+    .wrapper-info-client, .wrapper-info-hotel, .wrapper-info-fee {
+        position: relative;
+    }
+
+        .wrapper-info-fee:before {
+            position: absolute;
+            content: "Chi phí";
+            font-size: 14px;
+            color: blue;
+            top: -10px;
+            right: 20px;
+            padding: 0 10px;
+            background-color: white;
+        }
+
+        .wrapper-info-client:before {
+            position: absolute;
+            content: "Thông tin khách hàng";
+            font-size: 14px;
+            color: blue;
+            top: -10px;
+            right: 20px;
+            padding: 0 10px;
+            background-color: white;
+        }
+
+        .wrapper-info-hotel:before {
+            position: absolute;
+            content: "Thông tin chổ nghỉ";
+            font-size: 14px;
+            color: blue;
+            top: -10px;
+            right: 20px;
+            padding: 0 10px;
+            background-color: white;
+        }
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        text-align: center;
+    }
+
+    .popup button {
+        margin: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+</style>
+
+<div id="layoutSidenav_content">
+    <div class="m-5" style="width:1000px; background-color: white; box-shadow: 0 0 5px 3px #d5d5da">
+        <div class="bill-order p-3" style="height:100%">
+            <h3 class="text-center">Phiếu hóa đơn</h3>
+            <div class="col-md-12 mt-4">
+                <div class="row">
+                    <div class="col-md-6" style="">
+                        <div class="wrapper-info-client p-3" style="border: thin solid #ccc; height: 100%; background-color: white; border-radius: 10px">
+                            <div class="wrapper-info-name d-flex">
+                                <div style="font-weight: 500">Khách hàng:</div><span class="" style="color: white">_</span>
+                                <div>@Model.BillClientViewModel.Name</div>
+                            </div>
+                            <div class="wrapper-info-address">
+                                <span style="font-weight: 500">Địa chỉ:</span>
+                                <span> @Model.BillClientViewModel.Address</span>
+                            </div>
+                            <div class="wrapper-info-phone d-flex">
+                                <div style="font-weight: 500">Số điện thoại:</div>    <span class="" style="color: white">_</span>
+                                <div>@Model.BillClientViewModel.PhoneNumber</div>
+                            </div>
+                            <div class="wrapper-info-email d-flex">
+                                <div style="font-weight: 500">Email:</div>   <span class="" style="color: white">_</span>
+                                <div>@Model.BillClientViewModel.Email</div>
+                            </div>
+                            <div class="wrapper-info-phone d-flex">
+                                <div style="font-weight: 500">Ngày đặt phòng:</div>   <span class="" style="color: white">_</span>
+                                <div>@Model.BillClientViewModel.CreatedBooking.ToString("dd/MM/yyyy")</div>
+                            </div>
+                            <div class="wrapper-info-name d-flex">
+                                <div style="font-weight: 500">Ngày check-in:</div>   <span class="" style="color: white">___</span>
+                                <div>@Model.BillClientViewModel.Checkin.ToString("dd/MM/yyyy")</div>
+                            </div>
+                            <div class="wrapper-info-address d-flex">
+                                <div style="font-weight: 500">Ngày check-out:</div>   <span class="" style="color: white">__</span>
+                                <div>@Model.BillClientViewModel.Checkout.ToString("dd/MM/yyyy")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="">
+                        <div class="wrapper-info-hotel p-3" style="border: thin solid #ccc; height: 100%; background-color: white; border-radius: 10px">
+                            <div class="wrapper-info-phone d-flex">
+                                <div style="font-weight: 500">Chỗ nghỉ:</div>   <span class="" style="color: white">_</span>
+                                <div>@Model.HotelViewModel.Name</div>
+                            </div>
+                            <div class="wrapper-info-name">
+                                <span style="font-weight: 500">Địa chỉ:</span>
+                                <span>@Model.HotelViewModel.Address</span>
+                            </div>
+                            <div class="wrapper-info-address d-flex">
+                                <div style="font-weight: 500">Hotline:</div>    <span class="" style="color: white">_</span>
+                                <div>@Model.HotelViewModel.Hotline</div>
+                            </div>
+                            <div class="wrapper-info-email d-flex">
+                                <div style="font-weight: 500">Email:</div>     <span class="" style="color: white">_</span>
+                                <div>vikhang11112002@gmail.com</div>
+                            </div>
+                            <div class="wrapper-info-email  d-flex">
+                                <div style="font-weight: 500">Website:</div>     <span class="" style="color: white">_</span>
+                                <div>vikhang11112002@gmail.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3" style="">
+                        <div class="wrapper-info-fee p-3" style="border: thin solid #ccc; height: 100%; background-color: white; border-radius: 10px">
+                            <div class="wrapper-info-phone  d-flex">
+                                <div style="font-weight: 500">Phụ thu:</div>    <span class="" style="color: white">_</span>
+                                <div class="pl-2">không có</div>
+                            </div>
+                            <div class="wrapper-info-name  d-flex">
+                                <div style="font-weight: 500" class="">Phí Gonow.net: </div>   <span class="" style="color: white">_</span>
+                                <div>miễn phí</div>
+                            </div>
+                            <div class="wrapper-info-name  d-flex">
+                                <div style="font-weight: 500" class="">VAT:</div>           <span class="" style="color: white">_</span>
+                                <div> Không tính</div>
+                            </div>  
+                            <div class="wrapper-info-name  d-flex">
+                                <div style="font-weight: 500" class="">Phương thức thanh toán:</div>           <span class="" style="color: white">_</span>
+                                <div> thanh toán tại quầy</div>
+                            </div>
+                            <div class="wrapper-info-name  d-flex">
+                                <div style="font-weight: 500" class="">Tổng hóa đơn: </div>  <span class="" style="color: white">_</span>
+                                <div>
+                                    <div class="ml-3">
+                                        @(Model.BillClientViewModel.TotalBill.ToString("N0")) VND
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3" style="">
+                        <div class="wrapper-info" style=" height: 100%">
+                            <table class="table table-bordered" style="background-color: white">
+                                <thead style="font-size: 14px; font-weight: 300">
+                                <th style=" font-weight: 400">SL</th>
+                                <th style=" font-weight: 400">Phòng</th>
+                                <th style=" font-weight: 400">Loại</th>
+                                <th style=" font-weight: 400">Giường</th>
+                                <th style=" font-weight: 400">Đơn giá</th>
+                                </thead>
+                                <tbody style="font-size: 12px">
+                                    @foreach (var item in Model.BillClientViewModel.RoomBills)
+                                    {
+                                        <tr>
+                                            <th style=" font-weight: 300">1</th>
+                                            <th style=" font-weight: 300">@item.RoomCode</th>
+                                            <th style=" font-weight: 300">@item.RoomTypeName</th>
+                                            <th style=" font-weight: 300">@item.BedName</th>
+                                            <th style=" font-weight: 300">@(item.Price.ToString("N0")) VND</th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="" style="height: 100px; width: 100px; border: thin solid #ccc">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/booking/feed" style="text-decoration: none">
+                <div class="mt-3 btn btn-outline-primary">Hủy</div>
+
+                </a>
+                <button onclick="showLogoutPopup()" class="mt-3 btn btn-primary">Xác nhận hóa đơn</button>
+            </div>
+
+            <div id="confimPopup" class="popup" style="display: none;">
+                <div class="popup-content">
+                    <p>Xác nhận trả phòng?</p>
+                    <form method="post" action="/check-out/bill/confirm" id="form-logout">
+                        <input type="hidden" value="@Model.BillClientViewModel.BookingId" name="BookingId" />
+                        <input type="hidden" value="@Model.BillClientViewModel.RoomBills.FirstOrDefault().RoomId" name="RoomId" />
+                        <button class="btn btn-outline-danger" onclick="cancelLogout()">Không</button>
+                        <button type="submit" class="btn btn-primary" onclick="logout()">Xác nhận</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+    function showLogoutPopup() {
+        document.getElementById("confimPopup").style.display = "block";
+    }
+
+    function cancelLogout() {
+        document.getElementById("confimPopup").style.display = "none";
+    }
+
+    function logout() {
+        var form = document.getElementById('form-logout'); // Thay 'yourFormId' bằng id thực của form
+        form.submit();
+    }
+
+</script>

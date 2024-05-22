@@ -58,7 +58,7 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = new Guid("265e11da-bc22-4fe7-b286-493d6a09d46f"),
-                            ConcurrencyStamp = "0af7ea41-d6a1-4c1d-a32a-809a96057ad6",
+                            ConcurrencyStamp = "2da31cde-9f50-477a-b58f-28edf6e68a4e",
                             Description = "Quản trị viên - quản lí tài khoản và kiểm duyệt người dùng",
                             Name = "Administrators",
                             NormalizedName = "ADMINISTRATORS"
@@ -66,7 +66,7 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = new Guid("f0404419-a456-4cd6-a8bc-e19c246904c5"),
-                            ConcurrencyStamp = "8acc8419-0303-4a80-bf78-b6f2a21c3742",
+                            ConcurrencyStamp = "61a4717b-c50b-4419-9a40-bb7f30e8742a",
                             Description = "Chủ sở hữu - quản lí tài sản cá nhân, đăng bài và quản lí khách hàng",
                             Name = "Owner",
                             NormalizedName = "OWNER"
@@ -74,7 +74,7 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = new Guid("1f10d63e-c240-4be5-a95b-b868c41501dd"),
-                            ConcurrencyStamp = "97295214-2297-4329-a75c-60c4ad968d4e",
+                            ConcurrencyStamp = "4bf0d0ab-a296-4602-a78d-2d79e732b18c",
                             Description = "Khách hàng đăng nhập - quản lí tài khoản cá nhân và thuê phòng",
                             Name = "Client",
                             NormalizedName = "CLIENT"
@@ -82,7 +82,7 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = new Guid("ad9c3bfc-fd01-4696-b8c8-0ce10e6a3632"),
-                            ConcurrencyStamp = "eec8ea3d-541a-44c7-ac65-35fc6c50294f",
+                            ConcurrencyStamp = "c4779b59-914b-4e9d-9e55-4b163dfd1e0b",
                             Description = "Người dùng duyệt web - xem thông tin khách sạn",
                             Name = "User",
                             NormalizedName = "USER"
@@ -113,7 +113,7 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 144, DateTimeKind.Utc).AddTicks(2949));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 625, DateTimeKind.Utc).AddTicks(3341));
 
                     b.Property<int>("Dashboard")
                         .HasColumnType("int");
@@ -185,7 +185,7 @@ namespace Booking_Backend.Data.Migrations
                             AccessFailedCount = 0,
                             Address = "An Phú, An Hòa, Châu Thành, An Giang",
                             Birthday = new DateTime(2002, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "fe37396e-ab1e-4ad0-941e-9b112a9abddf",
+                            ConcurrencyStamp = "236bce04-f6af-463d-af4c-7089ded574f4",
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Dashboard = 352642218,
                             DisplayName = "Hà Vĩ Khang",
@@ -198,7 +198,7 @@ namespace Booking_Backend.Data.Migrations
                             Nation = "Việt Nam",
                             NormalizedEmail = "hvikhang_21th@student.agu.edu.vn",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAjsH4xjsOP2ty+vwrD/rOnhSyxDIxOYDITz9Gmn8uYB/CAbvNJfhUw0lIfiM/GP8A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJf+YqO4H+6aiSPXygW1iGf+Yglns5906PayhdF/UMAGBFEI3IFpeXE950V8y0Ch3g==",
                             PhoneNumber = "0339141910",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
@@ -212,7 +212,7 @@ namespace Booking_Backend.Data.Migrations
                             AccessFailedCount = 0,
                             Address = "Châu Phong, Tân Châu, An Giang",
                             Birthday = new DateTime(2002, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "d7071fa2-112a-4602-b0c8-4eae024b575f",
+                            ConcurrencyStamp = "3e006bed-dd0f-48d7-b141-313f94a06918",
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Dashboard = 354261197,
                             DisplayName = "Hà Thị Mỹ Tiên",
@@ -225,7 +225,7 @@ namespace Booking_Backend.Data.Migrations
                             Nation = "Việt Nam",
                             NormalizedEmail = "htmtien_21av@student.agu.edu.vn",
                             NormalizedUserName = "MYTIEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA0rColeUuE6oeZM1IAY0U+gnaylQX/2GU20gB48ONDq7hk+ECsAY3ZBLgVXYPbBGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFDHHL3k3cSFWiq01R8QXaBGLYCEGw7WPY1TsiWUS+fW3odKv/uSP2PpKgZ/zYvU/Q==",
                             PhoneNumber = "0357642951",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
@@ -244,15 +244,6 @@ namespace Booking_Backend.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("varchar(5)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(255)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Beds");
@@ -260,88 +251,103 @@ namespace Booking_Backend.Data.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1
+                        },
+                        new
+                        {
+                            Id = 2
+                        });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.BedTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Bed_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Language_Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Bed_Id");
+
+                    b.ToTable("BedTranslations");
+
+                    b.HasData(
+                        new
+                        {
                             Id = 1,
+                            Bed_Id = 1,
                             Description = "Một giường 1m x 1.2m",
-                            Language = "vi-VN",
+                            Language_Id = "vi-VN",
                             Name = "Giường đơn"
                         },
                         new
                         {
                             Id = 2,
+                            Bed_Id = 1,
                             Description = "One bed 1m x 1.2m",
-                            Language = "en-US",
+                            Language_Id = "en-US",
                             Name = "Single Bed"
                         },
                         new
                         {
                             Id = 3,
+                            Bed_Id = 2,
                             Description = "Một giường nhỏ 1.5m x 1.2m",
-                            Language = "vi-VN",
+                            Language_Id = "vi-VN",
                             Name = "Giường đôi nhỏ"
                         },
                         new
                         {
                             Id = 4,
+                            Bed_Id = 2,
                             Description = "One small double bed 1.5m x 2m",
-                            Language = "en-US",
+                            Language_Id = "en-US",
                             Name = "Double Bed"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Một giường đôi lớn 1.6m x 2m",
-                            Language = "vi-VN",
-                            Name = "Giường đôi lớn"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "One big double bed 1.6m x 2m",
-                            Language = "en-US",
-                            Name = "Queen size Bed"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Một giường đôi lớn 1.8m x 2m",
-                            Language = "vi-VN",
-                            Name = "Giường cỡ lớn"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "One big double bed 1.8m x 2m",
-                            Language = "en-US",
-                            Name = "King size Bed"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Một giường đôi lớn 1.8m x 2.1m",
-                            Language = "vi-VN",
-                            Name = "Western King Bed"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "One big double bed 1.8m x 2.1m",
-                            Language = "en-US",
-                            Name = "Western King Bed"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Description = "Một giường đôi lớn 2m x 2.2m",
-                            Language = "vi-VN",
-                            Name = "Giường siêu lớn"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Description = "One big double bed 2m x 2.2m",
-                            Language = "en-US",
-                            Name = "Super King size"
                         });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.Bill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 691, DateTimeKind.Utc).AddTicks(7523));
+
+                    b.Property<int?>("GuestCustomer_Id")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuestCustomer_Id");
+
+                    b.HasIndex("User_Id");
+
+                    b.ToTable("Bills");
                 });
 
             modelBuilder.Entity("Booking_Backend.Data.Entities.Booking", b =>
@@ -356,17 +362,28 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("CheckIn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 150, DateTimeKind.Utc).AddTicks(9079));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 637, DateTimeKind.Utc).AddTicks(7281));
 
                     b.Property<DateTime>("CheckOut")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 150, DateTimeKind.Utc).AddTicks(9224));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 637, DateTimeKind.Utc).AddTicks(7418));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 150, DateTimeKind.Utc).AddTicks(8516));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 637, DateTimeKind.Utc).AddTicks(6982));
+
+                    b.Property<int?>("GuestCustomer_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Payment")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
@@ -378,14 +395,44 @@ namespace Booking_Backend.Data.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasDefaultValue(0m);
 
-                    b.Property<Guid>("User_Id")
+                    b.Property<int?>("TotalPeople")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
+                    b.Property<int>("TotalRoom")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("User_Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GuestCustomer_Id");
+
                     b.HasIndex("User_Id");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.BookingCarts", b =>
+                {
+                    b.Property<int>("Hotel_Id")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 11, 12, 59, 693, DateTimeKind.Local).AddTicks(9767));
+
+                    b.HasKey("Hotel_Id", "User_Id");
+
+                    b.HasIndex("User_Id");
+
+                    b.ToTable("BookingCarts");
                 });
 
             modelBuilder.Entity("Booking_Backend.Data.Entities.Comment", b =>
@@ -400,10 +447,15 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CountComment")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 166, DateTimeKind.Utc).AddTicks(2134));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 641, DateTimeKind.Utc).AddTicks(5291));
 
                     b.Property<int>("Hotel_Id")
                         .HasColumnType("int");
@@ -420,6 +472,21 @@ namespace Booking_Backend.Data.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("Booking_Backend.Data.Entities.Comment_User", b =>
+                {
+                    b.Property<int>("Comment_Id")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Comment_Id", "User_Id");
+
+                    b.HasIndex("User_Id");
+
+                    b.ToTable("Comment_Users");
+                });
+
             modelBuilder.Entity("Booking_Backend.Data.Entities.Extension", b =>
                 {
                     b.Property<int>("Id")
@@ -432,12 +499,6 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<int>("ExtensionType_Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("Language")
-                        .HasColumnType("varchar(5)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(255)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ExtensionType_Id");
@@ -448,184 +509,67 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ExtensionType_Id = 1,
-                            Language = "vi-VN",
+                            ExtensionType_Id = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ExtensionType_Id = 2
+                        });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ExtensionTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Extension_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Language_Id")
+                        .HasColumnType("varchar(5)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Extension_Id");
+
+                    b.ToTable("ExtensionTranslations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Extension_Id = 1,
+                            Language_Id = "vi-VN",
                             Name = "Giấy vệ sinh"
                         },
                         new
                         {
                             Id = 2,
-                            ExtensionType_Id = 2,
-                            Language = "en-US",
+                            Extension_Id = 1,
+                            Language_Id = "en-US",
                             Name = "Toilet paper"
                         },
                         new
                         {
                             Id = 3,
-                            ExtensionType_Id = 1,
-                            Language = "vi-VN",
-                            Name = "Khăn tắm"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ExtensionType_Id = 2,
-                            Language = "en-US",
-                            Name = "Bath towel"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ExtensionType_Id = 1,
-                            Language = "vi-VN",
-                            Name = "Chậu rửa vệ sinh (bidet)"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ExtensionType_Id = 2,
-                            Language = "en-US",
-                            Name = "Bidet"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ExtensionType_Id = 3,
-                            Language = "vi-VN",
+                            Extension_Id = 2,
+                            Language_Id = "vi-VN",
                             Name = "Ra trải giường"
                         },
                         new
                         {
-                            Id = 8,
-                            ExtensionType_Id = 4,
-                            Language = "en-US",
+                            Id = 4,
+                            Extension_Id = 2,
+                            Language_Id = "en-US",
                             Name = "Bedspread"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ExtensionType_Id = 3,
-                            Language = "vi-VN",
-                            Name = "Tủ hoặc phòng để quần áo"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ExtensionType_Id = 4,
-                            Language = "en-US",
-                            Name = "Wardrobe or Closet"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            ExtensionType_Id = 3,
-                            Language = "vi-VN",
-                            Name = "Đồng hồ báo thức"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            ExtensionType_Id = 4,
-                            Language = "en-US",
-                            Name = "Alarm clock"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            ExtensionType_Id = 5,
-                            Language = "vi-VN",
-                            Name = "Bàn ăn"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            ExtensionType_Id = 6,
-                            Language = "en-US",
-                            Name = "Dining table"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            ExtensionType_Id = 5,
-                            Language = "vi-VN",
-                            Name = "Sản phẩm lau rửa"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            ExtensionType_Id = 6,
-                            Language = "en-US",
-                            Name = "Cleaning products"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            ExtensionType_Id = 5,
-                            Language = "vi-VN",
-                            Name = "Bếp nấu"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            ExtensionType_Id = 6,
-                            Language = "en-US",
-                            Name = "Cooking stove"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            ExtensionType_Id = 7,
-                            Language = "vi-VN",
-                            Name = "Ổ điện gần giường"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            ExtensionType_Id = 8,
-                            Language = "en-US",
-                            Name = "Power outlet near bed"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            ExtensionType_Id = 9,
-                            Language = "vi-VN",
-                            Name = "Bàn ghế ngoài trời"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            ExtensionType_Id = 10,
-                            Language = "en-US",
-                            Name = "Outdoor furniture"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            ExtensionType_Id = 9,
-                            Language = "vi-VN",
-                            Name = "Sân hiên phơi nắng"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            ExtensionType_Id = 10,
-                            Language = "en-US",
-                            Name = "Sun deck"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            ExtensionType_Id = 9,
-                            Language = "vi-VN",
-                            Name = "Tiện nghi BBQ"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            ExtensionType_Id = 10,
-                            Language = "en-US",
-                            Name = "BBQ facilities"
                         });
                 });
 
@@ -638,12 +582,6 @@ namespace Booking_Backend.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Language")
-                        .HasColumnType("varchar(5)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(255)");
-
                     b.HasKey("Id");
 
                     b.ToTable("ExtensionTypes");
@@ -651,175 +589,290 @@ namespace Booking_Backend.Data.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1
+                        },
+                        new
+                        {
+                            Id = 2
+                        });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ExtensionTypeTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ExtensionType_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Language_Id")
+                        .HasColumnType("varchar(5)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExtensionType_Id");
+
+                    b.ToTable("ExtensionTypeTranslations");
+
+                    b.HasData(
+                        new
+                        {
                             Id = 1,
-                            Language = "vi-VN",
+                            ExtensionType_Id = 1,
+                            Language_Id = "vi-VN",
                             Name = "Phòng tắm"
                         },
                         new
                         {
                             Id = 2,
-                            Language = "en-US",
+                            ExtensionType_Id = 1,
+                            Language_Id = "en-US",
                             Name = "Bathroom"
                         },
                         new
                         {
                             Id = 3,
-                            Language = "vi-VN",
+                            ExtensionType_Id = 2,
+                            Language_Id = "vi-VN",
                             Name = "Phòng ngủ"
                         },
                         new
                         {
                             Id = 4,
-                            Language = "en-US",
+                            ExtensionType_Id = 2,
+                            Language_Id = "en-US",
                             Name = "Bedroom"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Language = "vi-VN",
-                            Name = "Nhà bếp"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Language = "en-US",
-                            Name = "Kitchen"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Language = "vi-VN",
-                            Name = "Tiện ích trong phòng"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Language = "en-US",
-                            Name = "In-room amenities"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Language = "vi-VN",
-                            Name = "Ngoài trời"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Language = "en-US",
-                            Name = "Outdoor"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Language = "vi-VN",
-                            Name = "Chăm sóc sức khỏe"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Language = "en-US",
-                            Name = "Healthcare"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Language = "vi-VN",
-                            Name = "Lối vào dành cho người khuyết tật"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Language = "en-US",
-                            Name = "Disabled access"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Language = "vi-VN",
-                            Name = "Tổng quát"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Language = "en-US",
-                            Name = "General"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Language = "vi-VN",
-                            Name = "An ninh"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Language = "en-US",
-                            Name = "Security"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Language = "vi-VN",
-                            Name = "Chỗ đậu xe"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Language = "en-US",
-                            Name = "Parking"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Language = "vi-VN",
-                            Name = "Internet"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            Language = "en-US",
-                            Name = "Internet"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            Language = "vi-VN",
-                            Name = "Đồ ăn & thức uống"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            Language = "en-US",
-                            Name = "Food & Beverage"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            Language = "vi-VN",
-                            Name = "Truyền thông & Công nghệ"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Language = "en-US",
-                            Name = "Media & Technology"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Language = "vi-VN",
-                            Name = "Khu vực phòng khách"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            Language = "en-US",
-                            Name = "Living Room Area"
                         });
                 });
 
+            modelBuilder.Entity("Booking_Backend.Data.Entities.FeedbackCustomer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("CleanlinessScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<decimal>("ComfortScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<decimal>("FacilitiesScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("LocationScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("StaffScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("ValueScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FeedbackCustomers");
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.GuestCustomer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GuestCustomers");
+                });
+
             modelBuilder.Entity("Booking_Backend.Data.Entities.Hotel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("CleanlinessScores")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(3,1)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<decimal>("ComfortScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(3,1)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<int>("CountFeedBack")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<DateTime>("Establish")
+                        .HasColumnType("date");
+
+                    b.Property<decimal>("FacilitiesScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(3,1)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<int>("HotelType_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Hotline")
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<decimal>("Latitude")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<decimal>("LocationScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(3,1)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<int?>("Location_Id")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Longitude")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<int?>("Preview")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<decimal?>("PriceDefault")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<decimal>("Score")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(3,1)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<decimal>("StaffScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(3,1)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<string>("Thumbnail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("ValueScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(3,1)")
+                        .HasDefaultValue(0m);
+
+                    b.Property<int>("ViewHotel_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelType_Id");
+
+                    b.HasIndex("Location_Id");
+
+                    b.HasIndex("User_Id");
+
+                    b.HasIndex("ViewHotel_Id");
+
+                    b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CleanlinessScores = 0m,
+                            ComfortScore = 0m,
+                            CountFeedBack = 0,
+                            Establish = new DateTime(2002, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FacilitiesScore = 0m,
+                            HotelType_Id = 1,
+                            Hotline = "02963678333",
+                            Latitude = 0m,
+                            LocationScore = 0m,
+                            Longitude = 0m,
+                            Score = 0m,
+                            StaffScore = 0m,
+                            ValueScore = 0m,
+                            ViewHotel_Id = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CleanlinessScores = 0m,
+                            ComfortScore = 0m,
+                            CountFeedBack = 0,
+                            Establish = new DateTime(2002, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FacilitiesScore = 0m,
+                            HotelType_Id = 1,
+                            Hotline = "02963678463",
+                            Latitude = 0m,
+                            LocationScore = 0m,
+                            Longitude = 0m,
+                            Score = 0m,
+                            StaffScore = 0m,
+                            ValueScore = 0m,
+                            ViewHotel_Id = 1
+                        });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.HotelTranslation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -837,40 +890,23 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Establish")
-                        .HasColumnType("date");
-
-                    b.Property<int>("HotelType_Id")
+                    b.Property<int>("Hotel_Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("Hotline")
-                        .HasColumnType("varchar(11)");
-
-                    b.Property<string>("Language")
+                    b.Property<string>("Language_Id")
                         .HasColumnType("varchar(5)");
-
-                    b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal");
-
-                    b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Thumbnail")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("ViewHotel_Id")
-                        .HasColumnType("int");
+                    b.Property<string>("ShortDescription")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HotelType_Id");
+                    b.HasIndex("Hotel_Id");
 
-                    b.HasIndex("ViewHotel_Id");
-
-                    b.ToTable("Hotels");
+                    b.ToTable("HotelTranslations");
 
                     b.HasData(
                         new
@@ -878,30 +914,40 @@ namespace Booking_Backend.Data.Migrations
                             Id = 1,
                             Address = "12 đường Bà Triệu, Đà Lạt",
                             Area = "Đà Lạt",
-                            Establish = new DateTime(2002, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotelType_Id = 1,
-                            Hotline = "02963678333",
-                            Language = "vi-VN",
-                            Latitude = 0m,
-                            Longitude = 0m,
-                            Name = "Khách sạn Lê Tuấn Minh",
-                            Thumbnail = "/images/Thumnails/508886577.jpg",
-                            ViewHotel_Id = 1
+                            Description = "Khách sạn Lê Tuấn Minh",
+                            Hotel_Id = 1,
+                            Language_Id = "vi-VN",
+                            Name = "Khách sạn Lê Tuấn Minh"
                         },
                         new
                         {
                             Id = 2,
                             Address = "12 Ba Trieu Street, Da Lat",
                             Area = "Da Lat",
-                            Establish = new DateTime(2002, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            HotelType_Id = 2,
-                            Hotline = "02963678333",
-                            Language = "en-US",
-                            Latitude = 0m,
-                            Longitude = 0m,
-                            Name = "Le Minh Tuan Hotel",
-                            Thumbnail = "/images/Thumnails/508886577.jpg",
-                            ViewHotel_Id = 2
+                            Description = "Le Minh Tuan Hotel",
+                            Hotel_Id = 1,
+                            Language_Id = "en-US",
+                            Name = "Le Minh Tuan Hotel"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Côn Đảo, Vũng Tàu",
+                            Area = "Vũng Tàu",
+                            Description = "Khách sạn Moon House",
+                            Hotel_Id = 2,
+                            Language_Id = "vi-VN",
+                            Name = "Khách sạn Moon House"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Con Dao, Vung Tau",
+                            Area = "Vung Tau",
+                            Description = "Moon House Hotel",
+                            Hotel_Id = 2,
+                            Language_Id = "en-US",
+                            Name = "Moon House Hotel"
                         });
                 });
 
@@ -914,16 +960,13 @@ namespace Booking_Backend.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("varchar(5)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(255)");
+                    b.Property<int>("HotelTypeImage_Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HotelTypeImage_Id")
+                        .IsUnique();
 
                     b.ToTable("HotelTypes");
 
@@ -931,100 +974,12 @@ namespace Booking_Backend.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ImageUrl = "/images/HotelTypes/khachsan.jpg",
-                            Language = "vi-VN",
-                            Name = "Khách sạn"
+                            HotelTypeImage_Id = 1
                         },
                         new
                         {
                             Id = 2,
-                            ImageUrl = "/images/HotelTypes/khachsan.jpg",
-                            Language = "en-US",
-                            Name = "Hotel"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ImageUrl = "/images/HotelTypes/nhanghi.jpg",
-                            Language = "vi-VN",
-                            Name = "Nhà nghỉ"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ImageUrl = "/images/HotelTypes/nhanghi.jpg",
-                            Language = "en-US",
-                            Name = "Lodging"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ImageUrl = "/images/HotelTypes/homestay.jpg",
-                            Language = "vi-VN",
-                            Name = "Homestay"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ImageUrl = "/images/HotelTypes/homestay.jpg",
-                            Language = "en-US",
-                            Name = "Homestay"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ImageUrl = "/images/HotelTypes/canho.jpg",
-                            Language = "vi-VN",
-                            Name = "Căn hộ"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            ImageUrl = "/images/HotelTypes/canho.jpg",
-                            Language = "en-US",
-                            Name = "Apartment"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ImageUrl = "/images/HotelTypes/bietthu.jpg",
-                            Language = "vi-VN",
-                            Name = "Biệt thự"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ImageUrl = "/images/HotelTypes/bietthu.jpg",
-                            Language = "en-US",
-                            Name = "Villa"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            ImageUrl = "/images/HotelTypes/resort.jpg",
-                            Language = "vi-VN",
-                            Name = "Khu nghỉ dưỡng"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            ImageUrl = "/images/HotelTypes/resort.jpg",
-                            Language = "en-US",
-                            Name = "Resort"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            ImageUrl = "/images/HotelTypes/cannha.jpg",
-                            Language = "vi-VN",
-                            Name = "Nhà nguyên căn"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            ImageUrl = "/images/HotelTypes/cannha.jpg",
-                            Language = "en-US",
-                            Name = "House"
+                            HotelTypeImage_Id = 2
                         });
                 });
 
@@ -1043,10 +998,7 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 195, DateTimeKind.Utc).AddTicks(4962));
-
-                    b.Property<int>("HotelType_Id")
-                        .HasColumnType("int");
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 687, DateTimeKind.Utc).AddTicks(2769));
 
                     b.Property<decimal>("ImageSize")
                         .HasColumnType("decimal");
@@ -1061,9 +1013,82 @@ namespace Booking_Backend.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("HotelTypeImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Caption = "caption hoteltype img 1",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageSize = 111m,
+                            ImageUrl = "imgrl hoteltype 1",
+                            isDefault = false
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Caption = "caption hoteltype img 2",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageSize = 222m,
+                            ImageUrl = "imgrl hoteltype 2",
+                            isDefault = false
+                        });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.HotelTypeTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("HotelType_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Language_Id")
+                        .HasColumnType("varchar(5)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("HotelType_Id");
 
-                    b.ToTable("HotelTypeImages");
+                    b.ToTable("HotelTypeTranslations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HotelType_Id = 1,
+                            Language_Id = "vi-VN",
+                            Name = "Khách sạn"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            HotelType_Id = 1,
+                            Language_Id = "en-US",
+                            Name = "Hotel"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            HotelType_Id = 2,
+                            Language_Id = "vi-VN",
+                            Name = "Nhà nghỉ"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            HotelType_Id = 2,
+                            Language_Id = "en-US",
+                            Name = "Lodging"
+                        });
                 });
 
             modelBuilder.Entity("Booking_Backend.Data.Entities.Hotel_Service", b =>
@@ -1099,7 +1124,7 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 178, DateTimeKind.Utc).AddTicks(8522));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 669, DateTimeKind.Utc).AddTicks(1444));
 
                     b.Property<int>("Hotel_Id")
                         .HasColumnType("int");
@@ -1108,7 +1133,6 @@ namespace Booking_Backend.Data.Migrations
                         .HasColumnType("decimal");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
@@ -1148,6 +1172,52 @@ namespace Booking_Backend.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Booking_Backend.Data.Entities.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Properties")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.LocationTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Language_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Location_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Location_Id");
+
+                    b.ToTable("LocationTranslation");
+                });
+
             modelBuilder.Entity("Booking_Backend.Data.Entities.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -1160,14 +1230,8 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<int>("Bed_Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Hotel_Id")
                         .HasColumnType("int");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("varchar(5)");
 
                     b.Property<int>("Maximum")
                         .ValueGeneratedOnAdd()
@@ -1215,12 +1279,6 @@ namespace Booking_Backend.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Language")
-                        .HasColumnType("varchar(5)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(255)");
-
                     b.HasKey("Id");
 
                     b.ToTable("RoomTypes");
@@ -1228,75 +1286,66 @@ namespace Booking_Backend.Data.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1
+                        },
+                        new
+                        {
+                            Id = 2
+                        });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.RoomTypeTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Language_Id")
+                        .HasColumnType("varchar(5)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("RoomType_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomType_Id");
+
+                    b.ToTable("RoomTypeTranslations");
+
+                    b.HasData(
+                        new
+                        {
                             Id = 1,
-                            Language = "vi-VN",
-                            Name = "Phòng Standard"
+                            Language_Id = "vi-VN",
+                            Name = "Phòng Standard",
+                            RoomType_Id = 1
                         },
                         new
                         {
                             Id = 2,
-                            Language = "en-US",
-                            Name = "Standard Room"
+                            Language_Id = "en-US",
+                            Name = "Standard Room",
+                            RoomType_Id = 1
                         },
                         new
                         {
                             Id = 3,
-                            Language = "vi-VN",
-                            Name = "Phòng Superior"
+                            Language_Id = "vi-VN",
+                            Name = "Phòng Superior",
+                            RoomType_Id = 2
                         },
                         new
                         {
                             Id = 4,
-                            Language = "en-US",
-                            Name = "Superior Room"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Language = "vi-VN",
-                            Name = "Phòng Deluxe"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Language = "en-US",
-                            Name = "Deluxe Room"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Language = "vi-VN",
-                            Name = "Phòng Suite"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Language = "en-US",
-                            Name = "Suite Room"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Language = "vi-VN",
-                            Name = "Phòng Junior Suit"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Language = "en-US",
-                            Name = "Junior Suite Room"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Language = "vi-VN",
-                            Name = "Phòng Executive Suite"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Language = "en-US",
-                            Name = "Executive Suite Room"
+                            Language_Id = "en-US",
+                            Name = "Superior Room",
+                            RoomType_Id = 2
                         });
                 });
 
@@ -1308,7 +1357,12 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<int>("Booking_Id")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BillId")
+                        .HasColumnType("int");
+
                     b.HasKey("Room_Id", "Booking_Id");
+
+                    b.HasIndex("BillId");
 
                     b.HasIndex("Booking_Id");
 
@@ -1335,7 +1389,29 @@ namespace Booking_Backend.Data.Migrations
                     b.ToTable("Room_Extensions");
                 });
 
-            modelBuilder.Entity("Booking_Backend.Data.Entities.Service", b =>
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ServiceHotel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceHotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1
+                        },
+                        new
+                        {
+                            Id = 2
+                        });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ServiceHotelTranslation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1347,15 +1423,54 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Language")
+                    b.Property<string>("Language_Id")
                         .HasColumnType("varchar(5)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ServiceHotel_Id")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Services");
+                    b.HasIndex("ServiceHotel_Id");
+
+                    b.ToTable("ServiceHotelTranslations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Có phụ thu lấy quần áo sau 24h",
+                            Language_Id = "vi-VN",
+                            Name = "Giặt và ủi quần áo",
+                            ServiceHotel_Id = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "There is an additional charge for picking up clothes after 24 hours",
+                            Language_Id = "en-US",
+                            Name = "Wash and iron clothes",
+                            ServiceHotel_Id = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Không phụ thu, mỗi ngày một thực đơn",
+                            Language_Id = "vi-VN",
+                            Name = "Cung cấp đồ ăn sáng",
+                            ServiceHotel_Id = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "No extra charge, one menu every day",
+                            Language_Id = "en-US",
+                            Name = "Provide breakfast",
+                            ServiceHotel_Id = 2
+                        });
                 });
 
             modelBuilder.Entity("Booking_Backend.Data.Entities.UserImage", b =>
@@ -1373,7 +1488,7 @@ namespace Booking_Backend.Data.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 12, 6, 35, 19, 192, DateTimeKind.Utc).AddTicks(9786));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 4, 12, 59, 685, DateTimeKind.Utc).AddTicks(5025));
 
                     b.Property<decimal>("ImageSize")
                         .HasColumnType("decimal");
@@ -1405,18 +1520,6 @@ namespace Booking_Backend.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("varchar(5)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(255)");
-
                     b.HasKey("Id");
 
                     b.ToTable("ViewHotels");
@@ -1424,17 +1527,69 @@ namespace Booking_Backend.Data.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1
+                        },
+                        new
+                        {
+                            Id = 2
+                        });
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ViewHotelTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Language_Id")
+                        .HasColumnType("varchar(5)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("ViewHotel_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ViewHotel_Id");
+
+                    b.ToTable("ViewHotelTranslations");
+
+                    b.HasData(
+                        new
+                        {
                             Id = 1,
-                            ImageUrl = "/images/ViewHotels/viewtrungtam.jpg",
-                            Language = "vi-VN",
-                            Name = "Trung tâm thành phố"
+                            Language_Id = "vi-VN",
+                            Name = "Bãi biển",
+                            ViewHotel_Id = 1
                         },
                         new
                         {
                             Id = 2,
-                            ImageUrl = "/images/ViewHotels/viewtrungtam.jpg",
-                            Language = "en-US",
-                            Name = "City center"
+                            Language_Id = "en-US",
+                            Name = "Beach",
+                            ViewHotel_Id = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Language_Id = "vi-VN",
+                            Name = "Trung tâm thành phố",
+                            ViewHotel_Id = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Language_Id = "en-US",
+                            Name = "City center",
+                            ViewHotel_Id = 2
                         });
                 });
 
@@ -1545,13 +1700,50 @@ namespace Booking_Backend.Data.Migrations
                     b.ToTable("AppUserTokens");
                 });
 
-            modelBuilder.Entity("Booking_Backend.Data.Entities.Booking", b =>
+            modelBuilder.Entity("Booking_Backend.Data.Entities.BedTranslation", b =>
                 {
-                    b.HasOne("Booking_Backend.Data.Entities.AppUser", "User")
-                        .WithMany("Bookings")
-                        .HasForeignKey("User_Id")
+                    b.HasOne("Booking_Backend.Data.Entities.Bed", "Bed")
+                        .WithMany("BedTranslations")
+                        .HasForeignKey("Bed_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.Bill", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.GuestCustomer", "GuestCustomer")
+                        .WithMany("Bills")
+                        .HasForeignKey("GuestCustomer_Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Booking_Backend.Data.Entities.AppUser", "User")
+                        .WithMany("Bills")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.Booking", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.GuestCustomer", "GuestCustomer")
+                        .WithMany("Bookings")
+                        .HasForeignKey("GuestCustomer_Id");
+
+                    b.HasOne("Booking_Backend.Data.Entities.AppUser", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("User_Id");
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.BookingCarts", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.Hotel", "Hotel")
+                        .WithMany("BookingCarts")
+                        .HasForeignKey("Hotel_Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Booking_Backend.Data.Entities.AppUser", "User")
+                        .WithMany("BookingCarts")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Booking_Backend.Data.Entities.Comment", b =>
@@ -1569,6 +1761,21 @@ namespace Booking_Backend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Booking_Backend.Data.Entities.Comment_User", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.Comment", "Comment")
+                        .WithMany("Comment_Users")
+                        .HasForeignKey("Comment_Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Booking_Backend.Data.Entities.AppUser", "User")
+                        .WithMany("Comment_Users")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Booking_Backend.Data.Entities.Extension", b =>
                 {
                     b.HasOne("Booking_Backend.Data.Entities.ExtensionType", "ExtensionType")
@@ -1576,6 +1783,37 @@ namespace Booking_Backend.Data.Migrations
                         .HasForeignKey("ExtensionType_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ExtensionTranslation", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.Extension", "Extension")
+                        .WithMany("ExtensionTranslations")
+                        .HasForeignKey("Extension_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ExtensionTypeTranslation", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.ExtensionType", "ExtensionType")
+                        .WithMany("ExtensionTypeTranslations")
+                        .HasForeignKey("ExtensionType_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.FeedbackCustomer", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.Hotel", "Hotel")
+                        .WithMany("FeedbackCustomers")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Booking_Backend.Data.Entities.AppUser", "User")
+                        .WithMany("FeedbackCustomers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Booking_Backend.Data.Entities.Hotel", b =>
@@ -1586,6 +1824,14 @@ namespace Booking_Backend.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Booking_Backend.Data.Entities.Location", "Location")
+                        .WithMany("Hotels")
+                        .HasForeignKey("Location_Id");
+
+                    b.HasOne("Booking_Backend.Data.Entities.AppUser", "User")
+                        .WithMany("Hotels")
+                        .HasForeignKey("User_Id");
+
                     b.HasOne("Booking_Backend.Data.Entities.ViewHotel", "ViewHotel")
                         .WithMany("Hotels")
                         .HasForeignKey("ViewHotel_Id")
@@ -1593,10 +1839,28 @@ namespace Booking_Backend.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Booking_Backend.Data.Entities.HotelTypeImage", b =>
+            modelBuilder.Entity("Booking_Backend.Data.Entities.HotelTranslation", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.Hotel", "Hotel")
+                        .WithMany("HotelTranslations")
+                        .HasForeignKey("Hotel_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.HotelType", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.HotelTypeImage", "HotelTypeImage")
+                        .WithOne("HotelType")
+                        .HasForeignKey("Booking_Backend.Data.Entities.HotelType", "HotelTypeImage_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.HotelTypeTranslation", b =>
                 {
                     b.HasOne("Booking_Backend.Data.Entities.HotelType", "HotelType")
-                        .WithMany("HotelTypeImages")
+                        .WithMany("HotelTypeTranslations")
                         .HasForeignKey("HotelType_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1610,7 +1874,7 @@ namespace Booking_Backend.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Booking_Backend.Data.Entities.Service", "Service")
+                    b.HasOne("Booking_Backend.Data.Entities.ServiceHotel", "Service")
                         .WithMany("Hotel_Services")
                         .HasForeignKey("Service_Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1622,6 +1886,15 @@ namespace Booking_Backend.Data.Migrations
                     b.HasOne("Booking_Backend.Data.Entities.Hotel", "Hotel")
                         .WithMany("Images")
                         .HasForeignKey("Hotel_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.LocationTranslation", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.Location", "Location")
+                        .WithMany("LocationTranslations")
+                        .HasForeignKey("Location_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1647,8 +1920,21 @@ namespace Booking_Backend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Booking_Backend.Data.Entities.RoomTypeTranslation", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.RoomType", "RoomType")
+                        .WithMany("RoomTypeTranslations")
+                        .HasForeignKey("RoomType_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Booking_Backend.Data.Entities.Room_Booking", b =>
                 {
+                    b.HasOne("Booking_Backend.Data.Entities.Bill", null)
+                        .WithMany("Room_Bookings")
+                        .HasForeignKey("BillId");
+
                     b.HasOne("Booking_Backend.Data.Entities.Booking", "Booking")
                         .WithMany("Room_Bookings")
                         .HasForeignKey("Booking_Id")
@@ -1677,11 +1963,29 @@ namespace Booking_Backend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ServiceHotelTranslation", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.ServiceHotel", "ServiceHotel")
+                        .WithMany("ServiceHotelTranslations")
+                        .HasForeignKey("ServiceHotel_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Booking_Backend.Data.Entities.UserImage", b =>
                 {
                     b.HasOne("Booking_Backend.Data.Entities.AppUser", "User")
                         .WithMany("UserImages")
                         .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Booking_Backend.Data.Entities.ViewHotelTranslation", b =>
+                {
+                    b.HasOne("Booking_Backend.Data.Entities.ViewHotel", "ViewHotel")
+                        .WithMany("ViewHotelTranslations")
+                        .HasForeignKey("ViewHotel_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -1,0 +1,225 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Booking_Frontend.WebApp.Models.Owner;
+@model NotifyBookingViewModel;
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Gonow.net - Theo chất riêng của bạn</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="~/style/owner/styles.css" rel="stylesheet" />
+    <link href="~/style/owner/notifybooking/index.css" rel="stylesheet" />
+    <link href="~/style/owner/detailbooking/detailbooking.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    @RenderSection("IndexStyle", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <style>
+        .collapsed:hover {
+            cursor: pointer;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        .sb-nav-link-icon, .sb-sidenav-collapse-arrow {
+                color: white !important;
+            }
+
+        .nav-link:hover, .nav-link:hover .sb-sidenav-collapse-arrow {
+            background-color: white;
+            color: #6e9eeb !important;
+        }
+
+    </style>
+
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: #6e9eeb !important; box-shadow: 0 0 2px 3px #ccc !important">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="index.html"> Gonow.net - 
+             @(Model.HotelViewModel.Name != null ? Model.HotelViewModel.Name : "Chưa đăng kí kinh doanh") 
+        </a>
+
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/booking/feed">Thông báo <span class="badge bg-danger">1</span></a></li>
+                    <li>
+                        <hr class="dropdown-divider"/>
+                    </li>
+                    <form asp-action="logout" asp-controller="auth" method="post">
+                    <li>
+                        <button class="dropdown-item" type="submit">
+                            Đăng xuất
+                        </button>
+                    </li>
+                    </form>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu" style="background-color: #6e9eeb; box-shadow: 0 0 10px 8px #ccc ">
+                    <div class="nav">
+                        <a class="nav-link" asp-action="Index" asp-controller="User">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Trang chủ
+                        </a>
+
+                        <a style="color: white" class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser"
+                           aria-expanded="false" aria-controls="collapseUser">
+                            <div class="sb-nav-link-icon"><i class="bi bi-journal-bookmark"></i></div>
+                            Quản lý đặt phòng
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseUser" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/booking/feed">Bảng tin</a>
+                                <a class="nav-link" href="/booking/check-out">Trả phòng</a>
+                                <div class="collapse" id="pagesAccount" aria-labelledby="headingOne"
+                                     data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" asp-action="create" asp-controller="user">Tạo đặt phòng</a>
+                                        <a class="nav-link" asp-action="finduser" asp-controller="user">Cập nhật</a>
+                                        <a class="nav-link" asp-action="blockaccount" asp-controller="user">
+                                            Khóa tài
+                                            khoản
+                                        </a>
+                                    </nav>
+                                </div>
+                            </nav>
+                        </div>
+
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                           data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
+                            <div class="sb-nav-link-icon"><i class="bi bi-coin"></i></i></div>
+                            Phòng nghỉ & giá bán
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseCategory" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/stateroom-price/@(Model.HotelViewModel.Id)">Tình trạng phòng & giá</a>
+                                <a class="nav-link" href="/booking/room">Thêm phòng bán</a>
+                            </nav>
+                        </div>
+
+
+
+
+
+                        <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseHotel"
+                           aria-expanded="false" aria-controls="collapseHotel">
+                            <div class="sb-nav-link-icon"><i class="bi bi-tags"></i></div>
+                            Tiện nghi & dịch vụ
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseHotel" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/extension-service">Thông tin chỗ nghỉ</a>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/extension-manage">Tiện nghi theo phòng</a>
+                            </nav>
+                        </div>
+
+
+
+
+
+
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                           data-bs-target="#collapseServiceHotel" collapseFeedbackaria-expanded="false"
+                           aria-controls="collapseFeedback">
+                            <div class="sb-nav-link-icon"><i class="bi bi-images"></i></div>
+                            Kho ảnh trưng bày
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseServiceHotel" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/store-picture" >Thư mục ảnh</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                           data-bs-target="#collapseComment" collapseFeedbackaria-expanded="false"
+                           aria-controls="collapseFeedback">
+                            <div class="sb-nav-link-icon"><i class="bi bi-person-lines-fill"></i></div>
+                            Hồ sơ cá nhân
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseComment" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/owner/profile">Chủ sở hữu</a>
+                                <a class="nav-link" href="/info/hotel/@Model.UserId">Bất động sản</a>
+                            </nav>
+                        </div>
+                       
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                           data-bs-target="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-business-time"></i></div>
+                            Báo cáo doanh thu
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseReport" aria-labelledby="headingOne"
+                             data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/@culture/homeowner/index/@Model.UserId">Báo cáo doanh thu</a>
+                            </nav>
+                        </div>   
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                           data-bs-target="" aria-expanded="false" aria-controls="collapseReport">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-pen-nib"></i></div>
+                            Đặt phòng trực tiếp
+                            <div class="sb-sidenav-collapse-arrow"></div>
+                        </a>
+                    </>
+                </div>
+            </nav>
+        </div>
+
+
+        @RenderBody()
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="~/js/owner/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    <script src="~/js/owner/datatables-simple-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ckeditor5-classic-free-full-feature@35.4.1/build/ckeditor.min.js"></script>
+</body>
+</html>
+
+
+
+

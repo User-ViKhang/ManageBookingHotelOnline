@@ -1,0 +1,167 @@
+﻿@using Booking_Frontend.WebApp.Models.Owner;
+@using Booking_Backend.Data.Enums
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+@model NotifyBookingViewModel
+@{
+    ViewData["Title"] = "Owner Home Page";
+    Layout = "_LayoutOwner";
+}
+
+<div id="layoutSidenav_content">
+            <div class="container detailbooking">
+                <div class=" detail-content">
+                    <h5>Sửa đơn hàng</h5>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="detail-info">
+                                        <h6 style="margin-bottom: 0px">Đơn hàng #<a href="">@Model.BookingOwnerDetailViewModel.Id</a> chi tiết</h6>
+                                        <div style="font-size: 14px;">
+                                            @if(Model.BookingOwnerDetailViewModel.Payment == Payment.VNPay)
+                                            {
+                                                <text>Hình thức thanh toán VNPay</text>
+                                            }     else
+                                            {
+                                                <text>Hình thức thanh toán tại chỗ nghỉ</text>
+                                            }
+                                        </div>
+                                        <form method="post" action="confirm/@Model.BookingOwnerDetailViewModel.Id">
+                                            <div class="row mt-4">
+                                                <div class="col-md-6">
+                                                    <label style="font-weight: 600" for="">Chung</label>
+                                                    <div class="created-booking mt-3">
+                                                        <div class="created-date">
+                                                            <input type="text" name="" class="form-control" id="" value="@Model.BookingOwnerDetailViewModel.Created">
+                                                        </div>
+                                                    
+                                                    </div>
+                                                    <div class="status-booking mt-2">
+                                                        <label style="font-size: 12px; padding-left: 10px" for="">Trạng thái</label>
+                                                        <input type="hidden" name="Id" />
+                                                <input type="hidden" name="Email" value="@(Model.BookingOwnerDetailViewModel.GuestCustomer!=null?Model.BookingOwnerDetailViewModel.GuestCustomer.Email:Model.BookingOwnerDetailViewModel.User.Email)" />
+                                                <input type="hidden" name="Name" value="@(Model.BookingOwnerDetailViewModel.GuestCustomer!=null?Model.BookingOwnerDetailViewModel.GuestCustomer.FullName:Model.BookingOwnerDetailViewModel.User.UserName)" />
+                                                        <input type="hidden" name="RoomTypeName" value="@Model.BookingOwnerDetailViewModel.RoomType.RoomTypeTranslations.FirstOrDefault().Name />
+                                                        <input type="hidden" name="BedName" value="@Model.BookingOwnerDetailViewModel.Bed.BedTranslations.FirstOrDefault().Name" />
+                                                        <input type="hidden" name="TotalPeople" value="@Model.BookingOwnerDetailViewModel.TotalPeople" />
+                                                        <input type="hidden" name="Checkin" value="@Model.BookingOwnerDetailViewModel.CheckIn" />
+                                                        <input type="hidden" name="Checkout" value="@Model.BookingOwnerDetailViewModel.CheckOut" />
+                                                        <input type="hidden" name="RoomId" value="@Model.BookingOwnerDetailViewModel.Room.Id" />
+                                                        <input type="hidden" name="TotalAmount" value="@Model.BookingOwnerDetailViewModel.TotalAmount" />
+                                                        <select class="form-select" name="Status">
+                                                            @{
+                                                                var selectedStatus = Model.BookingOwnerDetailViewModel.Status;
+                                                                <option value="@StatusBooking.Pedding" @(StatusBooking.Pedding == selectedStatus ? "selected" : "")>Đang xử lý</option>
+                                                                <option value="@StatusBooking.Success" @(StatusBooking.Success == selectedStatus ? "selected" : "")>Duyệt đặt phòng</option>
+                                                                <option value="@StatusBooking.Success" @(StatusBooking.Refuse == selectedStatus ? "selected" : "")>Hủy đơn hàng</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary mt-3">Xác nhận</button>
+                                                    <a href="/@culture/homeowner/index/@Model.UserId"><div class="btn btn-outline-primary mt-3">Trở về</div></a>
+                                                    
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label style="font-weight: 600" for="">Thanh toán</label>
+                                                    <div class="info-customer mt-2" style="font-size: 14px; color: #7a7878">
+                                                <div>@(Model.BookingOwnerDetailViewModel.GuestCustomer != null ? Model.BookingOwnerDetailViewModel.GuestCustomer.FullName : Model.BookingOwnerDetailViewModel.User.UserName)</div>
+                                                        <div>
+                                                    @{
+                                                        if(Model.BookingOwnerDetailViewModel.GuestCustomer != null)
+                                                        {
+                                                            <text>(Guest)</text>
+                                                        } else
+                                                        {
+                                                            <text>@Model.BookingOwnerDetailViewModel.User.Address</text>
+                                                        }
+                                                    }
+                                                </div>
+                                                        <div style="color: black" class="mt-2">Địa chỉ email:</div>
+                                                <a href="">@(Model.BookingOwnerDetailViewModel.GuestCustomer != null ? Model.BookingOwnerDetailViewModel.GuestCustomer.Email : Model.BookingOwnerDetailViewModel.User.Email)</a>
+                                                        <div style="color: black" class="mt-2">Số điện thoại:</div>
+                                                <a href="">@(Model.BookingOwnerDetailViewModel.GuestCustomer != null ? Model.BookingOwnerDetailViewModel.GuestCustomer.PhoneNumber : Model.BookingOwnerDetailViewModel.User.PhoneNumber)</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>                           
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <div class="detail-booking-room">
+                                        <table class="table table">
+                                            <thead style="background-color: #e4e0e0; color: #7a7878; font-size: 14px">
+                                                <th style=" font-weight: 500" class="col-md-1">STT</th>
+                                                <th style=" font-weight: 500" >Sản phẩm</th>
+                                                <th style=" font-weight: 500" >Loại giường</th>
+                                                <th style=" font-weight: 500" >Số khách</th>
+                                                <th style=" font-weight: 500" >Lưu trú</th>
+                                                <th style=" font-weight: 500" >Số lượng</th>
+                                                <th style=" font-weight: 500" >Đơn giá</th>
+                                                <th style=" font-weight: 500" >Tổng</th>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr style="font-size: 14px;">
+                                                    <td>1</td>
+                                                    <td>@Model.BookingOwnerDetailViewModel.RoomType.RoomTypeTranslations.FirstOrDefault().Name</td>
+                                                    <td>@Model.BookingOwnerDetailViewModel.Bed.BedTranslations.FirstOrDefault().Name</td>
+                                                    <td>x @Model.BookingOwnerDetailViewModel.TotalPeople</td>
+                                                    <td>
+                                                    @{
+                                                        DateTime date1 = Model.BookingOwnerDetailViewModel.CheckIn;
+                                                        DateTime date2 = Model.BookingOwnerDetailViewModel.CheckOut;
+                                                        TimeSpan difference = date2 - date1;
+                                                        int numberOfDays = difference.Days;
+                                                        <text>@numberOfDays</text>
+                                                    }
+                                                    </td>
+                                                    <td>x @Model.BookingOwnerDetailViewModel.TotalRoom</td>
+                                                    <td>@Model.BookingOwnerDetailViewModel.TotalPrice.ToString("N0")</td>
+                                                    <td>@((Model.BookingOwnerDetailViewModel.TotalAmount).ToString("N0"))</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="6" class="align-right" style="font-weight: 500">Tổng hóa đơn:</td>
+                                            <td colspan="6" style="color: red">@((Model.BookingOwnerDetailViewModel.TotalAmount).ToString("N0")) VND</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row date-check">
+                                <div class="col-md-12 note-booking">
+                                    <div class="date-checkin mt-3">
+                                        <input readonly class="form-control" value="@Model.BookingOwnerDetailViewModel.CheckIn.ToString("dd-MM-yyyy")"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 note-booking">
+                                    <div class="date-checkout mt-1">
+                                <input readonly class="form-control" value="@Model.BookingOwnerDetailViewModel.CheckOut.ToString("dd-MM-yyyy")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 note-booking">
+                                    <div>
+                                        <div class="label-note">
+                                            Ghi chú khách hàng
+                                        </div>
+                                        <div style="border: thin solid #ccc; min-height: 100px" class="p-1">
+                                            @Model.BookingOwnerDetailViewModel.Note
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -3806,6 +3806,28 @@
         "runtime": {
           "bin/placeholder/Booking_Backend.Repository.dll": {}
         }
+      },
+      "Booking_Frontend.APIIntegration/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Booking_Backend.Repository": "1.0.0",
+          "FluentValidation.AspNetCore": "8.6.3",
+          "LazZiya.ExpressLocalization": "5.0.0-beta2",
+          "LazZiya.TagHelpers": "6.0.2",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.0",
+          "Microsoft.AspNetCore.Session": "2.2.0",
+          "Microsoft.Extensions.Configuration.Json": "3.1.0",
+          "Microsoft.IdentityModel.Tokens": "7.4.0",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.5",
+          "System.IdentityModel.Tokens.Jwt": "7.4.0"
+        },
+        "compile": {
+          "bin/placeholder/Booking_Frontend.APIIntegration.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Booking_Frontend.APIIntegration.dll": {}
+        }
       }
     }
   },
@@ -10478,11 +10500,17 @@
       "type": "project",
       "path": "../Booking_Backend.Repository/Booking_Backend.Repository.csproj",
       "msbuildProject": "../Booking_Backend.Repository/Booking_Backend.Repository.csproj"
+    },
+    "Booking_Frontend.APIIntegration/1.0.0": {
+      "type": "project",
+      "path": "../Booking_Frontend.APIIntegration/Booking_Frontend.APIIntegration.csproj",
+      "msbuildProject": "../Booking_Frontend.APIIntegration/Booking_Frontend.APIIntegration.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Booking_Backend.Repository >= 1.0.0",
+      "Booking_Frontend.APIIntegration >= 1.0.0",
       "FluentValidation.AspNetCore >= 8.6.3",
       "LazZiya.ExpressLocalization >= 5.0.0-beta2",
       "LazZiya.TagHelpers >= 6.0.2",
@@ -10529,6 +10557,9 @@
           "projectReferences": {
             "Z:\\GRADUATE\\BackEnd\\Booking_Backend\\Booking_Backend.Repository\\Booking_Backend.Repository.csproj": {
               "projectPath": "Z:\\GRADUATE\\BackEnd\\Booking_Backend\\Booking_Backend.Repository\\Booking_Backend.Repository.csproj"
+            },
+            "Z:\\GRADUATE\\BackEnd\\Booking_Backend\\Booking_Frontend.APIIntegration\\Booking_Frontend.APIIntegration.csproj": {
+              "projectPath": "Z:\\GRADUATE\\BackEnd\\Booking_Backend\\Booking_Frontend.APIIntegration\\Booking_Frontend.APIIntegration.csproj"
             }
           }
         }

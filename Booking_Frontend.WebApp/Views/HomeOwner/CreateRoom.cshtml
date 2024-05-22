@@ -1,0 +1,80 @@
+﻿@using Booking_Frontend.WebApp.Models.Owner;
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+@model NotifyBookingViewModel
+@{
+    ViewData["Title"] = "Owner Home Page";
+    Layout = "_LayoutOwner";
+}
+
+<div id="layoutSidenav_content">
+    <div class="" style="margin: 25px">
+        <div class="create-wrapper">
+            <form method="post" action="/booking/room">
+                <input type="hidden" value="@Model.HotelViewModel.Id" name="HotelId" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="infor-room-wrapper p-3" style="border: thin solid #ccc">
+                            <div class="room-code">
+                                <label class="room-code-label">Mã số phòng:</label>
+                                <input class="form-control" name="RoomCode" />      
+                            </div>                                                            
+                            <div class="room-code mt-2">
+                                <label class="roomtype-label">Kiểu phòng nghỉ:</label>
+                                <select class="form-select" name="RoomTypeId">
+                                    @foreach(var item in Model.ListAllRoomType.Items)
+                                    {
+                                         <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </div>                                                            
+                            <div class="room-code mt-2">
+                                <label class="bed-label">Kiểu giường nghỉ:</label>
+                                <select class="form-select" name="BedId">
+                                    @foreach (var item in Model.BedOwnerViewModel.Items)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </div>                                                               
+                            <div class="number-people mt-2">
+                                <label class="number-people">Sức chứa:</label>
+                                <input type="number" class="form-control" name="Maximum"/>
+                            </div>                                                               
+                            <div class="number-people mt-2">
+                                <label class="number-people">Giá niêm yết:</label>
+                                <input type="number" class="form-control" name="PriceOld"/>
+                            </div>                                                                 
+                            <div class="number-people mt-2">
+                                <label class="number-people">Giá chỉnh sửa:</label>
+                                <input type="number" class="form-control" name="Price"/>
+                            </div>
+                        </div>    
+                    </div>      
+                    <div class="col-md-6">
+                        <div class="extension-wrapper p-3" style="border: thin solid #ccc; height: 100%">
+                            <div class="row">
+                                @foreach (var item in Model.ExtensionGroupViewModel)
+                                {
+                                    <div class="col-md-4">
+                                        <hr>
+                                        <h6 class="mb-1 mt-3">@item.ExtensionTypeTranslations.FirstOrDefault().Name</h6>
+                                        @foreach (var ex in item.Extensions)
+                                        {
+                                            <div>
+                                                <input type="checkbox" name="Ids" value="@ex.Id" class="form-check-input" />@ex.ExtensionTranslations.FirstOrDefault().Name 
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div class="btn btn-outline-primary mt-2">Trở về</div>
+                <button type="submit" class="btn btn-primary mt-2">Thêm phòng</button>
+            </form>
+        </div>
+    </div>
+</div>

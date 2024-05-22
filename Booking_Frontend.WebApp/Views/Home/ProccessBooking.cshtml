@@ -1,0 +1,125 @@
+﻿@using Booking_Backend.Data.Enums;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@model DetailViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+<div class=""  style="padding-top: 80px">
+    <div class="container">
+        <h4>Đơn hàng của quý vị!</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>STT</td>
+                    <td>Chỗ nghỉ</td>
+                    <td>Mã phòng</td>
+                    <td>Kiểu phòng</td>
+                    <td>Loại giường</td>
+                    <td>Lưu trú</td>
+                    <td>Ngày trả</td>
+                    <td>Tổng tiền</td>
+                    <td>Thanh toán</td>
+                    <td>Trạng thái</td>
+                </tr>
+            </thead>     
+            <tbody class="" style="font-weight: 300; font-size: 13px">
+                @{
+                    int count = 0;
+                }
+                @foreach(var item in Model.BookingHistoriesViewModel)
+                {
+                    count = count + 1;
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.HotelName</td>
+                        <td>@item.RoomCode</td>
+                        <td>@item.RoomTypeName</td>
+                        <td>@item.BedName</td>
+                        <td>
+                            @{
+                                string message = "";
+
+                                switch (item.StayDay)
+                                {
+                                    case 0:
+                                        message = "";
+                                        break;
+                                    case 1:
+                                        message = "2N1D";
+                                        break;
+                                    case 2:
+                                        message = "3N2D";
+                                        break;
+                                    case 3:
+                                        message = "4N3D";
+                                        break;
+                                    case 4:
+                                        message = "5N4D";
+                                        break;
+                                    case 5:
+                                        message = "6N5D";
+                                        break;
+                                    case 6:
+                                        message = "7N6D";
+                                        break;
+                                    default:
+                                        message = "Long time";
+                                        break;
+                                }
+                                <text>
+                                    @message
+                                </text>
+                            }
+                        </td>
+                        <td>@item.CheckOut.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Total.ToString("N0") VND</td>
+                        <td>@item.Payment</td>
+                        <td>
+                            @if (item.Status == StatusBooking.Pedding)
+                            {
+                                <div class="btn btn-warning text-light" style="font-weight: 300; padding: 5px; font-size: 13px">Chờ xử lí</div>
+                            }
+                            else if (item.Status == StatusBooking.Success)
+                            {
+                                <div class="btn text-light" style="font-weight: 300; padding: 5px; font-size: 13px; background-color: #4a85e6">Được duyệt</div>
+
+                            }
+                            else if (item.Status == StatusBooking.Received)
+                            {
+                                <div class="" style="font-weight: 600">Đang dùng ...</div>
+                            }
+                            else if (item.Status == StatusBooking.Cancel)
+                            {
+                                <div class="" style="font-weight: 600">Khách hủy</div>
+
+                            }  else if(item.Status == StatusBooking.Checked)
+                            {
+                                <div class="btn text-light" style="font-weight: 300; padding: 5px; background-color: #3cda5b; font-size: 13px">Hoàn tất</div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>STT</td>
+                    <td>Chỗ nghỉ</td>
+                    <td>Mã phòng</td>
+                    <td>Kiểu phòng</td>
+                    <td>Loại giường</td>
+                    <td>Lưu trú</td>
+                    <td>Ngày trả</td>
+                    <td>Tổng tiền</td>
+                    <td>Thanh toán</td>
+                    <td>Trạng thái</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

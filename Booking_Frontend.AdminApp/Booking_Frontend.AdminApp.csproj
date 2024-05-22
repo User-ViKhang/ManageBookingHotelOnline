@@ -18,11 +18,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Booking_Backend.Repository\Booking_Backend.Repository.csproj" />
+    <ProjectReference Include="..\Booking_Frontend.APIIntegration\Booking_Frontend.APIIntegration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Views\Error\" />
     <Folder Include="wwwroot\images\user\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
 </Project>

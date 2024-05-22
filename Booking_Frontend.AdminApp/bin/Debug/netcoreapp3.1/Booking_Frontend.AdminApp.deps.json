@@ -32,6 +32,7 @@
       "Booking_Frontend.AdminApp/1.0.0": {
         "dependencies": {
           "Booking_Backend.Repository": "1.0.0",
+          "Booking_Frontend.APIIntegration": "1.0.0",
           "FluentValidation.AspNetCore": "8.6.3",
           "LazZiya.ExpressLocalization": "5.0.0-beta2",
           "LazZiya.TagHelpers": "6.0.2",
@@ -324,14 +325,6 @@
         },
         "runtime": {
           "Booking_Frontend.AdminApp.dll": {}
-        },
-        "resources": {
-          "en/Booking_Frontend.AdminApp.resources.dll": {
-            "locale": "en"
-          },
-          "vi/Booking_Frontend.AdminApp.resources.dll": {
-            "locale": "vi"
-          }
         },
         "compile": {
           "Booking_Frontend.AdminApp.dll": {}
@@ -2539,6 +2532,26 @@
         },
         "compile": {
           "Booking_Backend.Repository.dll": {}
+        }
+      },
+      "Booking_Frontend.APIIntegration/1.0.0": {
+        "dependencies": {
+          "Booking_Backend.Repository": "1.0.0",
+          "FluentValidation.AspNetCore": "8.6.3",
+          "LazZiya.ExpressLocalization": "5.0.0-beta2",
+          "LazZiya.TagHelpers": "6.0.2",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.0",
+          "Microsoft.AspNetCore.Session": "2.2.0",
+          "Microsoft.Extensions.Configuration.Json": "3.1.0",
+          "Microsoft.IdentityModel.Tokens": "7.4.0",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.5",
+          "System.IdentityModel.Tokens.Jwt": "7.4.0"
+        },
+        "runtime": {
+          "Booking_Frontend.APIIntegration.dll": {}
+        },
+        "compile": {
+          "Booking_Frontend.APIIntegration.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery.Reference/3.1.0.0": {
@@ -5705,6 +5718,11 @@
       "sha512": ""
     },
     "Booking_Backend.Repository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Booking_Frontend.APIIntegration/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

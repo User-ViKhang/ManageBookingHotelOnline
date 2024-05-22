@@ -3,6 +3,27 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20240319055347_InitialDataSeeding.cs" />
+    <Compile Remove="Migrations\20240319055347_InitialDataSeeding.Designer.cs" />
+    <Compile Remove="Migrations\20240319055915_InitialDataSeeding.cs" />
+    <Compile Remove="Migrations\20240319055915_InitialDataSeeding.Designer.cs" />
+    <Compile Remove="Migrations\20240319095920_InitialDataSeeding.cs" />
+    <Compile Remove="Migrations\20240319095920_InitialDataSeeding.Designer.cs" />
+    <Compile Remove="Migrations\20240319142937_UpdateFieldHotelTypeImage.cs" />
+    <Compile Remove="Migrations\20240319142937_UpdateFieldHotelTypeImage.Designer.cs" />
+    <Compile Remove="Migrations\20240422013429_UpdateLongtute.cs" />
+    <Compile Remove="Migrations\20240422013429_UpdateLongtute.Designer.cs" />
+    <Compile Remove="Migrations\20240422014749_UpdateLongtuteFLoat.cs" />
+    <Compile Remove="Migrations\20240422014749_UpdateLongtuteFLoat.Designer.cs" />
+    <Compile Remove="Migrations\20240422015448_UpdateLongtuteFLoat.cs" />
+    <Compile Remove="Migrations\20240422015448_UpdateLongtuteFLoat.Designer.cs" />
+    <Compile Remove="Migrations\20240422143207_UpdateHotelPriceDefault.cs" />
+    <Compile Remove="Migrations\20240422143207_UpdateHotelPriceDefault.Designer.cs" />
+    <Compile Remove="Migrations\20240512040418_AddTableComment_User.cs" />
+    <Compile Remove="Migrations\20240512040418_AddTableComment_User.Designer.cs" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">

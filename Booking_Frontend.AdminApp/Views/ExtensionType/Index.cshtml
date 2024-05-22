@@ -1,0 +1,157 @@
+﻿@using Booking_Backend.Repository.Paging.ViewModel;
+@model PageResult<Booking_Backend.Repository.ExtensionTypeRoom.ViewModel.ExtensionTypeRoomViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section IndexStyle {
+    <link rel="stylesheet" href="~/css/RoomType/index.css">
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4" style="overflow-x: scroll; ">
+                <div class="card-body">
+                    <table class="table table-hover table-bordered" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    STT
+                                </th>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Language
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    STT
+                                </th>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Language
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @{
+                                int count = 0;
+                                foreach (var item in Model.Items)
+                                {
+                                    count++;
+                                    <form asp-action="update" asp-controller="extensiontype" method="post">
+                                    <tr class="data-viewer">
+                                        <td class="text-nowrap">
+                                                @count
+                                        </td>
+                                        <td class="text-nowrap">
+                                            <div>@Html.DisplayFor(modelItem => item.Id)</div>
+                                            <input type="hidden" name="Id" value="@item.Id" />
+                                        </td>
+                                        <td class="text-nowrap">
+                                            <div class="name-text">@Html.DisplayFor(modelItem => item.Name)</div>
+                                            <input name="Name" class="name-input form-control" style="display: none" type="text" value="@item.Name" />
+                                        </td>
+                                        <td class="text-nowrap">
+                                                @Html.DisplayFor(modelItem => item.Language_Id)
+                                            <input type="hidden" name="Language_Id" value="@item.Language_Id" />
+                                        </td>
+                                        <td class="text-nowrap">
+                                            <a style="text-decoration: none" onclick="setTimeout(()=> {location.reload()},1000)" href="/extensiontype/delete/@Html.DisplayFor(modelItem => item.Id)">
+                                                <div class="btn btn-danger text-light">Xóa</div>
+                                            </a>
+                                            <div class="btn-update btn btn-warning text-light">Cập nhật</div>
+                                            <div style="display: none" class="btn-cancel btn btn-warning text-light">Hủy</div>
+                                            <button type="submit" class="btn-save btn btn-info text-light" style="display:none">Lưu thay đổi</button>
+                                        </td>
+                                    </tr>
+                                    </form>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 position-relative">
+            <div class="card p-3 area-1" style="border: thin solid #ccc; border-radius: 7px">
+                <form asp-action="create" asp-controller="extensiontype" method="post">
+                    <input type="text" class="form-control mt-3" name="namevi" placeholder="Tên loại tiếng Việt" />
+                    <input type="text" class="form-control mt-3" name="nameen" placeholder="Tên loại tiếng Anh" />
+                    <button type="submit" class="btn btn-info text-light mt-3">Thêm loại tiện ích</button>
+                </form>
+            </div>
+            <div class="mt-3">
+                @await Component.InvokeAsync("Pager", Model)
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var updateButtons = document.querySelectorAll(".btn-update");
+        var cancelButtons = document.querySelectorAll(".btn-cancel");
+
+        updateButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var row = button.parentNode.parentNode;
+                var nameText = row.querySelector(".name-text");
+                var nameInput = row.querySelector(".name-input");
+                var btnSave = row.querySelector(".btn-save");
+                var btnUpdate = row.querySelector(".btn-update");
+                var btnCancel = row.querySelector(".btn-cancel");
+
+                // Hiện input và ẩn text
+                nameText.style.display = "none";
+                nameInput.style.display = "inline";
+                btnSave.style.display = "inline";
+                btnCancel.style.display = "inline";
+                btnUpdate.style.display = "none";
+
+                // Focus vào input khi được hiện
+                nameInput.focus();
+            });
+        });
+
+        cancelButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var row = button.parentNode.parentNode;
+                var nameText = row.querySelector(".name-text");
+                var nameInput = row.querySelector(".name-input");
+                var btnSave = row.querySelector(".btn-save");
+                var btnUpdate = row.querySelector(".btn-update");
+                var btnCancel = row.querySelector(".btn-cancel");
+
+                // Hiện input và ẩn text
+                nameText.style.display = "inline";
+                nameInput.style.display = "none";
+                btnSave.style.display = "none";
+                btnCancel.style.display = "none";
+                btnUpdate.style.display = "inline";
+
+            });
+        });
+    });
+</script>

@@ -1,5 +1,5 @@
 ﻿using Booking_Backend.Repository.Users.Request;
-using Booking_Frontend.AdminApp.Service.User;
+using Booking_Frontend.APIIntegration.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +11,9 @@ using Booking_Backend.Repository.Users.ViewModel;
 using Booking_Backend.Repository.Common;
 using Microsoft.AspNetCore.Identity;
 using Booking_Backend.Data.Entities;
-using Booking_Frontend.AdminApp.Service.Profile;
+using Booking_Frontend.APIIntegration.Profile;
 using Microsoft.Extensions.Configuration;
+using Booking_Backend.Data.Enums;
 
 namespace Booking_Frontend.AdminApp.Controllers
 {
@@ -68,7 +69,7 @@ namespace Booking_Frontend.AdminApp.Controllers
                 PageSize = pageSize
             };
             var data = await _userAPI.GetClient(request);
-            return View(data);
+                return View(data);
         }
 
         //Hiện trang và thông tin cập nhật
@@ -107,12 +108,14 @@ namespace Booking_Frontend.AdminApp.Controllers
         public async Task<IActionResult> Login()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("Token");
             return View();
         }
 
         [HttpPost] //Hiện view
         public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("login", "user");
         }
@@ -123,11 +126,11 @@ namespace Booking_Frontend.AdminApp.Controllers
             if (!ModelState.IsValid) return View(ModelState);
             var token = await _userAPI.Authenticate(request);
             var userPrincipal = _userAPI.ValidatorToken(token);
-            if (!userPrincipal.IsInRole("Administrators")) return View("login");
+            if (!userPrincipal.IsInRole(Roles.Administrators.ToString())) return View("login");
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = false // false: mỗi lần thoát trình duyệt đều phải đăng nhập lại
+                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1),
+                IsPersistent = false
             };
             HttpContext.Session.SetString("DefaultLanguageId", _config["DefaultLanguageId"]);
             HttpContext.Session.SetString("Token", token);

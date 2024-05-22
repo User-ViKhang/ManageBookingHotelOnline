@@ -20,26 +20,27 @@ namespace Booking_Backend.API.Controllers
         }
 
         // Tạo kiểu nghỉ dưỡng theo ngôn ngữ
-        [HttpPost("{languageId}"), Consumes("multipart/form-data")]
-        public async Task<IActionResult> CreateHotelType(string languageId, [FromForm] CreateHotelTypeRequest request)
+        [HttpPost, Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateHotelType([FromForm] CreateHotelTypeRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var isResult = await _hotelTypeService.CreateHotelType(languageId, request);
+            var isResult = await _hotelTypeService.CreateHotelType(request);
             if (!isResult) return BadRequest();
             return Ok(isResult);
         }
 
+
         // Lấy kiểu nghỉ dưỡng chỉ định theo Id và ngôn ngữ
-        [HttpGet("{languageId}/{Id}"), Consumes("multipart/form-data")]
-        public async Task<IActionResult> GetHotelTypeById(string languageId, int Id)
+        [HttpGet("{Language_Id}/{Id}"), Consumes("multipart/form-data")]
+        public async Task<IActionResult> GetHotelTypeById(string Language_Id, int Id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var result = await _hotelTypeService.GetHotelTypeById(languageId, Id);
+            var result = await _hotelTypeService.GetHotelTypeById(Language_Id, Id);
             if (result == null) return BadRequest();
             return Ok(result);
         }
 
-        // Lấy tất cả kiểu nghỉ dưỡng theo ngôn ngữ
+        // Lấy kiểu nghỉ dưỡng theo ngôn ngữ
         [HttpGet]
         public async Task<IActionResult> GetHotelType([FromQuery] GetAllHotelTypePagingRequest request)
         {
@@ -49,6 +50,16 @@ namespace Booking_Backend.API.Controllers
             return Ok(result);
         }
 
+        // Lấy tất cả kiểu nghỉ dưỡng theo ngôn ngữ
+        [HttpGet("{languageId}")]
+        public async Task<IActionResult> GetAllHotelType(string languageId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var result = await _hotelTypeService.GetAllHotelType(languageId);
+            if (result == null) return BadRequest();
+            return Ok(result);
+        }
+        
         // Cập nhật thông tin kiểu nghỉ dưỡng theo ngôn ngữ
         [HttpPut("{Id}"), Consumes("multipart/form-data")]
         public async Task<IActionResult> UpdateHotelType(int Id, [FromForm] UpdateHotelTypeRequest request)
@@ -59,6 +70,7 @@ namespace Booking_Backend.API.Controllers
             return Ok(isResult);
         }
 
+        
         // Xóa thông tin kiểu nghỉ dưỡng theo ngôn ngữ
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteHotelType(int Id)

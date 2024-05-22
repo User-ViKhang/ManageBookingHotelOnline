@@ -22,7 +22,6 @@ namespace Booking_Backend.Data.Configurations
             builder.Property(x => x.Created).HasDefaultValue(DateTime.UtcNow);
             builder.Property(x => x.isDefault).HasDefaultValue(true);
 
-            builder.HasOne(x => x.HotelType).WithMany(x => x.HotelTypeImages).HasForeignKey(x => x.HotelType_Id);
         }
     }
 }

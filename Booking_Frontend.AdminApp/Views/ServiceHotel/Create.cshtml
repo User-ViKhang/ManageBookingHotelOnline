@@ -1,0 +1,63 @@
+﻿@model Booking_Backend.Repository.Service.Request.CreateServiceHotelRequest
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CreateStyle {
+    <link rel="stylesheet" href="~/css/ServiceHotel/create.css">
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10" style="border: thin solid #ccc; border-radius: 7px; box-shadow: 2px 2px 5px 2px #ccc">
+            <h3 class="text-center p-2" style="margin: 0 0 20px 0;">Thêm mới dịch vụ</h3>
+            <form asp-action="create" asp-controller="servicehotel" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="wrapper-content">
+                            <div class="area-1">
+                                <div class="form-group">
+                                    <input asp-for="NameVI" class="form-control" placeholder="Tên dịch vụ..."/>
+                                    <span asp-validation-for="NameVI" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <textarea style="height: 300px" placeholder="Nội dung mô tả..." asp-for="DescriptionVI" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="wrapper-content">
+                            <div class="area-2">
+                                <div class="form-group">
+                                    <input placeholder="Service name..." asp-for="NameEN" class="form-control" />
+                                    <span asp-validation-for="NameEN" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <textarea style="height: 300px" placeholder="Description content..." asp-for="DescriptionEN" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group p-3">
+                    <a asp-action="index" style="text-decoration: none">
+                        <div class="btn btn-outline-primary text-dark">Hủy</div>
+                    </a>
+                    <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
